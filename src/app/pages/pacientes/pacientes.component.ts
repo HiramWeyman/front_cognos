@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
@@ -37,20 +37,19 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class PacientesComponent {
 
-  constructor(private router: Router) {
-
+  constructor(private router: Router,private paginator: MatPaginatorIntl) {
+    this.paginator.itemsPerPageLabel = "Registros por página";
   }
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol','informe'];
 /*   dataSource = ELEMENT_DATA; */
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
+  @ViewChild('paginatorFirst') paginatorFirst: MatPaginator;
+/*   @ViewChild(MatPaginator)
+  paginator1!: MatPaginator; */
   
-  ngOninit() {
-    this.paginator._intl.itemsPerPageLabel = 'items por pagina';
-}
+
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginatorFirst;
 
   }
 

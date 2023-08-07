@@ -48,16 +48,16 @@ export const MENU = [
         path: ['/pacientes']
     },
     {
-        name: 'Main Menu',
+        name: 'Catalogos',
         iconClasses: 'fas fa-folder',        
         children: [
             {
-                name: 'Sub Menu',
+                name: 'Técnicas de Evaluación',
                 iconClasses: 'far fa-address-book',
                 path: ['/sub-menu-1']
             },
             {
-                name: 'Blank',
+                name: 'Tutores',
                 iconClasses: 'fas fa-file',
                 path: ['/sub-menu-2']
             }
