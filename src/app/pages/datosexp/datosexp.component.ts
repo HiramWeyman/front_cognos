@@ -93,4 +93,9 @@ export class DatosexpComponent {
     this.dataSource2.filter = filterValue.trim().toLowerCase();
   }
 
+
+  getNotas(){
+    window.open('assets/files/Notas_terapia.pdf');
+  }
+
 }

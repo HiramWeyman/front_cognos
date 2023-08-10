@@ -37,11 +37,11 @@ export const MENU = [
         iconClasses: 'fas fa-tachometer-alt',
         path: ['/']
     },
-    {
+   /*  {
         name: 'Blank',
         iconClasses: 'fas fa-file',
         path: ['/blank']
-    },
+    } */
     {
         name: 'Pacientes',
         iconClasses: 'fas fa-folder',
@@ -58,7 +58,7 @@ export const MENU = [
             },
             {
                 name: 'Tutores',
-                iconClasses: 'fas fa-file',
+                iconClasses: 'fas fa-users',
                 path: ['/sub-menu-2']
             }
         ]

@@ -17,7 +17,7 @@ export class AppService {
             localStorage.setItem('token', token);
             await this.getProfile();
             this.router.navigate(['/']);
-            this.toastr.success('Login success');
+            this.toastr.success('Login exitoso');
         } catch (error) {
             this.toastr.error(error.message);
         }
@@ -29,7 +29,7 @@ export class AppService {
             localStorage.setItem('token', token);
             await this.getProfile();
             this.router.navigate(['/']);
-            this.toastr.success('Register success');
+            this.toastr.success('Registro exitoso');
         } catch (error) {
             this.toastr.error(error.message);
         }
@@ -41,7 +41,7 @@ export class AppService {
             localStorage.setItem('token', token);
             await this.getProfile();
             this.router.navigate(['/']);
-            this.toastr.success('Login success');
+            this.toastr.success('Login exitoso');
         } catch (error) {
             this.toastr.error(error.message);
         }
