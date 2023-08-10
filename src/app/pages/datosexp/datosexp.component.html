@@ -86,7 +86,12 @@
             <mat-icon class="example-tab-icon">assignment</mat-icon>
             Datos Cognitivos
         </ng-template>
-        Content 2
+        <div class="contenedor">
+            <mat-form-field>
+                <mat-label>Domicilio</mat-label>
+                <textarea matInput readonly="readonly"> Av. Las Brisas #211 Fraccionamiento Las Palmas</textarea>
+            </mat-form-field>
+        </div>
     </mat-tab>
 
     <mat-tab>
@@ -110,10 +115,27 @@
     <mat-tab>
         <ng-template mat-tab-label>
             <mat-icon class="example-tab-icon">healing</mat-icon>
-            Estado de Salud
+            Estado de Salud Física y Mental.
         </ng-template>
 
-        Content 3
+        <div class="contenedor">
+            <mat-form-field>
+                <mat-label>Sueño</mat-label>
+                <textarea matInput readonly="readonly">Refiere dormir un promedio de 7 horas durante la semana. Aunque los fines de semana suele dormir durante el día porque se desvela por salir de noche. 
+                    Últimamente se siente más fatigada de día y comienza a dormir entre de 10 y 12 horas (duerme de 5: 00pm – 7:00 pm a 5:00 am 
+                </textarea>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Alimentación</mat-label>
+                <textarea matInput readonly="readonly"> 
+                    En el trabajo desayuna o almuerza y en casa come (sólo come dos veces al día). Los fines de semana no almuerza y sólo come una vez al día. También refiere sentir menos hambre.
+                </textarea>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Actividad física.</mat-label>
+                <textarea matInput readonly="readonly"> Muy poca. </textarea>
+            </mat-form-field>
+        </div>
     </mat-tab>
 
     <mat-tab>
