@@ -1,28 +1,20 @@
+import { Tabla1 } from '@/models/Tabla1';
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import{Tabla1} from '../../models/Tabla1';
-import{Tabla2} from '../../models/Tabla2';
-import { MatSort, Sort } from '@angular/material/sort';
-
-
-
-
 
 @Component({
-  selector: 'app-datosexp',
-  templateUrl: './datosexp.component.html',
-  styleUrls: ['./datosexp.component.scss']
+  selector: 'app-informes',
+  templateUrl: './informes.component.html',
+  styleUrls: ['./informes.component.scss']
 })
-export class DatosexpComponent {
-  id!: any;
+export class InformesComponent {
   constructor(private route: ActivatedRoute,private paginator: MatPaginatorIntl) {
     this.paginator.itemsPerPageLabel = "Registros por página";
   }
 
   displayedColumns: string[] = [ 'position','terapeuta', 'fecha', 'documento', 'informe'];
-
   ELEMENT_DATA1: Tabla1[] =[
     {position: 1, terapeuta: 'Hydrogen', fecha: 1.0079, documento: 'H'},
     {position: 2, terapeuta: 'Helium', fecha: 4.0026, documento: 'He'},
@@ -36,31 +28,15 @@ export class DatosexpComponent {
     {position: 10, terapeuta: 'Neon', fecha: 20.1797, documento: 'Ne'},
   ];
 
- 
-  
   dataSource = new MatTableDataSource(this.ELEMENT_DATA1);
-
-/*   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  dataSource2 = new MatTableDataSource<PeriodicElement2>(ELEMENT_DATA2); */
-/*   clickedRows = new Set<PeriodicElement>(); */
-/*   @ViewChild(MatPaginator) */
-  
-/*   paginator!: MatPaginator;
-  paginator2!: MatPaginator; */
-/*   @ViewChild('empTbSort') empTbSort = new MatSort();
-  @ViewChild('empTbSortWithObject') empTbSortWithObject = new MatSort(); */
-
   @ViewChild('paginatorFirst') paginatorFirst: MatPaginator;
-
-
-  ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-    console.log(this.id);
+  
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginatorFirst;
   }
 
-
-
-
-
- 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

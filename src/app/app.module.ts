@@ -48,8 +48,23 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatTreeModule} from '@angular/material/tree';
 import { MatSort, Sort } from '@angular/material/sort';
 import { DatosexpComponent } from './pages/datosexp/datosexp.component';
+import { GeneralesComponent } from './pages/generales/generales.component';
+import { SaludfisicaComponent } from './pages/saludfisica/saludfisica.component';
+import { AntecedentesComponent } from './pages/antecedentes/antecedentes.component';
+import { ProblematicaComponent } from './pages/problematica/problematica.component';
+import { AnalisisfuncComponent } from './pages/analisisfunc/analisisfunc.component';
+import { EvoproblemaComponent } from './pages/evoproblema/evoproblema.component';
+import { LineavidaComponent } from './pages/lineavida/lineavida.component';
+import { AreasconsiderarComponent } from './pages/areasconsiderar/areasconsiderar.component';
+import { DiagnosticoComponent } from './pages/diagnostico/diagnostico.component';
+import { FormcasoComponent } from './pages/formcaso/formcaso.component';
+import { TratamientoComponent } from './pages/tratamiento/tratamiento.component';
+import { IdeasirracionalesComponent } from './pages/ideasirracionales/ideasirracionales.component';
+import { SesionesComponent } from './pages/sesiones/sesiones.component';
+import { InformesComponent } from './pages/informes/informes.component';
 
 registerLocaleData(localeEn, 'en-EN');
 
@@ -77,6 +92,20 @@ registerLocaleData(localeEn, 'en-EN');
         ControlSidebarComponent,
         SidebarSearchComponent,
         DatosexpComponent,
+        GeneralesComponent,
+        SaludfisicaComponent,
+        AntecedentesComponent,
+        ProblematicaComponent,
+        AnalisisfuncComponent,
+        EvoproblemaComponent,
+        LineavidaComponent,
+        AreasconsiderarComponent,
+        DiagnosticoComponent,
+        FormcasoComponent,
+        TratamientoComponent,
+        IdeasirracionalesComponent,
+        SesionesComponent,
+        InformesComponent,
         
     /*     PacientesComponent, */
 
@@ -101,6 +130,7 @@ registerLocaleData(localeEn, 'en-EN');
         MatPaginatorModule,
         MatSelectModule,
         MatDatepickerModule,
+        MatTreeModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot({
             timeOut: 3000,
