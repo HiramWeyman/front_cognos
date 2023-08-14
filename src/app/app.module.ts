@@ -66,6 +66,7 @@ import { IdeasirracionalesComponent } from './pages/ideasirracionales/ideasirrac
 import { SesionesComponent } from './pages/sesiones/sesiones.component';
 import { InformesComponent } from './pages/informes/informes.component';
 
+
 registerLocaleData(localeEn, 'en-EN');
 
 @NgModule({
