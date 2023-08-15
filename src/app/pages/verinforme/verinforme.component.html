@@ -1,0 +1,42 @@
+<div id="reporte" class="container" style="background-color: white">
+    <br>
+    <!--Titulo del Informe-->
+    <div class="row izq">
+      <div class="col">
+        <img src="assets/img/logoInforme.png">
+      </div>
+      <div class="col-1">
+      </div>
+      <div class="col">
+        <div style="float: right;">
+            <label>Maestría en Terapia Cognitivo Conductual </label><br>
+            <label>e Intervención en Crisis</label><br>
+            <label>Informe Clínico</label>
+        </div>
+      </div>
+    </div>
+    <!--Fin del titulo-->
+    <div class="izq">
+        <h3>No. expediente: 1</h3><br>
+        <label>Terapeuta. Leonel Oliverio Linares </label><br>
+        <label>Coterapeuta. Angel San</label><br>
+    </div><br>
+    <div class="izq">
+        <h3>Datos Generales</h3><br>
+        <label>Nombre del paciente: Estefania Peligrini Saneti </label><br>
+        <label>Edad: 23 años</label><br>
+        <label>Fecha de Nacimiento: 04/10/2000</label><br>
+        <label>Fecha de Inicio: 10/11/2022</label><br>
+        <label>Nivel de estudios: Licenciatura</label><br>
+        <label>Estado Civil: Soltera</label><br>
+        <label>Estructura Familiar: </label>
+        <label>Situación laboral: Abogada</label><br>
+        <label>Teléfono: 6181609874</label><br>
+        <label>Email: estefania@gmail.com</label><br>
+        
+    </div>
+  </div>
+  <div class="contenedor">
+    <button class="btn btn-danger sm" (click)="onExportClick()">Exportar PDF</button>
+    <button class="btn btn-primary sm" [routerLink]="['/exp',idx]">Regresar </button>
+</div>

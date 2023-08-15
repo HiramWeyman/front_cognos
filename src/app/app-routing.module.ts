@@ -14,6 +14,7 @@ import {MainMenuComponent} from '@pages/main-menu/main-menu.component';
 import {SubMenuComponent} from '@pages/main-menu/sub-menu/sub-menu.component';
 import { PacientesComponent } from '@pages/pacientes/pacientes.component';
 import { DatosexpComponent } from '@pages/datosexp/datosexp.component';
+import { VerinformeComponent } from '@pages/verinforme/verinforme.component';
 
 const routes: Routes = [
     {
@@ -37,6 +38,10 @@ const routes: Routes = [
             {
                 path:'exp/:id', 
                 component: DatosexpComponent
+            },
+            {
+                path:'verinforme/:idx', 
+                component: VerinformeComponent
             },
             {
                 path: 'sub-menu-1',

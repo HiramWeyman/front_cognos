@@ -65,6 +65,7 @@ import { TratamientoComponent } from './pages/tratamiento/tratamiento.component'
 import { IdeasirracionalesComponent } from './pages/ideasirracionales/ideasirracionales.component';
 import { SesionesComponent } from './pages/sesiones/sesiones.component';
 import { InformesComponent } from './pages/informes/informes.component';
+import { VerinformeComponent } from './pages/verinforme/verinforme.component';
 
 
 registerLocaleData(localeEn, 'en-EN');
@@ -107,6 +108,7 @@ registerLocaleData(localeEn, 'en-EN');
         IdeasirracionalesComponent,
         SesionesComponent,
         InformesComponent,
+        VerinformeComponent,
         
     /*     PacientesComponent, */
 

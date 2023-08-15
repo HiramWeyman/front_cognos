@@ -41,6 +41,7 @@
     "chart.js": "^4.3.3",
     "core-js": "3.25.0",
     "gatekeeper-client-sdk": "0.4.2",
+    "html2pdf.js": "^0.10.1",
     "luxon": "3.0.3",
     "ngx-toastr": "16.0.1",
     "process": "0.11.10",

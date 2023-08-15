@@ -38,7 +38,7 @@
 
         <ng-container matColumnDef="informe">
             <th mat-header-cell *matHeaderCellDef> Ver Informe </th>
-            <td mat-cell *matCellDef="let element"> <button mat-raised-button color="warn" >Ver Informe </button> </td>
+            <td mat-cell *matCellDef="let element"> <button mat-raised-button color="warn" [routerLink]="['/verinforme',element.position]">Ver Informe </button> </td>
         </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
