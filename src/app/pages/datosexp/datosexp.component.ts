@@ -21,19 +21,19 @@ export class DatosexpComponent {
     this.paginator.itemsPerPageLabel = "Registros por página";
   }
 
-  displayedColumns: string[] = [ 'position','terapeuta', 'fecha', 'documento', 'informe'];
+  displayedColumns: string[] = [ 'position','terapeuta', 'fecha', 'coterapeuta', 'informe'];
 
   ELEMENT_DATA1: Tabla1[] =[
-    {position: 1, terapeuta: 'Hydrogen', fecha: 1.0079, documento: 'H'},
-    {position: 2, terapeuta: 'Helium', fecha: 4.0026, documento: 'He'},
-    {position: 3, terapeuta: 'Lithium', fecha: 6.941, documento: 'Li'},
-    {position: 4, terapeuta: 'Beryllium', fecha: 9.0122, documento: 'Be'},
-    {position: 5, terapeuta: 'Boron', fecha: 10.811, documento: 'B'},
-    {position: 6, terapeuta: 'Carbon', fecha: 12.0107, documento: 'C'},
-    {position: 7, terapeuta: 'Nitrogen', fecha: 14.0067, documento: 'N'},
-    {position: 8, terapeuta: 'Oxygen', fecha: 15.9994, documento: 'O'},
-    {position: 9, terapeuta: 'Fluorine', fecha: 18.9984, documento: 'F'},
-    {position: 10, terapeuta: 'Neon', fecha: 20.1797, documento: 'Ne'},
+    {position: 1, terapeuta: 'Leonel Oliverio Linares', fecha: '12/01/2021', coterapeuta: 'Angel San'},
+    {position: 2, terapeuta: 'Leonel Oliverio Linares', fecha: '15/02/2021', coterapeuta: 'Angel San'},
+    {position: 3, terapeuta: 'Leonel Oliverio Linares', fecha: '12/03/2021', coterapeuta: 'Angel San'},
+    {position: 4, terapeuta: 'Leonel Oliverio Linares', fecha: '15/04/2021', coterapeuta: 'Angel San'},
+    {position: 5, terapeuta: 'Leonel Oliverio Linares', fecha: '12/05/2021', coterapeuta: 'Angel San'},
+    {position: 6, terapeuta: 'Leonel Oliverio Linares', fecha: '15/06/2021', coterapeuta: 'Angel San'},
+    {position: 7, terapeuta: 'Leonel Oliverio Linares', fecha: '12/07/2021', coterapeuta: 'Angel San'},
+    {position: 8, terapeuta: 'Leonel Oliverio Linares', fecha: '15/08/2021', coterapeuta: 'Angel San'},
+    {position: 9, terapeuta: 'Leonel Oliverio Linares', fecha: '12/09/2021', coterapeuta: 'Angel San'},
+    {position: 10, terapeuta: 'Leonel Oliverio Linares', fecha: '15/10/2021', coterapeuta: 'Angel San'},
   ];
 
  
