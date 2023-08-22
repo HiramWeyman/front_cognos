@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./problematica.component.scss']
 })
 export class ProblematicaComponent {
+  consulta: string = '<p>Consulta</p>';
 
+  save(event:any){
+    console.log(event);
+  }
 }

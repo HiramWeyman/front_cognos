@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./diagnostico.component.scss']
 })
 export class DiagnosticoComponent {
+  diagnostico: string = '<p>Diagnostico</p>';
 
+  save(event:any){
+    console.log(event);
+  }
 }

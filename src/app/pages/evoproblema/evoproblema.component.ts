@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./evoproblema.component.scss']
 })
 export class EvoproblemaComponent {
+  evoproblema: string = '<p>Evoloción de problema</p>';
 
+  save(event:any){
+    console.log(event);
+  }
 }

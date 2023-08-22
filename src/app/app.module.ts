@@ -34,8 +34,8 @@ import {authReducer} from './store/auth/reducer';
 import {uiReducer} from './store/ui/reducer';
 import {ProfabricComponentsModule} from '@profabric/angular-components';
 import {SidebarSearchComponent} from './components/sidebar-search/sidebar-search.component';
-import { PacientesComponent } from './pages/pacientes/pacientes.component';
-import { RouterModule } from '@angular/router';
+import {PacientesComponent } from './pages/pacientes/pacientes.component';
+import {RouterModule } from '@angular/router';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -66,7 +66,8 @@ import { IdeasirracionalesComponent } from './pages/ideasirracionales/ideasirrac
 import { SesionesComponent } from './pages/sesiones/sesiones.component';
 import { InformesComponent } from './pages/informes/informes.component';
 import { VerinformeComponent } from './pages/verinforme/verinforme.component';
-
+import { CKEditorModule } from 'ng2-ckeditor';
+import { FormsModule } from '@angular/forms';
 
 registerLocaleData(localeEn, 'en-EN');
 
@@ -118,6 +119,8 @@ registerLocaleData(localeEn, 'en-EN');
         ProfabricComponentsModule,
         CommonModule,
         BrowserModule,
+        CKEditorModule,
+        FormsModule,
         StoreModule.forRoot({auth: authReducer, ui: uiReducer}),
         HttpClientModule,
         AppRoutingModule,

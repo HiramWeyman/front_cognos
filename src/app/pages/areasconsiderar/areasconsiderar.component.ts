@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./areasconsiderar.component.scss']
 })
 export class AreasconsiderarComponent {
+  areas: string = '<p>Areas</p>';
 
+  save(event:any){
+    console.log(event);
+  }
 }
