@@ -1,17 +1,75 @@
 <div class="card card-outline card-primary">
     <div class="card-header text-center">
-        <a [routerLink]="['/']" class="h1"><b>Admin</b>LTE</a>
+        <img src="assets/img/logopequeno.png">
+    <!--     <a [routerLink]="['/']" class="h1"><b>Admin</b>LTE</a> -->
     </div>
     <div class="card-body">
-        <p class="login-box-msg">Register a new membership</p>
+        <p class="login-box-msg">Registrar nuevo usuario</p>
 
-        <form [formGroup]="registerForm" (ngSubmit)="registerByAuth()">
+        <div>
             <div class="input-group mb-3">
                 <input
-                    formControlName="email"
+                    
+                    type="text"
+                    class="form-control"
+                    placeholder="Apellido Paterno"
+                    [(ngModel)]="usuario.usr_paterno" 
+                />
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-users"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <input
+                  
+                    type="text"
+                    class="form-control"
+                    placeholder="Apellido Materno"
+                    [(ngModel)]="usuario.usr_materno"
+                />
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-users"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <input
+                  
+                    type="text"
+                    class="form-control"
+                    placeholder="Nombres"
+                    [(ngModel)]="usuario.usr_nombre"
+                />
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-user-tie"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+          
+                <select id="tipo" class="form-control" [(ngModel)]="usuario.usr_per_id" >
+                    <option value="0" selected>--Seleccione--</option>
+                    <option value="2">R1</option>
+                    <option value="3">R2</option>
+                    <option value="4">Tutor</option>
+                  </select>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-tools"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <input
+                    autocomplete="off"
                     type="email"
                     class="form-control"
                     placeholder="Email"
+                    [(ngModel)]="usuario.usr_email" 
                 />
                 <div class="input-group-append">
                     <div class="input-group-text">
@@ -21,10 +79,11 @@
             </div>
             <div class="input-group mb-3">
                 <input
-                    formControlName="password"
+                    autocomplete="off"
                     type="password"
                     class="form-control"
                     placeholder="Password"
+                    [(ngModel)]="usuario.usr_password" 
                 />
                 <div class="input-group-append">
                     <div class="input-group-text">
@@ -32,9 +91,9 @@
                     </div>
                 </div>
             </div>
-            <div class="input-group mb-3">
+<!--             <div class="input-group mb-3">
                 <input
-                    formControlName="retypePassword"
+                    autocomplete="off"
                     type="password"
                     class="form-control"
                     placeholder="Retype password"
@@ -44,8 +103,8 @@
                         <span class="fas fa-lock"></span>
                     </div>
                 </div>
-            </div>
-            <div class="row">
+            </div> -->
+<!--             <div class="row">
                 <div class="col-7">
                     <div class="icheck-primary">
                         <input
@@ -54,51 +113,31 @@
                             name="terms"
                             value="agree"
                         />
-                        <label for="agreeTerms">
-                            I agree to the <a href="#">terms</a>
-                        </label>
+
                     </div>
                 </div>
+                /.col -->
+         
                 <!-- /.col -->
-                <div class="col-5">
-                    <pf-button
-                        [type]="'submit'"
-                        [block]="true"
-                        [loading]="isAuthLoading"
-                        [disabled]="isFacebookLoading || isGoogleLoading"
-                    >
-                        Register
-                    </pf-button>
-                </div>
-                <!-- /.col -->
+            <!-- </div> -->
+        
             </div>
-        </form>
 
         <div class="social-auth-links text-center">
             <pf-button
                 class="mb-2"
+                [type]="'submit'"
                 [block]="true"
-                [loading]="isFacebookLoading"
-                [disabled]="isAuthLoading || isGoogleLoading"
-                (click)="registerByFacebook()"
+                [loading]="isAuthLoading"
+                (click)="registro()"
             >
-                <i class="fab fa-facebook mr-2"></i>
-                Sign up using Facebook
+            Registrar Usuario
             </pf-button>
-            <pf-button
-                [block]="true"
-                [loading]="isGoogleLoading"
-                [disabled]="isAuthLoading || isFacebookLoading"
-                (click)="registerByGoogle()"
-                theme="danger"
-            >
-                <i class="fab fa-google mr-2"></i>
-                Sign up using Google+
-            </pf-button>
+     
         </div>
 
         <a [routerLink]="['/login']" class="text-center">
-            I already have a membership</a
+            Ya tengo una cuenta de usuario</a
         >
     </div>
 </div>

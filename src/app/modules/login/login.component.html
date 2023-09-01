@@ -13,6 +13,7 @@
                     type="email"
                     class="form-control"
                     placeholder="Email"
+                    [(ngModel)]="loginx.usr_email" 
                 />
                 <div class="input-group-append">
                     <div class="input-group-text">
@@ -26,6 +27,7 @@
                     type="password"
                     class="form-control"
                     placeholder="Password"
+                    [(ngModel)]="loginx.usr_password" 
                 />
                 <div class="input-group-append">
                     <div class="input-group-text">
@@ -42,20 +44,23 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-5">
-                    <pf-button
-                        [type]="'submit'"
-                        [block]="true"
-                        [loading]="isAuthLoading"
-                        [disabled]="isFacebookLoading || isGoogleLoading"
+                    <pf-button (click)="login()"
+                      
+                     
                     >
                         Login
                     </pf-button>
+                   <!--  [disabled]="isFacebookLoading || isGoogleLoading" 
+                      [type]="'submit'"
+                        [block]="true"
+                        [loading]="isAuthLoading"
+                -->
                 </div>
                 <!-- /.col -->
             </div>
         </form>
 
-        <div class="social-auth-links text-center mb-3">
+<!--         <div class="social-auth-links text-center mb-3">
             <pf-button
                 class="mb-2"
                 [block]="true"
@@ -76,7 +81,7 @@
                 <i class="fab fa-google mr-2"></i>
                 Login usando Google+
             </pf-button>
-        </div>
+        </div> -->
 
         <p class="mb-1">
             <a [routerLink]="['/forgot-password']">Olvide mi password</a>

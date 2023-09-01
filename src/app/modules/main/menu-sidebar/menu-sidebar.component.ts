@@ -23,6 +23,7 @@ export class MenuSidebarComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.user = this.appService.user;
         this.ui = this.store.select('ui');
         this.ui.subscribe((state: UiState) => {
             this.classes = `${BASE_CLASSES} ${state.sidebarSkin}`;

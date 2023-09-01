@@ -8,6 +8,10 @@ import {
 import {UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {AppService} from '@services/app.service';
+import { Login } from '@/models/Login';
+import { Subscription } from 'rxjs';
+import swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -15,16 +19,20 @@ import {AppService} from '@services/app.service';
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
+
     @HostBinding('class') class = 'login-box';
     public loginForm: UntypedFormGroup;
     public isAuthLoading = false;
     public isGoogleLoading = false;
     public isFacebookLoading = false;
+    private subscription: Subscription;
+    public loginx: Login = new Login();
 
     constructor(
         private renderer: Renderer2,
         private toastr: ToastrService,
-        private appService: AppService
+        private appService: AppService,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -41,12 +49,53 @@ export class LoginComponent implements OnInit, OnDestroy {
     async loginByAuth() {
         if (this.loginForm.valid) {
             this.isAuthLoading = true;
-            await this.appService.loginByAuth(this.loginForm.value);
+           //aqui va el metodo de login
+            //await this.appService.loginByAuth(this.loginForm.value);
+            await this.appService.getLogin(this.loginx);
             this.isAuthLoading = false;
         } else {
             this.toastr.error('Usuario o password incorrectos!');
         }
     }
+
+     async Pruebas() {
+        console.log('Si jala');
+        console.log(this.login);
+        this.isAuthLoading = true;
+        //aqui va el metodo de login
+         //await this.appService.loginByAuth(this.loginForm.value);
+         await this.appService.getLogin(this.loginx);
+         this.isAuthLoading = false;
+        }
+    
+        login() {
+            this.subscription = this.appService.getLogin(this.loginx)
+                .subscribe((data: any) => {
+                    if ( data != null) {
+                        console.log(data);
+                        swal.fire({
+                            icon: 'success',
+                            title: 'Usuario Logeado',
+                            text: 'Bienvenido ' + data.result.usuario.usr_nombre,
+                            timer: 2000
+                        });
+                        this.router.navigate(['/']);
+                        this.toastr.success('Login exitoso');
+                    } else{
+                        swal.fire({
+                            icon: 'error',
+                            title: 'Usuario y/o contraseña incorrecta'
+                        });
+                    }	
+                },
+                error => {
+                    //console.log(error.error.Message);
+                    swal.fire({
+                        title: 'ERROR!!!',
+                        text: error.error.Message,
+                        icon: 'error'});
+                });
+            }
 
     async loginByGoogle() {
         this.isGoogleLoading = true;
