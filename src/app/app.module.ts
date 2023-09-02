@@ -49,6 +49,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatTreeModule} from '@angular/material/tree';
+import {MatNativeDateModule} from '@angular/material/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { DatosexpComponent } from './pages/datosexp/datosexp.component';
 import { GeneralesComponent } from './pages/generales/generales.component';
@@ -68,7 +69,9 @@ import { InformesComponent } from './pages/informes/informes.component';
 import { VerinformeComponent } from './pages/verinforme/verinforme.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { FormsModule } from '@angular/forms';
-
+import { RegpacienteComponent } from './pages/regpaciente/regpaciente.component';
+import {MAT_DATE_LOCALE} from '@angular/material/core';
+import {DatePipe} from '@angular/common';
 registerLocaleData(localeEn, 'en-EN');
 
 @NgModule({
@@ -110,6 +113,7 @@ registerLocaleData(localeEn, 'en-EN');
         SesionesComponent,
         InformesComponent,
         VerinformeComponent,
+        RegpacienteComponent,
         
     /*     PacientesComponent, */
 
@@ -136,7 +140,9 @@ registerLocaleData(localeEn, 'en-EN');
         MatPaginatorModule,
         MatSelectModule,
         MatDatepickerModule,
+        MatNativeDateModule,
         MatTreeModule,
+        MatToolbarModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot({
             timeOut: 3000,
@@ -144,7 +150,7 @@ registerLocaleData(localeEn, 'en-EN');
             preventDuplicates: true
         })
     ],
-    providers: [],
+    providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-MX' },DatePipe],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

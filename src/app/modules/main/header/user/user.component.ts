@@ -9,11 +9,14 @@ import {DateTime} from 'luxon';
 })
 export class UserComponent implements OnInit {
     public user;
-
+    public userId: any = null;
     constructor(private appService: AppService) {}
 
     ngOnInit(): void {
-        this.user = this.appService.user;
+     
+        this.userId=sessionStorage.getItem('UserId'); 
+      /*   this.user = this.appService.user; */
+        this.user = sessionStorage.getItem('UserMail');
         console.log(this.user);
     }
 

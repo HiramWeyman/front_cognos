@@ -47,6 +47,7 @@ export class AppService {
         
         return this.http.post<Usuarios>(`${environment.rutaAPI}` + '/Usuarios/registro', usuario);
       }
+      
 
 /*     async loginByAuth({ email, password }) {
         try {
