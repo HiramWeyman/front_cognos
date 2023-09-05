@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
     
         login() {
+            this.isAuthLoading = true;
             this.subscription = this.appService.getLogin(this.loginx)
                 .subscribe((data: any) => {
                     if ( data != null) {
@@ -79,6 +80,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                             text: 'Bienvenido ' + data.result.usuario.usr_nombre,
                             timer: 2000
                         });
+                        this.isAuthLoading = false;
                         this.router.navigate(['/']);
                         this.toastr.success('Login exitoso');
                     } else{

@@ -62,7 +62,7 @@ export class DatosexpComponent {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     sessionStorage.setItem('Expediente', this.id);
-    this.expediente=sessionStorage.getItem('Expediente')
+    this.expediente=sessionStorage.getItem('Expediente');
     console.log(sessionStorage.getItem('Expediente'));
     this.cargarPacientes();
   }

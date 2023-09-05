@@ -3,28 +3,38 @@
         <div class="content" align="center">
             <mat-label><b>Sueño</b></mat-label>
         </div>
-        <ckeditor [(ngModel)]="Sueno">
+        <ckeditor [(ngModel)]="salud.salud_sueno_desc">
 
         </ckeditor>
-        <button class="btn btn-primary btn-sm" (click)="save(Sueno)">Guardar Texto</button>
+       <!--  <button class="btn btn-primary btn-sm" (click)="save(Sueno)">Guardar Texto</button> -->
     </div>
     <hr>
     <div class="ckeditorContainer">
         <div class="content" align="center">
             <mat-label><b>Alimentación</b></mat-label>
         </div>
-        <ckeditor [(ngModel)]="Alimentacion">
+        <ckeditor [(ngModel)]="salud.salud_alimentacion_desc">
         </ckeditor>
-        <button class="btn btn-primary btn-sm" (click)="saveAl(Alimentacion)">Guardar Texto</button>
+       <!--  <button class="btn btn-primary btn-sm" (click)="saveAl(Alimentacion)">Guardar Texto</button> -->
     </div>
     <div class="ckeditorContainer">
         <div class="content" align="center">
             <mat-label><b>Actividad física</b></mat-label>
         </div>
-        <ckeditor [(ngModel)]="ActFisica">
+        <ckeditor [(ngModel)]="salud.salud_act_fisica_desc">
 
         </ckeditor>
-        <button class="btn btn-primary btn-sm" (click)="saveActFisica(ActFisica)">Guardar Texto</button>
+       <!--  <button class="btn btn-primary btn-sm" (click)="saveActFisica(ActFisica)">Guardar Texto</button> -->
+    </div><br>
+    <div class="row d-flex justify-content-center">
+        <div class="form-element">
+            <button mat-raised-button color="primary" type="button" class="button" (click)="Guardar()" [disabled]="habilita==true"  >Guardar Datos</button>
+        </div>
+        <div class="form-element">
+            <button mat-button color="primary" type="button" class="button" (click)="UpdateDatos()">Actualizar Datos</button>
+        </div>
     </div>
+
+   
 
 </div>
