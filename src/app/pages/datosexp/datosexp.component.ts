@@ -5,7 +5,10 @@ import { ActivatedRoute } from '@angular/router';
 import{Tabla1} from '../../models/Tabla1';
 import{Tabla2} from '../../models/Tabla2';
 import { MatSort, Sort } from '@angular/material/sort';
-
+import { PacientesService } from '@services/pacientes.service';
+import { Pacientes } from '@/models/Pacientes';
+import { Subscription } from 'rxjs';
+import swal from 'sweetalert2';
 
 
 
@@ -17,7 +20,10 @@ import { MatSort, Sort } from '@angular/material/sort';
 })
 export class DatosexpComponent {
   id!: any;
-  constructor(private route: ActivatedRoute,private paginator: MatPaginatorIntl) {
+  expediente!: any;
+  nombre!: any;
+  pac: Pacientes = new Pacientes();
+  constructor(private route: ActivatedRoute,private paginator: MatPaginatorIntl, private _pac: PacientesService) {
     this.paginator.itemsPerPageLabel = "Registros por página";
   }
 
@@ -55,7 +61,23 @@ export class DatosexpComponent {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    console.log(this.id);
+    sessionStorage.setItem('Expediente', this.id);
+    this.expediente=sessionStorage.getItem('Expediente')
+    console.log(sessionStorage.getItem('Expediente'));
+    this.cargarPacientes();
+  }
+
+
+  cargarPacientes() {
+    this._pac.GetPaciente( this.id ).subscribe(
+      pac => {
+        this.pac = pac;
+        console.log(this.pac);
+        this.nombre=this.pac.pac_paterno+' '+this.pac.pac_materno+' '+this.pac.pac_nombre;
+      }, error => {
+        //console.log(error);
+        swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
   }
 
 

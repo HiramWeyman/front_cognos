@@ -28,4 +28,15 @@ export class PacientesService {
       map(response => response as Pacientes[])
     );
   }
+
+  GetPaciente(id:number): Observable<Pacientes> {
+    return this.http.get(`${environment.rutaAPI}` + '/Pacientes/'+id).pipe(
+      map(response => response as Pacientes)
+    );
+  }
+
+  UpdatePacientes(paciente: Pacientes): Observable<Pacientes> {
+    return this.http.patch<Pacientes>(`${environment.rutaAPI}` + '/Pacientes/'+paciente.pac_id, paciente);
+  }
+
 }
