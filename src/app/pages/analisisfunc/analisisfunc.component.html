@@ -20,27 +20,32 @@
         <div class="content" align="center">
             <mat-label><b>Antecedentes.</b></mat-label>
         </div>
-        <ckeditor [(ngModel)]="antecedentes">
+        <ckeditor [(ngModel)]="analisis.analisis_ant_desc">
 
         </ckeditor>
-        <button class="btn btn-primary btn-sm" (click)="save(antecedentes)">Guardar Texto</button>
     </div>
     <hr>
     <div class="ckeditorContainer">
         <div class="content" align="center">
             <mat-label><b>Conducta.</b></mat-label>
         </div>
-        <ckeditor [(ngModel)]="conducta">
+        <ckeditor [(ngModel)]="analisis.analisis_con_desc">
         </ckeditor>
-        <button class="btn btn-primary btn-sm" (click)="saveAl(conducta)">Guardar Texto</button>
     </div>
     <div class="ckeditorContainer">
         <div class="content" align="center">
             <mat-label><b>Consecuentes.</b></mat-label>
         </div>
-        <ckeditor [(ngModel)]="consecuentes">
+        <ckeditor [(ngModel)]="analisis.analisis_cons_desc">
         </ckeditor>
-        <button class="btn btn-primary btn-sm" (click)="saveActFisica(consecuentes)">Guardar Texto</button>
+       
+    </div><br><br>
+    <div class="row d-flex justify-content-center">
+        <div class="form-element">
+            <button mat-raised-button color="primary" type="button" class="button" (click)="Guardar()" [disabled]="habilita==true"  >Guardar Datos</button>
+        </div>
+        <div class="form-element">
+            <button mat-button color="primary" type="button" class="button" (click)="UpdateDatos()">Actualizar Datos</button>
+        </div>
     </div>
-
 </div>
