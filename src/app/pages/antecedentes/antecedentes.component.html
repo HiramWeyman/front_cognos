@@ -8,7 +8,7 @@
 </div>
 <div class="container">
     <label>Antecedentes de problemas médicos y/o padecimiento actual.</label><br>
-    <button class="btn btn-primary">Agregar</button> 
+    <button class="btn btn-primary" data-toggle="modal" data-target="#probmed" data-backdrop="false">Agregar</button> 
     <table class="table table-bordered">
         <thead>
           <tr>
@@ -18,38 +18,28 @@
             <th scope="col">Medicamento</th>
             <th scope="col">Fecha de inicio</th>
             <th scope="col">Tiempo del tratamiento</th>
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>vaporub</td>
-            <td>11/11/2020</td>
-            <td>5 meses</td>
+          <tr *ngFor="let p of probmedlist; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{p.problema_problema}}</td>
+            <td>{{p.problema_medico}}</td>
+            <td>{{p.problema_medicamento}}</td>
+            <td>{{p.problema_fecha_ini_trata.substring(0,10)}}</td>
+            <td>{{p.problema_tiempo_tratamiento}}</td>
+            <td>
+              <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#probmed" data-backdrop="false" (click)="getDatosProb(p.problema_id)">Editar</button>
+              <button class="btn btn-danger btn-sm" (click)="DeleteDatosProb(p.problema_id)">Quitar</button>
+            </td>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>paracetamol</td>
-            <td>01/12/2020</td>
-            <td>4 meses</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td >Larry the Bird</td>
-            <td>Otto</td>
-            <td>melubrina</td>
-            <td>5/11/2020</td>
-            <td>2 meses</td>
-          </tr>
+ 
         </tbody>
       </table>
       <br>
       <label>Diagnóstico previo de salud mental. </label><br>
-      <button class="btn btn-primary">Agregar</button> 
+      <button class="btn btn-primary" data-toggle="modal" data-target="#previo" data-backdrop="false">Agregar</button>
       <table class="table table-bordered">
           <thead>
             <tr>
@@ -57,40 +47,37 @@
               <th scope="col">Diagnostico o tipo de problema</th>
               <th scope="col">Médico tratante.</th>
               <th scope="col">Medicamento</th>
-              <th scope="col">Fecha de inicio</th>
+            
               <th scope="col">Tiempo del tratamiento</th>
+              <th scope="col">
+                ¿Tratamiento
+                Psicológico?
+                Tiempo de
+                duración
+              </th>
+              <th scope="col">Acciones</th>
+
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>vaporub</td>
-              <td>11/11/2020</td>
-              <td>5 meses</td>
+            <tr *ngFor="let p of prevlist; let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{p.previo_problema}}</td>
+              <td>{{p.previo_medico}}</td>
+              <td>{{p.previo_medicamento}}</td>
+              <td>{{p.previo_tiempo_tratamiento}}</td>
+              <td>{{p.previo_tiempo_psicologico}}</td>
+              <td>
+                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#previo" data-backdrop="false" (click)="getDatosPrev(p.previo_id)">Editar</button>
+                <button class="btn btn-danger btn-sm" (click)="DeleteDatosPrev(p.previo_id)">Quitar</button>
+              </td>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>paracetamol</td>
-              <td>01/12/2020</td>
-              <td>4 meses</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td >Larry the Bird</td>
-              <td>Otto</td>
-              <td>melubrina</td>
-              <td>5/11/2020</td>
-              <td>2 meses</td>
-            </tr>
+            
           </tbody>
         </table>
         <br>
         <label>Consumo de Sustancias.</label><br>
-        <button class="btn btn-primary">Agregar</button> 
+        <button class="btn btn-primary" data-toggle="modal" data-target="#consumo" data-backdrop="false">Agregar</button>
         <table class="table table-bordered">
             <thead>
               <tr>
@@ -102,16 +89,21 @@
                 <th scope="col">Tiempo de consumo
                     ¿Cada cuando consume esta sustancia? ¿Cuánto tiempo (días, meses, años) tiene consumiéndola?
                 </th>
+                <th scope="col">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>ALCOHOL</td>
-                <td>Si</td>
-                <td>14 Años</td>
-                <td>Más de 3 latas de cerveza</td>
-                <td>Cada fin de semana desde hace 3 años.</td>
+              <tr *ngFor="let p of conslist; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{p.consumo_sustancia}}</td>
+                <td>{{p.consumo_sino}}</td>
+                <td>{{p.consumo_edad_inicio}}</td>
+                <td>{{p.consumo_cantidad}}</td>
+                <td>{{p.consumo_tiempo}}</td>
+                <td>
+                  <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#consumo" data-backdrop="false" (click)="getDatosCons(p.consumo_id)">Editar</button>
+                  <button class="btn btn-danger btn-sm" (click)="DeleteDatosCons(p.consumo_id)">Quitar</button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -151,3 +143,149 @@
     </div>
   </div>
 </div>
+
+
+  <!-- Modal Antecedentes-->
+  <br><br>
+  <div class="modal fade" id="probmed" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="margin-top: 30px;">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Antecedentes de problemas médicos y/o padecimiento actual.</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <div class="form-group">
+              <input type="hidden"  [(ngModel)]="probmed.problema_id">
+              <label for="exampleInputEmail1">Problema Médico</label>
+              <input type="text" class="form-control" id="exampleInputEmail1"  [(ngModel)]="probmed.problema_problema">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Médico tratante.</label>
+              <input type="text" class="form-control" id="exampleInputPassword1"  [(ngModel)]="probmed.problema_medico">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Medicamento.</label>
+              <input type="text" class="form-control" id="exampleInputPassword1"  [(ngModel)]="probmed.problema_medicamento">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Fecha de inicio.</label>
+              <input type="date" class="form-control" id="exampleInputPassword1"  [(ngModel)]="probmed.problema_fecha_ini_trata">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Tiempo del tratamiento.</label>
+              <input type="text" class="form-control" id="exampleInputPassword1"  [(ngModel)]="probmed.problema_tiempo_tratamiento">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>        
+          <button type="button" class="btn btn-primary" (click)="GuardarProb();" *ngIf="probmed.problema_id==null else elseBlock">Guardar Antecedente</button>
+          <ng-template #elseBlock>
+            <button class="btn btn-primary"  (click)='UpdateDatosProb(probmed);' id="send" data-dismiss="modal">Editar</button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Modal Previo-->
+    <br><br>
+    <div class="modal fade" id="previo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Diagnóstico previo de salud mental.</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <div class="form-group">
+                <input type="hidden"  [(ngModel)]="prev.previo_id">
+                <label for="exampleInputEmail1">Diagnostico o tipo de problema</label>
+                <textarea rows="4" cols="5" class="form-control" [(ngModel)]="prev.previo_problema"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Médico tratante.</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="prev.previo_medico">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Medicamento.</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="prev.previo_medicamento">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Tiempo del tratamiento</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="prev.previo_tiempo_tratamiento">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">¿Tratamiento Psicológico? Tiempo de duración</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="prev.previo_tiempo_psicologico">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="GuardarPrev();" *ngIf="prev.previo_id==null else elseBlock1">Guardar Antecedente</button>
+          <ng-template #elseBlock1>
+            <button class="btn btn-primary"  (click)='UpdateDatosPrev(prev);' id="pr" data-dismiss="modal">Editar</button>
+          </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- Modal Consumo -->
+  <br><br>
+  <div class="modal fade" id="consumo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Consumo de Sustancias.</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <div class="form-group">
+              <input type="hidden"  [(ngModel)]="cons.consumo_id">
+              <label for="exampleInputEmail1">Sustancia</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" [(ngModel)]="cons.consumo_sustancia">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Si-No</label>
+              <select  class="form-control" [(ngModel)]="cons.consumo_sino">
+                <option selected>--Seleccione una Opción--</option>
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Edad de inicio.</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="cons.consumo_edad_inicio" >
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Cantidad</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="cons.consumo_cantidad">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Tiempo de consumo ¿Cada cuando consume esta sustancia? ¿Cuánto tiempo (días, meses, años) tiene consumiéndola?</label>
+              <textarea rows="4" cols="5" class="form-control" [(ngModel)]="cons.consumo_tiempo"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="GuardarCons();" *ngIf="cons.consumo_id==null else elseBlock2">Guardar Antecedente</button>
+        <ng-template #elseBlock2>
+          <button class="btn btn-primary"  (click)='UpdateDatosCons(cons);' id="cn" data-dismiss="modal">Editar</button>
+        </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
