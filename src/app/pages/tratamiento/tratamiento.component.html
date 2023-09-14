@@ -1,38 +1,101 @@
 <br><br>
 <div class="container">
-    <button class="btn btn-primary">Agregar</button> 
+  <div class="float-right"> 
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-backdrop="false">
+      Comentarios
+    </button>  
+    </div>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#trata" data-backdrop="false">Agregar</button> 
     <table class="table table-bordered">
         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Objetivos</th>
             <th scope="col">Técnicas</th>
-
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Aprender las características emocionales, cognitivas y conductuales sobre su problema.</td>
-            <td>Psicoeducación.
-                Entrevista inicial Manuel Muñoz
-                Evaluación de pruebas psicológicas.
-                </td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Establecer un programa de activación conductual.</td>
-            <td>Programa de activación conductual.
-                Evaluar actividades en función de Dominio y Agrado.
-                </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Establecer hábitos considerando la higiene del sueño y establecer una red de apoyo.</td>
-            <td>Psicoeducación sobre la higiene del sueño.
-                Mindfulness.
-                </td>
+          <tr *ngFor="let p of tratalist; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{p.trata_objetivo}}</td>
+            <td>{{p.trata_tecnica}}</td>
+            <td>
+              <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#trata" data-backdrop="false" (click)="getDatosTrata(p.trata_id)">Editar</button>
+              <button class="btn btn-danger btn-sm" (click)="DeleteDatosTrata(p.trata_id)">Quitar</button>
+            </td>
           </tr>
         </tbody>
       </table>
+</div>
+
+
+<!-- Modal Tratamiento-->
+<br><br>
+<div class="modal fade" id="trata" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="margin-top: 30px;">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Objetivos y propuesta de tratamiento.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div class="form-group">
+            <input type="hidden"  [(ngModel)]="trata.trata_id">
+            <label for="exampleInputEmail1">Objetivo</label>
+            <input type="text" class="form-control" id="exampleInputEmail1"  [(ngModel)]="trata.trata_objetivo">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Técnica.</label>
+            <textarea rows="4" cols="5" class="form-control" [(ngModel)]="trata.trata_tecnica"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>        
+        <button type="button" class="btn btn-primary" (click)="GuardarTrata();" *ngIf="trata.trata_id==null else elseBlock">Guardar</button>
+        <ng-template #elseBlock>
+          <button class="btn btn-primary"  (click)='UpdateDatosTrata(trata);' id="send" data-dismiss="modal">Editar</button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br><br>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Comentarios</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <textarea cols="5" rows="5" placeholder="Ingresar comentario" class="form-control"></textarea><br>
+        <table class="table table-bordered">
+          <thead>
+              <tr>
+                  <th>Usuario</th>
+                  <th>Comentario</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td><b>Kara</b></td>
+                  <td><b>Prueba de Comentario</b></td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar comentario</button>
+      </div>
+    </div>
+  </div>
 </div>
