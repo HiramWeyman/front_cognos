@@ -1,29 +1,102 @@
 <br>
 <div class="d-flex justify-content-center"><label>Línea de vida.</label></div>
 <div class="container">
-    <button class="btn btn-primary">Agregar</button> 
-    <table class="table table-bordered">
+  <div class="float-right">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-backdrop="false">
+      Comentarios
+    </button>  
+  </div>
+  <button class="btn btn-primary" data-toggle="modal" data-target="#lineax" data-backdrop="false">Agregar</button> 
+  <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Etapa</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of linealist; let i = index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{p.lin_titulo}}</td>
+          <td>{{p.lin_desc}}</td>
+          <td>
+            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#lineax" data-backdrop="false" (click)="getDatosLinea(p.lin_id)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="DeleteDatosLinea(p.lin_id)">Quitar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+
+
+
+<br><br>
+<div class="modal fade" id="lineax" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="margin-top: 30px;">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Línea de Vida</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <div class="form-group">
+          <input type="hidden"  [(ngModel)]="linea.lin_id">
+          <label for="exampleInputEmail1">Etapa.</label>
+          <input type="text" class="form-control" id="exampleInputEmail1"  [(ngModel)]="linea.lin_titulo">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Descripción.</label>
+          <textarea rows="4" cols="5" class="form-control" [(ngModel)]="linea.lin_desc"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>        
+      <button type="button" class="btn btn-primary" (click)="GuardarLinea();" *ngIf="linea.lin_id==null else elseBlock">Guardar</button>
+      <ng-template #elseBlock>
+        <button class="btn btn-primary"  (click)='UpdateDatosLinea(linea);' id="send" data-dismiss="modal">Editar</button>
+      </ng-template>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Agregar Comentarios</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+    <textarea cols="5" rows="5" placeholder="Ingresar comentario" class="form-control"></textarea><br>
+      <table class="table table-bordered">
         <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Primaria</th>
-            <th scope="col">Secundaria</th>
-            <th scope="col">Preparatoria</th>
-            <th scope="col">Egresar de la carrera</th>
-            <th scope="col">Capacitacion</th>
-          </tr>
+            <tr>
+                <th>Usuario</th>
+                <th>Comentario</th>
+            </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
-            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
-            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
-            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
-            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
-          </tr>
-          
+            <tr>
+                <td><b>Kara</b></td>
+                <td><b>Prueba de Comentario</b></td>
+            </tr>
         </tbody>
       </table>
-      <br>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      <button type="button" class="btn btn-primary">Guardar comentario</button>
+    </div>
+  </div>
+</div>
 </div>
