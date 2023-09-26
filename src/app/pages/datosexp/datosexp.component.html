@@ -1,6 +1,7 @@
 <h3 style="margin-left: 5px;"><b>{{nombre}}</b></h3>
-<p style="margin-left: 5px;">Paciente ID: {{ expediente }}</p>
-<mat-tab-group>
+<p style="margin-left: 5px;">Paciente ID: {{ expediente }} </p>
+<!-- <label>Index {{tabRef.selectedIndex}}</label> -->
+<mat-tab-group #tabRef (selectedTabChange)="changeSelect(tabRef.selectedIndex)">
     <mat-tab>
         <ng-template mat-tab-label>
             <mat-icon class="example-tab-icon">account_box</mat-icon>

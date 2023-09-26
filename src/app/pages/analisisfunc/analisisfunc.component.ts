@@ -61,7 +61,7 @@ export class AnalisisfuncComponent {
     this._analisis.GetAnalisis(this.expediente).subscribe(
       fu => {
         this.analisis = fu;
-        console.log(this.analisis);
+        //console.log(this.analisis);
         if(this.analisis!=null){
           this.habilita=true;
         }

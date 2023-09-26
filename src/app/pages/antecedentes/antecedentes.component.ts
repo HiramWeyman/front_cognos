@@ -65,7 +65,7 @@ export class AntecedentesComponent {
         this.probmed = fu;
         this.fecUp =this.datePipe.transform(this.probmed.problema_fecha_ini_trata,"yyyy-MM-dd");
         this.probmed.problema_fecha_ini_trata= this.fecUp;
-        console.log(this.probmed);
+        //console.log(this.probmed);
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -106,7 +106,7 @@ export class AntecedentesComponent {
           this.fec =this.datePipe.transform(this.probmedlist[i].problema_fecha_ini_trata,"dd/MM/yyyy");
           this.probmedlist[i].problema_fecha_ini_trata= this.fec;
         }
-        console.log(this.probmedlist);
+        //console.log(this.probmedlist);
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -140,7 +140,7 @@ export class AntecedentesComponent {
       fu => {
       
         this.prev = fu;
-        console.log(this.prev);
+        //console.log(this.prev);
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -177,7 +177,7 @@ export class AntecedentesComponent {
     this._ant.GetPrevioList(this.expediente).subscribe(
       fu => {
         this.prevlist = fu;
-        console.log(this.prevlist);
+        //console.log(this.prevlist);
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -210,7 +210,7 @@ export class AntecedentesComponent {
       fu => {
       
         this.cons = fu;
-        console.log(this.cons);
+        //console.log(this.cons);
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -247,7 +247,7 @@ export class AntecedentesComponent {
     this._ant.GetConsumoList(this.expediente).subscribe(
       fu => {
         this.conslist = fu;
-        console.log(this.conslist);
+        //console.log(this.conslist);
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });

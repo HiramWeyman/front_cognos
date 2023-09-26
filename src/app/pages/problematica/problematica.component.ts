@@ -48,7 +48,7 @@ export class ProblematicaComponent {
       fu => {
       
         this.prob = fu;
-        console.log(this.prob);
+        //console.log(this.prob);
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -86,7 +86,7 @@ export class ProblematicaComponent {
       fu => {
         this.problist = fu;
        
-        console.log(this.problist);
+        //console.log(this.problist);
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -129,7 +129,7 @@ export class ProblematicaComponent {
     this._pr.GetConsulta(this.expediente).subscribe(
       fu => {
         this.cons = fu;
-        console.log(this.cons);
+        //console.log(this.cons);
         if(this.cons!=null){
           this.habilita=true;
         }

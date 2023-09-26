@@ -58,7 +58,7 @@ export class AreasconsiderarComponent {
     this._otras.GetOtras(this.expediente).subscribe(
       fu => {
         this.otras = fu;
-        console.log(this.otras);
+        //console.log(this.otras);
         if(this.otras!=null){
           this.habilita=true;
         }

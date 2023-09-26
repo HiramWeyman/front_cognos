@@ -60,7 +60,7 @@ export class DiagnosticoComponent {
     this._diag.GetDiagnostico(this.expediente).subscribe(
       fu => {
         this.diag = fu;
-        console.log(this.diag);
+        //console.log(this.diag);
         if(this.diag!=null){
           this.habilita=true;
         }

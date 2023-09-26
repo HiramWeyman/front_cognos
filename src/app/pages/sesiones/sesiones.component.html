@@ -5,7 +5,7 @@
         <mat-label>Buscar</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
     </mat-form-field>
-    <button mat-fab extended color="primary">
+    <button mat-fab extended color="primary" [routerLink]="['/regsesion']">
         <mat-icon>create_new_folder</mat-icon>
         Registrar Sesión
     </button>
