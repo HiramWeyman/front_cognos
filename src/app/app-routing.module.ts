@@ -16,6 +16,7 @@ import { PacientesComponent } from '@pages/pacientes/pacientes.component';
 import { DatosexpComponent } from '@pages/datosexp/datosexp.component';
 import { VerinformeComponent } from '@pages/verinforme/verinforme.component';
 import { RegpacienteComponent } from '@pages/regpaciente/regpaciente.component';
+import { RegsesionComponent } from '@pages/regsesion/regsesion.component';
 
 const routes: Routes = [
     {
@@ -39,6 +40,10 @@ const routes: Routes = [
             {
                 path: 'regpaciente',
                 component: RegpacienteComponent
+            },
+            {
+                path: 'regsesion',
+                component: RegsesionComponent
             },
             {
                 path:'exp/:id', 

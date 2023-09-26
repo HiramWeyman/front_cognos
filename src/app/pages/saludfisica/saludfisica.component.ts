@@ -27,8 +27,8 @@ export class SaludfisicaComponent {
   ngOnInit(): void {
     
     this.expediente=sessionStorage.getItem('Expediente');
-    console.log('Expediente');
-    console.log(this.expediente);
+ /*    console.log('Expediente');
+    console.log(this.expediente); */
     this.cargarSalud();
    
   }
@@ -102,7 +102,7 @@ export class SaludfisicaComponent {
     this._salu.GetSalud(this.expediente).subscribe(
       Salud => {
         this.salud = Salud;
-        console.log(this.salud);
+        //console.log(this.salud);
         if(this.salud!=null){
           this.habilita=true;
         }

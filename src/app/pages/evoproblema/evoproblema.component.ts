@@ -60,7 +60,7 @@ export class EvoproblemaComponent {
     this._evo.GetEvo(this.expediente).subscribe(
       fu => {
         this.evolucion = fu;
-        console.log(this.evolucion);
+        //console.log(this.evolucion);
         if(this.evolucion!=null){
           this.habilita=true;
         }

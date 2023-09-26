@@ -59,7 +59,7 @@ export class GeneralesComponent {
     this._pac.GetPaciente(this.ExpedienteId).subscribe(
       pac => {
         this.pac = pac;
-        console.log(this.pac);
+        //console.log(this.pac);
       }, error => {
         //console.log(error);
         swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });

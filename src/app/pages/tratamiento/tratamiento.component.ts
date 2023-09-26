@@ -44,7 +44,7 @@ export class TratamientoComponent {
       fu => {
       
         this.trata = fu;
-        console.log(this.trata);
+        //console.log(this.trata);
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -82,7 +82,7 @@ export class TratamientoComponent {
       fu => {
         this.tratalist = fu;
        
-        console.log(this.tratalist);
+        //console.log(this.tratalist);
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });

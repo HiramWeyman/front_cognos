@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +9,7 @@ import { PacientesService } from '@services/pacientes.service';
 import { Pacientes } from '@/models/Pacientes';
 import { Subscription } from 'rxjs';
 import swal from 'sweetalert2';
+import { MatTabGroup } from '@angular/material/tabs';
 
 
 
@@ -57,22 +58,28 @@ export class DatosexpComponent {
   @ViewChild('empTbSortWithObject') empTbSortWithObject = new MatSort(); */
 
   @ViewChild('paginatorFirst') paginatorFirst: MatPaginator;
-
-
+  @ViewChild('tabRef') tabGroup: MatTabGroup;
+  @Input() selectedIndex = 0; 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     sessionStorage.setItem('Expediente', this.id);
     this.expediente=sessionStorage.getItem('Expediente');
     console.log(sessionStorage.getItem('Expediente'));
     this.cargarPacientes();
+    const val:number=Number(sessionStorage.getItem('IndexTab'));
+    console.log('index: '+val);
+    this.selectedIndex=val;
+ /*    console.log(this.tabGroup.selectedIndex);
+    this.tabGroup.selectedIndex; */
   }
+
 
 
   cargarPacientes() {
     this._pac.GetPaciente( this.id ).subscribe(
       pac => {
         this.pac = pac;
-        console.log(this.pac);
+        //console.log(this.pac);
         this.nombre=this.pac.pac_paterno+' '+this.pac.pac_materno+' '+this.pac.pac_nombre;
       }, error => {
         //console.log(error);
@@ -83,6 +90,23 @@ export class DatosexpComponent {
 
 
 
+  ngAfterViewInit() {
+    // doesn't work if outside setTimeOut()
+    setTimeout(() => {
+      console.log(this.tabGroup.selectedIndex);
+      
+      this.tabGroup.selectedIndex = this.selectedIndex;
+      this.tabGroup.realignInkBar(); // re-align the bottom border of the tab
+    })
+  }
 
+  changeSelect(index:number){
+    console.log(index);
+    const valor:any=index;
+    sessionStorage.setItem('IndexTab', valor);
+    const val:number=Number(sessionStorage.getItem('IndexTab'));
+    this.tabGroup.selectedIndex=val;
+    console.log(this.tabGroup.selectedIndex);
+  }
  
 }

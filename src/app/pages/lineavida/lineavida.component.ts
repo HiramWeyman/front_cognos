@@ -45,7 +45,7 @@ export class LineavidaComponent {
       fu => {
       
         this.linea = fu;
-        console.log(this.linea);
+       // console.log(this.linea);
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -83,7 +83,7 @@ export class LineavidaComponent {
       fu => {
         this.linealist = fu;
        
-        console.log(this.linealist);
+        //console.log(this.linealist);
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
