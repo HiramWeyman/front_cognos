@@ -2,6 +2,7 @@ import { AnalisisFU } from '@/models/AnalisisFU';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnalisisFuService } from '@services/analisisfu.service';
+import { SharednumberService } from '@services/sharednumber.service';
 import { Subscription } from 'rxjs';
 import swal from 'sweetalert2';
 @Component({
@@ -16,14 +17,23 @@ export class AnalisisfuncComponent {
   expediente!: any;
   analisis:AnalisisFU= new AnalisisFU();
   habilita:boolean=false;
+  Indextab: any ;
   private subscription: Subscription;
   constructor(
     private _analisis: AnalisisFuService,
-    private router: Router
+    private router: Router,
+    private sharednumber:SharednumberService
   ) { }
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
-    this.cargarAnalisis();
+    this.sharednumber.numero$.subscribe(val=>
+      {
+        this.Indextab=val;
+        if(this.Indextab==4){
+          this.cargarAnalisis();
+        }
+      });
+    
    
   }
 

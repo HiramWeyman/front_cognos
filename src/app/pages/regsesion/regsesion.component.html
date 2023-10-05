@@ -7,19 +7,19 @@
     <div class="col-6">
       <mat-form-field class="form-element">
         <mat-label>Caso:</mat-label>
-        <input  matInput [(ngModel)]="pac.pac_paterno" name="paterno" ngDefaultControl >
+        <input  matInput [(ngModel)]="pac.sesion_caso" name="sesion_caso" ngDefaultControl >
       </mat-form-field>
     </div>
     <div class="col-6">
       <mat-form-field class="form-element">
         <mat-label>No. Sesión</mat-label>
-        <input type="number" matInput [(ngModel)]="pac.pac_materno" name="materno" ngDefaultControl maxlength="2">
+        <input type="text" matInput [(ngModel)]="pac.sesion_no" name="sesion_no" ngDefaultControl maxlength="2" (keypress)="validateFormat($event)">
       </mat-form-field>
     </div>
     <div class="col-sm">
         <mat-form-field class="form-element">
           <mat-label>Terapeuta: </mat-label>
-          <mat-select [(ngModel)]="pac.pac_genero" name="genero" ngDefaultControl>
+          <mat-select [(ngModel)]="pac.sesion_terapeuta" name="sesion_terapeuta" ngDefaultControl>
             <mat-option value="" selected>--Seleccione--</mat-option>
             <mat-option value="1">Angel Yousif Sanchez Fajardo</mat-option>
             <mat-option value="2">Leonel Oliverio Linares</mat-option>
@@ -29,7 +29,7 @@
       <div class="col-sm">
         <mat-form-field class="form-element">
           <mat-label>Coterapeuta:</mat-label>
-          <mat-select [(ngModel)]="pac.pac_edocivil" name="edocivil" ngDefaultControl>
+          <mat-select [(ngModel)]="pac.sesion_coterapeuta" name="sesion_coterapeuta" ngDefaultControl>
             <mat-option value="" selected>--Seleccione--</mat-option>
             <mat-option value="1">Angel Yousif Sanchez Fajardo</mat-option>
             <mat-option value="2">Leonel Oliverio Linares</mat-option>
@@ -39,7 +39,7 @@
       <div class="col-12">
         <mat-form-field class="form-element">
           <mat-label>Objetivo general de la sesión.</mat-label>
-          <textarea matInput rows="5" [(ngModel)]="pac.pac_domicilio" name="domicilio" ngDefaultControl ></textarea>
+          <textarea matInput rows="5" [(ngModel)]="pac.sesion_objetivo" name="sesion_objetivo" ngDefaultControl ></textarea>
         </mat-form-field>
       </div>
 
@@ -47,7 +47,7 @@
         <mat-form-field class="form-element">
           <mat-label>Revisión de Tarea asignada previamente. Graduar los intentos del paciente para completar la tarea de la sesión pasada:</mat-label>
     
-          <mat-select [(ngModel)]="pac.pac_edocivil" name="edocivil" ngDefaultControl>
+          <mat-select [(ngModel)]="pac.sesion_rev_tarea" name="sesion_rev_tarea" ngDefaultControl>
             <mat-option value="" selected>--Seleccione--</mat-option>
             <mat-option value="1">No realizo intento alguno.</mat-option>
             <mat-option value="2">Realizo intento parcial hacia la tarea.</mat-option>
@@ -68,37 +68,37 @@
       <mat-form-field class="form-element">
         <mat-label>3. Técnica de ABC. (Sólo si se trabajó un ABC)
         </mat-label>
-        <input matInput [(ngModel)]="pac.pac_edad" name="edad" ngDefaultControl>
+        <input matInput [(ngModel)]="pac.sesion_tecnica_abc" name="sesion_tecnica_abc" ngDefaultControl>
       </mat-form-field>
     </div>
 
     <div class="col-12">
         <mat-form-field class="form-element">
           <mat-label>Otras Técnicas utilizadas (descripción y justificación de la técnica utilizada).</mat-label>
-          <textarea matInput rows="5" [(ngModel)]="pac.pac_domicilio" name="domicilio" ngDefaultControl ></textarea>
+          <textarea matInput rows="5" [(ngModel)]="pac.sesion_otras_tecnicas" name="sesion_otras_tecnicas" ngDefaultControl ></textarea>
         </mat-form-field>
       </div>
     <div class="col-12">
       <mat-form-field class="form-element">
         <mat-label>Tarea asignada. </mat-label>
-        <textarea matInput rows="5" [(ngModel)]="pac.pac_ocupacion" name="ocupacion" ngDefaultControl ></textarea>
+        <textarea matInput rows="5" [(ngModel)]="pac.sesion_tarea_asignada" name="sesion_tarea_asignada" ngDefaultControl ></textarea>
       </mat-form-field>
     </div>
     <div class="col-12">
       <mat-form-field class="form-element">
         <mat-label>Notas adicionales:</mat-label>
-        <textarea matInput rows="5" [(ngModel)]="pac.pac_email" name="email" ngDefaultControl></textarea>
+        <textarea matInput rows="5" [(ngModel)]="pac.sesion_notas_ad" name="sesion_notas_ad" ngDefaultControl></textarea>
       </mat-form-field>
     </div>
     <div class="col-12">
       <mat-form-field class="form-element">
         <mat-label>Recomendación de Supervisor:</mat-label>
-        <textarea matInput rows="5" [(ngModel)]="pac.pac_telefono" name="telefono" ngDefaultControl></textarea>
+        <textarea matInput rows="5" [(ngModel)]="pac.sesion_recomendacion_sup" name="sesion_recomendacion_sup" ngDefaultControl></textarea>
       </mat-form-field>
     </div>
     
     <div class="form-element">
-      <button mat-raised-button color="primary" type="button" class="button" (click)="RegistrarPac();">Registrar Sesión</button>
+      <button mat-raised-button color="primary" type="button" class="button" (click)="GuardarSesion();">Registrar Sesión</button>
     </div>
   </div>
 </div>

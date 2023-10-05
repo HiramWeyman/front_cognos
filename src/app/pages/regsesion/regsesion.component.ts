@@ -5,66 +5,66 @@ import { PacientesService } from '@services/pacientes.service';
 import { Subscription } from 'rxjs';
 import swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
+import { SesionService } from '@services/sesiones.service';
+import { Sesion } from '@/models/Sesion';
 @Component({
   selector: 'app-regsesion',
   templateUrl: './regsesion.component.html',
   styleUrls: ['./regsesion.component.scss']
 })
 export class RegsesionComponent {
-  pac:Pacientes=new Pacientes();
+pac:Sesion=new Sesion();
 private subscription: Subscription;
 public userId: any = null;
 public fnac: any = null;
 public fing: any = null;
 expediente!: any;
 constructor(
-  private _pac: PacientesService,
+  private _pac: SesionService,
   private router: Router,
   private datePipe: DatePipe
   
 ) {}
   ngOnInit(): void {
-    this.userId = sessionStorage.getItem('UserId');
+ 
     this.expediente=sessionStorage.getItem('Expediente');
-    console.log(this.userId);
     console.log(this.expediente);
   }
 
-  RegistrarPac() {
-    this.pac.pac_usr_id=this.userId ;
+  GuardarSesion(){
+  
+    this.pac.sesion_paciente_id=this.expediente;
     console.log(this.pac);
-    console.log(this.datePipe.transform(this.pac.pac_fecha_ingreso,"yyyy-MM-dd")); 
-    console.log(this.datePipe.transform(this.pac.pac_fecha_nacimiento,"yyyy-MM-dd")); 
-    this.fnac=this.datePipe.transform(this.pac.pac_fecha_nacimiento,"yyyy-MM-dd");
-    this.fing=this.datePipe.transform(this.pac.pac_fecha_ingreso,"yyyy-MM-dd");
-    this.pac.pac_fecha_ingreso= this.fing;
-    this.pac.pac_fecha_nacimiento= this.fnac;
-    console.log(this.pac);
-    this.subscription = this._pac.RegistroPacientes(this.pac)
-        .subscribe((data: any) => {
-            if ( data != null) {
-                console.log(data);
-                swal.fire({
-                    icon: 'success',
-                    title: 'Paciente Registrado',
-                    text: 'Registro Exitoso ',
-                    timer: 2000
-                });
-                this.router.navigate(['/pacientes']);
-                
-            } else{
-                swal.fire({
-                    icon: 'error',
-                    title: 'Ocurrio un error en el registro'
-                });
-            }	
-        },
-        error => {
-            //console.log(error.error.Message);
-            swal.fire({
-                title: 'ERROR!!!',
-                text: error.error.Message,
-                icon: 'error'});
-        });
-    }
+    this._pac.GuardarSesion(this.pac).subscribe(datos => {
+      
+      if(datos){
+        swal.fire('Guardando Datos', `Datos Guardados Exitosamente!`, 'success');
+        this.pac=new Sesion();
+        this.router.navigate(['/exp',this.expediente]);
+      }
+   
+
+    },error => {
+      console.log(error);
+      //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+    });
+  }
+
+
+    validateFormat(event) {
+      let key;
+      if (event.type === 'paste') {
+        key = event.clipboardData.getData('text/plain');
+      } else {
+        key = event.keyCode;
+        key = String.fromCharCode(key);
+      }
+      const regex = /[0-9]|\./;
+       if (!regex.test(key)) {
+        event.returnValue = false;
+         if (event.preventDefault) {
+          event.preventDefault();
+         }
+       }
+      }
 }

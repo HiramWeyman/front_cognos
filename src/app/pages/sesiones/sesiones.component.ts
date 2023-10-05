@@ -1,8 +1,13 @@
+import { Sesion } from '@/models/Sesion';
 import { Tabla2 } from '@/models/Tabla2';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { SesionService } from '@services/sesiones.service';
+import { DatePipe } from '@angular/common';
+import Swal from 'sweetalert2';
+import { SharednumberService } from '@services/sharednumber.service';
 
 @Component({
   selector: 'app-sesiones',
@@ -10,37 +15,69 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./sesiones.component.scss']
 })
 
-export class SesionesComponent {
-  constructor(private route: ActivatedRoute, private paginator: MatPaginatorIntl) {
+export class SesionesComponent implements OnInit{
+  sesiones: Sesion[];
+  fec:any;
+  expediente!: any;
+  Indextab:any;
+  constructor(private route: ActivatedRoute, private paginator: MatPaginatorIntl,private _se:SesionService,private datePipe: DatePipe,private sharednumber:SharednumberService) {
     this.paginator.itemsPerPageLabel = "Registros por página";
   }
-
-  displayedColumns2: string[] = ['fecha', 'sesion', 'coterapeuta', 'reporte'];
-  ELEMENT_DATA2: Tabla2[] = [
-    { fecha: '12/02/2023', sesion: 1, coterapeuta: 'Angel S - Juan' },
-    { fecha: '20/02/2023', sesion: 2, coterapeuta: 'Angel S - Juan' },
-    { fecha: '06/03/2023', sesion: 3, coterapeuta: 'Angel S - Juan' },
-    { fecha: '15/03/2023', sesion: 4, coterapeuta: 'Angel S - Juan' },
-    { fecha: '23/03/2023', sesion: 5, coterapeuta: 'Angel S - Juan' },
-    { fecha: '29/03/2023', sesion: 6, coterapeuta: 'Angel S - Juan' },
-    { fecha: '12/04/2023', sesion: 7, coterapeuta: 'Angel S - Juan' },
-    { fecha: '26/04/2023', sesion: 8, coterapeuta: 'Angel S - Juan' },
-    { fecha: '03/05/2023', sesion: 9, coterapeuta: 'Angel S - Juan' },
-    { fecha: '17/05/2023', sesion: 10, coterapeuta: 'Angel S - Juan' },
-    { fecha: '24/05/2023', sesion: 11, coterapeuta: 'Angel S - Juan' },
-
-  ];
-  dataSource2 = new MatTableDataSource(this.ELEMENT_DATA2);
-  @ViewChild('paginatorSecond') paginatorSecond: MatPaginator;
-
-  ngAfterViewInit() {
-    this.dataSource2.paginator = this.paginatorSecond;
+  ngOnInit(): void {
+    this.expediente=sessionStorage.getItem('Expediente');
+    this.sharednumber.numero$.subscribe(val=>
+      {
+        this.Indextab=val;
+        if(this.Indextab==12){
+          this.cargarSesiones();
+        }
+      });
+    
+   
   }
+
+  displayedColumns: string[] = ['sesion_fecha_captura', 'sesion_no', 'sesion_objetivo', 'sesion_tecnica_abc','sesion_tarea_asignada','reporte','acciones'];
+
+  dataSource;
+  @ViewChild('paginatorFirst') paginatorFirst: MatPaginator;
+
+  
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
-    this.dataSource2.filter = filterValue.trim().toLowerCase();
+  cargarSesiones() {
+    this._se.GetSesionList(this.expediente).subscribe(
+      se => {
+      
+        this.sesiones = se;
+        console.log(this.sesiones);
+        for(let i=0;i<this.sesiones.length;i++){
+          this.fec =this.datePipe.transform(this.sesiones[i].sesion_fecha_captura,"dd/MM/yyyy");
+          this.sesiones[i].sesion_fecha_captura= this.fec;
+        }
+        console.log(this.sesiones);
+        this.dataSource = new MatTableDataSource(this.sesiones);
+        /*  this.dataSource.paginator = this.paginator; */
+         this.dataSource.paginator = this.paginatorFirst;
+      }, error => {
+        //console.log(error);
+        Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
+  DeleteDatosSesion(id:number): void {
+    this._se.DelSesion(id).subscribe(dp => {
+      
+        Swal.fire('Borrando Sesión', `Sesión Eliminada!`, 'success');
+        this.ngOnInit();
+    
+    },error => {
+      console.log(error);
+      //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+    });
   }
 
   getNotas(){

@@ -73,6 +73,8 @@ import { RegpacienteComponent } from './pages/regpaciente/regpaciente.component'
 import {MAT_DATE_LOCALE} from '@angular/material/core';
 import {DatePipe} from '@angular/common';
 import { RegsesionComponent } from './pages/regsesion/regsesion.component';
+import { EditsesionComponent } from './pages/editsesion/editsesion.component';
+import { RepsesionComponent } from './pages/repsesion/repsesion.component';
 registerLocaleData(localeEn, 'en-EN');
 
 @NgModule({
@@ -116,6 +118,8 @@ registerLocaleData(localeEn, 'en-EN');
         VerinformeComponent,
         RegpacienteComponent,
         RegsesionComponent,
+        EditsesionComponent,
+        RepsesionComponent,
         
     /*     PacientesComponent, */
 

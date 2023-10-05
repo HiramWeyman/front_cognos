@@ -59,12 +59,12 @@ export class PacientesComponent implements OnInit {
       pac => {
       
         this.pacientes = pac;
-        console.log(this.pacientes);
+      /*   console.log(this.pacientes); */
         for(let i=0;i<this.pacientes.length;i++){
           this.fec =this.datePipe.transform(this.pacientes[i].pac_fecha_ingreso,"dd/MM/yyyy");
           this.pacientes[i].pac_fecha_ingreso= this.fec;
         }
-        console.log(this.pacientes);
+      /*   console.log(this.pacientes); */
         this.dataSource = new MatTableDataSource(this.pacientes);
         /*  this.dataSource.paginator = this.paginator; */
          this.dataSource.paginator = this.paginatorFirst;

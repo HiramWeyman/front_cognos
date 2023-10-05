@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AntecedentesService } from '@services/antecedentes.service';
 import swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
+import { SharednumberService } from '@services/sharednumber.service';
 
 @Component({
   selector: 'app-antecedentes',
@@ -16,7 +17,7 @@ export class AntecedentesComponent {
   expediente!: any;
   probmed:ProbMed= new ProbMed();
   probmedlist: ProbMed[];
-
+  Indextab: any ;
   prev:Previo= new Previo();
   prevlist: Previo[];
 
@@ -28,13 +29,21 @@ export class AntecedentesComponent {
   constructor(
     private _ant: AntecedentesService,
     private router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private sharednumber:SharednumberService
   ) { }
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
-    this.cargarProb();
-    this.cargarPrev();
-    this.cargarCons();
+    this.sharednumber.numero$.subscribe(val=>
+      {
+        this.Indextab=val;
+        if(this.Indextab==2){
+          this.cargarProb();
+          this.cargarPrev();
+          this.cargarCons();
+        }
+      });
+
   }
 
   GuardarProb(){
