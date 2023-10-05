@@ -2,6 +2,7 @@ import { Otras } from '@/models/Otras';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { OtrasService } from '@services/otras.service';
+import { SharednumberService } from '@services/sharednumber.service';
 import { Subscription } from 'rxjs';
 import swal from 'sweetalert2';
 @Component({
@@ -13,14 +14,23 @@ export class AreasconsiderarComponent {
   expediente!: any;
   otras:Otras= new Otras();
   habilita:boolean=false;
+  Indextab:any;
   private subscription: Subscription;
   constructor(
     private _otras: OtrasService,
-    private router: Router
+    private router: Router,
+    private sharednumber:SharednumberService
   ) { }
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
-    this.cargarOtras();
+    this.sharednumber.numero$.subscribe(val=>
+      {
+        this.Indextab=val;
+        if(this.Indextab==7){
+          this.cargarOtras();
+        }
+      });
+   
    
   }
 

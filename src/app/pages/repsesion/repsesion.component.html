@@ -1,0 +1,55 @@
+<div id="reporte" class="container" style="background-color: white">
+    <br>
+    <!--Titulo del Informe-->
+    <div class="row izq">
+      <div class="col">
+        <img src="assets/img/logoInforme.png">
+      </div>
+      <div class="col-1">
+      </div>
+      <div class="col">
+        <div style="float: right;">
+            <label>Maestría en Terapia Cognitivo Conductual </label><br>
+            <label>e Intervención en Crisis</label><br>
+            <label>Informe Clínico</label>
+        </div>
+      </div>
+    </div>
+    <!--Fin del titulo-->
+    <div class="izq">
+        <h4>Caso: {{pac.sesion_caso}}</h4><br>
+        <label>N° de sesión:{{pac.sesion_no}}</label><br>
+        <label>Terapeuta.   {{pac.terapeuta}}</label><br>
+        <label>Coterapeuta. {{pac.coterapeuta}}</label><br>
+        <label>Fecha. {{pac.sesion_fecha_captura}}</label><br><br>
+
+        <label>1. Objetivo general de la sesión</label><br>
+        <p>{{pac.sesion_objetivo}}</p><br>
+
+        <label>2. Revisión de Tarea asignada previamente.</label><br>
+        <label>Graduar los intentos del paciente para completar la tarea de la sesión pasada:</label><br>
+        <p>{{pac.rev_tarea_desc}}</p><br>
+
+        <label>3. Técnica de ABC. (Sólo si se trabajó un ABC)</label><br>
+        <p>{{pac.sesion_tecnica_abc}}</p><br>
+
+        <label>4. Otras Técnicas utilizadas (descripción y justificación de la técnica utilizada)</label><br>
+        <p>{{pac.sesion_otras_tecnicas}}</p><br>
+
+        <label>5. Tarea asignada.</label><br>
+        <p>{{pac.sesion_tarea_asignada}}</p><br>
+
+        <label>Notas adicionales.</label><br>
+        <p>{{pac.sesion_notas_ad}}</p><br>
+
+        <label>Recomendación de Supervisor. </label><br>
+        <p>{{pac.sesion_recomendacion_sup}}</p><br>
+        
+    </div><br>
+
+  </div>
+  <div class="contenedor">
+    <button class="btn btn-danger sm" (click)="onExportClick()">Exportar PDF</button>
+    <button class="btn btn-primary sm mt-2" [routerLink]="['/exp',expediente]">Regresar </button>
+</div>
+

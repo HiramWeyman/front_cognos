@@ -2,6 +2,7 @@ import { Evolucion } from '@/models/Evolucion';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { EvolucionService } from '@services/evolucion.service';
+import { SharednumberService } from '@services/sharednumber.service';
 import { Subscription } from 'rxjs';
 import swal from 'sweetalert2';
 @Component({
@@ -15,14 +16,23 @@ export class EvoproblemaComponent {
   expediente!: any;
   evolucion:Evolucion= new Evolucion();
   habilita:boolean=false;
+  Indextab: any;
   private subscription: Subscription;
   constructor(
     private _evo: EvolucionService,
-    private router: Router
+    private router: Router,
+    private sharednumber:SharednumberService
   ) { }
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
-    this.cargarEvolucion();
+    this.sharednumber.numero$.subscribe(val=>
+      {
+        this.Indextab=val;
+        if(this.Indextab==5){
+          this.cargarEvolucion();
+        }
+      });
+   
    
   }
 

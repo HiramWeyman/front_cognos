@@ -2,6 +2,7 @@ import { Consulta } from '@/models/Consulta';
 import { ProbObj } from '@/models/ProbObj';
 import { Component } from '@angular/core';
 import { ProblematicaService } from '@services/problematica.service';
+import { SharednumberService } from '@services/sharednumber.service';
 import swal from 'sweetalert2';
 @Component({
   selector: 'app-problematica',
@@ -15,13 +16,21 @@ export class ProblematicaComponent {
   cons:Consulta= new Consulta();
   problist: ProbObj[];
   habilita:boolean=false;
+  Indextab: any ;
   constructor(
-    private _pr: ProblematicaService,
+    private _pr: ProblematicaService,private sharednumber:SharednumberService
   ) { }
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
-    this.cargarProb();
-    this.cargarConsulta();
+    this.sharednumber.numero$.subscribe(val=>
+      {
+        this.Indextab=val;
+        if(this.Indextab==3){
+          this.cargarProb();
+          this.cargarConsulta();
+        }
+      });
+  
   }
 
 

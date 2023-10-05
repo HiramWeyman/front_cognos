@@ -17,6 +17,8 @@ import { DatosexpComponent } from '@pages/datosexp/datosexp.component';
 import { VerinformeComponent } from '@pages/verinforme/verinforme.component';
 import { RegpacienteComponent } from '@pages/regpaciente/regpaciente.component';
 import { RegsesionComponent } from '@pages/regsesion/regsesion.component';
+import { EditsesionComponent } from '@pages/editsesion/editsesion.component';
+import { RepsesionComponent } from '@pages/repsesion/repsesion.component';
 
 const routes: Routes = [
     {
@@ -44,6 +46,14 @@ const routes: Routes = [
             {
                 path: 'regsesion',
                 component: RegsesionComponent
+            },
+            {
+                path:'editsesion/:idx', 
+                component: EditsesionComponent
+            },
+            {
+                path:'repsesion/:idx', 
+                component: RepsesionComponent
             },
             {
                 path:'exp/:id', 

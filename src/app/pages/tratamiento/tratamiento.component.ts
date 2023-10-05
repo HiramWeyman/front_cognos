@@ -1,5 +1,6 @@
 import { Tratamiento } from '@/models/Tratamiento';
 import { Component } from '@angular/core';
+import { SharednumberService } from '@services/sharednumber.service';
 import { TratamientoService } from '@services/tratamiento.service';
 import swal from 'sweetalert2';
 @Component({
@@ -11,13 +12,22 @@ export class TratamientoComponent {
   expediente!: any;
   trata:Tratamiento= new Tratamiento();
   tratalist: Tratamiento[];
+  Indextab:any;
   constructor(
-    private _tr: TratamientoService,
+    private _tr: TratamientoService, private sharednumber:SharednumberService
   ) { }
 
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
-    this.cargarTrata();
+    this.sharednumber.numero$.subscribe(val=>
+      {
+        this.Indextab=val;
+        if(this.Indextab==10){
+          this.cargarTrata();
+        }
+      });
+   
+    
    
   }
 

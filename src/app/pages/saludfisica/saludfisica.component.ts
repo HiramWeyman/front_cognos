@@ -1,7 +1,8 @@
 import { SaludFM } from '@/models/SaludFM';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SaludfmService } from '@services/saludfm.service';
+import { SharednumberService } from '@services/sharednumber.service';
 import { Subscription } from 'rxjs';
 import swal from 'sweetalert2';
 declare var CKEDITOR: any;
@@ -12,59 +13,40 @@ declare var CKEDITOR: any;
 })
 
 
-export class SaludfisicaComponent {
+export class SaludfisicaComponent implements OnInit{
   Sueno: string = '<p>Sueño</p>';
   Alimentacion: string = '<p>Alimentación</p>';
   ActFisica: string = '<p>Actividad Fisica</p>';
   expediente!: any;
+  Indextab: any ;
   salud:SaludFM= new SaludFM();
   habilita:boolean=false;
+  v
   private subscription: Subscription;
   constructor(
     private _salu: SaludfmService,
-    private router: Router
+    private router: Router,
+    private sharednumber:SharednumberService
   ) { }
+
+  numero$ = this.sharednumber.numero$
   ngOnInit(): void {
     
     this.expediente=sessionStorage.getItem('Expediente');
- /*    console.log('Expediente');
-    console.log(this.expediente); */
-    this.cargarSalud();
+    this.sharednumber.numero$.subscribe(val=>
+      {
+        this.Indextab=val;
+        if(this.Indextab==1){
+          this.cargarSalud();
+        }
+      });
    
   }
-/*   Guardar(){
-    console.log(this.expediente);
-    console.log(this.salud);
-    this.salud.salud_paciente_id=this.expediente;
-    this._salu.GuardarSalud(this.salud)
-        .subscribe((data: any) => {
-          if(data!=null){
-            swal.fire({
-              icon: 'success',
-              title: 'Guardando Datos',
-              text: 'Datos Guardados Exitosamente ',
-              timer: 2000
-          });
-          }
-          else{
-            swal.fire({
-              icon: 'error',
-              title: 'Guardando Datos',
-              text: 'Ocurrio un error al guardar ',
-              timer: 2000
-          });
-          }
-        this.ngOnInit();
-        },
-        error => {
-            //console.log(error.error.Message);
-            swal.fire({
-                title: 'ERROR!!!',
-                text: error.error.Message,
-                icon: 'error'});
-        });
-  }
- */
+
+/*   ngAfterViewInit(){
+    console.log(this.sharednumber.resp());
+  } */
+
 
   Guardar(){
     console.log(this.expediente);

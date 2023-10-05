@@ -2,6 +2,7 @@ import { Diagnostico } from '@/models/Diagnostico';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DiagnosticoService } from '@services/diagnostico.service';
+import { SharednumberService } from '@services/sharednumber.service';
 import { Subscription } from 'rxjs';
 import swal from 'sweetalert2';
 
@@ -15,14 +16,24 @@ export class DiagnosticoComponent {
   expediente!: any;
   diag:Diagnostico= new Diagnostico();
   habilita:boolean=false;
+  Indextab:any;
   private subscription: Subscription;
   constructor(
     private _diag: DiagnosticoService,
-    private router: Router
+    private router: Router,
+    private sharednumber:SharednumberService
   ) { }
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
-    this.cargarDiagnostico();
+    this.sharednumber.numero$.subscribe(val=>
+      {
+        this.Indextab=val;
+        if(this.Indextab==8){
+          this.cargarDiagnostico();
+        }
+      });
+   
+    
    
   }
 
