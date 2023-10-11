@@ -14,4 +14,5 @@ export class Pacientes {
     pac_telefono: string;
     pac_domicilio: string;
     pac_usr_id: number;
+    pac_tutor:number;
 }

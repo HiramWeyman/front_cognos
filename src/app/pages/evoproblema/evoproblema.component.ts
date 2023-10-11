@@ -14,6 +14,7 @@ export class EvoproblemaComponent {
   evoproblema: string = '<p>Evoloción de problema</p>';
 
   expediente!: any;
+  Sessiontab!: any;
   evolucion:Evolucion= new Evolucion();
   habilita:boolean=false;
   Indextab: any;
@@ -25,10 +26,11 @@ export class EvoproblemaComponent {
   ) { }
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
+    this.Sessiontab=sessionStorage.getItem('IndexTab');
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
-        if(this.Indextab==5){
+        if(this.Indextab==5||this.Sessiontab==5){
           this.cargarEvolucion();
         }
       });
@@ -38,6 +40,14 @@ export class EvoproblemaComponent {
 
   Guardar(){
   
+    if(!this.evolucion.evo_factores){
+      swal.fire('Guardando Datos', `Escriba una descripción en Factores predisponentes o de vulnerabilidad!`, 'info');
+      return;
+    }
+    if(!this.evolucion.evo_curso_problema){
+      swal.fire('Guardando Datos', `Escriba una descripción en Aparición y curso del problema.!`, 'info');
+      return;
+    }
     this.evolucion.evo_paciente_id=this.expediente;
     this._evo.GuardarEvo(this.evolucion).subscribe(datos => {
       

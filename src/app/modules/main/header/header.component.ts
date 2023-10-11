@@ -34,6 +34,12 @@ export class HeaderComponent implements OnInit {
     }
 
     logout() {
+        sessionStorage.removeItem('Expediente');
+        sessionStorage.removeItem('IndexTab');
+        sessionStorage.removeItem('UserMail');
+        sessionStorage.removeItem('UserId');
+        sessionStorage.removeItem('UserPerfil');
+        sessionStorage.removeItem('UserName');
         this.appService.logout();
     }
 

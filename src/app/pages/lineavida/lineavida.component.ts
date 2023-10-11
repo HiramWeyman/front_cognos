@@ -10,6 +10,7 @@ import swal from 'sweetalert2';
 })
 export class LineavidaComponent {
   expediente!: any;
+  Sessiontab!: any;
   linea:LineaVida= new LineaVida();
   linealist: LineaVida[];
   Indextab:any;
@@ -19,10 +20,11 @@ export class LineavidaComponent {
 
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
+    this.Sessiontab=sessionStorage.getItem('IndexTab');
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
-        if(this.Indextab==6){
+        if(this.Indextab==6||this.Sessiontab==6){
           this.cargarLinea();
         }
       });

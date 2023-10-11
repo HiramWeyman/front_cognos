@@ -18,6 +18,7 @@ export class SaludfisicaComponent implements OnInit{
   Alimentacion: string = '<p>Alimentación</p>';
   ActFisica: string = '<p>Actividad Fisica</p>';
   expediente!: any;
+  Sessiontab!: any;
   Indextab: any ;
   salud:SaludFM= new SaludFM();
   habilita:boolean=false;
@@ -33,10 +34,11 @@ export class SaludfisicaComponent implements OnInit{
   ngOnInit(): void {
     
     this.expediente=sessionStorage.getItem('Expediente');
+    this.Sessiontab=sessionStorage.getItem('IndexTab');
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
-        if(this.Indextab==1){
+        if(this.Indextab==1||this.Sessiontab==1){
           this.cargarSalud();
         }
       });

@@ -19,6 +19,7 @@ export class GeneralesComponent implements OnInit{
   private subscription: Subscription;
   public ExpedienteId: any = null;
   public Indextab: any = null;
+  public Sessiontab: any = null;
   public fnac: any = null;
   public fing: any = null;
   fec: any;
@@ -30,15 +31,15 @@ export class GeneralesComponent implements OnInit{
   ) { }
   ngOnInit(): void {
     this.ExpedienteId = sessionStorage.getItem('Expediente');
-
-
-    this.sharednumber.numero$.subscribe(val=>
+    this.Sessiontab=sessionStorage.getItem('IndexTab');
+    this.cargarPacientes();
+ /*    this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
-        if(this.Indextab==0){
-          this.cargarPacientes();
+        if(this.Indextab==0||this.Sessiontab==0){
+         
         }
-      });
+      }); */
     
   }
 

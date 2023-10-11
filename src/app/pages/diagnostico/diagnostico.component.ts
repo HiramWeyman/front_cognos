@@ -14,6 +14,7 @@ import swal from 'sweetalert2';
 export class DiagnosticoComponent {
   diagnostico: string = '<p>Diagnostico</p>';
   expediente!: any;
+  Sessiontab!: any;
   diag:Diagnostico= new Diagnostico();
   habilita:boolean=false;
   Indextab:any;
@@ -25,10 +26,11 @@ export class DiagnosticoComponent {
   ) { }
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
+    this.Sessiontab=sessionStorage.getItem('IndexTab');
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
-        if(this.Indextab==8){
+        if(this.Indextab==8||this.Sessiontab==8){
           this.cargarDiagnostico();
         }
       });

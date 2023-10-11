@@ -105,6 +105,18 @@
         <textarea matInput [(ngModel)]="pac.pac_domicilio" name="domicilio" ngDefaultControl ></textarea>
       </mat-form-field>
     </div>
+    <div class="col-12">
+      <div class="col-sm">
+        <mat-form-field class="form-element">
+          <mat-label>Tutor:</mat-label>
+          <mat-select [(ngModel)]="pac.pac_tutor" name="sesion_coterapeuta" ngDefaultControl>
+            <mat-option value="0" selected>--Seleccione Tutor--</mat-option>
+            <mat-option *ngFor="let a of tutor" value={{a.usr_id}}>{{a.usr_paterno}} {{a.usr_materno}} {{a.usr_nombre}}</mat-option>
+     
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
     <div class="form-element">
       <button mat-raised-button color="primary" type="button" class="button" (click)="RegistrarPac();">Registrar Paciente</button>
     </div>
