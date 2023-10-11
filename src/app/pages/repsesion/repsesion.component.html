@@ -31,7 +31,35 @@
         <p>{{pac.rev_tarea_desc}}</p><br>
 
         <label>3. Técnica de ABC. (Sólo si se trabajó un ABC)</label><br>
-        <p>{{pac.sesion_tecnica_abc}}</p><br>
+        <table border="1">
+          <tr>
+            <th>Evento activador (A) + Inferencias</th> 
+            <th>Pensamientos/Creencias irracionales (B)</th> 
+            <th>Consecuencias (C) emocionales, conductuales y fisiológicas</th>
+          </tr>
+          <tr>
+            <td><div [innerHTML]="pac.sesion_evento_act"></div></td> 
+            <td><div [innerHTML]="pac.sesion_pensamientos_cre"></div></td> 
+            <td><div [innerHTML]="pac.sesion_consecuencia_emo"></div></td> 
+          </tr>
+        
+        </table><br>
+
+        <label>Objetivos a lograr en la sesión.</label><br>
+        <label>Emocional.</label><br>
+        <p>{{pac.sesion_obj_emo}}</p><br>
+
+        <label>Conductual.</label><br>
+        <p>{{pac.sesion_obj_cond}}</p><br>
+
+        <label>Prácticos (si aplica, justifica).</label><br>
+        <p>{{pac.sesion_obj_prac}}</p><br>
+
+        <label>Preguntas de debate.</label><br>
+        <p>{{pac.sesion_preguntas_debate}}</p><br>
+
+        <label>Técnicas o estrategias terapéuticas .</label><br>
+        <p>{{pac.sesion_tecnicas_estrategias}}</p><br>
 
         <label>4. Otras Técnicas utilizadas (descripción y justificación de la técnica utilizada)</label><br>
         <p>{{pac.sesion_otras_tecnicas}}</p><br>

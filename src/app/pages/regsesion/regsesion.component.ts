@@ -34,6 +34,8 @@ constructor(
   GuardarSesion(){
   
     this.pac.sesion_paciente_id=this.expediente;
+    this.pac.sesion_caso=this.expediente;
+  
     console.log(this.pac);
     this._pac.GuardarSesion(this.pac).subscribe(datos => {
       

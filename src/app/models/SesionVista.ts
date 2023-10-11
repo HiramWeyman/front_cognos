@@ -7,6 +7,20 @@ export class SesionVista {
     sesion_objetivo: string;
     sesion_rev_tarea: number
     sesion_tecnica_abc: string;
+
+    sesion_evento_act : string;
+    sesion_pensamientos_cre : string;
+    sesion_consecuencia_emo : string;
+  
+    sesion_obj_emo : string;
+    sesion_obj_cond : string;
+    sesion_obj_prac : string;
+  
+    sesion_preguntas_debate : string;
+    sesion_tecnicas_estrategias : string;
+  
+    sesion_abc_tareas  : string;
+    
     sesion_otras_tecnicas: string;
     sesion_tarea_asignada: string;
     sesion_notas_ad: string;
