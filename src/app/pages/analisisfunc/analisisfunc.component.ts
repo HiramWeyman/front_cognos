@@ -15,6 +15,7 @@ export class AnalisisfuncComponent {
   conducta: string = '<p>Conducta</p>';
   consecuentes: string = '<p>Consecuentes</p>';
   expediente!: any;
+  Sessiontab!: any;
   analisis:AnalisisFU= new AnalisisFU();
   habilita:boolean=false;
   Indextab: any ;
@@ -26,10 +27,11 @@ export class AnalisisfuncComponent {
   ) { }
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
+    this.Sessiontab=sessionStorage.getItem('IndexTab');
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
-        if(this.Indextab==4){
+        if(this.Indextab==4||this.Sessiontab==4){
           this.cargarAnalisis();
         }
       });

@@ -29,6 +29,20 @@ export class PacientesService {
     );
   }
 
+ 
+
+  GetPacientesTutor(id:number): Observable<Pacientes[]> {
+    return this.http.get(`${environment.rutaAPI}` + '/Tutores?id='+id).pipe(
+      map(response => response as Pacientes[])
+    );
+  } 
+
+  GetTutores(): Observable<Pacientes[]> {
+    return this.http.get(`${environment.rutaAPI}` + '/UsuarioRole?id=4').pipe(
+      map(response => response as Pacientes[])
+    );
+  } 
+
   GetPaciente(id:number): Observable<Pacientes> {
     return this.http.get(`${environment.rutaAPI}` + '/Pacientes/'+id).pipe(
       map(response => response as Pacientes)

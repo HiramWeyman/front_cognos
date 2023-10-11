@@ -29,6 +29,7 @@
           <th scope="col">#</th>
           <th scope="col">Problemas</th>
           <th scope="col">Objetivos</th>
+          <th scope="col">Técnica</th>
           <th scope="col">Acciones</th>
         </tr>
       </thead>
@@ -37,6 +38,7 @@
           <th scope="row">{{i+1}}</th>
           <td>{{p.pro_problema}}</td>
           <td>{{p.pro_objetivo}}</td>
+          <td>{{p.pro_tecnica}}</td>
           <td>
             <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#prob" data-backdrop="false" (click)="getDatosProb(p.pro_id)">Editar</button>
             <button class="btn btn-danger btn-sm" (click)="DeleteDatosProb(p.pro_id)">Quitar</button>
@@ -67,6 +69,10 @@
           <div class="form-group">
             <label for="exampleInputPassword1">Objetivo.</label>
             <textarea rows="4" cols="5" class="form-control" [(ngModel)]="prob.pro_objetivo"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Técnica.</label>
+            <textarea rows="4" cols="5" class="form-control" [(ngModel)]="prob.pro_tecnica"></textarea>
           </div>
         </div>
       </div>

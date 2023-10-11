@@ -12,6 +12,7 @@ import swal from 'sweetalert2';
 export class ProblematicaComponent {
   consulta: string = '<p>Consulta</p>';
   expediente!: any;
+  Sessiontab!: any;
   prob:ProbObj= new ProbObj();
   cons:Consulta= new Consulta();
   problist: ProbObj[];
@@ -22,10 +23,11 @@ export class ProblematicaComponent {
   ) { }
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
+    this.Sessiontab=sessionStorage.getItem('IndexTab');
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
-        if(this.Indextab==3){
+        if(this.Indextab==3||this.Sessiontab==3){
           this.cargarProb();
           this.cargarConsulta();
         }

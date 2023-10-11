@@ -10,6 +10,7 @@ import swal from 'sweetalert2';
 })
 export class TratamientoComponent {
   expediente!: any;
+  Sessiontab!: any;
   trata:Tratamiento= new Tratamiento();
   tratalist: Tratamiento[];
   Indextab:any;
@@ -19,10 +20,11 @@ export class TratamientoComponent {
 
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
+    this.Sessiontab=sessionStorage.getItem('IndexTab');
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
-        if(this.Indextab==10){
+        if(this.Indextab==11||this.Sessiontab==11){
           this.cargarTrata();
         }
       });

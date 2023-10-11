@@ -15,9 +15,11 @@ import { SharednumberService } from '@services/sharednumber.service';
 })
 export class AntecedentesComponent {
   expediente!: any;
+  Sessiontab!: any;
   probmed:ProbMed= new ProbMed();
   probmedlist: ProbMed[];
   Indextab: any ;
+  
   prev:Previo= new Previo();
   prevlist: Previo[];
 
@@ -34,10 +36,11 @@ export class AntecedentesComponent {
   ) { }
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
+    this.Sessiontab=sessionStorage.getItem('IndexTab');
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
-        if(this.Indextab==2){
+        if(this.Indextab==2||this.Sessiontab==2){
           this.cargarProb();
           this.cargarPrev();
           this.cargarCons();

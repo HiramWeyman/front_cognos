@@ -19,16 +19,18 @@ export class SesionesComponent implements OnInit{
   sesiones: Sesion[];
   fec:any;
   expediente!: any;
+  Sessiontab!: any;
   Indextab:any;
   constructor(private route: ActivatedRoute, private paginator: MatPaginatorIntl,private _se:SesionService,private datePipe: DatePipe,private sharednumber:SharednumberService) {
     this.paginator.itemsPerPageLabel = "Registros por página";
   }
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
+    this.Sessiontab=sessionStorage.getItem('IndexTab');
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
-        if(this.Indextab==12){
+        if(this.Indextab==13||this.Sessiontab==13){
           this.cargarSesiones();
         }
       });

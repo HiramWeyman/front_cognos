@@ -29,11 +29,23 @@ export interface PeriodicElement {
 export class PacientesComponent implements OnInit {
   pacientes: Pacientes[];
   fec:any;
+  perfil:any;
+  usuario_id:any;
   constructor(private router: Router,private paginator: MatPaginatorIntl, private _pac: PacientesService, private datePipe: DatePipe) {
     this.paginator.itemsPerPageLabel = "Registros por página";
   }
   ngOnInit(): void {
-    this.cargarPacientes();
+    this.perfil=sessionStorage.getItem('UserPerfil');
+    this.usuario_id=sessionStorage.getItem('UserId');
+    console.log(this.perfil);
+    if(this.perfil==1){
+      this.cargarPacientes();
+    }
+    else if(this.perfil==4){
+      this.cargarPacientesTutor();
+    }
+    console.log(this.usuario_id);
+   
   }
   displayedColumns: string[] = ['pac_id', 'pac_nombre', 'pac_telefono', 'pac_fecha_ingreso','expediente'];
 /*   dataSource = ELEMENT_DATA; */
@@ -56,6 +68,27 @@ export class PacientesComponent implements OnInit {
 
   cargarPacientes() {
     this._pac.GetPacientes().subscribe(
+      pac => {
+      
+        this.pacientes = pac;
+      /*   console.log(this.pacientes); */
+        for(let i=0;i<this.pacientes.length;i++){
+          this.fec =this.datePipe.transform(this.pacientes[i].pac_fecha_ingreso,"dd/MM/yyyy");
+          this.pacientes[i].pac_fecha_ingreso= this.fec;
+        }
+      /*   console.log(this.pacientes); */
+        this.dataSource = new MatTableDataSource(this.pacientes);
+        /*  this.dataSource.paginator = this.paginator; */
+         this.dataSource.paginator = this.paginatorFirst;
+      }, error => {
+        //console.log(error);
+        Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
+
+  cargarPacientesTutor() {
+    this._pac.GetPacientesTutor(this.usuario_id).subscribe(
       pac => {
       
         this.pacientes = pac;
