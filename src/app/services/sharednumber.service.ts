@@ -8,8 +8,8 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class SharednumberService {
- 
-  numeroSubject$ = new BehaviorSubject("MY NUMERO")
+  Sessiontab=sessionStorage.getItem('IndexTab');
+  numeroSubject$ = new BehaviorSubject(this.Sessiontab)
   numero$: Observable<string> = this.numeroSubject$.asObservable();
   updateNumero(newNumero: string) {
     this.numeroSubject$.next(newNumero)
