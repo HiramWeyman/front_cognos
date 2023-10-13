@@ -23,6 +23,7 @@ export class GeneralesComponent implements OnInit{
   public fnac: any = null;
   public fing: any = null;
   fec: any;
+  tutor: any[];
   constructor(
     private _pac: PacientesService,
     private router: Router,
@@ -33,6 +34,7 @@ export class GeneralesComponent implements OnInit{
     this.ExpedienteId = sessionStorage.getItem('Expediente');
     this.Sessiontab=sessionStorage.getItem('IndexTab');
     this.cargarPacientes();
+    this.cargarTutores();
  /*    this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
@@ -71,10 +73,23 @@ export class GeneralesComponent implements OnInit{
     this._pac.GetPaciente(this.ExpedienteId).subscribe(
       pac => {
         this.pac = pac;
-        //console.log(this.pac);
+        console.log(this.pac);
+       
       }, error => {
         //console.log(error);
         swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
+  cargarTutores() {
+    this._pac.GetTutores().subscribe(
+      fu => {
+        this.tutor = fu;
+        console.log(this.tutor);
+        
+      }, error => {
+        console.log(error);
+        //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
       });
   }
 }
