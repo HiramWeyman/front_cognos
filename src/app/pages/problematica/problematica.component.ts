@@ -43,6 +43,7 @@ export class ProblematicaComponent {
         if(this.Indextab==3||this.Sessiontab==3){
           this.cargarProb();
           this.cargarConsulta();
+          console.log();
           this.cargarComentarios();
         }
       });
@@ -190,7 +191,9 @@ export class ProblematicaComponent {
   }
 
   cargarComentarios() {
-    this._com.GetComentariosList(this.Indextab,this.expediente).subscribe(
+    var indice:number=Number(this.Indextab);
+    var id_expediente:number=Number(this.expediente);
+    this._com.GetComentariosList(indice,id_expediente).subscribe(
       se => {
       
         this.comentarios = se;

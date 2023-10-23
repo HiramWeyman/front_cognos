@@ -304,7 +304,9 @@ export class AntecedentesComponent {
   }
 
   cargarComentarios() {
-    this._com.GetComentariosList(this.Indextab,this.expediente).subscribe(
+    var indice:number=Number(this.Indextab);
+    var id_expediente:number=Number(this.expediente);
+    this._com.GetComentariosList(indice,id_expediente).subscribe(
       se => {
       
         this.comentarios = se;
