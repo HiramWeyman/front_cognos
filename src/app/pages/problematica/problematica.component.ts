@@ -60,6 +60,7 @@ export class ProblematicaComponent {
         swal.fire('Guardando Datos', `Datos Guardados Exitosamente!`, 'success');
         this.prob.pro_problema='';
         this.prob.pro_objetivo='';
+        this.prob.pro_tecnica='';
       }
       this.ngOnInit();
 
@@ -168,10 +169,10 @@ export class ProblematicaComponent {
   GuardarComentario(){
     console.log(this.expediente);
     console.log(this.com);
-    this.com.com_index=this.Sessiontab;
+    this.com.com_index=Number(this.Indextab);
+    this.com.com_paciente_id=Number(this.expediente);
+    this.com.com_usuario_id=Number(this.UsuarioId);
     this.com.com_nombre_usuario=this.UsuarioNombre;
-    this.com.com_usuario_id=this.UsuarioId;
-    this.com.com_paciente_id=this.expediente;
     if(!this.com.com_comentario){
       swal.fire('Guardando Comentario', `Debe escribir un comentario!`, 'info');
       return;

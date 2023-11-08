@@ -19,6 +19,7 @@ import { RegpacienteComponent } from '@pages/regpaciente/regpaciente.component';
 import { RegsesionComponent } from '@pages/regsesion/regsesion.component';
 import { EditsesionComponent } from '@pages/editsesion/editsesion.component';
 import { RepsesionComponent } from '@pages/repsesion/repsesion.component';
+import { EnviopruebasComponent } from '@pages/enviopruebas/enviopruebas.component';
 
 const routes: Routes = [
     {
@@ -46,6 +47,10 @@ const routes: Routes = [
             {
                 path: 'regsesion',
                 component: RegsesionComponent
+            },
+            {
+                path: 'pruebas',
+                component: EnviopruebasComponent
             },
             {
                 path:'editsesion/:idx', 

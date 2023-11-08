@@ -75,6 +75,7 @@ import {DatePipe} from '@angular/common';
 import { RegsesionComponent } from './pages/regsesion/regsesion.component';
 import { EditsesionComponent } from './pages/editsesion/editsesion.component';
 import { RepsesionComponent } from './pages/repsesion/repsesion.component';
+import { EnviopruebasComponent } from './pages/enviopruebas/enviopruebas.component';
 
 registerLocaleData(localeEn, 'en-EN');
 
@@ -121,6 +122,7 @@ registerLocaleData(localeEn, 'en-EN');
         RegsesionComponent,
         EditsesionComponent,
         RepsesionComponent,
+        EnviopruebasComponent,
      
         
     /*     PacientesComponent, */

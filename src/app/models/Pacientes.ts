@@ -8,6 +8,7 @@ export class Pacientes {
     pac_edad:number;
     pac_genero:number;
     pac_edocivil:number;
+    pac_estructura_fam:string;
     pac_escolaridad:number;
     pac_ocupacion:string;
     pac_email: string;
@@ -15,4 +16,6 @@ export class Pacientes {
     pac_domicilio: string;
     pac_usr_id: number;
     pac_tutor:number;
+    pac_terapeuta:number;
+    pac_coterapeuta:number;
 }
