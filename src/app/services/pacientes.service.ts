@@ -7,6 +7,7 @@ import { environment } from 'environments/environment';
 import { Login } from '@/models/Login';
 import { Observable, map } from 'rxjs';
 import { Pacientes } from '@/models/Pacientes';
+import { Terapeutas } from '@/models/Terapeutas';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,12 @@ export class PacientesService {
   GetTutores(): Observable<Pacientes[]> {
     return this.http.get(`${environment.rutaAPI}` + '/UsuarioRole?id=4').pipe(
       map(response => response as Pacientes[])
+    );
+  } 
+
+  GetTerapeutas(): Observable<Terapeutas[]> {
+    return this.http.get(`${environment.rutaAPI}` + '/Terapeuta').pipe(
+      map(response => response as Terapeutas[])
     );
   } 
 
