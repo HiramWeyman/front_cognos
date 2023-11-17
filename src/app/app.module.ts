@@ -76,6 +76,7 @@ import { RegsesionComponent } from './pages/regsesion/regsesion.component';
 import { EditsesionComponent } from './pages/editsesion/editsesion.component';
 import { RepsesionComponent } from './pages/repsesion/repsesion.component';
 import { EnviopruebasComponent } from './pages/enviopruebas/enviopruebas.component';
+import { BlockUIModule } from 'ng-block-ui';
 
 registerLocaleData(localeEn, 'en-EN');
 
@@ -154,6 +155,7 @@ registerLocaleData(localeEn, 'en-EN');
         MatTreeModule,
         MatToolbarModule,
         BrowserAnimationsModule,
+        BlockUIModule.forRoot(),
         ToastrModule.forRoot({
             timeOut: 3000,
             positionClass: 'toast-top-right',

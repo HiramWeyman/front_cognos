@@ -67,6 +67,61 @@
       </div>
 
       <div class="container">
+        <label>Archivos de Imagen Para Pruebas de Test SCL 90 R y Test SCID2</label><br>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre de la prueba</th>
+                <th scope="col">Subir archivo</th>
+                <th scope="col">Actualizar archivo</th>
+                <th scope="col">Eliminar archivo</th>
+
+               
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Image Test SCL 90 R</td>
+                <td>
+                  <div class="mb-3">
+                    <input class="form-control" #myInputSCL  type="file" id="formFile" (change)="seleccionarPrueba($event);" [disabled]="habilitaSCL==true">
+                  </div>
+                  <button class="btn btn-primary btn-sm" (click)="guardar(1)" [disabled]="habilitaSCL==true" >Guardar</button>
+                </td>
+                <td>
+                  <div class="mb-3">
+                    <input class="form-control" #myInputSCLup type="file" id="formFile" (change)="seleccionarPrueba($event);">
+                  </div>
+                  <button class="btn btn-primary btn-sm" (click)="Actualizar(1)">Actualizar</button>
+                </td>
+                <td><button class="btn btn-danger btn-sm" (click)="Delete(1)">Eliminar</button></td>
+              </tr>
+    
+              <tr>
+                <th scope="row">2</th>
+                <td>Test SCID2</td>
+                <td>
+                  <div class="mb-3">
+                    <input class="form-control" type="file" #myInputSCID  id="formFile" (change)="seleccionarPrueba($event);" [disabled]="habilitaSCID==true">
+                  </div>
+                  <button class="btn btn-primary btn-sm" (click)="guardar(2)" [disabled]="habilitaSCID==true" >Guardar</button>
+                </td>
+                <td>
+                  <div class="mb-3">
+                    <input class="form-control" type="file" #myInputSCIDup id="formFile" (change)="seleccionarPrueba($event);">
+                  </div>
+                  <button class="btn btn-primary btn-sm" (click)="Actualizar(2)">Actualizar</button></td>
+                <td><button class="btn btn-danger btn-sm" (click)="Delete(2)">Eliminar</button></td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+
+
+
+      <div class="container">
         <label>Archivos de Descarga Para Alumnos.</label><br>
         <table class="table table-bordered">
             <thead>

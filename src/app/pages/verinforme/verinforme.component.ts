@@ -1,6 +1,7 @@
 import { AnalisisFU } from '@/models/AnalisisFU';
 import { Consulta } from '@/models/Consulta';
 import { Consumo } from '@/models/Consumo';
+import { Creencias } from '@/models/Creencias';
 import { Diagnostico } from '@/models/Diagnostico';
 import { Evolucion } from '@/models/Evolucion';
 import { FormCaso } from '@/models/FormCaso';
@@ -15,11 +16,12 @@ import { SaludFM } from '@/models/SaludFM';
 import { Sesion } from '@/models/Sesion';
 import { Tratamiento } from '@/models/Tratamiento';
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { AnalisisFuService } from '@services/analisisfu.service';
 import { AntecedentesService } from '@services/antecedentes.service';
+import { CreenciasService } from '@services/creencias.service';
 import { DiagnosticoService } from '@services/diagnostico.service';
 import { EvolucionService } from '@services/evolucion.service';
 import { FormCasoService } from '@services/formcaso.service';
@@ -32,6 +34,7 @@ import { SesionService } from '@services/sesiones.service';
 import { TratamientoService } from '@services/tratamiento.service';
 import * as html2pdf from 'html2pdf.js';
 import Swal from 'sweetalert2';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-verinforme',
@@ -59,7 +62,8 @@ export class VerinformeComponent {
   tratalist: Tratamiento[];
   sesiones: Sesion[];
   fecSesion:any;
-
+  creencia: Creencias = new Creencias();
+  myChart: any;
   constructor(
     private route: ActivatedRoute,
     private datePipe: DatePipe,
@@ -74,7 +78,9 @@ export class VerinformeComponent {
     private _diag: DiagnosticoService,
     private _frm: FormCasoService,
     private _tr: TratamientoService,
-    private _se:SesionService)
+    private _se:SesionService,
+    private _cree: CreenciasService,
+    private elementRef: ElementRef)
      {}
   ngOnInit(): void {
     this.idx = this.route.snapshot.paramMap.get('idx');
@@ -110,6 +116,7 @@ export class VerinformeComponent {
         this.cargarFormCaso();
         this.cargarTrata();
         this.cargarSesiones();
+        this.cargarCreencias();
       }, error => {
         //console.log(error);
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -286,6 +293,73 @@ export class VerinformeComponent {
       }, error => {
         //console.log(error);
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
+  cargarCreencias() {
+    this._cree.GetCreencias(this.informe.inf_paciente_id).subscribe(
+      fu => {
+        this.creencia = fu;
+        console.log(this.creencia);
+        if (this.creencia != null) {
+
+          const array = [];
+         
+          
+          array.push(Number(this.creencia.creencia_irra1));
+          array.push(this.creencia.creencia_irra2);
+          array.push(this.creencia.creencia_irra3);
+          array.push(this.creencia.creencia_irra4);
+          array.push(this.creencia.creencia_irra5);
+          array.push(this.creencia.creencia_irra6);
+          array.push(this.creencia.creencia_irra7);
+          array.push(this.creencia.creencia_irra8);
+          array.push(this.creencia.creencia_irra9);
+          array.push(this.creencia.creencia_irra10); 
+
+
+          let htmlRef = this.elementRef.nativeElement.querySelector(`#myChart`);
+          if (this.myChart) {
+            this.myChart.destroy();
+          }
+          this.myChart = new Chart(htmlRef, {
+            type: 'bar',
+            data: {
+              labels: ['Irrac1', 'Irrac2', 'Irrac3', 'Irrac4', 'Irrac5', 'Irrac6', 'Irrac7', 'Irrac8', 'Irrac9', 'Irrac10',],
+              datasets: [{
+                label: 'Ideas Irracionales',
+                //data: [this.creencia1, this.creencia2, this.creencia3, this.creencia4, this.creencia5, this.creencia6, this.creencia7, this.creencia8, this.creencia9, this.creencia10],/*  */
+                data: array,
+                backgroundColor: "red",
+                /* backgroundColor:"#0196FD", */
+                borderColor: "#0196FD",
+                borderWidth: 1
+              },
+                /*           {
+                            label: 'Dat21',
+                            data: [19, 12, 5, 3, 1, 6],
+                            backgroundColor:"#FFAF00",
+                            borderColor: "#FFAF00",
+                            borderWidth: 1
+                         } */
+              ]
+            },
+            options: {
+              scales: {
+                y: {
+                  min: 0,
+                  max: 9,
+                  /* beginAtZero: true */
+                }
+              }
+            }
+          });
+
+          console.log(array);
+        }
+      }, error => {
+        console.log(error);
+        //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
       });
   }
 

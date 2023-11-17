@@ -283,6 +283,86 @@
     </tbody>
   </table>
 </div>
+<br>
+<div class="d-flex justify-content-center"><label>Perfil de Ideas Irracionales</label></div>
+<div class="contenedor">
+  <!--  <div style="width: 600px;height: 600px;">
+       
+   </div> -->
+   <canvas id="myChart"></canvas>
+     <table class="table">
+       <thead class="thead-dark">
+         <tr>
+           <th scope="col">Tipo de Creencia</th>
+           <th scope="col">Descripción de la creencia</th>
+           <th scope="col">Puntaje Obtenido</th>
+   
+         </tr>
+       </thead>
+       <tbody>
+         <tr>
+           <input type="hidden">
+           <td>Creencia irracional #1</td>
+           <td>Es una necesidad absoluta tener el amor y la aprobación de las demás personas."</td>
+           <td>
+             <input type="hidden" [(ngModel)]="creencia.creencia_id">
+             <input type="text" [(ngModel)]="creencia.creencia_irra1" readonly> 
+            
+           </td>
+         </tr>
+         <tr>
+           <td>Creencia irracional #2</td>
+           <td>Se debe ser infalible constantemente, competente y perfecto en todo lo que hacemos."</td>
+           <td><input type="text" [(ngModel)]="creencia.creencia_irra2" readonly> </td>
+         </tr>
+         <tr>
+           <td>Creencia irracional #3</td>
+           <td>Las personas que son malvadas y villanas deben ser siempre castigadas."</td>
+           <td><input type="text" [(ngModel)]="creencia.creencia_irra3" readonly> </td>
+         </tr>
+         <tr>
+           <td>Creencia irracional #4</td>
+           <td>Es horrible y catastrófico cuando las cosas no son de la manera que nos gustaría."</td>
+           <td><input type="text" [(ngModel)]="creencia.creencia_irra4" readonly> </td>
+         </tr>
+         <tr>
+           <td>Creencia irracional #5</td>
+           <td>Las circustancias externas causan las miserias humanas y las personas reaccionan en medida que estas provocan emociones"</td>
+           <td><input type="text" [(ngModel)]="creencia.creencia_irra5" readonly> </td>
+         </tr>
+         <tr>
+           <td>Creencia irracional #6</td>
+           <td>Se debe sentir miedo y ansiedad acerca de cualquier cosa que sea desconocida o incierta."</td>
+           <td><input type="text" [(ngModel)]="creencia.creencia_irra6" readonly> </td>
+         </tr>
+         <tr>
+           <td>Creencia irracional #7</td>
+           <td>Es más fácil evitar que enfrentar las dificultades y responsabilidades de la vida."</td>
+           <td><input type="text" [(ngModel)]="creencia.creencia_irra7" readonly> </td>
+         </tr>
+         <tr>
+           <td>Creencia irracional #8</td>
+           <td>Necesitamos de algo y/o alguien más grande o fuerte que nosotros en quien confiar y apoyarnos."</td>
+           <td><input type="text" [(ngModel)]="creencia.creencia_irra8" readonly> </td>
+         </tr>
+         <tr>
+           <td>Creencia irracional #9</td>
+           <td>Los hechos de nuestro pasado tienen mucha importancia para determinar nuestro presente."</td>
+           <td><input type="text" [(ngModel)]="creencia.creencia_irra9" readonly> </td>
+         </tr>
+         <tr>
+           <td>Creencia irracional #10</td>
+           <td>La felicidad puede ser lograda por medio de la inaccion, la pasividad y el ocio sin final."</td>
+           <td><input type="text" [(ngModel)]="creencia.creencia_irra10" readonly> </td>
+         </tr>
+       </tbody>
+     </table>
+
+ 
+</div>
+<div class="d-flex justify-content-center"><label>Este informe es de carácter clínico y no puede ser utilizado con fines legales</label></div>
+
+
   </div><!--Fin del reporte-->
   <div class="contenedor">
     <button class="btn btn-danger sm" (click)="onExportClick()">Exportar PDF</button>
