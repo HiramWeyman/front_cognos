@@ -16,7 +16,7 @@ import { SaludFM } from '@/models/SaludFM';
 import { Sesion } from '@/models/Sesion';
 import { Tratamiento } from '@/models/Tratamiento';
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { AnalisisFuService } from '@services/analisisfu.service';
@@ -35,6 +35,8 @@ import { TratamientoService } from '@services/tratamiento.service';
 import * as html2pdf from 'html2pdf.js';
 import Swal from 'sweetalert2';
 import Chart from 'chart.js/auto';
+import { PruebasService } from '@services/enviarpruebas.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-verinforme',
@@ -64,6 +66,13 @@ export class VerinformeComponent {
   fecSesion:any;
   creencia: Creencias = new Creencias();
   myChart: any;
+  pruebascl:any;
+  pruebascid:any;
+  imagePathSCL :string;
+  src:string;
+  src2:string;
+  @ViewChild('imgRef') img:ElementRef;
+  @ViewChild('imgRef2') img2:ElementRef;
   constructor(
     private route: ActivatedRoute,
     private datePipe: DatePipe,
@@ -80,7 +89,9 @@ export class VerinformeComponent {
     private _tr: TratamientoService,
     private _se:SesionService,
     private _cree: CreenciasService,
-    private elementRef: ElementRef)
+    private _env:PruebasService,
+    private elementRef: ElementRef,
+    private _sanitizer: DomSanitizer)
      {}
   ngOnInit(): void {
     this.idx = this.route.snapshot.paramMap.get('idx');
@@ -117,6 +128,8 @@ export class VerinformeComponent {
         this.cargarTrata();
         this.cargarSesiones();
         this.cargarCreencias();
+        this.cargarPruebaSCL();
+        this.cargarPruebaSCID();
       }, error => {
         //console.log(error);
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -363,6 +376,62 @@ export class VerinformeComponent {
       });
   }
 
+
+  cargarPruebaSCL() {
+    this._env.GetPruebaSCL(this.informe.inf_paciente_id).subscribe(
+      pac => {
+        this.pruebascl = pac;
+        console.log(this.pruebascl);
+        console.log(this.pruebascl.dataFiles);
+        if(this.pruebascl.fileType=='.png'){
+          this.src = 'data:image/png;base64,'+this.pruebascl.dataFiles;
+          this.img.nativeElement.src = this.src;
+        }
+        else if(this.pruebascl.fileType=='.jpeg'){
+          this.src = 'data:image/jpeg;base64,'+this.pruebascl.dataFiles;
+          this.img.nativeElement.src = this.src;
+        }
+        else if(this.pruebascl.fileType=='.jpg'){
+          this.src = 'data:image/jpg;base64,'+this.pruebascl.dataFiles;
+          this.img.nativeElement.src = this.src;
+        }
+     
+   
+      
+      }, error => {
+        //console.log(error);
+        Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
+  cargarPruebaSCID() {
+    this._env.GetPruebaSCID(this.informe.inf_paciente_id).subscribe(
+      pac => {
+        this.pruebascid = pac;
+         console.log(this.pruebascid); 
+
+         if(this.pruebascid.fileType=='.png'){
+          this.src2 = 'data:image/png;base64,'+this.pruebascid.dataFiles;
+          this.img2.nativeElement.src = this.src2;
+        }
+        else if(this.pruebascid.fileType=='.jpeg'){
+          this.src2 = 'data:image/jpeg;base64,'+this.pruebascid.dataFiles;
+          this.img2.nativeElement.src = this.src2;
+        }
+        else if(this.pruebascid.fileType=='.jpg'){
+          this.src2 = 'data:image/jpg;base64,'+this.pruebascid.dataFiles;
+          this.img2.nativeElement.src = this.src2;
+        }
+
+
+         this.src2 = 'data:image/png;base64,'+this.pruebascid.dataFiles;
+         this.img2.nativeElement.src = this.src2;
+       
+      }, error => {
+        //console.log(error);
+        Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
   onExportClick(){
     var nombre:string=this.informe.inf_paterno+'_'+this.informe.inf_materno+'_'+this.informe.inf_nombre+'.pdf';
     const options={
