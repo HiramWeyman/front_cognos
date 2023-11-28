@@ -77,6 +77,7 @@ import { EditsesionComponent } from './pages/editsesion/editsesion.component';
 import { RepsesionComponent } from './pages/repsesion/repsesion.component';
 import { EnviopruebasComponent } from './pages/enviopruebas/enviopruebas.component';
 import { BlockUIModule } from 'ng-block-ui';
+import { ResultadosSCLComponent } from './pages/resultados-scl/resultados-scl.component';
 
 registerLocaleData(localeEn, 'en-EN');
 
@@ -124,6 +125,7 @@ registerLocaleData(localeEn, 'en-EN');
         EditsesionComponent,
         RepsesionComponent,
         EnviopruebasComponent,
+        ResultadosSCLComponent,
      
         
     /*     PacientesComponent, */
