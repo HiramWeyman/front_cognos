@@ -20,6 +20,7 @@ import { RegsesionComponent } from '@pages/regsesion/regsesion.component';
 import { EditsesionComponent } from '@pages/editsesion/editsesion.component';
 import { RepsesionComponent } from '@pages/repsesion/repsesion.component';
 import { EnviopruebasComponent } from '@pages/enviopruebas/enviopruebas.component';
+import { ResultadosSCLComponent } from '@pages/resultados-scl/resultados-scl.component';
 
 const routes: Routes = [
     {
@@ -67,6 +68,10 @@ const routes: Routes = [
             {
                 path:'verinforme/:idx', 
                 component: VerinformeComponent
+            },
+            {
+                path:'resscl/:id', 
+                component: ResultadosSCLComponent
             },
             {
                 path: 'sub-menu-1',

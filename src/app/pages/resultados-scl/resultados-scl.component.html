@@ -1,0 +1,33 @@
+<br>
+
+<div class="d-flex justify-content-center"><label>Resultados del Test SCL 90</label></div>
+
+
+
+
+      <div class="container">
+       
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Pregunta</th>
+                <th scope="col">Respuesta</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let item of resultados">
+         
+                <td><label><b>{{item.scl_desc}}</b></label></td>
+                <td><label><b>{{item.res_respuesta}}</b></label></td>
+
+              </tr>
+              <tr>
+                <td><label><b>Total</b></label></td>
+                <td><label><b>{{total}}</b></label></td>
+              </tr>
+
+            </tbody>
+          </table>
+          <button class="btn btn-primary sm mt-2" [routerLink]="['/exp',id]">Regresar </button><br>
+      </div>
