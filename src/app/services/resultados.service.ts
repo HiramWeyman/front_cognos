@@ -10,6 +10,7 @@ import { Sesion } from '@/models/Sesion';
 import { SesionVista } from '@/models/SesionVista';
 import { Comentarios } from '@/models/Comentarios';
 import { ResultadosSCL } from '@/models/ResultadosSCL';
+import { ResultadosBAIAN } from '@/models/ResultadosBAIAN';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,17 @@ export class ResultadosService {
   GetTotalSCL(id:number)  {
     return this.http.get(`${environment.rutaAPI}` + '/scl/testSCLTotal/'+id);
   }
+
+  GetResultadosBAIANList(Id:number): Observable<ResultadosBAIAN[]> {
+    return this.http.get(`${environment.rutaAPI}` + '/baiAn/testBAIanRespuestas/'+Id).pipe(
+      map(response => response as ResultadosBAIAN[])
+    );
+  }
+
+  GetTotalBAIAN(id:number)  {
+    return this.http.get(`${environment.rutaAPI}` + '/baiAn/testBAIanTotal/'+id);
+  }
+
 
 
 
