@@ -22,6 +22,8 @@ import { RepsesionComponent } from '@pages/repsesion/repsesion.component';
 import { EnviopruebasComponent } from '@pages/enviopruebas/enviopruebas.component';
 import { ResultadosSCLComponent } from '@pages/resultados-scl/resultados-scl.component';
 import { ResultadosBaianComponent } from '@pages/resultados-baian/resultados-baian.component';
+import { ResultadosBdidpComponent } from '@pages/resultados-bdidp/resultados-bdidp.component';
+import { ResultadosCreeComponent } from '@pages/resultados-cree/resultados-cree.component';
 
 const routes: Routes = [
     {
@@ -77,6 +79,14 @@ const routes: Routes = [
             {
                 path:'resbaian/:id', 
                 component: ResultadosBaianComponent
+            },
+            {
+                path:'resbdidp/:id', 
+                component: ResultadosBdidpComponent
+            },
+            {
+                path:'rescree/:id', 
+                component: ResultadosCreeComponent
             },
             {
                 path: 'sub-menu-1',
