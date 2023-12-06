@@ -39,12 +39,12 @@
                 <td><button class="btn btn-primary btn-sm" [routerLink]="['/resbaian',ExpedienteId]">Resultados</button></td>
               </tr>
     
-    
+              
               <tr>
                 <th scope="row">4</th>
                 <td>TEST BDI Inventario de Depresión de Beck</td>
                 <td><button class="btn btn-primary btn-sm" (click)="enviarPruebas(3)">Enviar</button></td>
-                <td><button class="btn btn-primary btn-sm" >Resultados</button></td>
+                <td><button class="btn btn-primary btn-sm" [routerLink]="['/resbdidp',ExpedienteId]">Resultados</button></td>
               </tr>
     
               <tr>
@@ -58,7 +58,7 @@
                 <th scope="row">6</th>
                 <td>Test Creencias Ellis</td>
                 <td><button class="btn btn-primary btn-sm" (click)="enviarPruebas(6)">Enviar</button></td>
-                <td><button class="btn btn-primary btn-sm" >Resultados</button></td>
+                <td><button class="btn btn-primary btn-sm" [routerLink]="['/rescree',ExpedienteId]">Resultados</button></td>
               </tr>
 
 

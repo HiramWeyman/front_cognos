@@ -79,6 +79,8 @@ import { EnviopruebasComponent } from './pages/enviopruebas/enviopruebas.compone
 import { BlockUIModule } from 'ng-block-ui';
 import { ResultadosSCLComponent } from './pages/resultados-scl/resultados-scl.component';
 import { ResultadosBaianComponent } from './pages/resultados-baian/resultados-baian.component';
+import { ResultadosBdidpComponent } from './pages/resultados-bdidp/resultados-bdidp.component';
+import { ResultadosCreeComponent } from './pages/resultados-cree/resultados-cree.component';
 
 registerLocaleData(localeEn, 'en-EN');
 
@@ -128,6 +130,8 @@ registerLocaleData(localeEn, 'en-EN');
         EnviopruebasComponent,
         ResultadosSCLComponent,
         ResultadosBaianComponent,
+        ResultadosBdidpComponent,
+        ResultadosCreeComponent,
      
         
     /*     PacientesComponent, */
