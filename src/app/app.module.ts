@@ -81,6 +81,7 @@ import { ResultadosSCLComponent } from './pages/resultados-scl/resultados-scl.co
 import { ResultadosBaianComponent } from './pages/resultados-baian/resultados-baian.component';
 import { ResultadosBdidpComponent } from './pages/resultados-bdidp/resultados-bdidp.component';
 import { ResultadosCreeComponent } from './pages/resultados-cree/resultados-cree.component';
+import { ResultadosScidComponent } from './pages/resultados-scid/resultados-scid.component';
 
 registerLocaleData(localeEn, 'en-EN');
 
@@ -132,6 +133,7 @@ registerLocaleData(localeEn, 'en-EN');
         ResultadosBaianComponent,
         ResultadosBdidpComponent,
         ResultadosCreeComponent,
+        ResultadosScidComponent,
      
         
     /*     PacientesComponent, */

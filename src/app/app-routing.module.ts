@@ -24,6 +24,7 @@ import { ResultadosSCLComponent } from '@pages/resultados-scl/resultados-scl.com
 import { ResultadosBaianComponent } from '@pages/resultados-baian/resultados-baian.component';
 import { ResultadosBdidpComponent } from '@pages/resultados-bdidp/resultados-bdidp.component';
 import { ResultadosCreeComponent } from '@pages/resultados-cree/resultados-cree.component';
+import { ResultadosScidComponent } from '@pages/resultados-scid/resultados-scid.component';
 
 const routes: Routes = [
     {
@@ -87,6 +88,10 @@ const routes: Routes = [
             {
                 path:'rescree/:id', 
                 component: ResultadosCreeComponent
+            },
+            {
+                path:'resscid/:id', 
+                component: ResultadosScidComponent
             },
             {
                 path: 'sub-menu-1',

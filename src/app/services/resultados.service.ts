@@ -13,6 +13,7 @@ import { ResultadosSCL } from '@/models/ResultadosSCL';
 import { ResultadosBAIAN } from '@/models/ResultadosBAIAN';
 import { ResultadosBDIDP } from '@/models/resultadosBDIDP';
 import { ResultadosCree } from '@/models/ResultadosCree';
+import { ResultadosSCID } from '@/models/RessultadosSCID';
 
 @Injectable({
   providedIn: 'root'
@@ -93,6 +94,11 @@ export class ResultadosService {
     return this.http.get(`${environment.rutaAPI}` + '/ellis/testEllisSuma10/'+id);
   }
 
+  GetResultadosSCIDList(Id:number): Observable<ResultadosSCID[]> {
+    return this.http.get(`${environment.rutaAPI}` + '/scid/testSCIDRespuestas/'+Id).pipe(
+      map(response => response as ResultadosSCID[])
+    );
+  }
 
 
 
