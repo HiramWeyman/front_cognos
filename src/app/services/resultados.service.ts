@@ -100,6 +100,24 @@ export class ResultadosService {
     );
   }
 
+  GetResultadosIsraCList(Id:number): Observable<any[]> {
+    return this.http.get(`${environment.rutaAPI}` + '/isra/testIsraRespuestasC/'+Id).pipe(
+      map(response => response as any[])
+    );
+  }
+
+  GetResultadosIsraFList(Id:number): Observable<any[]> {
+    return this.http.get(`${environment.rutaAPI}` + '/isra/testIsraRespuestasF/'+Id).pipe(
+      map(response => response as any[])
+    );
+  }
+
+  GetResultadosIsraMList(Id:number): Observable<any[]> {
+    return this.http.get(`${environment.rutaAPI}` + '/isra/testIsraRespuestasM/'+Id).pipe(
+      map(response => response as any[])
+    );
+  }
+
 
 
 
