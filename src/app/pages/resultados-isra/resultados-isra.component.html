@@ -1,0 +1,126 @@
+<div class="d-flex justify-content-center"><label>Resultados del Test ISRA</label></div>
+
+
+
+
+      <div class="container">
+       <h3>C</h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>SITUACIONES</th>
+                <th>Me preocupo fácilmente</th>
+                <th>Tengo pensamientos o sentimientos negativos sobre mi, tales como inferior a los demás,
+                    torpe, etc. </th>
+                <th>Me siento inseguro de mi mismo</th>
+                <th>Doy demasiadas vueltas a las cosas sin llegar a decidirme.</th>
+                <th>Siento miedo</th>
+                <th>Me cuesta concentrarme</th>
+                <th>Pienso que la gente se dará cuenta de mis problemas o de la torpeza de mis actos</th>
+                <th>Observaciones</th>
+                <th>ΣS</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let item of resultadosC">
+         
+                <td><label><b>{{item.isra_c_desc}}</b></label></td>
+                <td><label><b>{{item.res_respuesta1}}</b></label></td>
+                <td><label><b>{{item.res_respuesta2}}</b></label></td>
+                <td><label><b>{{item.res_respuesta3}}</b></label></td>
+                <td><label><b>{{item.res_respuesta4}}</b></label></td>
+                <td><label><b>{{item.res_respuesta5}}</b></label></td>
+                <td><label><b>{{item.res_respuesta6}}</b></label></td>
+                <td><label><b>{{item.res_respuesta7}}</b></label></td>
+                <td><label><b>{{item.res_observacion}}</b></label></td>
+                <td><label><b>{{item.res_sum}}</b></label></td>
+
+              </tr>
+
+            </tbody>
+          </table>
+          <label>Total:{{totalC}}</label>
+
+          <h3>F</h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>SITUACIONES</th>
+                <th>Siento molestias en el estómago.</th>
+                <th>Me sudan las manos u otra parte del cuerpo hasta en días fríos.</th>
+                <th>Me tiemblan las manos o las piernas.</th>
+                <th>Me duele la cabeza.</th>
+                <th>Mi cuerpo está en tensión.</th>
+                <th>Tengo palpitaciones, el corazón me late muy deprisa.</th>
+                <th>Me falta el aire y mi respiración es agitada.</th>
+                <th>Siento náuseas o mareo.</th>
+                <th>Se me seca la boca y tengo dificultades para tragar.</th>
+                <th>Tengo escalofríos y tiríto  aunque no haga mucho frío.</th>
+                <th>Observaciones</th>
+                <th>ΣS</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let item of resultadosF">
+         
+                <td><label><b>{{item.isra_f_desc}}</b></label></td>
+                <td><label><b>{{item.res_respuesta1}}</b></label></td>
+                <td><label><b>{{item.res_respuesta2}}</b></label></td>
+                <td><label><b>{{item.res_respuesta3}}</b></label></td>
+                <td><label><b>{{item.res_respuesta4}}</b></label></td>
+                <td><label><b>{{item.res_respuesta5}}</b></label></td>
+                <td><label><b>{{item.res_respuesta6}}</b></label></td>
+                <td><label><b>{{item.res_respuesta7}}</b></label></td>
+                <td><label><b>{{item.res_respuesta8}}</b></label></td>
+                <td><label><b>{{item.res_respuesta9}}</b></label></td>
+                <td><label><b>{{item.res_respuesta10}}</b></label></td>
+                <td><label><b>{{item.res_observacion}}</b></label></td>
+                <td><label><b>{{item.res_sum}}</b></label></td>
+
+              </tr>
+
+            </tbody>
+          </table>
+          <div><label>Total:  {{totalF}}</label></div>
+
+          <h3>M</h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>SITUACIONES</th>
+                <th>Lloro con facilidad.</th>
+                <th>Realizo movimientos repetitivos con alguna parte de mi cuerpo (rascarme, tocarme, movimientos rítmicos con pies o manos, etc.).</th>
+                <th>Fumo, como o bebo demasiado.</th>
+                <th>Trato de evitar o rehuír la situación.</th>
+                <th>Me muevo y hago cosas sin una finalidad concreta.</th>
+                <th>Quedo paralizado o mis movimientos son torpes.</th>
+                <th>Tartamudeo o tengo otras dificultades de expresión verbal.</th>
+                <th>Observaciones</th>
+                <th>ΣS</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let item of resultadosM">
+         
+                <td><label><b>{{item.isra_m_desc}}</b></label></td>
+                <td><label><b>{{item.res_respuesta1}}</b></label></td>
+                <td><label><b>{{item.res_respuesta2}}</b></label></td>
+                <td><label><b>{{item.res_respuesta3}}</b></label></td>
+                <td><label><b>{{item.res_respuesta4}}</b></label></td>
+                <td><label><b>{{item.res_respuesta5}}</b></label></td>
+                <td><label><b>{{item.res_respuesta6}}</b></label></td>
+                <td><label><b>{{item.res_respuesta7}}</b></label></td>
+                <td><label><b>{{item.res_observacion}}</b></label></td>
+                <td><label><b>{{item.res_sum}}</b></label></td>
+
+              </tr>
+
+            </tbody>
+          </table>
+          <div><label>Total:  {{totalM}}</label></div>
+          <button class="btn btn-primary sm mt-2" [routerLink]="['/exp',id]">Regresar </button><br>
+      </div>
+   
