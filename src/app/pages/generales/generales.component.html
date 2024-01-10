@@ -127,9 +127,9 @@
             <option [value]="item.id" *ngFor="let item of tutor">{{item.usr_paterno}} {{item.usr_materno}} {{item.usr_nombre}}</option>
             </select> -->
             <!-- (change)="getAfiliados($event.target.value)" -->
-            <label for="exampleFormControlSelect1">Tutor:</label>
+            <label for="exampleFormControlSelect1">Supervisor:</label>
             <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="pac.pac_tutor">
-              <!-- <option selected="selected" value="0">-- Seleccione un año --</option> -->
+              <option selected="selected" value="0" *ngIf="pac.pac_tutor==0">-- Seleccione un Supervisor --</option>
               <option *ngFor="let a of tutor" value="{{ a.usr_id }}" selected="selected">{{a.usr_paterno}} {{a.usr_materno}} {{a.usr_nombre}}</option>
              </select>
            <!--  {{pac.pac_tutor}} -->
