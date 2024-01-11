@@ -41,8 +41,17 @@ export class PacientesComponent implements OnInit {
     if(this.perfil==1){
       this.cargarPacientes();
     }
+     else if(this.perfil==2){
+      this.cargarPacientesR1();
+    }
+    else if(this.perfil==3){
+      this.cargarPacientesR2();
+    }
     else if(this.perfil==4){
       this.cargarPacientesTutor();
+    }
+    else if(this.perfil==5){
+      this.cargarPacientesTerapeuta();
     }
     console.log(this.usuario_id);
    
@@ -86,6 +95,46 @@ export class PacientesComponent implements OnInit {
       });
   }
 
+  cargarPacientesR1() {
+    this._pac.GetPacientesR1(this.usuario_id).subscribe(
+      pac => {
+      
+        this.pacientes = pac;
+      /*   console.log(this.pacientes); */
+        for(let i=0;i<this.pacientes.length;i++){
+          this.fec =this.datePipe.transform(this.pacientes[i].pac_fecha_ingreso,"dd/MM/yyyy");
+          this.pacientes[i].pac_fecha_ingreso= this.fec;
+        }
+      /*   console.log(this.pacientes); */
+        this.dataSource = new MatTableDataSource(this.pacientes);
+        /*  this.dataSource.paginator = this.paginator; */
+         this.dataSource.paginator = this.paginatorFirst;
+      }, error => {
+        //console.log(error);
+        Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
+  cargarPacientesR2() {
+    this._pac.GetPacientesR2().subscribe(
+      pac => {
+      
+        this.pacientes = pac;
+      /*   console.log(this.pacientes); */
+        for(let i=0;i<this.pacientes.length;i++){
+          this.fec =this.datePipe.transform(this.pacientes[i].pac_fecha_ingreso,"dd/MM/yyyy");
+          this.pacientes[i].pac_fecha_ingreso= this.fec;
+        }
+      /*   console.log(this.pacientes); */
+        this.dataSource = new MatTableDataSource(this.pacientes);
+        /*  this.dataSource.paginator = this.paginator; */
+         this.dataSource.paginator = this.paginatorFirst;
+      }, error => {
+        //console.log(error);
+        Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+  
 
   cargarPacientesTutor() {
     this._pac.GetPacientesTutor(this.usuario_id).subscribe(
@@ -106,5 +155,27 @@ export class PacientesComponent implements OnInit {
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
       });
   }
+
+
+  cargarPacientesTerapeuta() {
+    this._pac.GetPacientesTerapeuta(this.usuario_id).subscribe(
+      pac => {
+      
+        this.pacientes = pac;
+      /*   console.log(this.pacientes); */
+        for(let i=0;i<this.pacientes.length;i++){
+          this.fec =this.datePipe.transform(this.pacientes[i].pac_fecha_ingreso,"dd/MM/yyyy");
+          this.pacientes[i].pac_fecha_ingreso= this.fec;
+        }
+      /*   console.log(this.pacientes); */
+        this.dataSource = new MatTableDataSource(this.pacientes);
+        /*  this.dataSource.paginator = this.paginator; */
+         this.dataSource.paginator = this.paginatorFirst;
+      }, error => {
+        //console.log(error);
+        Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
 }
 
