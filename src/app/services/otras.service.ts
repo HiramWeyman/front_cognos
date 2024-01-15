@@ -15,7 +15,8 @@ export class OtrasService {
   GuardarOtras(otras: Otras): Observable<Otras> {
     console.log(otras);
     console.log(this.urlEndPoint+'/Otras');
-    return this.http.post<Otras>(`${this.urlEndPoint+'/Otras'}`, otras);
+    
+    return this.http.post<Otras>(`${this.urlEndPoint+'/Otras/CrearOtras'}`, otras);
     //return this.http.post<Otras>(`${environment.rutaAPI}` + '/Usuarios/registro', salud);
   }
 

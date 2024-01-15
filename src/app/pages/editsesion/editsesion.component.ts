@@ -1,6 +1,7 @@
 import { Sesion } from '@/models/Sesion';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PacientesService } from '@services/pacientes.service';
 import { SesionService } from '@services/sesiones.service';
 import swal from 'sweetalert2';
 @Component({
@@ -12,7 +13,8 @@ export class EditsesionComponent implements OnInit {
   idx!: any;
   expediente!: any;
   pac:Sesion=new Sesion();
-  constructor(private route: ActivatedRoute, private router: Router,private _se:SesionService) {
+  terapeutas: any[];
+  constructor(private route: ActivatedRoute, private router: Router,private _se:SesionService, private _pac2: PacientesService,) {
    
   }
   ngOnInit(): void {
@@ -20,6 +22,19 @@ export class EditsesionComponent implements OnInit {
     this.idx = this.route.snapshot.paramMap.get('idx');
     this.getDataSesion();
     console.log(this.idx);
+    this.cargarTerapeutas()
+  }
+
+  cargarTerapeutas() {
+    this._pac2.GetTerapeutas().subscribe(
+      fu => {
+        this.terapeutas = fu;
+        console.log(this.terapeutas);
+      
+      }, error => {
+        console.log(error);
+        //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
   }
 
   validateFormat(event) {
