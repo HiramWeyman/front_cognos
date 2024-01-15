@@ -73,6 +73,8 @@ export class AreasconsiderarComponent {
   
   
     this.otras.otras_paciente_id=this.expediente;
+    this.otras.otras_titulo="x";
+    this.otras.otras_desc="y";
     this._otras.GuardarOtras(this.otras).subscribe(datos => {
       
       if(datos){
