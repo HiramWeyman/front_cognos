@@ -7,6 +7,7 @@ import { environment } from 'environments/environment';
 import { Login } from '@/models/Login';
 import { Observable, map } from 'rxjs';
 import { Usuarios } from '@/models/Usuarios';
+import { EnvioCorreo } from '@/models/EnvioCorreo';
 
 @Injectable({
     providedIn: 'root'
@@ -14,11 +15,13 @@ import { Usuarios } from '@/models/Usuarios';
 export class AppService {
     public user: any = null;
     public username: any=null;
+    correo:EnvioCorreo=new EnvioCorreo();
     constructor(private http: HttpClient,private router: Router, private toastr: ToastrService) { }
 
     public urlEndPoint = `${environment.rutaAPI}`;
 
      getLogin(login: Login): Observable<Login[]> {
+        console.log(login);
         // const urlEndPoint: string = `${environment.rutaAPI}/Login/`+matricula;
         return this.http.post<Usuarios>(this.urlEndPoint + '/Usuarios/login', login).pipe(
             // return this.http.get("/api/Login/"+matricula).pipe(
@@ -26,6 +29,7 @@ export class AppService {
            /*      sessionStorage.Login = login.toString();
                 localStorage.setItem(_TOKEN, login.toString()); */
                 // sessionStorage.setItem(_TOKEN, matricula.toString());
+                console.log(response);
                 this.username=response.result.usuario.usr_nombre.toString()+' '+response.result.usuario.usr_paterno.toString()+' '+response.result.usuario.usr_materno.toString();
                 sessionStorage.setItem('UserMail', response.result.usuario.usr_email.toString());
                 sessionStorage.setItem('UserId', response.result.usuario.usr_id);
@@ -47,6 +51,20 @@ export class AppService {
         
         return this.http.post<Usuarios>(`${environment.rutaAPI}` + '/Usuarios/registro', usuario);
       }
+    //Valida si el usuario existe
+    CountUsr(email: any): Observable<any> {
+        console.log(`${environment.rutaAPI}` + '/RecuperaPass/ValidaMail/'+email);
+        return this.http.get<any>(`${environment.rutaAPI}` + '/RecuperaPass/ValidaMail/'+email);
+    }
+
+    EnviarCorreo(email:string): Observable<string> {
+      
+      console.log(email);
+      this.correo.email=email;
+      console.log(this.correo.email);
+      return this.http.post<string>(`${this.urlEndPoint+'/RecuperaPass/EnvioMail?email='+email}`, this.correo.email);
+      //return this.http.post<comFM>(`${environment.rutaAPI}` + '/Usuarios/registro', com);
+    }
       
 
 /*     async loginByAuth({ email, password }) {
@@ -135,6 +153,13 @@ export class AppService {
     logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('gatekeeper_token');
+        sessionStorage.removeItem('Expediente');
+        sessionStorage.removeItem('IndexTab');
+        sessionStorage.removeItem('UserMail');
+        sessionStorage.removeItem('UserId');
+        sessionStorage.removeItem('UserPerfil');
+        sessionStorage.removeItem('UserName');
+        sessionStorage.removeItem('IndexTabla');
         this.user = null;
         this.router.navigate(['/login']);
     } 

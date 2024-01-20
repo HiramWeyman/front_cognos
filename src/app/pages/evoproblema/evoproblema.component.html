@@ -2,11 +2,17 @@
     
     <div class="ckeditorContainer">
         <div class="content" align="center">
-            <mat-label><b>Evolución del problema.</b></mat-label>
+            <mat-label><b>Factores predisponentes o de vulnerabilidad.</b></mat-label>
         </div>
-        <ckeditor [(ngModel)]="evolucion.evo_desc">
+        <ckeditor [(ngModel)]="evolucion.evo_factores">
     
-        </ckeditor>
+        </ckeditor><hr><br>
+        <div class="content" align="center">
+          <mat-label><b>Aparición y curso del problema.</b></mat-label>
+      </div>
+      <ckeditor [(ngModel)]="evolucion.evo_curso_problema">
+  
+      </ckeditor>
     </div>
     <br><br>
     <div class="row d-flex justify-content-center">
@@ -35,25 +41,27 @@
         </button>
       </div>
       <div class="modal-body">
-      <textarea cols="5" rows="5" placeholder="Ingresar comentario" class="form-control"></textarea><br>
+      <textarea cols="5" rows="5" placeholder="Ingresar comentario" class="form-control" [(ngModel)]="com.com_comentario" ></textarea><br>
         <table class="table table-bordered">
           <thead>
               <tr>
                   <th>Usuario</th>
                   <th>Comentario</th>
+                  <th>Fecha</th>
               </tr>
           </thead>
           <tbody>
-              <tr>
-                  <td><b>Kara</b></td>
-                  <td><b>Prueba de Comentario</b></td>
+              <tr *ngFor="let p of comentarios; let i = index">
+                  <td><b>{{p.com_nombre_usuario}}</b></td>
+                  <td><b>{{p.com_comentario}}</b></td>
+                  <td><b>{{p.com_fecha_captura}}</b></td>
               </tr>
           </tbody>
         </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar comentario</button>
+        <button type="button" class="btn btn-primary" (click)="GuardarComentario()">Guardar comentario</button>
       </div>
     </div>
   </div>

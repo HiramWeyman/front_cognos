@@ -15,56 +15,71 @@
         </thead>
         <tbody>
           <tr>
+            <input type="hidden">
             <td>Creencia irracional #1</td>
-            <td>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</td>
-            <td>8</td>
+            <td>Es una necesidad absoluta tener el amor y la aprobación de las demás personas."</td>
+            <td>
+              <input type="hidden" [(ngModel)]="creencia.creencia_id">
+              <input type="text" [(ngModel)]="creencia.creencia_irra1"> 
+             
+            </td>
           </tr>
           <tr>
             <td>Creencia irracional #2</td>
-            <td>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</td>
-            <td>7</td>
+            <td>Se debe ser infalible constantemente, competente y perfecto en todo lo que hacemos."</td>
+            <td><input type="text" [(ngModel)]="creencia.creencia_irra2"> </td>
           </tr>
           <tr>
             <td>Creencia irracional #3</td>
-            <td>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</td>
-            <td>3</td>
+            <td>Las personas que son malvadas y villanas deben ser siempre castigadas."</td>
+            <td><input type="text" [(ngModel)]="creencia.creencia_irra3"> </td>
           </tr>
           <tr>
             <td>Creencia irracional #4</td>
-            <td>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</td>
-            <td>5</td>
+            <td>Es horrible y catastrófico cuando las cosas no son de la manera que nos gustaría."</td>
+            <td><input type="text" [(ngModel)]="creencia.creencia_irra4"> </td>
           </tr>
           <tr>
             <td>Creencia irracional #5</td>
-            <td>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</td>
-            <td>2</td>
+            <td>Las circustancias externas causan las miserias humanas y las personas reaccionan en medida que estas provocan emociones"</td>
+            <td><input type="text" [(ngModel)]="creencia.creencia_irra5"> </td>
           </tr>
           <tr>
             <td>Creencia irracional #6</td>
-            <td>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</td>
-            <td>3</td>
+            <td>Se debe sentir miedo y ansiedad acerca de cualquier cosa que sea desconocida o incierta."</td>
+            <td><input type="text" [(ngModel)]="creencia.creencia_irra6"> </td>
           </tr>
           <tr>
             <td>Creencia irracional #7</td>
-            <td>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</td>
-            <td>7</td>
+            <td>Es más fácil evitar que enfrentar las dificultades y responsabilidades de la vida."</td>
+            <td><input type="text" [(ngModel)]="creencia.creencia_irra7"> </td>
           </tr>
           <tr>
             <td>Creencia irracional #8</td>
-            <td>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</td>
-            <td>5</td>
+            <td>Necesitamos de algo y/o alguien más grande o fuerte que nosotros en quien confiar y apoyarnos."</td>
+            <td><input type="text" [(ngModel)]="creencia.creencia_irra8"> </td>
           </tr>
           <tr>
             <td>Creencia irracional #9</td>
-            <td>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</td>
-            <td>6</td>
+            <td>Los hechos de nuestro pasado tienen mucha importancia para determinar nuestro presente."</td>
+            <td><input type="text" [(ngModel)]="creencia.creencia_irra9"> </td>
           </tr>
           <tr>
             <td>Creencia irracional #10</td>
-            <td>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</td>
-            <td>2</td>
+            <td>La felicidad puede ser lograda por medio de la inaccion, la pasividad y el ocio sin final."</td>
+            <td><input type="text" [(ngModel)]="creencia.creencia_irra10"> </td>
           </tr>
         </tbody>
       </table>
+
+      <div class="row d-flex justify-content-center">
+        <div class="form-element">
+            <button mat-raised-button color="primary" type="button" class="button" (click)="Guardar()" [disabled]="habilita==true"  >Guardar Datos</button>
+        </div>
+        <div class="form-element">
+            <button mat-button color="primary" type="button" class="button" (click)="UpdateDatos()">Actualizar Datos</button>
+        </div>
+   
+    </div>
 </div>
 

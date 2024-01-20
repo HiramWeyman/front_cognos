@@ -5,7 +5,6 @@
             <mat-label><b>Sueño</b></mat-label>
         </div>
         <ckeditor [(ngModel)]="salud.salud_sueno_desc">
-
         </ckeditor>
       </div>
      
@@ -106,25 +105,27 @@
           </button>
         </div>
         <div class="modal-body">
-        <textarea cols="5" rows="5" placeholder="Ingresar comentario" class="form-control"></textarea><br>
+        <textarea cols="5" rows="5" placeholder="Ingresar comentario" class="form-control" [(ngModel)]="com.com_comentario" ></textarea><br>
           <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Usuario</th>
                     <th>Comentario</th>
+                    <th>Fecha</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><b>Kara</b></td>
-                    <td><b>Prueba de Comentario</b></td>
+                <tr *ngFor="let p of comentarios; let i = index">
+                    <td><b>{{p.com_nombre_usuario}}</b></td>
+                    <td><b>{{p.com_comentario}}</b></td>
+                    <td><b>{{p.com_fecha_captura}}</b></td>
                 </tr>
             </tbody>
           </table>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Guardar comentario</button>
+          <button type="button" class="btn btn-primary" (click)="GuardarComentario()">Guardar comentario</button>
         </div>
       </div>
     </div>

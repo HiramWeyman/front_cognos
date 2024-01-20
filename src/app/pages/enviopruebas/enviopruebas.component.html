@@ -1,0 +1,207 @@
+<br>
+
+<div class="d-flex justify-content-center"><label>Envío de Pruebas y Archivos de Descarga</label></div>
+
+
+
+
+      <div class="container">
+        <label>Pruebas.</label><br>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre de la prueba</th>
+                <th scope="col">Enviar</th>
+                <th scope="col">Resultados</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr>
+                <th scope="row">1</th>
+                <td>Test SCL 90 R</td>
+                <td><button class="btn btn-primary btn-sm" (click)="enviarPruebas(2)">Enviar</button></td>
+                <td><button class="btn btn-primary btn-sm" [routerLink]="['/resscl',ExpedienteId]">Resultados</button></td>
+              </tr>
+
+              <tr>
+                <th scope="row">2</th>
+                <td>Test SCID2</td>
+                <td><button class="btn btn-primary btn-sm" (click)="enviarPruebas(5)">Enviar</button></td>
+                <td><button class="btn btn-primary btn-sm" [routerLink]="['/resscid',ExpedienteId]">Resultados</button></td>
+              </tr>
+
+              <tr>
+                <th scope="row">3</th>
+                <td>TEST BAI Inventario de Ansiedad de Beck</td>
+                <td><button class="btn btn-primary btn-sm" (click)="enviarPruebas(1)">Enviar</button></td>
+                <td><button class="btn btn-primary btn-sm" [routerLink]="['/resbaian',ExpedienteId]">Resultados</button></td>
+              </tr>
+    
+              
+              <tr>
+                <th scope="row">4</th>
+                <td>TEST BDI Inventario de Depresión de Beck</td>
+                <td><button class="btn btn-primary btn-sm" (click)="enviarPruebas(3)">Enviar</button></td>
+                <td><button class="btn btn-primary btn-sm" [routerLink]="['/resbdidp',ExpedienteId]">Resultados</button></td>
+              </tr>
+    
+              <tr>
+                <th scope="row">5</th>
+                <td>ISRA</td>
+                <td><button class="btn btn-primary btn-sm" (click)="enviarPruebas(4)">Enviar</button></td>
+                <td><button class="btn btn-primary btn-sm" [routerLink]="['/resisra',ExpedienteId]">Resultados</button></td>
+              </tr>
+
+              <tr>
+                <th scope="row">6</th>
+                <td>Test Creencias Ellis</td>
+                <td><button class="btn btn-primary btn-sm" (click)="enviarPruebas(6)">Enviar</button></td>
+                <td><button class="btn btn-primary btn-sm" [routerLink]="['/rescree',ExpedienteId]">Resultados</button></td>
+              </tr>
+
+
+
+
+            </tbody>
+          </table>
+      </div>
+
+      <div class="container">
+        <label>Archivos de Imagen Para Pruebas de Test SCL 90 R y Test SCID2</label><br>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre de la prueba</th>
+                <th scope="col">Subir archivo</th>
+                <th scope="col">Actualizar archivo</th>
+                <th scope="col">Eliminar archivo</th>
+
+               
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Image Test SCL 90 R</td>
+                <td>
+                  <div class="mb-3">
+                    <input class="form-control" #myInputSCL  type="file" id="formFile" (change)="seleccionarPrueba($event);" [disabled]="habilitaSCL==true">
+                  </div>
+                  <button class="btn btn-primary btn-sm" (click)="guardar(1)" [disabled]="habilitaSCL==true" >Guardar</button>
+                </td>
+                <td>
+                  <div class="mb-3">
+                    <input class="form-control" #myInputSCLup type="file" id="formFile" (change)="seleccionarPrueba($event);">
+                  </div>
+                  <button class="btn btn-primary btn-sm" (click)="Actualizar(1)">Actualizar</button>
+                </td>
+                <td><button class="btn btn-danger btn-sm" (click)="Delete(1)">Eliminar</button></td>
+              </tr>
+    
+              <tr>
+                <th scope="row">2</th>
+                <td>Test SCID2</td>
+                <td>
+                  <div class="mb-3">
+                    <input class="form-control" type="file" #myInputSCID  id="formFile" (change)="seleccionarPrueba($event);" [disabled]="habilitaSCID==true">
+                  </div>
+                  <button class="btn btn-primary btn-sm" (click)="guardar(2)" [disabled]="habilitaSCID==true" >Guardar</button>
+                </td>
+                <td>
+                  <div class="mb-3">
+                    <input class="form-control" type="file" #myInputSCIDup id="formFile" (change)="seleccionarPrueba($event);">
+                  </div>
+                  <button class="btn btn-primary btn-sm" (click)="Actualizar(2)">Actualizar</button></td>
+                <td><button class="btn btn-danger btn-sm" (click)="Delete(2)">Eliminar</button></td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+
+
+
+      <div class="container">
+        <label>Archivos de Descarga Para Alumnos.</label><br>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre del Archivo</th>
+                <th scope="col">Descargar.</th>
+               
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Alta de paciente Unidad Bajo Costo</td>
+                <td><button class="btn btn-primary btn-sm" (click)="archivo1()">Descargar</button></td>
+              </tr>
+    
+              <tr>
+                <th scope="row">2</th>
+                <td>Anexo - Evaluación escolar COGNOS</td>
+                <td><button class="btn btn-primary btn-sm" (click)="archivo2()">Descargar</button></td>
+              </tr>
+
+              <tr>
+                <th scope="row">3</th>
+                <td>Baja de paciente Unidad Bajo Costo</td>
+                <td><button class="btn btn-primary btn-sm" (click)="archivo3()">Descargar</button></td>
+              </tr>
+
+              <tr>
+                <th scope="row">4</th>
+                <td>Canalización paciente online a presencial</td>
+                <td><button class="btn btn-primary btn-sm" (click)="archivo4()">Descargar</button></td>
+              </tr>
+
+              <tr>
+                <th scope="row">5</th>
+                <td>Consentimiento de Estudio de caso para Tesis</td>
+                <td><button class="btn btn-primary btn-sm" (click)="archivo5()">Descargar</button></td>
+              </tr>
+
+              <tr>
+                <th scope="row">6</th>
+                <td>Consentimiento de grabación en audio</td>
+                <td><button class="btn btn-primary btn-sm" (click)="archivo6()">Descargar</button></td>
+              </tr>
+
+              <tr>
+                <th scope="row">7</th>
+                <td>Consentimiento Informado Online Maestria</td>
+                <td><button class="btn btn-primary btn-sm" (click)="archivo7()">Descargar</button></td>
+              </tr>
+
+              <tr>
+                <th scope="row">8</th>
+                <td>Consentimiento Informado Presencial Maestria</td>
+                <td><button class="btn btn-primary btn-sm" (click)="archivo8()">Descargar</button></td>
+              </tr>
+
+              <tr>
+                <th scope="row">9</th>
+                <td>Consentimiento para la evaluación escolar COGNOS</td>
+                <td><button class="btn btn-primary btn-sm" (click)="archivo9()">Descargar</button></td>
+              </tr>
+
+              <tr>
+                <th scope="row">10</th>
+                <td>Consentimiento para solicitar información en escuela para padres</td>
+                <td><button class="btn btn-primary btn-sm" (click)="archivo10()">Descargar</button></td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+ 
+
+
+
+
+
+    
+

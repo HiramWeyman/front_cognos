@@ -16,6 +16,16 @@ import { PacientesComponent } from '@pages/pacientes/pacientes.component';
 import { DatosexpComponent } from '@pages/datosexp/datosexp.component';
 import { VerinformeComponent } from '@pages/verinforme/verinforme.component';
 import { RegpacienteComponent } from '@pages/regpaciente/regpaciente.component';
+import { RegsesionComponent } from '@pages/regsesion/regsesion.component';
+import { EditsesionComponent } from '@pages/editsesion/editsesion.component';
+import { RepsesionComponent } from '@pages/repsesion/repsesion.component';
+import { EnviopruebasComponent } from '@pages/enviopruebas/enviopruebas.component';
+import { ResultadosSCLComponent } from '@pages/resultados-scl/resultados-scl.component';
+import { ResultadosBaianComponent } from '@pages/resultados-baian/resultados-baian.component';
+import { ResultadosBdidpComponent } from '@pages/resultados-bdidp/resultados-bdidp.component';
+import { ResultadosCreeComponent } from '@pages/resultados-cree/resultados-cree.component';
+import { ResultadosScidComponent } from '@pages/resultados-scid/resultados-scid.component';
+import { ResultadosIsraComponent } from '@pages/resultados-isra/resultados-isra.component';
 
 const routes: Routes = [
     {
@@ -41,12 +51,52 @@ const routes: Routes = [
                 component: RegpacienteComponent
             },
             {
+                path: 'regsesion',
+                component: RegsesionComponent
+            },
+            {
+                path: 'pruebas',
+                component: EnviopruebasComponent
+            },
+            {
+                path:'editsesion/:idx', 
+                component: EditsesionComponent
+            },
+            {
+                path:'repsesion/:idx', 
+                component: RepsesionComponent
+            },
+            {
                 path:'exp/:id', 
                 component: DatosexpComponent
             },
             {
                 path:'verinforme/:idx', 
                 component: VerinformeComponent
+            },
+            {
+                path:'resscl/:id', 
+                component: ResultadosSCLComponent
+            },
+            {
+                path:'resbaian/:id', 
+                component: ResultadosBaianComponent
+            },
+            {
+                path:'resbdidp/:id', 
+                component: ResultadosBdidpComponent
+            },
+            {
+                path:'rescree/:id', 
+                component: ResultadosCreeComponent
+            },
+            {
+                path:'resscid/:id', 
+                component: ResultadosScidComponent
+            },
+            {
+                path:'resisra/:id', 
+                component: ResultadosIsraComponent
             },
             {
                 path: 'sub-menu-1',

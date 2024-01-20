@@ -1,6 +1,17 @@
-.contenedor {
+.example-full-width {
+    width: 80%;
+  }
+.button {
+  width: 100%;
+}
+  .contenedor {
     display: flex;
     flex-direction: column;
     margin:1rem auto;
     max-width: 60%;
 }  
+
+.form-element {
+  padding: 5px 0px 25px 2px;
+  width: 40%;
+}

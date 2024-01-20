@@ -1,0 +1,77 @@
+<br>
+
+<div class="d-flex justify-content-center"><label>Resultados del Test Creencias Ellis</label></div>
+
+
+
+
+      <div class="container">
+       
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Pregunta</th>
+                <th scope="col">P</th>
+                <th scope="col">Respuesta</th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let item of resultados">
+         
+                <td><label><b>{{item.ellis_desc}}</b></label></td>
+                <td><label><b>{{item.ellis_p}}</b></label></td>
+                <td><label><b>{{item.res_respuesta}}</b></label></td>
+
+              </tr>
+
+            </tbody>
+          </table>
+
+          <table class="table table-bordered">
+            <tr>
+                <td><label>1) 1, 11, 21, 31, 41, 51, 61, 71, 81, 91</label></td>
+                <td><label><b>Total: </b></label> {{total1}}</td>
+            </tr>
+            <tr>
+                <td><label>2) 2, 12, 22, 32, 42, 52, 62, 72, 82, 92</label></td>
+                <td><label><b>Total: </b></label> {{total2}}</td>
+            </tr>
+            <tr>
+                <td><label>3) 3, 13, 23, 33, 43, 53, 63, 73, 83, 93</label></td>
+                <td><label><b>Total: </b></label> {{total3}}</td>
+            </tr>
+            <tr>
+                <td><label>4) 4, 14, 24, 34, 44, 54, 64, 74, 84, 94</label></td>
+                <td><label><b>Total: </b></label> {{total4}}</td>
+            </tr>
+            <tr>
+                <td><label>5) 5, 15, 25, 35, 45, 55, 65, 75, 85, 95</label></td>
+                <td><label><b>Total: </b></label> {{total5}}</td>
+            </tr>
+            <tr>
+                <td><label>6) 6, 16, 26, 36, 46, 56, 66, 76, 86, 96</label></td>
+                <td><label><b>Total: </b></label> {{total6}}</td>
+            </tr>
+            <tr>
+                <td><label>7) 7, 17, 27, 37, 47, 57, 67, 77, 87, 97</label></td>
+                <td><label><b>Total: </b></label> {{total7}}</td>
+            </tr>
+            <tr>
+                <td><label>8) 8, 18, 28, 38, 48, 58, 68, 78, 88, 98</label></td>
+                <td><label><b>Total: </b></label> {{total8}}</td>
+            </tr>
+            <tr>
+                <td><label>9) 9, 19, 29, 39, 49, 59, 69, 79, 89, 99</label></td>
+                <td><label><b>Total: </b></label> {{total9}}</td>
+            </tr>
+            <tr>
+                <td><label>10) 10, 20, 30, 40, 50, 60, 70, 80, 90, 100</label></td>
+                <td><label><b>Total: </b></label> {{total10}}</td>
+            </tr>
+          </table>
+          
+          <button class="btn btn-primary sm mt-2" [routerLink]="['/exp',id]">Regresar </button><br>
+      </div>
+

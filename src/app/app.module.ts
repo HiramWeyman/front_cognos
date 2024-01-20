@@ -72,6 +72,18 @@ import { FormsModule } from '@angular/forms';
 import { RegpacienteComponent } from './pages/regpaciente/regpaciente.component';
 import {MAT_DATE_LOCALE} from '@angular/material/core';
 import {DatePipe} from '@angular/common';
+import { RegsesionComponent } from './pages/regsesion/regsesion.component';
+import { EditsesionComponent } from './pages/editsesion/editsesion.component';
+import { RepsesionComponent } from './pages/repsesion/repsesion.component';
+import { EnviopruebasComponent } from './pages/enviopruebas/enviopruebas.component';
+import { BlockUIModule } from 'ng-block-ui';
+import { ResultadosSCLComponent } from './pages/resultados-scl/resultados-scl.component';
+import { ResultadosBaianComponent } from './pages/resultados-baian/resultados-baian.component';
+import { ResultadosBdidpComponent } from './pages/resultados-bdidp/resultados-bdidp.component';
+import { ResultadosCreeComponent } from './pages/resultados-cree/resultados-cree.component';
+import { ResultadosScidComponent } from './pages/resultados-scid/resultados-scid.component';
+import { ResultadosIsraComponent } from './pages/resultados-isra/resultados-isra.component';
+
 registerLocaleData(localeEn, 'en-EN');
 
 @NgModule({
@@ -114,6 +126,17 @@ registerLocaleData(localeEn, 'en-EN');
         InformesComponent,
         VerinformeComponent,
         RegpacienteComponent,
+        RegsesionComponent,
+        EditsesionComponent,
+        RepsesionComponent,
+        EnviopruebasComponent,
+        ResultadosSCLComponent,
+        ResultadosBaianComponent,
+        ResultadosBdidpComponent,
+        ResultadosCreeComponent,
+        ResultadosScidComponent,
+        ResultadosIsraComponent,
+     
         
     /*     PacientesComponent, */
 
@@ -144,6 +167,7 @@ registerLocaleData(localeEn, 'en-EN');
         MatTreeModule,
         MatToolbarModule,
         BrowserAnimationsModule,
+        BlockUIModule.forRoot(),
         ToastrModule.forRoot({
             timeOut: 3000,
             positionClass: 'toast-top-right',

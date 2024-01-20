@@ -17,6 +17,8 @@ private subscription: Subscription;
 public userId: any = null;
 public fnac: any = null;
 public fing: any = null;
+tutor: any[];
+terapeutas:any[];
 constructor(
   private _pac: PacientesService,
   private router: Router,
@@ -25,10 +27,38 @@ constructor(
 ) {}
   ngOnInit(): void {
     this.userId = sessionStorage.getItem('UserId');
+    this.cargarTutores();
+    this.tutor=[0];
+    this.cargarTerapeutas();
+    this.terapeutas=[0];
   }
 /* RegistrarPac(){
   console.log(this.pac);
 } */
+
+cargarTutores() {
+  this._pac.GetTutores().subscribe(
+    fu => {
+      this.tutor = fu;
+      console.log(this.tutor);
+    
+    }, error => {
+      console.log(error);
+      //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+    });
+}
+
+cargarTerapeutas() {
+  this._pac.GetTerapeutas().subscribe(
+    fu => {
+      this.terapeutas = fu;
+      console.log(this.terapeutas);
+    
+    }, error => {
+      console.log(error);
+      //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+    });
+}
 
 RegistrarPac() {
   this.pac.pac_usr_id=this.userId ;

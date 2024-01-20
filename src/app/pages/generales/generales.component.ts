@@ -1,8 +1,9 @@
 import { Pacientes } from '@/models/Pacientes';
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PacientesService } from '@services/pacientes.service';
+import { SharednumberService } from '@services/sharednumber.service';
 import { Subscription } from 'rxjs';
 import swal from 'sweetalert2';
 
@@ -12,23 +13,39 @@ import swal from 'sweetalert2';
   templateUrl: './generales.component.html',
   styleUrls: ['./generales.component.scss']
 })
-export class GeneralesComponent {
+export class GeneralesComponent implements OnInit{
   pac: Pacientes = new Pacientes();
   pacientes: Pacientes[];
   private subscription: Subscription;
   public ExpedienteId: any = null;
+  public Indextab: any = null;
+  public Sessiontab: any = null;
   public fnac: any = null;
   public fing: any = null;
+  selectedValue: any;
   fec: any;
+  tutor: any[];
+  terapeutas: any[];
   constructor(
     private _pac: PacientesService,
     private router: Router,
-    private datePipe: DatePipe
-
+    private datePipe: DatePipe,
+    private sharednumber:SharednumberService
   ) { }
   ngOnInit(): void {
     this.ExpedienteId = sessionStorage.getItem('Expediente');
+    this.Sessiontab=sessionStorage.getItem('IndexTab');
     this.cargarPacientes();
+    this.cargarTutores();
+    this.cargarTerapeutas();
+ /*    this.sharednumber.numero$.subscribe(val=>
+      {
+        this.Indextab=val;
+        if(this.Indextab==0||this.Sessiontab==0){
+         
+        }
+      }); */
+    
   }
 
 
@@ -60,9 +77,34 @@ export class GeneralesComponent {
       pac => {
         this.pac = pac;
         console.log(this.pac);
+       
       }, error => {
         //console.log(error);
         swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
+  cargarTutores() {
+    this._pac.GetTutores().subscribe(
+      fu => {
+        this.tutor = fu;
+        console.log(this.tutor);
+        
+      }, error => {
+        console.log(error);
+        //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
+  cargarTerapeutas() {
+    this._pac.GetTerapeutas().subscribe(
+      fu => {
+        this.terapeutas = fu;
+        console.log(this.terapeutas);
+      
+      }, error => {
+        console.log(error);
+        //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
       });
   }
 }

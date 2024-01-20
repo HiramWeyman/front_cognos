@@ -78,10 +78,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
                 }	
             },
             error => {
-                //console.log(error.error.Message);
+                console.log(error.error.Message);
                 swal.fire({
                     title: 'ERROR!!!',
-                    text: error.error.Message,
+                    text: error.error.errorMessages[0],
                     icon: 'error'});
             });
         }

@@ -17,20 +17,7 @@ export interface PeriodicElement {
   telefono: number;
   fecha: string;
 }
-/* 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, nombre: 'Estefania Pellegrini Saneti', telefono:6181609874, fecha: '10/11/2022'},
-  {position: 2, nombre: 'Marcela Chairez Maa', telefono:6181552074, fecha: '20/06/2023'},
-  {position: 3, nombre: 'Mikaela hernadez flores', telefono:6182559475, fecha: '15/03/2021'},
-  {position: 4, nombre: 'Juan Pedro Dominguez Campos', telefono:6181334596, fecha: '07/12/2022'},
-  {position: 5, nombre: 'Paola Aguilar Morales', telefono:6181676259, fecha: '14/10/2023'},
-  {position: 6, nombre: 'Jose Luis Almanza Herrera', telefono:6182335689, fecha: '25/01/2023'},
-  {position: 7, nombre: 'Alma Gabriela Aguirre Soria', telefono:6184559687, fecha: '16/02/2020'},
-  {position: 8, nombre: 'Angel Alvarez Flores', telefono:6182657489, fecha: '09/05/2021'},
-  {position: 9, nombre: 'Rosalio Alvarez Lemus', telefono:6183364596, fecha: '05/07/2022'},
-  {position: 10, nombre: 'Lilia Alvarez Santillan', telefono:6182995687, fecha: '04/08/2023'},
 
-]; */
 
 @Component({
   selector: 'app-pacientes',
@@ -42,11 +29,32 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class PacientesComponent implements OnInit {
   pacientes: Pacientes[];
   fec:any;
+  perfil:any;
+  usuario_id:any;
   constructor(private router: Router,private paginator: MatPaginatorIntl, private _pac: PacientesService, private datePipe: DatePipe) {
     this.paginator.itemsPerPageLabel = "Registros por página";
   }
   ngOnInit(): void {
-    this.cargarPacientes();
+    this.perfil=sessionStorage.getItem('UserPerfil');
+    this.usuario_id=sessionStorage.getItem('UserId');
+    console.log(this.perfil);
+    if(this.perfil==1){
+      this.cargarPacientes();
+    }
+     else if(this.perfil==2){
+      this.cargarPacientesR1();
+    }
+    else if(this.perfil==3){
+      this.cargarPacientesR2();
+    }
+    else if(this.perfil==4){
+      this.cargarPacientesTutor();
+    }
+    else if(this.perfil==5){
+      this.cargarPacientesTerapeuta();
+    }
+    console.log(this.usuario_id);
+   
   }
   displayedColumns: string[] = ['pac_id', 'pac_nombre', 'pac_telefono', 'pac_fecha_ingreso','expediente'];
 /*   dataSource = ELEMENT_DATA; */
@@ -72,12 +80,12 @@ export class PacientesComponent implements OnInit {
       pac => {
       
         this.pacientes = pac;
-        console.log(this.pacientes);
+      /*   console.log(this.pacientes); */
         for(let i=0;i<this.pacientes.length;i++){
           this.fec =this.datePipe.transform(this.pacientes[i].pac_fecha_ingreso,"dd/MM/yyyy");
           this.pacientes[i].pac_fecha_ingreso= this.fec;
         }
-        console.log(this.pacientes);
+      /*   console.log(this.pacientes); */
         this.dataSource = new MatTableDataSource(this.pacientes);
         /*  this.dataSource.paginator = this.paginator; */
          this.dataSource.paginator = this.paginatorFirst;
@@ -86,5 +94,88 @@ export class PacientesComponent implements OnInit {
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
       });
   }
+
+  cargarPacientesR1() {
+    this._pac.GetPacientesR1(this.usuario_id).subscribe(
+      pac => {
+      
+        this.pacientes = pac;
+      /*   console.log(this.pacientes); */
+        for(let i=0;i<this.pacientes.length;i++){
+          this.fec =this.datePipe.transform(this.pacientes[i].pac_fecha_ingreso,"dd/MM/yyyy");
+          this.pacientes[i].pac_fecha_ingreso= this.fec;
+        }
+      /*   console.log(this.pacientes); */
+        this.dataSource = new MatTableDataSource(this.pacientes);
+        /*  this.dataSource.paginator = this.paginator; */
+         this.dataSource.paginator = this.paginatorFirst;
+      }, error => {
+        //console.log(error);
+        Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
+  cargarPacientesR2() {
+    this._pac.GetPacientesR2().subscribe(
+      pac => {
+      
+        this.pacientes = pac;
+      /*   console.log(this.pacientes); */
+        for(let i=0;i<this.pacientes.length;i++){
+          this.fec =this.datePipe.transform(this.pacientes[i].pac_fecha_ingreso,"dd/MM/yyyy");
+          this.pacientes[i].pac_fecha_ingreso= this.fec;
+        }
+      /*   console.log(this.pacientes); */
+        this.dataSource = new MatTableDataSource(this.pacientes);
+        /*  this.dataSource.paginator = this.paginator; */
+         this.dataSource.paginator = this.paginatorFirst;
+      }, error => {
+        //console.log(error);
+        Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+  
+
+  cargarPacientesTutor() {
+    this._pac.GetPacientesTutor(this.usuario_id).subscribe(
+      pac => {
+      
+        this.pacientes = pac;
+      /*   console.log(this.pacientes); */
+        for(let i=0;i<this.pacientes.length;i++){
+          this.fec =this.datePipe.transform(this.pacientes[i].pac_fecha_ingreso,"dd/MM/yyyy");
+          this.pacientes[i].pac_fecha_ingreso= this.fec;
+        }
+      /*   console.log(this.pacientes); */
+        this.dataSource = new MatTableDataSource(this.pacientes);
+        /*  this.dataSource.paginator = this.paginator; */
+         this.dataSource.paginator = this.paginatorFirst;
+      }, error => {
+        //console.log(error);
+        Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
+
+  cargarPacientesTerapeuta() {
+    this._pac.GetPacientesTerapeuta(this.usuario_id).subscribe(
+      pac => {
+      
+        this.pacientes = pac;
+      /*   console.log(this.pacientes); */
+        for(let i=0;i<this.pacientes.length;i++){
+          this.fec =this.datePipe.transform(this.pacientes[i].pac_fecha_ingreso,"dd/MM/yyyy");
+          this.pacientes[i].pac_fecha_ingreso= this.fec;
+        }
+      /*   console.log(this.pacientes); */
+        this.dataSource = new MatTableDataSource(this.pacientes);
+        /*  this.dataSource.paginator = this.paginator; */
+         this.dataSource.paginator = this.paginatorFirst;
+      }, error => {
+        //console.log(error);
+        Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
 }
 
