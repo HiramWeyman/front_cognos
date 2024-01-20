@@ -71,6 +71,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     
         login() {
             this.isAuthLoading = true;
+            console.log(this.loginx);
             this.subscription = this.appService.getLogin(this.loginx)
                 .subscribe((data: any) => {
                     if ( data != null) {
@@ -94,10 +95,13 @@ export class LoginComponent implements OnInit, OnDestroy {
                 },
                 error => {
                     this.isAuthLoading = false;
-                    //console.log(error.error.Message);
+                    console.log(error);
+                  
+                    console.log(error.error.errorMessages);
+                    console.log(error.error.errorMessages[0]);
                     swal.fire({
                         title: 'ERROR!!!',
-                        text: error.error.Message,
+                        text: error.error.errorMessages[0],
                         icon: 'error'});
                 });
             }
