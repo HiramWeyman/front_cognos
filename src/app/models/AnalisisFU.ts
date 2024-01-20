@@ -11,5 +11,7 @@ export class AnalisisFU {
     analisis_fecha_modificacion: Date;
     analisis_paciente_id: number;
 }
+
 //Comentario Analisis Funcional
+
 
