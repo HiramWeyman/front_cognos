@@ -38,7 +38,7 @@ export class SesionesComponent implements OnInit{
    
   }
 
-  displayedColumns: string[] = ['sesion_fecha_captura', 'sesion_no', 'sesion_objetivo', 'sesion_tecnica_abc','sesion_tarea_asignada','reporte','acciones'];
+  displayedColumns: string[] = ['sesion_fecha_captura', 'sesion_no', 'sesion_objetivo','sesion_tarea_asignada','reporte','acciones'];
 
   dataSource;
   @ViewChild('paginatorFirst') paginatorFirst: MatPaginator;

@@ -104,10 +104,10 @@ export class FormcasoComponent {
   GuardarComentario(){
     console.log(this.expediente);
     console.log(this.com);
-    this.com.com_index=this.Sessiontab;
+    this.com.com_index=Number(this.Indextab);
+    this.com.com_paciente_id=Number(this.expediente);
+    this.com.com_usuario_id=Number(this.UsuarioId);
     this.com.com_nombre_usuario=this.UsuarioNombre;
-    this.com.com_usuario_id=this.UsuarioId;
-    this.com.com_paciente_id=this.expediente;
     if(!this.com.com_comentario){
       swal.fire('Guardando Comentario', `Debe escribir un comentario!`, 'info');
       return;
@@ -127,7 +127,9 @@ export class FormcasoComponent {
   }
 
   cargarComentarios() {
-    this._com.GetComentariosList(this.Indextab,this.expediente).subscribe(
+    var indice:number=Number(this.Indextab);
+    var id_expediente:number=Number(this.expediente);
+    this._com.GetComentariosList(indice,id_expediente).subscribe(
       se => {
       
         this.comentarios = se;

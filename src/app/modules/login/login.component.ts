@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             await this.appService.getLogin(this.loginx);
             this.isAuthLoading = false;
         } else {
+            this.isAuthLoading = false;
             this.toastr.error('Usuario o password incorrectos!');
         }
     }
@@ -70,6 +71,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     
         login() {
             this.isAuthLoading = true;
+            console.log(this.loginx);
             this.subscription = this.appService.getLogin(this.loginx)
                 .subscribe((data: any) => {
                     if ( data != null) {
@@ -84,6 +86,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                         this.router.navigate(['/']);
                         this.toastr.success('Login exitoso');
                     } else{
+                        this.isAuthLoading = false;
                         swal.fire({
                             icon: 'error',
                             title: 'Usuario y/o contraseña incorrecta'
@@ -91,10 +94,14 @@ export class LoginComponent implements OnInit, OnDestroy {
                     }	
                 },
                 error => {
-                    //console.log(error.error.Message);
+                    this.isAuthLoading = false;
+                    console.log(error);
+                  
+                    console.log(error.error.errorMessages);
+                    console.log(error.error.errorMessages[0]);
                     swal.fire({
                         title: 'ERROR!!!',
-                        text: error.error.Message,
+                        text: error.error.errorMessages[0],
                         icon: 'error'});
                 });
             }

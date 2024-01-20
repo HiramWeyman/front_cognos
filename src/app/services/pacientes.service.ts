@@ -7,6 +7,7 @@ import { environment } from 'environments/environment';
 import { Login } from '@/models/Login';
 import { Observable, map } from 'rxjs';
 import { Pacientes } from '@/models/Pacientes';
+import { Terapeutas } from '@/models/Terapeutas';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,18 @@ export class PacientesService {
     );
   }
 
- 
+  GetPacientesR1(id:number): Observable<Pacientes[]> {
+    return this.http.get(`${environment.rutaAPI}` + '/PacPeriles/pacientesR1/'+id).pipe(
+      map(response => response as Pacientes[])
+    );
+  }
+
+  GetPacientesR2(): Observable<Pacientes[]> {
+    return this.http.get(`${environment.rutaAPI}` + '/PacPeriles/pacientesR2').pipe(
+      map(response => response as Pacientes[])
+    );
+  }
+
 
   GetPacientesTutor(id:number): Observable<Pacientes[]> {
     return this.http.get(`${environment.rutaAPI}` + '/Tutores?id='+id).pipe(
@@ -37,9 +49,21 @@ export class PacientesService {
     );
   } 
 
+  GetPacientesTerapeuta(id:number): Observable<Pacientes[]> {
+    return this.http.get(`${environment.rutaAPI}` + '/PacPeriles/pacientesTerapeutas?Id='+id).pipe(
+      map(response => response as Pacientes[])
+    );
+  }
+
   GetTutores(): Observable<Pacientes[]> {
     return this.http.get(`${environment.rutaAPI}` + '/UsuarioRole?id=4').pipe(
       map(response => response as Pacientes[])
+    );
+  } 
+
+  GetTerapeutas(): Observable<Terapeutas[]> {
+    return this.http.get(`${environment.rutaAPI}` + '/Terapeuta').pipe(
+      map(response => response as Terapeutas[])
     );
   } 
 

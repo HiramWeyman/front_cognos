@@ -19,16 +19,31 @@ public userId: any = null;
 public fnac: any = null;
 public fing: any = null;
 expediente!: any;
+terapeutas: any[];
 constructor(
   private _pac: SesionService,
   private router: Router,
-  private datePipe: DatePipe
+  private datePipe: DatePipe,
+  private _pac2: PacientesService,
   
 ) {}
   ngOnInit(): void {
  
     this.expediente=sessionStorage.getItem('Expediente');
     console.log(this.expediente);
+    this.cargarTerapeutas()
+  }
+
+  cargarTerapeutas() {
+    this._pac2.GetTerapeutas().subscribe(
+      fu => {
+        this.terapeutas = fu;
+        console.log(this.terapeutas);
+      
+      }, error => {
+        console.log(error);
+        //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
   }
 
   GuardarSesion(){

@@ -22,8 +22,10 @@ export class GeneralesComponent implements OnInit{
   public Sessiontab: any = null;
   public fnac: any = null;
   public fing: any = null;
+  selectedValue: any;
   fec: any;
   tutor: any[];
+  terapeutas: any[];
   constructor(
     private _pac: PacientesService,
     private router: Router,
@@ -35,6 +37,7 @@ export class GeneralesComponent implements OnInit{
     this.Sessiontab=sessionStorage.getItem('IndexTab');
     this.cargarPacientes();
     this.cargarTutores();
+    this.cargarTerapeutas();
  /*    this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
@@ -87,6 +90,18 @@ export class GeneralesComponent implements OnInit{
         this.tutor = fu;
         console.log(this.tutor);
         
+      }, error => {
+        console.log(error);
+        //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
+  cargarTerapeutas() {
+    this._pac.GetTerapeutas().subscribe(
+      fu => {
+        this.terapeutas = fu;
+        console.log(this.terapeutas);
+      
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
