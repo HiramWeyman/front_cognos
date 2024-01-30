@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.subscription = this.appService.getLogin(this.loginx)
                 .subscribe((data: any) => {
                     if ( data != null) {
-                        console.log(data);
+                        //console.log(data);
                         swal.fire({
                             icon: 'success',
                             title: 'Usuario Logeado',

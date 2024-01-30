@@ -17,7 +17,7 @@
                 <th>Siento miedo</th>
                 <th>Me cuesta concentrarme</th>
                 <th>Pienso que la gente se dará cuenta de mis problemas o de la torpeza de mis actos</th>
-                <th>Observaciones</th>
+            <!--     <th>Observaciones</th> -->
                 <th>ΣS</th>
               </tr>
             </thead>
@@ -33,8 +33,8 @@
                 <td><label><b>{{item.res_respuesta5}}</b></label></td>
                 <td><label><b>{{item.res_respuesta6}}</b></label></td>
                 <td><label><b>{{item.res_respuesta7}}</b></label></td>
-                <td><label><b>{{item.res_observacion}}</b></label></td>
-                <td><label><b>{{item.res_sum}}</b></label></td>
+             <!--    <td><label><b>{{item.res_observacion}}</b></label></td> -->
+                <td><label><b>{{item.res_respuesta1+item.res_respuesta2+item.res_respuesta3+item.res_respuesta4+item.res_respuesta5+item.res_respuesta6+item.res_respuesta7}}</b></label></td>
 
               </tr>
 
@@ -57,7 +57,7 @@
                 <th>Siento náuseas o mareo.</th>
                 <th>Se me seca la boca y tengo dificultades para tragar.</th>
                 <th>Tengo escalofríos y tiríto  aunque no haga mucho frío.</th>
-                <th>Observaciones</th>
+               <!--  <th>Observaciones</th> -->
                 <th>ΣS</th>
               </tr>
             </thead>
@@ -76,8 +76,8 @@
                 <td><label><b>{{item.res_respuesta8}}</b></label></td>
                 <td><label><b>{{item.res_respuesta9}}</b></label></td>
                 <td><label><b>{{item.res_respuesta10}}</b></label></td>
-                <td><label><b>{{item.res_observacion}}</b></label></td>
-                <td><label><b>{{item.res_sum}}</b></label></td>
+                <!--    <td><label><b>{{item.res_observacion}}</b></label></td> -->
+                <td><label><b>{{item.res_respuesta1+item.res_respuesta2+item.res_respuesta3+item.res_respuesta4+item.res_respuesta5+item.res_respuesta6+item.res_respuesta7+item.res_respuesta8+item.res_respuesta9+item.res_respuesta10}}</b></label></td>
 
               </tr>
 
@@ -97,7 +97,7 @@
                 <th>Me muevo y hago cosas sin una finalidad concreta.</th>
                 <th>Quedo paralizado o mis movimientos son torpes.</th>
                 <th>Tartamudeo o tengo otras dificultades de expresión verbal.</th>
-                <th>Observaciones</th>
+               <!--  <th>Observaciones</th> -->
                 <th>ΣS</th>
               </tr>
             </thead>
@@ -113,14 +113,14 @@
                 <td><label><b>{{item.res_respuesta5}}</b></label></td>
                 <td><label><b>{{item.res_respuesta6}}</b></label></td>
                 <td><label><b>{{item.res_respuesta7}}</b></label></td>
-                <td><label><b>{{item.res_observacion}}</b></label></td>
-                <td><label><b>{{item.res_sum}}</b></label></td>
+             <!--    <td><label><b>{{item.res_observacion}}</b></label></td> -->
+                <td><label><b>{{item.res_respuesta1+item.res_respuesta2+item.res_respuesta3+item.res_respuesta4+item.res_respuesta5+item.res_respuesta6+item.res_respuesta7}}</b></label></td>
 
               </tr>
 
             </tbody>
           </table>
           <div><label>Total:  {{totalM}}</label></div>
-          <button class="btn btn-primary sm mt-2" [routerLink]="['/exp',id]">Regresar </button><br>
+          <button class="btn btn-primary sm mt-2" [routerLink]="['/risra',expediente]">Regresar </button><br>
       </div>
    

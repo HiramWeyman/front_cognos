@@ -13,11 +13,13 @@ export class ResultadosBaianComponent {
   id!: any;
   resultados: ResultadosBAIAN[];
   total!:any;
+  expediente!: any;
 /*   pac: Pacientes = new Pacientes(); */
   constructor(private route: ActivatedRoute, private _res: ResultadosService) {
 
   }
   ngOnInit(): void {
+    this.expediente=sessionStorage.getItem('Expediente');
     this.id = this.route.snapshot.paramMap.get('id');
     this.cargarResBAIAN();
     this.cargarTotalBAIAN();
