@@ -14,6 +14,7 @@ import { ResultadosBAIAN } from '@/models/ResultadosBAIAN';
 import { ResultadosBDIDP } from '@/models/resultadosBDIDP';
 import { ResultadosCree } from '@/models/ResultadosCree';
 import { ResultadosSCID } from '@/models/RessultadosSCID';
+import { Maestro } from '@/models/Maestro';
 
 @Injectable({
   providedIn: 'root'
@@ -117,7 +118,42 @@ export class ResultadosService {
       map(response => response as any[])
     );
   }
+//Metodos para obtener los datos de la tabla maestra
+getResSCLMaestro(Id:number):Observable<Maestro[]>{
+  return this.http.get(`${environment.rutaAPI}` + '/scl/MaestroSCLList/'+Id).pipe(
+    map(response => response as Maestro[])
+  );
+}
 
+getResSCIDMaestro(Id:number):Observable<Maestro[]>{
+  return this.http.get(`${environment.rutaAPI}` + '/scid/MaestroSCIDList/'+Id).pipe(
+    map(response => response as Maestro[])
+  );
+}
+
+getResBAIANMaestro(Id:number):Observable<Maestro[]>{
+  return this.http.get(`${environment.rutaAPI}` + '/baiAn/MaestroBAIanList/'+Id).pipe(
+    map(response => response as Maestro[])
+  );
+}
+
+getResBDIDPMaestro(Id:number):Observable<Maestro[]>{
+  return this.http.get(`${environment.rutaAPI}` + '/bdiDp/MaestroBDIDPList/'+Id).pipe(
+    map(response => response as Maestro[])
+  );
+}
+
+getResCREEMaestro(Id:number):Observable<Maestro[]>{
+  return this.http.get(`${environment.rutaAPI}` + '/ellis/MaestroEllisList/'+Id).pipe(
+    map(response => response as Maestro[])
+  );
+}
+
+getResISRAMaestro(Id:number):Observable<Maestro[]>{
+  return this.http.get(`${environment.rutaAPI}` + '/isra/MaestroIsraList/'+Id).pipe(
+    map(response => response as Maestro[])
+  );
+}
 
 
 

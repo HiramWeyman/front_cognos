@@ -12,12 +12,15 @@ export class ResultadosSCLComponent {
   id!: any;
   resultados: ResultadosSCL[];
   total!:any;
+  expediente!: any;
 /*   pac: Pacientes = new Pacientes(); */
   constructor(private route: ActivatedRoute, private _res: ResultadosService,) {
 
   }
   ngOnInit(): void {
+    this.expediente=sessionStorage.getItem('Expediente');
     this.id = this.route.snapshot.paramMap.get('id');
+    console.log(this.id);
     this.cargarResSCL();
     this.cargarTotalSCL();
   }

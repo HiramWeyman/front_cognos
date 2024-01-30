@@ -1,0 +1,27 @@
+<div class="d-flex justify-content-center"><label>Pruebas Test ISRA Realizadas</label></div>
+
+<div class="container">
+  <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Resultados</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr *ngFor="let item of resultados;index as i">
+          <th scope="row">{{i+1}}</th>
+          <td>{{item.maestro_fecha}}</td>
+          <td><button class="btn btn-primary btn-sm" [routerLink]="['/resisra',item.maestro_id]">Resultados</button></td>
+        </tr>
+
+      </tbody>
+    </table><br>
+    <button class="btn btn-primary sm mt-2" id="regresa" [routerLink]="['/exp',expediente]">Regresar </button><br>
+</div>
+
+
+
+

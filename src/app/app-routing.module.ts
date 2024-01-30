@@ -26,6 +26,12 @@ import { ResultadosBdidpComponent } from '@pages/resultados-bdidp/resultados-bdi
 import { ResultadosCreeComponent } from '@pages/resultados-cree/resultados-cree.component';
 import { ResultadosScidComponent } from '@pages/resultados-scid/resultados-scid.component';
 import { ResultadosIsraComponent } from '@pages/resultados-isra/resultados-isra.component';
+import { RessclComponent } from '@pages/resscl/resscl.component';
+import { ResScidComponent } from '@pages/res-scid/res-scid.component';
+import { ResBaianComponent } from '@pages/res-baian/res-baian.component';
+import { ResBdidpComponent } from '@pages/res-bdidp/res-bdidp.component';
+import { ResCreeComponent } from '@pages/res-cree/res-cree.component';
+import { RisraComponent } from '@pages/risra/risra.component';
 
 const routes: Routes = [
     {
@@ -78,25 +84,51 @@ const routes: Routes = [
                 path:'resscl/:id', 
                 component: ResultadosSCLComponent
             },
+
+            {
+                path:'rescl/:id', 
+                component: RessclComponent
+            },
+
             {
                 path:'resbaian/:id', 
                 component: ResultadosBaianComponent
+            },
+            {
+                path:'rbaian/:id', 
+                component: ResBaianComponent
             },
             {
                 path:'resbdidp/:id', 
                 component: ResultadosBdidpComponent
             },
             {
+                path:'rbdidp/:id', 
+                component: ResBdidpComponent
+            },
+            {
                 path:'rescree/:id', 
                 component: ResultadosCreeComponent
+            },
+            {
+                path:'rcree/:id', 
+                component: ResCreeComponent
             },
             {
                 path:'resscid/:id', 
                 component: ResultadosScidComponent
             },
             {
+                path:'rscid/:id', 
+                component: ResScidComponent
+            },
+            {
                 path:'resisra/:id', 
                 component: ResultadosIsraComponent
+            },
+            {
+                path:'risra/:id', 
+                component: RisraComponent
             },
             {
                 path: 'sub-menu-1',

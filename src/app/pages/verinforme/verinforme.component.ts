@@ -95,6 +95,7 @@ export class VerinformeComponent {
      {}
   ngOnInit(): void {
     this.idx = this.route.snapshot.paramMap.get('idx');
+    console.log('parametro que se envia');
     console.log(this.idx);
     this.cargarInforme();
    
@@ -102,6 +103,7 @@ export class VerinformeComponent {
 
 
   cargarInforme() {
+    console.log(this.idx);
     this._inf.GetInforme(this.idx).subscribe(
       se => {
       

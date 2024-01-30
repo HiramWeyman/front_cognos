@@ -12,10 +12,12 @@ export class ResultadosBdidpComponent {
   id!: any;
   resultados: ResultadosBDIDP[];
   total!:any;
+  expediente!: any;
   constructor(private route: ActivatedRoute, private _res: ResultadosService) {
 
   }
   ngOnInit(): void {
+    this.expediente=sessionStorage.getItem('Expediente');
     this.id = this.route.snapshot.paramMap.get('id');
     this.cargarResBDIDP();
 /*     this.cargarTotalBDIDP(); */

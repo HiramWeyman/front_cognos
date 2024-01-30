@@ -45,6 +45,8 @@ export class InformesComponent implements OnInit  {
     this.Sessiontab=sessionStorage.getItem('IndexTab');
     this.UsuarioId=sessionStorage.getItem('UserId');
     this.UsuarioNombre=sessionStorage.getItem('UserName');
+    console.log('Id del expediente '+this.ExpedienteId);
+    console.log(this.ExpedienteId);
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
