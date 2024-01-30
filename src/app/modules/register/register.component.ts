@@ -12,6 +12,7 @@ import {AppService} from '@services/app.service';
 import {ToastrService} from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import swal from 'sweetalert2';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
     selector: 'app-register',
@@ -27,6 +28,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     public isFacebookLoading = false;
     usuario:Usuarios=new Usuarios();
     private subscription: Subscription;
+    @BlockUI()
+    blockUI!: NgBlockUI;
     constructor(
         private renderer: Renderer2,
         private toastr: ToastrService,
@@ -58,9 +61,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }
 
     registro() {
+        this.blockUI.start('Registrando...');
+        this.usuario.usr_email=this.usuario.usr_email.trim();
         this.subscription = this.appService.Registro(this.usuario)
             .subscribe((data: any) => {
                 if ( data != null) {
+                    this.blockUI.stop();
                     console.log(data);
                     swal.fire({
                         icon: 'success',
@@ -71,6 +77,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
                     this.router.navigate(['/login']);
                     this.toastr.success('Registro exitoso');
                 } else{
+                    this.blockUI.stop();
                     swal.fire({
                         icon: 'error',
                         title: 'Ocurrio un error en el registro'
@@ -78,11 +85,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
                 }	
             },
             error => {
-                console.log(error.error.Message);
+                this.blockUI.stop();
+                console.log(error);
                 swal.fire({
-                    title: 'ERROR!!!',
+                    title: 'Información !!!',
                     text: error.error.errorMessages[0],
-                    icon: 'error'});
+                    icon: 'info'});
             });
         }
 

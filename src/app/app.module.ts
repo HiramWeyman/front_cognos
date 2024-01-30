@@ -83,6 +83,12 @@ import { ResultadosBdidpComponent } from './pages/resultados-bdidp/resultados-bd
 import { ResultadosCreeComponent } from './pages/resultados-cree/resultados-cree.component';
 import { ResultadosScidComponent } from './pages/resultados-scid/resultados-scid.component';
 import { ResultadosIsraComponent } from './pages/resultados-isra/resultados-isra.component';
+import { RessclComponent } from './pages/resscl/resscl.component';
+import { ResScidComponent } from './pages/res-scid/res-scid.component';
+import { ResBaianComponent } from './pages/res-baian/res-baian.component';
+import { ResBdidpComponent } from './pages/res-bdidp/res-bdidp.component';
+import { ResCreeComponent } from './pages/res-cree/res-cree.component';
+import { RisraComponent } from './pages/risra/risra.component';
 
 registerLocaleData(localeEn, 'en-EN');
 
@@ -136,6 +142,12 @@ registerLocaleData(localeEn, 'en-EN');
         ResultadosCreeComponent,
         ResultadosScidComponent,
         ResultadosIsraComponent,
+        RessclComponent,
+        ResScidComponent,
+        ResBaianComponent,
+        ResBdidpComponent,
+        ResCreeComponent,
+        RisraComponent,
      
         
     /*     PacientesComponent, */

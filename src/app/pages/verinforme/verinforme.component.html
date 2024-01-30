@@ -19,8 +19,8 @@
 
     <div class="izq">
         <h3>No. expediente: {{informe.inf_paciente_id}} </h3><br>
-        <label>Terapeuta. {{informe.terapeuta}} </label><br>
-        <label>Coterapeuta. {{informe.coterapeuta}}</label><br>
+<!--         <label>Terapeuta. {{informe.terapeuta}} </label><br>
+        <label>Coterapeuta. {{informe.coterapeuta}}</label><br> -->
     </div><br>
     <div class="izq">
         <h3>1.Datos Biográficos.</h3><br>
@@ -233,7 +233,7 @@
   <label>imagen 1</label><br> 
   <label>imagen 2</label><br> 
   <label>Hipótesis de Origen y mantenimiento.</label><br> 
-  <p [innerHTML]="caso.form_hipotesis"></p>
+  <p [innerHTML]="caso.form_hipotesis" ></p>
   <label>Contraste de hipótesis.</label><br> 
   <p [innerHTML]="caso.form_contraste"></p>
 </div>

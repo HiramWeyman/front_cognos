@@ -12,4 +12,6 @@ export class AnalisisFU {
     analisis_paciente_id: number;
 }
 
+//Comentario Analisis Funcional
+
 

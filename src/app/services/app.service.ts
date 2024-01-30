@@ -21,7 +21,7 @@ export class AppService {
     public urlEndPoint = `${environment.rutaAPI}`;
 
      getLogin(login: Login): Observable<Login[]> {
-        console.log(login);
+        //console.log(login);
         // const urlEndPoint: string = `${environment.rutaAPI}/Login/`+matricula;
         return this.http.post<Usuarios>(this.urlEndPoint + '/Usuarios/login', login).pipe(
             // return this.http.get("/api/Login/"+matricula).pipe(
@@ -29,14 +29,14 @@ export class AppService {
            /*      sessionStorage.Login = login.toString();
                 localStorage.setItem(_TOKEN, login.toString()); */
                 // sessionStorage.setItem(_TOKEN, matricula.toString());
-                console.log(response);
+                //console.log(response);
                 this.username=response.result.usuario.usr_nombre.toString()+' '+response.result.usuario.usr_paterno.toString()+' '+response.result.usuario.usr_materno.toString();
                 sessionStorage.setItem('UserMail', response.result.usuario.usr_email.toString());
                 sessionStorage.setItem('UserId', response.result.usuario.usr_id);
                 sessionStorage.setItem('UserPerfil', response.result.usuario.usr_per_id);
                 sessionStorage.setItem('UserName', this.username);
                 this.user = response.result.usuario.usr_email.toString();
-                console.log(response);
+               // console.log(response);
                 console.log(response.result.usuario.usr_email);
                 console.log(this.user);
                 this.router.navigate(['/']);
@@ -50,13 +50,16 @@ export class AppService {
     Registro(usuario: Usuarios): Observable<Usuarios> {
         
         return this.http.post<Usuarios>(`${environment.rutaAPI}` + '/Usuarios/registro', usuario);
-      }
+    }
+
+
     //Valida si el usuario existe
     CountUsr(email: any): Observable<any> {
         console.log(`${environment.rutaAPI}` + '/RecuperaPass/ValidaMail/'+email);
         return this.http.get<any>(`${environment.rutaAPI}` + '/RecuperaPass/ValidaMail/'+email);
     }
-
+    
+    //Envia correo para recuperar password
     EnviarCorreo(email:string): Observable<string> {
       
       console.log(email);

@@ -10,6 +10,7 @@ import { ResultadosService } from '@services/resultados.service';
 })
 export class ResultadosCreeComponent {
   id!: any;
+  expediente!: any;
   resultados: ResultadosCree[];
   total1!:any;
   total2!:any;
@@ -26,7 +27,9 @@ export class ResultadosCreeComponent {
 
   }
   ngOnInit(): void {
+    this.expediente=sessionStorage.getItem('Expediente');
     this.id = this.route.snapshot.paramMap.get('id');
+    console.log(this.id);
     this.cargarResCree();
     this.cargarTotalCree1();
     this.cargarTotalCree2();

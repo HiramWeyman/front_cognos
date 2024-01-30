@@ -6,7 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 export const environment = {
   production: false,
-  	  
+		//Usando la APP solamente importante activar rutaAPI de Produccion al fusionar con MAIN
 		rutaAPI: 'https://api.iescognos.com/api',
 	    //rutaAPI: 'https://localhost:7161/api',
 
