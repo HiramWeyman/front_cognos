@@ -116,7 +116,7 @@ export class PacientesComponent implements OnInit {
   }
 
   cargarPacientesR2() {
-    this._pac.GetPacientesR2().subscribe(
+    this._pac.GetPacientesR2(this.usuario_id).subscribe(
       pac => {
       
         this.pacientes = pac;
