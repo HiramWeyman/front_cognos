@@ -65,7 +65,16 @@
             <mat-option [value]="2">Casado/a</mat-option>
             <mat-option [value]="3">Viudo/a</mat-option>
             <mat-option [value]="4">Divorciado/a</mat-option>
+            <mat-option [value]="5">Union Libre</mat-option>
+            <mat-option [value]="6">Otro</mat-option>
           </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12" *ngIf="pac.pac_edocivil==6">
+        <mat-form-field class="form-element">
+          <mat-label>Especifique</mat-label>
+          <textarea matInput cols="5" rows="5" [(ngModel)]="pac.pac_especifique" name="pac_especifique" ngDefaultControl ></textarea>
         </mat-form-field>
       </div>
 
@@ -107,11 +116,44 @@
           <input matInput type="tel" [(ngModel)]="pac.pac_telefono" name="telefono" ngDefaultControl>
         </mat-form-field>
       </div>
+      <div class="col-sm-5">
+        <mat-form-field class="form-element">
+          <mat-label>Contactar en caso de emergencia</mat-label>
+          <input matInput type="tel" [(ngModel)]="pac.pac_contacto_eme" name="telefono" ngDefaultControl>
+        </mat-form-field>
+      </div>
+  
+      <div class="col-sm">
+        <mat-form-field class="form-element">
+          <mat-label>Teléfono de emergencia</mat-label>
+          <input matInput type="tel" [(ngModel)]="pac.pac_telefono_eme" name="telefono" ngDefaultControl>
+        </mat-form-field>
+      </div>
       <div class="col-12">
         <mat-form-field class="form-element">
           <mat-label>Domicilio</mat-label>
           <textarea matInput [(ngModel)]="pac.pac_domicilio" name="domicilio" ngDefaultControl ></textarea>
         </mat-form-field>
+      </div>
+
+      <div class="col-12" *ngIf="perfil==2 || perfil==3 ">
+        <div class="col-sm">
+    <!--       <mat-form-field class="form-element">
+            <mat-label>Compartir con:  (Opcional para R1 y R2)</mat-label>
+            <mat-select [(ngModel)]="pac.pac_comparte_usrid" name="compartir" ngDefaultControl>
+              <mat-option value="" selected>--Seleccione --</mat-option>
+              <mat-option *ngFor="let a of alumnos" value={{a.usr_id}}>{{a.usr_paterno}} {{a.usr_materno}} {{a.usr_nombre}}</mat-option>
+            </mat-select>
+          </mat-form-field> -->
+
+          <label for="exampleFormControlSelect1">Compartir con:  (Opcional para R1 y R2)</label>
+          <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="pac.pac_comparte_usrid">
+           <!--  <option *ngFor="let a of alumnos" value="{{ a.usr_id }}" >{{a.usr_paterno}} {{a.usr_materno}} {{a.usr_nombre}}</option> -->
+           <option *ngFor="let a of alumnos"
+           [value]="a.usr_id" 
+           [selected]="a.selected == true">{{a.usr_paterno}} {{a.usr_materno}} {{a.usr_nombre}}</option>
+           </select>
+        </div>
       </div>
       <div class="col-12">
         <div class="col-sm">
@@ -142,7 +184,8 @@
  
             <label for="exampleFormControlSelect1">Terapeuta:</label>
             <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="pac.pac_terapeuta">
-              <!-- <option selected="selected" value="0">-- Seleccione un año --</option> -->
+              <option selected="selected" value="0" *ngIf="pac.pac_terapeuta==0">-- Seleccione  --</option>
+         <!--      <option selected="selected" value="" *ngIf="pac.pac_terapeuta==null">-- Seleccione Terapeuta --</option> -->
               <option *ngFor="let a of terapeutas" value="{{ a.tera_id }}" selected="selected">{{a.tera_paterno}} {{a.tera_materno}} {{a.tera_nombres}}</option>
              </select>
            <!--  {{pac.pac_tutor}} -->
@@ -155,7 +198,11 @@
             <label for="exampleFormControlSelect1">Coterapeuta:</label>
             <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="pac.pac_coterapeuta">
               <!-- <option selected="selected" value="0">-- Seleccione un año --</option> -->
-              <option *ngFor="let b of terapeutas" value="{{ b.tera_id }}" selected="selected">{{b.tera_paterno}} {{b.tera_materno}} {{b.tera_nombres}}</option>
+<!--               <option selected="selected" value="" *ngIf="pac.pac_coterapeuta==null">-- Seleccione Terapeuta --</option>
+-->            
+ <!-- <option selected="selected" value="" *ngIf="!pac.pac_coterapeuta">-- Seleccione Terapeuta --</option> -->
+                  <option selected="selected" value="0" *ngIf="pac.pac_coterapeuta==0">-- Seleccione  --</option>
+                  <option *ngFor="let b of terapeutas" value="{{ b.tera_id }}" selected="selected">{{b.tera_paterno}} {{b.tera_materno}} {{b.tera_nombres}}</option>
              </select>
            <!--  {{pac.pac_tutor}} -->
         </div>

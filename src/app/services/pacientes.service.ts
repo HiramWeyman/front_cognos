@@ -17,6 +17,8 @@ export class PacientesService {
   constructor(private http: HttpClient) { }
   public urlEndPoint = `${environment.rutaAPI}`;
   RegistroPacientes(paciente: Pacientes): Observable<Pacientes> {
+    console.log('Datos paciente');
+    console.log(paciente);
     return this.http.post<Pacientes>(`${environment.rutaAPI}` + '/Pacientes', paciente);
   }
 
@@ -36,8 +38,8 @@ export class PacientesService {
     );
   }
 
-  GetPacientesR2(): Observable<Pacientes[]> {
-    return this.http.get(`${environment.rutaAPI}` + '/PacPeriles/pacientesR2').pipe(
+  GetPacientesR2(id:number): Observable<Pacientes[]> {
+    return this.http.get(`${environment.rutaAPI}` + '/PacPeriles/pacientesR2/'+id).pipe(
       map(response => response as Pacientes[])
     );
   }
@@ -52,6 +54,12 @@ export class PacientesService {
   GetPacientesTerapeuta(id:number): Observable<Pacientes[]> {
     return this.http.get(`${environment.rutaAPI}` + '/PacPeriles/pacientesTerapeutas?Id='+id).pipe(
       map(response => response as Pacientes[])
+    );
+  }
+
+  GetAlumnosR1R2(): Observable<any[]> {
+    return this.http.get(`${environment.rutaAPI}` + '/PacPeriles/PerAlumnos').pipe(
+      map(response => response as any[])
     );
   }
 

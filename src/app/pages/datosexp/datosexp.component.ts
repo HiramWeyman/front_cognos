@@ -24,6 +24,7 @@ export class DatosexpComponent {
   id!: any;
   expediente!: any;
   nombre!: any;
+  perfil:any;
   pac: Pacientes = new Pacientes();
   constructor(private route: ActivatedRoute, private _pac: PacientesService,private sharednumber:SharednumberService) {
 
@@ -36,6 +37,7 @@ export class DatosexpComponent {
     this.id = this.route.snapshot.paramMap.get('id');
     sessionStorage.setItem('Expediente', this.id);
     this.expediente=sessionStorage.getItem('Expediente');
+    this.perfil=sessionStorage.getItem('UserPerfil');
     console.log(sessionStorage.getItem('Expediente'));
     this.cargarPacientes();
     const val:number=Number(sessionStorage.getItem('IndexTab'));
