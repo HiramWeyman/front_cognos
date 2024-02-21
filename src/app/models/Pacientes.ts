@@ -18,4 +18,8 @@ export class Pacientes {
     pac_tutor:number;
     pac_terapeuta:number;
     pac_coterapeuta:number;
+    pac_comparte_usrid:number;
+    pac_especifique:string;
+    pac_contacto_eme:string;
+    pac_telefono_eme:string;
 }

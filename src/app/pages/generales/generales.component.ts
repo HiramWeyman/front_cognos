@@ -26,6 +26,8 @@ export class GeneralesComponent implements OnInit{
   fec: any;
   tutor: any[];
   terapeutas: any[];
+  alumnos: any[];
+  perfil:any;
   constructor(
     private _pac: PacientesService,
     private router: Router,
@@ -35,9 +37,11 @@ export class GeneralesComponent implements OnInit{
   ngOnInit(): void {
     this.ExpedienteId = sessionStorage.getItem('Expediente');
     this.Sessiontab=sessionStorage.getItem('IndexTab');
+    this.perfil=sessionStorage.getItem('UserPerfil');
     this.cargarPacientes();
     this.cargarTutores();
     this.cargarTerapeutas();
+    this.cargarAlumnos();
  /*    this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
@@ -52,6 +56,12 @@ export class GeneralesComponent implements OnInit{
 
   ActualizarPac() {
     console.log(this.pac);
+    if(this.pac.pac_terapeuta==0){
+      this.pac.pac_terapeuta==null;
+    }
+    if(this.pac.pac_coterapeuta==0){
+      this.pac.pac_coterapeuta==null;
+    }
     this.subscription = this._pac.UpdatePacientes(this.pac)
         .subscribe((data: any) => {
           swal.fire({
@@ -60,8 +70,8 @@ export class GeneralesComponent implements OnInit{
             text: 'Actualización Exitosa ',
             timer: 2000
         });
-      /*   this.router.navigate(['/generales']); */
-        this.ngOnInit();
+         this.router.navigate(['/exp/'+this.ExpedienteId]); 
+     /*    this.ngOnInit(); */
         },
         error => {
             //console.log(error.error.Message);
@@ -77,6 +87,12 @@ export class GeneralesComponent implements OnInit{
       pac => {
         this.pac = pac;
         console.log(this.pac);
+        if(this.pac.pac_terapeuta==null){
+          this.pac.pac_terapeuta==0;
+        }
+        if(this.pac.pac_coterapeuta==null){
+          this.pac.pac_coterapeuta==0;
+        }
        
       }, error => {
         //console.log(error);
@@ -101,6 +117,19 @@ export class GeneralesComponent implements OnInit{
       fu => {
         this.terapeutas = fu;
         console.log(this.terapeutas);
+      
+      }, error => {
+        console.log(error);
+        //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
+  cargarAlumnos() {
+    this._pac.GetAlumnosR1R2().subscribe(
+      fu => {
+        this.alumnos = fu;
+        console.log('Carga Alumnos');
+        console.log(this.alumnos);
       
       }, error => {
         console.log(error);
