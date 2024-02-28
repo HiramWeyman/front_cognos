@@ -2,10 +2,10 @@ export class SesionVista {
     sesion_id: number
     sesion_caso: string;
     sesion_no: string;
-    sesion_terapeuta: number
-    sesion_coterapeuta: number
+    sesion_terapeuta: number;
+    sesion_coterapeuta: number;
     sesion_objetivo: string;
-    sesion_rev_tarea: number
+    sesion_rev_tarea: number;
     sesion_tecnica_abc: string;
 
     sesion_evento_act : string;
@@ -31,4 +31,5 @@ export class SesionVista {
     terapeuta: string;
     coterapeuta: string;
     rev_tarea_desc: string;
+    sesion_impedimiento:string;
 }

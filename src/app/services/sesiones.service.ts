@@ -46,11 +46,34 @@ export class SesionService {
     return this.http.delete<Sesion>(`${environment.rutaAPI}` + '/Sesion/'+id);
   }
 
-  GetVistaSesion(id:number): Observable<SesionVista> {
+  GetVistaSesion(id:number): Observable<Sesion> {
+    return this.http.get(`${environment.rutaAPI}` + '/Vista/'+id).pipe(
+      map(response => response as Sesion)
+    );
+  }
+/*   GetVistaSesion(id:number): Observable<SesionVista> {
     return this.http.get(`${environment.rutaAPI}` + '/Vista/'+id).pipe(
       map(response => response as SesionVista)
     );
+  } */
+
+  GetTerapeuta(id:number): Observable<any> {
+    return this.http.get(`${environment.rutaAPI}` + '/Vista/v_terapeuta?id='+id).pipe(
+      map(response => response as any)
+    );
   }
+
+  GetCoTerapeuta(id:number): Observable<any> {
+    return this.http.get(`${environment.rutaAPI}` + '/Vista/v_coterapeuta?id='+id).pipe(
+      map(response => response as any)
+    );
+  }
+
+ /*  GetTarea(id:number): Observable<any> {
+    return this.http.get(`${environment.rutaAPI}` + '/Vista/v_coterapeuta?id='+id).pipe(
+      map(response => response as any)
+    );
+  } */
 
 
 }
