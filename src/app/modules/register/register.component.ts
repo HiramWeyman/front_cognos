@@ -62,36 +62,50 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     registro() {
         this.blockUI.start('Registrando...');
-        this.usuario.usr_email=this.usuario.usr_email.trim();
-        this.subscription = this.appService.Registro(this.usuario)
-            .subscribe((data: any) => {
-                if ( data != null) {
-                    this.blockUI.stop();
-                    console.log(data);
-                    swal.fire({
-                        icon: 'success',
-                        title: 'Usuario Registrado',
-                        text: 'Registro Exitoso ',
-                        timer: 2000
+        this.appService.ValidaPadron(this.usuario.usr_email.trim()).subscribe(count=>{
+            console.log(count);
+            if(Number(count)==1){
+                this.usuario.usr_email=this.usuario.usr_email.trim();
+                this.subscription = this.appService.Registro(this.usuario)
+                    .subscribe((data: any) => {
+                        if ( data != null) {
+                            this.blockUI.stop();
+                            console.log(data);
+                            swal.fire({
+                                icon: 'success',
+                                title: 'Usuario Registrado',
+                                text: 'Registro Exitoso ',
+                                timer: 2000
+                            });
+                            this.router.navigate(['/login']);
+                            this.toastr.success('Registro exitoso');
+                        } else{
+                            this.blockUI.stop();
+                            swal.fire({
+                                icon: 'error',
+                                title: 'Ocurrio un error en el registro'
+                            });
+                        }	
+                    },
+                    error => {
+                        this.blockUI.stop();
+                        console.log(error);
+                        swal.fire({
+                            title: 'Información !!!',
+                            text: error.error.errorMessages[0],
+                            icon: 'info'});
                     });
-                    this.router.navigate(['/login']);
-                    this.toastr.success('Registro exitoso');
-                } else{
-                    this.blockUI.stop();
-                    swal.fire({
-                        icon: 'error',
-                        title: 'Ocurrio un error en el registro'
-                    });
-                }	
-            },
-            error => {
+            }else{
                 this.blockUI.stop();
-                console.log(error);
                 swal.fire({
-                    title: 'Información !!!',
-                    text: error.error.errorMessages[0],
-                    icon: 'info'});
-            });
+                    icon: 'info',
+                    title: 'Registro de Usuario',
+                    text: 'Su cuenta no pertenece a la institución COGNOS favor de contactar al personal de servicios administrativos',
+                    timer: 5000
+                });
+            }
+        });
+       
         }
 
  /*    async registerByGoogle() {
