@@ -1,5 +1,13 @@
 <div class="contenedor">
-    
+  <ckeditor [(ngModel)]="caso.form_hipotesis" 
+  #myckeditor="ngModel"
+  name="myckeditor"
+  required
+  [config]="ckeConfig" 
+  debounce="500" 
+  (change)="onChange($event)">
+</ckeditor>
+
     <div class="ckeditorContainer">
         <div class="content" align="center">
             <mat-label><b>Hipótesis de Origen y mantenimiento.</b></mat-label>

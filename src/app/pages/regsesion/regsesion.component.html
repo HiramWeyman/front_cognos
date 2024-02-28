@@ -69,6 +69,10 @@
       <div class="col-12">
         <hr>
         <label><b><h5>Impedimentos para realizar la tarea.</h5> </b></label>
+        <mat-form-field class="form-element">
+       <!--    <mat-label>Objetivo general de la sesión.</mat-label> -->
+        <textarea matInput rows="5" [(ngModel)]="pac.sesion_impedimiento" name="sesion_impedimiento" ngDefaultControl placeholder="Ingrese los Impedimentos para realizar tareas"></textarea>
+        </mat-form-field>
         <hr>
         <label><b><h5>Técnica de ABC. (Sólo si se trabajó un ABC).</h5> </b></label>
        

@@ -29,6 +29,7 @@ export class Sesion
       sesion_fecha_captura :Date;
       sesion_fecha_modificacion :Date;
       sesion_paciente_id :number; 
+      sesion_impedimiento : string;
 
 
      

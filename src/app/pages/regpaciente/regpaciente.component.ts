@@ -88,7 +88,7 @@ RegistrarPac() {
   if(!this.pac.pac_paterno){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Apellido Paterno',
       icon: 'info'});
       return;
@@ -97,7 +97,7 @@ RegistrarPac() {
   if(!this.pac.pac_materno){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Apellido Materno',
       icon: 'info'});
       return;
@@ -106,7 +106,7 @@ RegistrarPac() {
   if(!this.pac.pac_nombre){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Nombre',
       icon: 'info'});
       return;
@@ -115,7 +115,7 @@ RegistrarPac() {
   if(!this.pac.pac_fecha_nacimiento){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Fecha de Nacimiento',
       icon: 'info'});
       return;
@@ -124,7 +124,7 @@ RegistrarPac() {
   if(!this.pac.pac_fecha_ingreso){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Fecha de Ingreso',
       icon: 'info'});
       return;
@@ -133,7 +133,7 @@ RegistrarPac() {
   if(!this.pac.pac_edad){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Edad',
       icon: 'info'});
       return;
@@ -142,7 +142,7 @@ RegistrarPac() {
   if(!this.pac.pac_genero){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Género',
       icon: 'info'});
       return;
@@ -150,7 +150,7 @@ RegistrarPac() {
   if(!this.pac.pac_genero){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Género',
       icon: 'info'});
       return;
@@ -159,7 +159,7 @@ RegistrarPac() {
   if(!this.pac.pac_edocivil){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Estado Civil',
       icon: 'info'});
       return;
@@ -168,7 +168,7 @@ RegistrarPac() {
   if(!this.pac.pac_estructura_fam){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Estructura Familiar',
       icon: 'info'});
       return;
@@ -177,7 +177,7 @@ RegistrarPac() {
   if(!this.pac.pac_estructura_fam){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Estructura Familiar',
       icon: 'info'});
       return;
@@ -186,7 +186,7 @@ RegistrarPac() {
   if(!this.pac.pac_escolaridad){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Escolaridad',
       icon: 'info'});
       return;
@@ -195,7 +195,7 @@ RegistrarPac() {
   if(!this.pac.pac_ocupacion){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Ocupación',
       icon: 'info'});
       return;
@@ -204,7 +204,7 @@ RegistrarPac() {
   if(!this.pac.pac_email){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Email',
       icon: 'info'});
       return;
@@ -213,7 +213,7 @@ RegistrarPac() {
   if(!this.pac.pac_email){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Email',
       icon: 'info'});
       return;
@@ -222,7 +222,7 @@ RegistrarPac() {
   if(!this.pac.pac_telefono){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Teléfono de Contacto',
       icon: 'info'});
       return;
@@ -231,7 +231,7 @@ RegistrarPac() {
   if(!this.pac.pac_contacto_eme){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Contacto de Emergencia',
       icon: 'info'});
       return;
@@ -240,7 +240,7 @@ RegistrarPac() {
   if(!this.pac.pac_telefono_eme){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Teléfono en Caso de Emergencia',
       icon: 'info'});
       return;
@@ -249,7 +249,7 @@ RegistrarPac() {
   if(!this.pac.pac_domicilio){
     this.blockUI.stop();
     swal.fire({
-      title: 'ERROR!!!',
+      title: 'Información!!!',
       text: 'Falta Ingresar Domicilio',
       icon: 'info'});
       return;

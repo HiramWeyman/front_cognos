@@ -19,8 +19,8 @@
     <div class="izq">
         <h4>Caso: {{pac.sesion_caso}}</h4><br>
         <label>N° de sesión:{{pac.sesion_no}}</label><br>
-        <label>Terapeuta.   {{pac.terapeuta}}</label><br>
-        <label>Coterapeuta. {{pac.coterapeuta}}</label><br>
+        <label>Terapeuta.   {{nombretera}}</label><br>
+        <label>Coterapeuta. {{nombrecotera}}</label><br>
         <label>Fecha. {{pac.sesion_fecha_captura}}</label><br><br>
 
         <label>1. Objetivo general de la sesión</label><br>
@@ -28,7 +28,12 @@
 
         <label>2. Revisión de Tarea asignada previamente.</label><br>
         <label>Graduar los intentos del paciente para completar la tarea de la sesión pasada:</label><br>
-        <p>{{pac.rev_tarea_desc}}</p><br>
+        <p>{{text_tarea}}</p><br>
+        <!-- <p>{{pac.rev_tarea_desc}}</p><br> -->
+        
+
+        <label>Impedimentos para realizar la tarea.</label><br>
+        <p>{{pac.sesion_impedimiento}}</p><br>
 
         <label>3. Técnica de ABC. (Sólo si se trabajó un ABC)</label><br>
         <table border="1">

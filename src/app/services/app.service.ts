@@ -68,6 +68,10 @@ export class AppService {
       return this.http.post<string>(`${this.urlEndPoint+'/RecuperaPass/EnvioMail?email='+email}`, this.correo.email);
       //return this.http.post<comFM>(`${environment.rutaAPI}` + '/Usuarios/registro', com);
     }
+
+    ValidaPadron(email:string)  {
+        return this.http.get(`${environment.rutaAPI}` + '/Usuarios/validaUsr/'+email.trim());
+      }
       
 
 /*     async loginByAuth({ email, password }) {
