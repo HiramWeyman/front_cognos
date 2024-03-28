@@ -25,4 +25,43 @@ export class InformeVista {
     terapeuta:string;
 	inf_coterapeuta:number;
     coterapeuta:string;
+
+    inf_especifique:string;
+    inf_contacto_eme:string;
+    inf_telefono_eme:string;
+    inf_contacto_eme2:string;
+    inf_telefono_eme2:string;
+    inf_contacto_eme3:string;
+    inf_telefono_eme3:string;
+    inf_orientacion:number;
+    inf_especifique_or:string;
+    inf_pareja:string;
+    inf_religion:number;
+    inf_especifique_reg:string;
+    inf_trabaja:string;
+    inf_lugar_trabajo:string;
+    inf_horas_semana:string;
+    inf_vive_con:string;
+
+    inf_idea_su:string;
+    inf_idea_su_tiempo:string;
+
+    inf_intento_su:string;
+    inf_intento_su_tiempo:string;
+    inf_intento_su_metodo:string;
+    inf_intento_su_especifique:string;
+
+    inf_plan_su:string;
+    inf_plan_su_tiempo:string;
+    inf_plan_su_metodo:string;
+    inf_plan_su_especifique:string;
+    inf_plan_su_nivel:string;
+
+    inf_autolesion:string;
+    inf_autolesion_tiempo:string;
+    inf_autolesion_metodo:string;
+    inf_autolesion_especifique:string;
+    inf_autolesion_lugar:string;
+    inf_autolesion_lu_espe:string;
+    inf_llave_fam:string;
 }

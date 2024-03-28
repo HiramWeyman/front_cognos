@@ -46,10 +46,20 @@
             role="menu"
             data-accordion="false"
         >
-            <app-menu-item
-                *ngFor="let item of menu"
-                [menuItem]="item"
-            ></app-menu-item>
+
+        <ng-template [ngIf]="perfil===1" [ngIfElse]="elseBlock">
+            <app-menu-item *ngFor="let item of menu" [menuItem]="item"></app-menu-item>
+        </ng-template>
+        <ng-template #elseBlock>
+            <app-menu-item *ngFor="let item2 of menu2" [menuItem]="item2"></app-menu-item>
+        </ng-template>
+     <!--    <div *ngIf="perfil===1;else templateName">
+            <app-menu-item *ngFor="let item of menu" [menuItem]="item"></app-menu-item>
+        </div>
+        <ng-template #templateName>
+            <app-menu-item *ngFor="let item2 of menu2" [menuItem]="item2"></app-menu-item>
+        </ng-template> -->
+           
         </ul>
     </nav>
 </div>

@@ -1,45 +1,91 @@
+<block-ui>
 <div class="contenedor">
-  <ckeditor [(ngModel)]="caso.form_hipotesis" 
+  <!--  <ckeditor [(ngModel)]="caso.form_hipotesis" 
   #myckeditor="ngModel"
   name="myckeditor"
   required
   [config]="ckeConfig" 
   debounce="500" 
   (change)="onChange($event)">
-</ckeditor>
+</ckeditor> -->
 
-    <div class="ckeditorContainer">
-        <div class="content" align="center">
-            <mat-label><b>Hipótesis de Origen y mantenimiento.</b></mat-label>
-        </div>
-        <ckeditor [(ngModel)]="caso.form_hipotesis">
+  <div class="ckeditorContainer">
+    <div class="content" align="center">
+      <mat-label><b>Hipótesis de Origen y mantenimiento.</b></mat-label>
+    </div>
+    <ckeditor [(ngModel)]="caso.form_hipotesis" #myckeditor="ngModel" name="myckeditor" required [config]="ckeConfig"
+      debounce="500" (change)="onChange($event)">
+    </ckeditor>
+    <!--  <ckeditor [(ngModel)]="caso.form_hipotesis">
     
-        </ckeditor><hr><br>
-        <div class="content" align="center">
-          <mat-label><b>Contraste de hipótesis (pruebas aplicadas).</b></mat-label>
+        </ckeditor> -->
+    <hr><br>
+    <div class="content" align="center">
+      <mat-label><b>Contraste de hipótesis (pruebas aplicadas).</b></mat-label>
+    </div>
+    <ckeditor [(ngModel)]="caso.form_contraste" [config]="ckeConfig" #myckeditor2="ngModel" name="myckeditor2">
+
+    </ckeditor>
+  </div>
+  <br><br>
+
+  <div class="d-flex justify-content-center"><label>Anexar Diagrama</label></div>
+    <ng-template [ngIf]="diagramaFoto==null" [ngIfElse]="elseBlock">
+      <div class="input-group mb-3">
+        <input class="form-control" type="file" #myInputDiagrama id="formFile" (change)="seleccionarDiagrama($event);" aria-describedby="button-addon2">
+        <button class="btn btn-info btn-sm" (click)="guardarDiagrama(3)" id="button-addon2">Guardar Diagrama</button>
+<!--         <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button> -->
       </div>
-      <ckeditor [(ngModel)]="caso.form_contraste">
-  
-      </ckeditor>
+ 
+     
+    </ng-template>
+    <ng-template #elseBlock>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Seleccional</th>
+            <th scope="col">Actualizar</th>
+            <th scope="col">Ver Imagen</th>
+            <th scope="col">Eliminar</th>
+      
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input class="form-control" type="file" #myInputDiagramaUp id="formFile" (change)="seleccionarDiagrama($event);"></td>
+            <td><button class="btn btn-info btn-sm" (click)="ActualizarDiagrama(3)">Actualizar</button></td>
+            <td><button class="btn btn-primary btn-sm" (click)="VerImagen()">Ver Imagen</button></td>
+            <td><button class="btn btn-danger btn-sm" (click)="DeleteDiagrama(3)">Eliminar</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </ng-template><br>
+
+
+
+  <div class="row d-flex justify-content-center">
+    <div class="form-element">
+      <button mat-raised-button color="primary" type="button" class="button" (click)="Guardar()"
+        [disabled]="habilita==true">Guardar Datos</button>
     </div>
-    <br><br>
-    <div class="row d-flex justify-content-center">
-        <div class="form-element">
-            <button mat-raised-button color="primary" type="button" class="button" (click)="Guardar()" [disabled]="habilita==true"  >Guardar Datos</button>
-        </div>
-        <div class="form-element">
-            <button mat-button color="primary" type="button" class="button" (click)="UpdateDatos()">Actualizar Datos</button>
-        </div>
-        <div class="form-element">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-backdrop="false">
-                Comentarios
-            </button>   
-        </div>
+    <div class="form-element">
+      <button mat-button color="primary" type="button" class="button" (click)="UpdateDatos()">Actualizar Datos</button>
     </div>
+    <div class="form-element">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+        data-backdrop="false">
+        Comentarios
+      </button>
+    </div>
+  </div>
 </div>
 
 <br><br>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -49,21 +95,22 @@
         </button>
       </div>
       <div class="modal-body">
-      <textarea cols="5" rows="5" placeholder="Ingresar comentario" class="form-control" [(ngModel)]="com.com_comentario" ></textarea><br>
+        <textarea cols="5" rows="5" placeholder="Ingresar comentario" class="form-control"
+          [(ngModel)]="com.com_comentario"></textarea><br>
         <table class="table table-bordered">
           <thead>
-              <tr>
-                  <th>Usuario</th>
-                  <th>Comentario</th>
-                  <th>Fecha</th>
-              </tr>
+            <tr>
+              <th>Usuario</th>
+              <th>Comentario</th>
+              <th>Fecha</th>
+            </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let p of comentarios; let i = index">
-                  <td><b>{{p.com_nombre_usuario}}</b></td>
-                  <td><b>{{p.com_comentario}}</b></td>
-                  <td><b>{{p.com_fecha_captura}}</b></td>
-              </tr>
+            <tr *ngFor="let p of comentarios; let i = index">
+              <td><b>{{p.com_nombre_usuario}}</b></td>
+              <td><b>{{p.com_comentario}}</b></td>
+              <td><b>{{p.com_fecha_captura}}</b></td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -74,3 +121,4 @@
     </div>
   </div>
 </div>
+</block-ui>

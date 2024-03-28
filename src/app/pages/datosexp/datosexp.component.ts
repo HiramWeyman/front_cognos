@@ -34,6 +34,7 @@ export class DatosexpComponent {
   @ViewChild('tabRef') tabGroup: MatTabGroup;
   @Input() selectedIndex = 0; 
   ngOnInit(): void {
+    localStorage.removeItem('llaveFam');
     this.id = this.route.snapshot.paramMap.get('id');
     sessionStorage.setItem('Expediente', this.id);
     this.expediente=sessionStorage.getItem('Expediente');

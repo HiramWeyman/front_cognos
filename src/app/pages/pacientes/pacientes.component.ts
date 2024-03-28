@@ -35,6 +35,9 @@ export class PacientesComponent implements OnInit {
     this.paginator.itemsPerPageLabel = "Registros por página";
   }
   ngOnInit(): void {
+    localStorage.removeItem('llaveFam');
+    sessionStorage.removeItem('llaveFam');
+    sessionStorage.removeItem('Expediente');
     this.perfil=sessionStorage.getItem('UserPerfil');
     this.usuario_id=sessionStorage.getItem('UserId');
     console.log(this.perfil);

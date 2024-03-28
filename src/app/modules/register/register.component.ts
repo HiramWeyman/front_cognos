@@ -63,12 +63,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
     registro() {
         this.blockUI.start('Registrando...');
         this.appService.ValidaPadron(this.usuario.usr_email.trim()).subscribe(count=>{
+          
             console.log(count);
             if(Number(count)==1){
                 this.usuario.usr_email=this.usuario.usr_email.trim();
                 this.subscription = this.appService.Registro(this.usuario)
                     .subscribe((data: any) => {
-                        if ( data != null) {
+                        if (data) {
                             this.blockUI.stop();
                             console.log(data);
                             swal.fire({

@@ -4,7 +4,7 @@
         <div class="content" align="center">
             <mat-label><b>Sueño</b></mat-label>
         </div>
-        <ckeditor [(ngModel)]="salud.salud_sueno_desc">
+        <ckeditor [(ngModel)]="salud.salud_sueno_desc" [config]="ckeConfig">
         </ckeditor>
       </div>
      
@@ -12,14 +12,14 @@
             <div class="content" align="center">
             <mat-label><b>Alimentación</b></mat-label>
         </div>
-        <ckeditor [(ngModel)]="salud.salud_alimentacion_desc">
+        <ckeditor [(ngModel)]="salud.salud_alimentacion_desc" [config]="ckeConfig">
         </ckeditor>
       </div>
       <div class="col-sm">
         <div class="content" align="center">
             <mat-label><b>Actividad física</b></mat-label>
         </div>
-        <ckeditor [(ngModel)]="salud.salud_act_fisica_desc">
+        <ckeditor [(ngModel)]="salud.salud_act_fisica_desc" [config]="ckeConfig">
 
         </ckeditor>
       </div>

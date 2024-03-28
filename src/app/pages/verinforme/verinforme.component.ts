@@ -37,6 +37,7 @@ import Swal from 'sweetalert2';
 import Chart from 'chart.js/auto';
 import { PruebasService } from '@services/enviarpruebas.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FamiliarService } from '@services/familiar.service';
 
 @Component({
   selector: 'app-verinforme',
@@ -46,6 +47,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class VerinformeComponent {
   idx!: any;
   informe: InformeVista = new InformeVista();
+ /*  informe: InformeVista = new InformeVista(); */
   fec_ing:any;
   fec_u_mov:any;
   salud:SaludFM= new SaludFM();
@@ -68,11 +70,17 @@ export class VerinformeComponent {
   myChart: any;
   pruebascl:any;
   pruebascid:any;
+  imgFormCaso:any;
   imagePathSCL :string;
   src:string;
   src2:string;
+  src3:string;
+  orientacion:string;
+  religion:string;
+  familiares: any[];
   @ViewChild('imgRef') img:ElementRef;
   @ViewChild('imgRef2') img2:ElementRef;
+  @ViewChild('imgRef3') img3:ElementRef;
   constructor(
     private route: ActivatedRoute,
     private datePipe: DatePipe,
@@ -90,6 +98,7 @@ export class VerinformeComponent {
     private _se:SesionService,
     private _cree: CreenciasService,
     private _env:PruebasService,
+    private _fam: FamiliarService,
     private elementRef: ElementRef,
     private _sanitizer: DomSanitizer)
      {}
@@ -104,7 +113,7 @@ export class VerinformeComponent {
 
   cargarInforme() {
     console.log(this.idx);
-    this._inf.GetInforme(this.idx).subscribe(
+    this._inf.GetInforme(Number(this.idx)).subscribe(
       se => {
       
         this.informe = se;
@@ -114,7 +123,54 @@ export class VerinformeComponent {
 
         this.fec_u_mov =this.datePipe.transform(this.informe.inf_fecha_nacimiento,"dd/MM/yyyy");
         this.informe.inf_fecha_nacimiento= this.fec_u_mov;
+
+        switch(this.informe.inf_orientacion) { 
+          case 1: { 
+             this.orientacion="Heterosexual"; 
+             break; 
+          } 
+          case 2: { 
+            this.orientacion="Homosexual"; 
+            break; 
+          } 
+          case 3: { 
+            this.orientacion="Bisexual"; 
+            break; 
+          } 
+          case 4: { 
+            this.orientacion="Otro"; 
+            break; 
+          } 
+       } 
+       console.log(this.informe.inf_religion);
+       switch(this.informe.inf_religion) { 
+        case 1: { 
+           this.religion="Católica"; 
+           break; 
+        } 
+        case 2: { 
+          this.religion="Cristiana"; 
+          break; 
+        } 
+        case 3: { 
+          this.religion="Evangélica"; 
+          break; 
+        } 
+        case 4: { 
+          this.religion="Agnóstico"; 
+          break; 
+        } 
+        case 5: { 
+          this.religion="No tengo"; 
+          break; 
+        } 
+        case 6: { 
+          this.religion="Otro"; 
+          break; 
+        } 
+     } 
         console.log(this.informe);
+        this.cargarFamiliares();
         this.cargarSalud();
         this.cargarProb();
         this.cargarPrev();
@@ -132,6 +188,7 @@ export class VerinformeComponent {
         this.cargarCreencias();
         this.cargarPruebaSCL();
         this.cargarPruebaSCID();
+        this.cargarImagenFormCaso();
       }, error => {
         //console.log(error);
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -300,8 +357,8 @@ export class VerinformeComponent {
         this.sesiones = se;
         console.log(this.sesiones);
         for(let i=0;i<this.sesiones.length;i++){
-          this.fecSesion =this.datePipe.transform(this.sesiones[i].sesion_fecha_captura,"dd/MM/yyyy");
-          this.sesiones[i].sesion_fecha_captura= this.fecSesion;
+          this.fecSesion =this.datePipe.transform(this.sesiones[i].sesion_fecha,"dd/MM/yyyy");
+          this.sesiones[i].sesion_fecha= this.fecSesion;
         }
         console.log(this.sesiones);
     
@@ -384,22 +441,24 @@ export class VerinformeComponent {
       pac => {
         this.pruebascl = pac;
         console.log(this.pruebascl);
-        console.log(this.pruebascl.dataFiles);
-        if(this.pruebascl.fileType=='.png'){
-          this.src = 'data:image/png;base64,'+this.pruebascl.dataFiles;
-          this.img.nativeElement.src = this.src;
+        
+        if(this.pruebascl){
+          console.log(this.pruebascl.dataFiles);
+          if(this.pruebascl.fileType=='.png'){
+            this.src = 'data:image/png;base64,'+this.pruebascl.dataFiles;
+            this.img.nativeElement.src = this.src;
+          }
+          else if(this.pruebascl.fileType=='.jpeg'){
+            this.src = 'data:image/jpeg;base64,'+this.pruebascl.dataFiles;
+            this.img.nativeElement.src = this.src;
+          }
+          else if(this.pruebascl.fileType=='.jpg'){
+            this.src = 'data:image/jpg;base64,'+this.pruebascl.dataFiles;
+            this.img.nativeElement.src = this.src;
+          }
+        }else{
+          return;
         }
-        else if(this.pruebascl.fileType=='.jpeg'){
-          this.src = 'data:image/jpeg;base64,'+this.pruebascl.dataFiles;
-          this.img.nativeElement.src = this.src;
-        }
-        else if(this.pruebascl.fileType=='.jpg'){
-          this.src = 'data:image/jpg;base64,'+this.pruebascl.dataFiles;
-          this.img.nativeElement.src = this.src;
-        }
-     
-   
-      
       }, error => {
         //console.log(error);
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -411,29 +470,82 @@ export class VerinformeComponent {
       pac => {
         this.pruebascid = pac;
          console.log(this.pruebascid); 
-
-         if(this.pruebascid.fileType=='.png'){
-          this.src2 = 'data:image/png;base64,'+this.pruebascid.dataFiles;
-          this.img2.nativeElement.src = this.src2;
-        }
-        else if(this.pruebascid.fileType=='.jpeg'){
-          this.src2 = 'data:image/jpeg;base64,'+this.pruebascid.dataFiles;
-          this.img2.nativeElement.src = this.src2;
-        }
-        else if(this.pruebascid.fileType=='.jpg'){
-          this.src2 = 'data:image/jpg;base64,'+this.pruebascid.dataFiles;
-          this.img2.nativeElement.src = this.src2;
-        }
-
-
-         this.src2 = 'data:image/png;base64,'+this.pruebascid.dataFiles;
-         this.img2.nativeElement.src = this.src2;
+          if(this.pruebascid){
+            if(this.pruebascid.fileType=='.png'){
+              this.src2 = 'data:image/png;base64,'+this.pruebascid.dataFiles;
+              this.img2.nativeElement.src = this.src2;
+            }
+            else if(this.pruebascid.fileType=='.jpeg'){
+              this.src2 = 'data:image/jpeg;base64,'+this.pruebascid.dataFiles;
+              this.img2.nativeElement.src = this.src2;
+            }
+            else if(this.pruebascid.fileType=='.jpg'){
+              this.src2 = 'data:image/jpg;base64,'+this.pruebascid.dataFiles;
+              this.img2.nativeElement.src = this.src2;
+            }
+    
+    
+             this.src2 = 'data:image/png;base64,'+this.pruebascid.dataFiles;
+             this.img2.nativeElement.src = this.src2;
+          }
+          else{
+            return;
+          }
+      
        
       }, error => {
         //console.log(error);
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
       });
   }
+
+  cargarImagenFormCaso() {
+    this._env.GetDiagrama(this.informe.inf_paciente_id).subscribe(
+      pac => {
+        this.imgFormCaso = pac;
+         console.log(this.imgFormCaso); 
+          if(this.imgFormCaso){
+            if(this.imgFormCaso.fileType=='.png'){
+              this.src3 = 'data:image/png;base64,'+this.imgFormCaso.dataFiles;
+              this.img3.nativeElement.src = this.src3;
+            }
+            else if(this.imgFormCaso.fileType=='.jpeg'){
+              this.src3 = 'data:image/jpeg;base64,'+this.imgFormCaso.dataFiles;
+              this.img3.nativeElement.src = this.src3;
+            }
+            else if(this.imgFormCaso.fileType=='.jpg'){
+              this.src3 = 'data:image/jpg;base64,'+this.imgFormCaso.dataFiles;
+              this.img3.nativeElement.src = this.src3;
+            }
+    
+    
+             this.src3 = 'data:image/png;base64,'+this.imgFormCaso.dataFiles;
+             this.img3.nativeElement.src = this.src3;
+          }
+          else{
+            return;
+          }
+      
+       
+      }, error => {
+        //console.log(error);
+        Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
+  cargarFamiliares() {
+   
+    this._fam.GetFamiliarList(this.informe.inf_llave_fam).subscribe(
+      fu => {
+        this.familiares = fu;
+        console.log(this.familiares);
+
+      }, error => {
+        console.log(error);
+        //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
   onExportClick(){
     var nombre:string=this.informe.inf_paterno+'_'+this.informe.inf_materno+'_'+this.informe.inf_nombre+'.pdf';
     const options={

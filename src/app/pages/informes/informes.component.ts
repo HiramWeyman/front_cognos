@@ -83,7 +83,8 @@ export class InformesComponent implements OnInit  {
 
 
   cargarInformes() {
-    this._inf.GetInformeList(this.ExpedienteId).subscribe(
+    console.log(this.ExpedienteId);
+    this._inf.GetInformeList(Number(this.ExpedienteId)).subscribe(
       se => {
       
         this.informes = se;
@@ -128,10 +129,46 @@ export class InformesComponent implements OnInit  {
     this.inf.inf_tutor=this.pac.pac_tutor;
     this.inf.inf_terapeuta=this.pac.pac_terapeuta;
     this.inf.inf_coterapeuta=this.pac.pac_coterapeuta;
-    this.inf.inf_paciente_id=Number(this.ExpedienteId);
 
- 
-   
+    this.inf.inf_especifique=this.pac.pac_especifique;
+    this.inf.inf_contacto_eme=this.pac.pac_contacto_eme;
+    this.inf.inf_telefono_eme=this.pac.pac_telefono_eme;
+    this.inf.inf_contacto_eme2=this.pac.pac_contacto_eme2;
+    this.inf.inf_telefono_eme2=this.pac.pac_telefono_eme2;
+    this.inf.inf_contacto_eme3=this.pac.pac_contacto_eme3;
+    this.inf.inf_telefono_eme3=this.pac.pac_telefono_eme3;
+    this.inf.inf_orientacion=this.pac.pac_orientacion;
+    this.inf.inf_especifique_or=this.pac.pac_especifique_or
+    this.inf.inf_pareja=this.pac.pac_pareja;
+    this.inf.inf_religion=this.pac.pac_religion;
+    this.inf.inf_especifique_reg=this.pac.pac_especifique_reg;
+    this.inf.inf_trabaja=this.pac.pac_trabaja;
+    this.inf.inf_lugar_trabajo=this.pac.pac_lugar_trabajo;
+    this.inf.inf_horas_semana=this.pac.pac_horas_semana;
+    this.inf.inf_vive_con=this.pac.pac_vive_con;
+
+    this.inf.inf_idea_su=this.pac.pac_idea_su;
+    this.inf.inf_idea_su_tiempo=this.pac.pac_idea_su_tiempo;
+
+    this.inf.inf_intento_su=this.pac.pac_intento_su;
+    this.inf.inf_intento_su_tiempo=this.pac.pac_intento_su_tiempo;
+    this.inf.inf_intento_su_metodo=this.pac.pac_intento_su_metodo;
+    this.inf.inf_intento_su_especifique=this.pac.pac_intento_su_especifique;
+
+    this.inf.inf_plan_su=this.pac.pac_plan_su;
+    this.inf.inf_plan_su_tiempo=this.pac.pac_plan_su_tiempo;
+    this.inf.inf_plan_su_metodo=this.pac.pac_plan_su_metodo;
+    this.inf.inf_plan_su_especifique=this.pac.pac_plan_su_especifique;
+    this.inf.inf_plan_su_nivel=this.pac.pac_plan_su_nivel;
+
+    this.inf.inf_autolesion=this.pac.pac_autolesion;
+    this.inf.inf_autolesion_tiempo=this.pac.pac_autolesion_tiempo;
+    this.inf.inf_autolesion_metodo=this.pac.pac_autolesion_metodo;
+    this.inf.inf_autolesion_especifique=this.pac.pac_autolesion_especifique;
+    this.inf.inf_autolesion_lugar=this.pac.pac_autolesion_lugar;
+    this.inf.inf_autolesion_lu_espe=this.pac.pac_autolesion_lu_espe;
+    this.inf.inf_llave_fam=this.pac.pac_llave_fam;
+    this.inf.inf_paciente_id=Number(this.ExpedienteId);
     this._inf.RegistroInforme(this.inf).subscribe(datos => {
       
       if(datos){

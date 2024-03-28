@@ -28,6 +28,7 @@
                     class="form-control"
                     placeholder="Password"
                     [(ngModel)]="loginx.usr_password" 
+                    (keydown.enter)="save($event)"
                 />
                 <div class="input-group-append">
                     <div class="input-group-text">

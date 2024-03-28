@@ -46,6 +46,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         });
     }
 
+    save(event) {
+        this.login();
+        //console.log("You entered: ", event.target.value);
+      }
+
     async loginByAuth() {
         if (this.loginForm.valid) {
             this.isAuthLoading = true;
@@ -71,7 +76,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     
         login() {
             this.isAuthLoading = true;
-            console.log(this.loginx);
+            //console.log(this.loginx);
             this.subscription = this.appService.getLogin(this.loginx)
                 .subscribe((data: any) => {
                     if ( data != null) {
