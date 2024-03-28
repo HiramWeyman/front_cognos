@@ -37,8 +37,8 @@ export class AppService {
                 sessionStorage.setItem('UserName', this.username);
                 this.user = response.result.usuario.usr_email.toString();
                // console.log(response);
-                console.log(response.result.usuario.usr_email);
-                console.log(this.user);
+               // console.log(response.result.usuario.usr_email);
+                //console.log(this.user);
                 this.router.navigate(['/']);
                 this.toastr.success('Login exitoso');
                 return response;

@@ -57,8 +57,8 @@ export class SesionesComponent implements OnInit{
         this.sesiones = se;
         console.log(this.sesiones);
         for(let i=0;i<this.sesiones.length;i++){
-          this.fec =this.datePipe.transform(this.sesiones[i].sesion_fecha_captura,"dd/MM/yyyy");
-          this.sesiones[i].sesion_fecha_captura= this.fec;
+          this.fec =this.datePipe.transform(this.sesiones[i].sesion_fecha,"dd/MM/yyyy");
+          this.sesiones[i].sesion_fecha= this.fec;
         }
         console.log(this.sesiones);
         this.dataSource = new MatTableDataSource(this.sesiones);

@@ -4,7 +4,7 @@
         <div class="content" align="center">
             <mat-label><b>Diagnóstico DSMV.</b></mat-label>
         </div>
-        <ckeditor [(ngModel)]="diag.diag_desc">
+        <ckeditor [(ngModel)]="diag.diag_desc" [config]="ckeConfig">
 
         </ckeditor>
         <br><br>

@@ -175,6 +175,7 @@ export class EnviopruebasComponent implements OnInit {
   Actualizar(tipi_prueba:number) {
     var idX:number;
     if(this.pruebascl==null || !this.pruebascid==null ){
+      this.blockUI.stop();
       swal.fire({
         title: 'Info!!!',
         text: 'No hay archivo para actualizar',
@@ -268,7 +269,7 @@ export class EnviopruebasComponent implements OnInit {
          
             if(usr){
               this.blockUI.stop();
-              swal.fire('Archivo Eliminado', `Sus= archivo se elimino con éxito!`, 'success');
+              swal.fire('Archivo Eliminado', `Su archivo se elimino con éxito!`, 'success');
               this.ngOnInit();
               this.resetInput();
             }

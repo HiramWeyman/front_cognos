@@ -8,7 +8,7 @@
     <div class="content" align="center">
         <mat-label><b>Motivo de la consulta.</b></mat-label>
     </div>
-    <ckeditor [(ngModel)]="cons.con_motivo">
+    <ckeditor [(ngModel)]="cons.con_motivo" [config]="ckeConfig">
     </ckeditor>
     <br><br>
         <div class="row d-flex justify-content-center">

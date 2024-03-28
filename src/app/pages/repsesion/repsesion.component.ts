@@ -21,10 +21,12 @@ export class RepsesionComponent implements OnInit{
   nombretera:any;
   nombrecotera:any;
   text_tarea:any;
+  perfil:any;
   constructor(private route: ActivatedRoute, private router: Router,private _se:SesionService,private datePipe: DatePipe) {
   }
   ngOnInit(): void {
     this.expediente=sessionStorage.getItem('Expediente');
+    this.perfil=sessionStorage.getItem('UserPerfil');
     this.idx = this.route.snapshot.paramMap.get('idx');
     this.getDataSesion();
     console.log(this.idx);
@@ -36,8 +38,8 @@ export class RepsesionComponent implements OnInit{
       
         this.pac = fu;
         console.log(this.pac);
-        this.fec =this.datePipe.transform(this.pac.sesion_fecha_captura,"dd/MM/yyyy");
-        this.pac.sesion_fecha_captura= this.fec;
+        this.fec =this.datePipe.transform(this.pac.sesion_fecha,"dd/MM/yyyy");
+        this.pac.sesion_fecha= this.fec;
         console.log(this.pac);
        /*  alert(this.pac.sesion_terapeuta);
         alert(this.pac.sesion_coterapeuta); */

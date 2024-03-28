@@ -1,12 +1,15 @@
 import { Pacientes } from '@/models/Pacientes';
+import { EstructuraFam } from '@/models/estructuraFam';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FamiliarService } from '@services/familiar.service';
 import { PacientesService } from '@services/pacientes.service';
 import { SharednumberService } from '@services/sharednumber.service';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Subscription } from 'rxjs';
 import swal from 'sweetalert2';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-generales',
@@ -14,6 +17,8 @@ import swal from 'sweetalert2';
   styleUrls: ['./generales.component.scss']
 })
 export class GeneralesComponent implements OnInit{
+  @BlockUI()
+  blockUI!: NgBlockUI;
   pac: Pacientes = new Pacientes();
   pacientes: Pacientes[];
   private subscription: Subscription;
@@ -28,8 +33,17 @@ export class GeneralesComponent implements OnInit{
   terapeutas: any[];
   alumnos: any[];
   perfil:any;
+  fam: EstructuraFam = new EstructuraFam();
+  cargafam: EstructuraFam = new EstructuraFam();
+  llave: string;
+  resp:any;
+  familiares: any[];
+  paterno:string;
+  materno:string;
+  nombre:string;
   constructor(
     private _pac: PacientesService,
+    private _fam: FamiliarService,
     private router: Router,
     private datePipe: DatePipe,
     private sharednumber:SharednumberService
@@ -42,6 +56,8 @@ export class GeneralesComponent implements OnInit{
     this.cargarTutores();
     this.cargarTerapeutas();
     this.cargarAlumnos();
+    console.log(sessionStorage.getItem('llaveFam'));
+   
  /*    this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
@@ -55,6 +71,7 @@ export class GeneralesComponent implements OnInit{
 
 
   ActualizarPac() {
+    this.blockUI.start('Actualizando Paciente...');
     console.log(this.pac);
     if(this.pac.pac_terapeuta==0){
       this.pac.pac_terapeuta==null;
@@ -62,18 +79,74 @@ export class GeneralesComponent implements OnInit{
     if(this.pac.pac_coterapeuta==0){
       this.pac.pac_coterapeuta==null;
     }
+    if(!this.pac.pac_genero){
+      this.blockUI.stop();
+      swal.fire({
+        title: 'Información!!!',
+        text: 'Falta Ingresar Género',
+        icon: 'info'
+      });
+      return;
+    }
+    if(!this.pac.pac_edocivil){
+      this.blockUI.stop();
+      swal.fire({
+        title: 'Información!!!',
+        text: 'Falta Ingresar Estado Civil',
+        icon: 'info'
+      });
+      return;
+    }
+    if(!this.pac.pac_escolaridad){
+      this.blockUI.stop();
+      swal.fire({
+        title: 'Información!!!',
+        text: 'Falta Ingresar Escolaridad',
+        icon: 'info'
+      });
+      return;
+    }
+
+    if(this.familiares == null || this.familiares == undefined){
+      this.blockUI.stop();
+      swal.fire({
+        title: 'Información!!!',
+        text: 'Debe Ingresar al menos un familiar',
+        icon: 'info'
+      });
+      return; 
+     }
+
+    if(this.familiares.length == 0){
+      this.blockUI.stop();
+      swal.fire({
+        title: 'Información!!!',
+        text: 'Debe Ingresar al menos un familiar',
+        icon: 'info'
+      });
+      return;
+    }
+    this.pac.pac_llave_fam=String(sessionStorage.getItem('llaveFam'));
+/*     this.pac.pac_paterno=this.paterno;
+    this.pac.pac_materno=this.materno;
+    this.pac.pac_materno=this.nombre; */
+    console.log(this.pac);
     this.subscription = this._pac.UpdatePacientes(this.pac)
         .subscribe((data: any) => {
+          this.blockUI.stop();
           swal.fire({
             icon: 'success',
             title: 'Paciente Actualizado',
             text: 'Actualización Exitosa ',
             timer: 2000
         });
+         sessionStorage.removeItem('llaveFam');
          this.router.navigate(['/exp/'+this.ExpedienteId]); 
+         this.cargarPacientes();
      /*    this.ngOnInit(); */
         },
         error => {
+          this.blockUI.stop();
             //console.log(error.error.Message);
             swal.fire({
                 title: 'ERROR!!!',
@@ -86,13 +159,98 @@ export class GeneralesComponent implements OnInit{
     this._pac.GetPaciente(this.ExpedienteId).subscribe(
       pac => {
         this.pac = pac;
+        console.log('Paciente Generales');
         console.log(this.pac);
+       /*  this.paterno=this.pac.pac_paterno;
+        this.materno=this.pac.pac_materno;
+        this.nombre=this.pac.pac_materno; */
+
         if(this.pac.pac_terapeuta==null){
           this.pac.pac_terapeuta==0;
         }
         if(this.pac.pac_coterapeuta==null){
           this.pac.pac_coterapeuta==0;
         }
+        console.log(this.pac.pac_llave_fam);
+        if(this.pac.pac_llave_fam=="null"){
+          var num = Math.floor(Math.random() * 90000) + 10000;
+          //console.log(num);
+          this.llave = String(num);
+          //console.log(this.llave);
+          sessionStorage.setItem('llaveFam', this.llave);
+          console.log(sessionStorage.getItem('llaveFam'));
+          this.pac.pac_llave_fam=String(sessionStorage.getItem('llaveFam'));
+          console.log(this.pac.pac_llave_fam);
+        }
+        if(this.pac.pac_llave_fam!=null){
+          //alert('Verdadero');
+          sessionStorage.setItem('llaveFam', this.pac.pac_llave_fam);
+          //console.log(sessionStorage.getItem('llaveFam'));
+          this.cargarFamiliares();
+        }
+        else{
+          //alert('Falso');
+          console.log(sessionStorage.getItem('llaveFam'));
+          if(sessionStorage['llaveFam']){
+            this.cargarFamiliares();
+            return;
+          }
+        /*   if (sessionStorage.getItem('llaveFam').length>0) {
+           
+         } */
+       /*   if (!sessionStorage.getItem('llaveFam')==null) {
+             this.cargarFamiliares();
+             return;
+          } */
+          else {
+            console.log('Entra');
+           var num = Math.floor(Math.random() * 90000) + 10000;
+            //console.log(num);
+            this.llave = String(num);
+            //console.log(this.llave);
+            sessionStorage.setItem('llaveFam', this.llave);
+            console.log(sessionStorage.getItem('llaveFam'));
+            this.pac.pac_llave_fam=String(sessionStorage.getItem('llaveFam'));
+            console.log(this.pac.pac_llave_fam);
+          } 
+
+     /*      console.log(sessionStorage.getItem('llaveFam'));
+          var num = Math.floor(Math.random() * 90000) + 10000;
+          //console.log(num);
+          this.llave = String(num);
+          //console.log(this.llave);
+          sessionStorage.setItem('llaveFam', this.llave);
+          console.log(sessionStorage.getItem('llaveFam'));
+          this.pac.pac_llave_fam=String(sessionStorage.getItem('llaveFam'));
+          console.log(this.pac.pac_llave_fam); */
+ /*          console.log(sessionStorage.getItem('llaveFam'));
+          if (sessionStorage.getItem('llaveFam') == 'undefined' || sessionStorage.getItem('llaveFam') == null) {
+            var num = Math.floor(Math.random() * 90000) + 10000;
+            //console.log(num);
+            this.llave = String(num);
+            //console.log(this.llave);
+            sessionStorage.setItem('llaveFam', this.llave);
+            console.log(sessionStorage.getItem('llaveFam'));
+            this.pac.pac_llave_fam=String(sessionStorage.getItem('llaveFam'));
+            console.log(this.pac.pac_llave_fam);
+          }
+          else {
+            return;
+          } */
+          
+        }
+ /*        if(!this.pac.pac_llave_fam){
+          var num = Math.floor(Math.random() * 90000) + 10000;
+          //console.log(num);
+          this.llave = String(num);
+          //console.log(this.llave);
+          sessionStorage.setItem('llaveFam', this.llave);
+          console.log(sessionStorage.getItem('llaveFam'));
+          
+        }else{
+          sessionStorage.setItem('llaveFam', this.pac.pac_llave_fam)
+        } */
+        
        
       }, error => {
         //console.log(error);
@@ -104,7 +262,7 @@ export class GeneralesComponent implements OnInit{
     this._pac.GetTutores().subscribe(
       fu => {
         this.tutor = fu;
-        console.log(this.tutor);
+        //console.log(this.tutor);
         
       }, error => {
         console.log(error);
@@ -116,7 +274,7 @@ export class GeneralesComponent implements OnInit{
     this._pac.GetTerapeutas().subscribe(
       fu => {
         this.terapeutas = fu;
-        console.log(this.terapeutas);
+       // console.log(this.terapeutas);
       
       }, error => {
         console.log(error);
@@ -129,11 +287,108 @@ export class GeneralesComponent implements OnInit{
       fu => {
         this.alumnos = fu;
         console.log('Carga Alumnos');
-        console.log(this.alumnos);
+        //console.log(this.alumnos);
       
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
       });
+  }
+
+
+  GuardarFam() {
+    if (!this.fam) {
+      this.blockUI.stop();
+      swal.fire({
+        title: 'Información!!!',
+        text: 'Falta Ingresar un Familiar',
+        icon: 'info'
+      });
+      return;
+    }
+    else {
+      this.blockUI.start('Guardando Familiar...');
+      this.fam.fam_llave_pac = String(sessionStorage.getItem('llaveFam'));
+      this._fam.GuardarFamiliar(this.fam).subscribe(res => {
+        if (res) {
+          this.resp=res;
+          console.log(res);
+          this.blockUI.stop();
+          Swal.fire('Guardando Datos', `${this.resp.descripcion}`, 'success');
+          this.cargarFamiliares();
+          this.fam.fam_nombre = '';
+          this.fam.fam_edad = '';
+          this.fam.fam_parentesco = '';
+          this.fam.fam_ocupacion = '';
+          this.fam.fam_dependientes = '';
+        }
+      }, error => {
+        this.blockUI.stop();
+        console.log(error);
+        //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+    }
+  }
+
+  cargarFamiliares() {
+    console.log(String(sessionStorage.getItem('llaveFam')));
+    this._fam.GetFamiliarList(String(sessionStorage.getItem('llaveFam'))).subscribe(
+      fu => {
+        this.familiares = fu;
+        console.log(this.familiares);
+
+      }, error => {
+        console.log(error);
+        //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
+
+  limpiar() {
+    this.fam.fam_nombre = '';
+    this.fam.fam_edad = '';
+    this.fam.fam_parentesco = '';
+    this.fam.fam_ocupacion = '';
+    this.fam.fam_dependientes = '';
+  }
+
+  CargaFamiliar(id: number){
+    this._fam.GetFamiliar(id).subscribe(fam=>{
+      this.cargafam=fam;
+      console.log(this.cargafam);
+    });
+  }
+/*   'Familiar eliminado correctamente' */
+  Actualizar() {
+    this.blockUI.start('Actualizando Familiar...');
+    this._fam.UpdateFamiliar(this.cargafam).subscribe(usr => {
+      this.blockUI.stop();
+      if(usr){
+        this.resp=usr;
+
+        Swal.fire('Actualizando Datos',`${this.resp.descripcion}` , 'success');
+        this.cargarFamiliares();
+      } 
+    }, error => {
+      this.blockUI.stop();
+      console.log(error);
+      //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+    });
+  }
+
+  Borrar(id: number) {
+    this.blockUI.start('Eliminando Familiar...');
+    this._fam.DelFamiliar(id).subscribe(usr => {
+      this.blockUI.stop();
+      if(usr){
+        this.resp=usr;
+        Swal.fire('Eliminando Datos', `${this.resp.descripcion}`, 'success');
+        this.cargarFamiliares();
+      } 
+    }, error => {
+      this.blockUI.stop();
+      console.log(error);
+      //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+    });
   }
 }
