@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import{Tabla1} from '../../models/Tabla1';
 import{Tabla2} from '../../models/Tabla2';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import swal from 'sweetalert2';
 import { MatTabGroup } from '@angular/material/tabs';
 import { SharednumberService } from '@services/sharednumber.service';
+import { AppService } from '@services/app.service';
 
 
 
@@ -23,10 +24,10 @@ import { SharednumberService } from '@services/sharednumber.service';
 export class DatosexpComponent {
   id!: any;
   expediente!: any;
-  nombre!: any;
+  nombrePaciente!: any;
   perfil:any;
   pac: Pacientes = new Pacientes();
-  constructor(private route: ActivatedRoute, private _pac: PacientesService,private sharednumber:SharednumberService) {
+  constructor(private route: ActivatedRoute, private _pac: PacientesService,private sharednumber:SharednumberService,private appService: AppService,private router: Router) {
 
   }
 
@@ -34,16 +35,18 @@ export class DatosexpComponent {
   @ViewChild('tabRef') tabGroup: MatTabGroup;
   @Input() selectedIndex = 0; 
   ngOnInit(): void {
+ 
+    localStorage.removeItem('llaveFam');
     this.id = this.route.snapshot.paramMap.get('id');
-    sessionStorage.setItem('Expediente', this.id);
-    this.expediente=sessionStorage.getItem('Expediente');
-    this.perfil=sessionStorage.getItem('UserPerfil');
-    console.log(sessionStorage.getItem('Expediente'));
+    localStorage.setItem('Expediente', this.id);
+    this.expediente=localStorage.getItem('Expediente');
+    this.perfil=localStorage.getItem('UserPerfil');
+    console.log(localStorage.getItem('Expediente'));
     this.cargarPacientes();
-    const val:number=Number(sessionStorage.getItem('IndexTab'));
+    const val:number=Number(localStorage.getItem('IndexTab'));
     console.log('index: '+val);
     this.selectedIndex=val;
-    sessionStorage.setItem('IndexTabla',this.selectedIndex.toString());
+    localStorage.setItem('IndexTabla',this.selectedIndex.toString());
  /*    console.log(this.tabGroup.selectedIndex);
     this.tabGroup.selectedIndex; */
   }
@@ -55,7 +58,7 @@ export class DatosexpComponent {
       pac => {
         this.pac = pac;
         //console.log(this.pac);
-        this.nombre=this.pac.pac_paterno+' '+this.pac.pac_materno+' '+this.pac.pac_nombre;
+        this.nombrePaciente=this.pac.pac_paterno+' '+this.pac.pac_materno+' '+this.pac.pac_nombre;
       }, error => {
         //console.log(error);
         swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -77,8 +80,8 @@ export class DatosexpComponent {
   changeSelect(index:number){
     console.log(index);
     const valor:any=index;
-    sessionStorage.setItem('IndexTab', valor);
-    const val:number=Number(sessionStorage.getItem('IndexTab'));
+    localStorage.setItem('IndexTab', valor);
+    const val:number=Number(localStorage.getItem('IndexTab'));
     this.tabGroup.selectedIndex=val;
     console.log(this.tabGroup.selectedIndex);
     this.sharednumber.updateNumero(index.toString());

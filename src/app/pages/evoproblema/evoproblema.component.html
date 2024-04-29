@@ -4,13 +4,13 @@
         <div class="content" align="center">
             <mat-label><b>Factores predisponentes o de vulnerabilidad.</b></mat-label>
         </div>
-        <ckeditor [(ngModel)]="evolucion.evo_factores">
+        <ckeditor [(ngModel)]="evolucion.evo_factores" [config]="ckeConfig">
     
         </ckeditor><hr><br>
         <div class="content" align="center">
           <mat-label><b>Aparición y curso del problema.</b></mat-label>
       </div>
-      <ckeditor [(ngModel)]="evolucion.evo_curso_problema">
+      <ckeditor [(ngModel)]="evolucion.evo_curso_problema" [config]="ckeConfig">
   
       </ckeditor>
     </div>

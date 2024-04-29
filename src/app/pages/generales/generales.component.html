@@ -1,31 +1,28 @@
-<!-- <mat-toolbar color="primary">
-    <span class="fill-remaining-space">Registro de pacientes</span>
-  </mat-toolbar> -->
-  
+<block-ui>
   <div class="container">
     <div class="row">
       <div class="col-sm">
         <mat-form-field class="form-element">
           <mat-label>Apellido Paterno</mat-label>
-          <input matInput [(ngModel)]="pac.pac_paterno" name="paterno" ngDefaultControl>
+          <input matInput [(ngModel)]="pacIns.pac_paterno" id="pac_paterno" name="pac_paterno" ngDefaultControl>
         </mat-form-field>
       </div>
       <div class="col-sm">
         <mat-form-field class="form-element">
           <mat-label>Apellido Materno</mat-label>
-          <input matInput [(ngModel)]="pac.pac_materno" name="materno" ngDefaultControl>
+          <input matInput [(ngModel)]="pacIns.pac_materno" id="pac_materno" name="pac_materno" ngDefaultControl>
         </mat-form-field>
       </div>
       <div class="col-sm">
         <mat-form-field class="form-element">
           <mat-label>Nombre</mat-label>
-          <input matInput [(ngModel)]="pac.pac_nombre" name="nombres" ngDefaultControl >
+          <input matInput [(ngModel)]="pacIns.pac_nombre" id="pac_nombre" name="pac_nombre" ngDefaultControl >
         </mat-form-field>
       </div>
       <div class="col-sm">
         <mat-form-field>
           <mat-label>Fecha de Nacimiento</mat-label>
-          <input matInput [matDatepicker]="picker" [(ngModel)]="pac.pac_fecha_nacimiento" name="fnac" ngDefaultControl>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="pacIns.pac_fecha_nacimiento" name="fnac" ngDefaultControl>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker ></mat-datepicker>
         </mat-form-field>
@@ -33,7 +30,7 @@
       <div class="col-sm">
         <mat-form-field>
           <mat-label>Fecha de Ingreso</mat-label>
-          <input matInput [matDatepicker]="picker1" [(ngModel)]="pac.pac_fecha_ingreso" name="fingreso" ngDefaultControl>
+          <input matInput [matDatepicker]="picker1" [(ngModel)]="pacIns.pac_fecha_ingreso" name="fingreso" ngDefaultControl>
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1 ></mat-datepicker>
         </mat-form-field>
@@ -41,13 +38,15 @@
       <div class="col-sm">
         <mat-form-field class="form-element">
           <mat-label>Edad</mat-label>
-          <input matInput type="number" [(ngModel)]="pac.pac_edad" name="edad" ngDefaultControl>
+          <input matInput type="number" [(ngModel)]="pacIns.pac_edad" id ="pac_edad" name="pac_edad" ngDefaultControl>
         </mat-form-field>
       </div>
+
+
       <div class="col-sm">
         <mat-form-field class="form-element">
           <mat-label>Género </mat-label>
-          <mat-select [(ngModel)]="pac.pac_genero" name="genero" ngDefaultControl>
+          <mat-select [(ngModel)]="pacIns.pac_genero" name="pac_genero"  id="pac_genero" ngDefaultControl>
   
         <!--     <mat-option value="" selected>--Seleccione--</mat-option> -->
             <mat-option [value]="1">Masculino</mat-option>
@@ -56,10 +55,71 @@
           </mat-select>
         </mat-form-field>
       </div>
+
+      <div class="col-sm">
+        <mat-form-field class="form-element">
+          <mat-label>Escolaridad</mat-label>
+          <mat-select [(ngModel)]="pacIns.pac_escolaridad" id="pac_escolaridad" name="pac_escolaridad" ngDefaultControl>
+            <mat-option [value]="1">Primaria</mat-option>
+            <mat-option [value]="2">Secundaria</mat-option>
+            <mat-option [value]="3">Preparatoria</mat-option>
+            <mat-option [value]="4">Licenciatura</mat-option>
+            <mat-option [value]="5">Maestría</mat-option>
+            <mat-option [value]="6">Doctorado</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm">
+        <mat-form-field class="form-element">
+          <mat-label>Ocupación</mat-label>
+          <input matInput [(ngModel)]="pacIns.pac_ocupacion" id="pac_ocupacion" name="pac_ocupacion" ngDefaultControl>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm">
+        <mat-form-field class="form-element">
+          <mat-label>Email de contacto</mat-label>
+          <input matInput type="email" [(ngModel)]="pacIns.pac_email"  id="pac_email" name="pac_email" ngDefaultControl>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12">
+        <mat-form-field class="form-element">
+          <mat-label>Domicilio</mat-label>
+          <textarea matInput [(ngModel)]="pacIns.pac_domicilio" id="pac_domicilio" name="pac_domicilio" ngDefaultControl ></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12 d-flex justify-content-center">
+        <h5><label>Datos Demográficos</label></h5>
+      </div>
+
+      <div class="col-sm">
+        <mat-form-field class="form-element">
+          <mat-label>Orientación Sexual: </mat-label>
+          <mat-select [(ngModel)]="pacIns.pac_orientacion" id="pac_orientacion" name="pac_orientacion" ngDefaultControl>
+           <!--  <mat-option value="" selected>--Seleccione--</mat-option> -->
+            <mat-option [value]="1">Heterosexual</mat-option>
+            <mat-option [value]="2">Homosexual</mat-option>
+            <mat-option [value]="3">Bisexual</mat-option>
+            <mat-option [value]="4">Otro</mat-option>
+          </mat-select>
+        </mat-form-field> -
+      </div>
+
+      <div *ngIf="pacIns.pac_orientacion==4" class="col-12">
+        <mat-form-field class="form-element">
+          <mat-label>Especifique Orientación Sexual</mat-label>
+          <textarea matInput cols="5" rows="5" [(ngModel)]="pacIns.pac_especifique_or" name="pac_especifique"
+            ngDefaultControl></textarea>
+        </mat-form-field>
+      </div>
+
       <div class="col-sm">
         <mat-form-field class="form-element">
           <mat-label>Estado Civil</mat-label>
-          <mat-select [(ngModel)]="pac.pac_edocivil" name="edocivil" ngDefaultControl>
+          <mat-select [(ngModel)]="pacIns.pac_edocivil" name="edocivil" ngDefaultControl>
            <!--  <mat-option value="" >--Seleccione--</mat-option> -->
             <mat-option [value]="1">Soltero/a</mat-option>
             <mat-option [value]="2">Casado/a</mat-option>
@@ -71,70 +131,319 @@
         </mat-form-field>
       </div>
 
-      <div class="col-12" *ngIf="pac.pac_edocivil==6">
+      <div *ngIf="pacIns.pac_edocivil==6" class="col-12">
         <mat-form-field class="form-element">
           <mat-label>Especifique</mat-label>
-          <textarea matInput cols="5" rows="5" [(ngModel)]="pac.pac_especifique" name="pac_especifique" ngDefaultControl ></textarea>
-        </mat-form-field>
-      </div>
-
-      <div class="col-12">
-        <mat-form-field class="form-element">
-          <mat-label>Estructura Familiar</mat-label>
-          <textarea matInput cols="5" rows="5" [(ngModel)]="pac.pac_estructura_fam" name="pac_estructura_fam" ngDefaultControl ></textarea>
+          <textarea matInput cols="5" rows="5" [(ngModel)]="pacIns.pac_especifique" name="pac_especifique" ngDefaultControl ></textarea>
         </mat-form-field>
       </div>
 
       <div class="col-sm">
         <mat-form-field class="form-element">
-          <mat-label>Escolaridad</mat-label>
-          <mat-select [(ngModel)]="pac.pac_escolaridad" name="escolaridad" ngDefaultControl>
-            <mat-option [value]="1">Primaria</mat-option>
-            <mat-option [value]="2">Secundaria</mat-option>
-            <mat-option [value]="3">Preparatoria</mat-option>
-            <mat-option [value]="4">Licenciatura</mat-option>
-            <mat-option [value]="5">Maestría</mat-option>
-            <mat-option [value]="6">Doctorado</mat-option>
+          <mat-label>Tiene Pareja? </mat-label>
+          <mat-select [(ngModel)]="pacIns.pac_pareja" name="orientacion" ngDefaultControl>
+           <!--  <mat-option value="" selected>--Seleccione--</mat-option> -->
+            <mat-option value="SI">Si</mat-option>
+            <mat-option value="NO">No</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
+
       <div class="col-sm">
         <mat-form-field class="form-element">
-          <mat-label>Ocupación</mat-label>
-          <input matInput [(ngModel)]="pac.pac_ocupacion" name="ocupacion" ngDefaultControl>
+          <mat-label>Religión: </mat-label>
+          <mat-select [(ngModel)]="pacIns.pac_religion" name="religion" ngDefaultControl>
+            <!-- <mat-option value="" selected>--Seleccione--</mat-option> -->
+            <mat-option [value]="1">Católica</mat-option>
+            <mat-option [value]="2">Cristiana</mat-option>
+            <mat-option [value]="3">Evangélica</mat-option>
+            <mat-option [value]="4">Agnóstico</mat-option>
+            <mat-option [value]="5">No tengo</mat-option>
+            <mat-option [value]="6">Otra</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
+
+      <div class="col-12" *ngIf="pacIns.pac_religion==6">
+        <mat-form-field class="form-element">
+          <mat-label>Especifique Religión</mat-label>
+          <textarea matInput cols="5" rows="5" [(ngModel)]="pacIns.pac_especifique_reg" name="pac_especifique"
+            ngDefaultControl></textarea>
+        </mat-form-field>
+      </div>
+
       <div class="col-sm">
         <mat-form-field class="form-element">
-          <mat-label>Email de contacto</mat-label>
-          <input matInput type="email" [(ngModel)]="pac.pac_email" name="email" ngDefaultControl>
+          <mat-label>Trabaja? </mat-label>
+          <mat-select [(ngModel)]="pacIns.pac_trabaja" name="religion" ngDefaultControl>
+          <!--   <mat-option value="" selected>--Seleccione--</mat-option> -->
+            <mat-option value="SI">Si</mat-option>
+            <mat-option value="NO">No</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
+
+      <div class="col-12" *ngIf="pacIns.pac_trabaja=='SI'">
+        <mat-form-field class="form-element">
+          <mat-label>Lugar de Trabajo:</mat-label>
+          <textarea matInput cols="5" rows="5" [(ngModel)]="pacIns.pac_lugar_trabajo" name="pac_especifique"
+            ngDefaultControl></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm" *ngIf="pacIns.pac_trabaja=='SI'">
+        <mat-form-field class="form-element">
+          <mat-label>Cuantas horas a la semana: </mat-label>
+          <mat-select [(ngModel)]="pacIns.pac_horas_semana" name="religion" ngDefaultControl>
+            <mat-option value="" selected>--Seleccione--</mat-option>
+            <mat-option value="Menos de 10 a la semana">Menos de 10 a la semana</mat-option>
+            <mat-option value="De 11 a 20 a la semana">De 11 a 20 a la semana</mat-option>
+            <mat-option value="De 21 a 40 horas">De 21 a 40 horas</mat-option>
+            <mat-option value="Más de 41 horas a la semana">Más de 41 horas a la semana</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-12">
+        <h5><label>Estructura Familiar</label></h5><br>
+        <button type="button" class="btn btn-info btn-sm btn-block" data-toggle="modal"
+          data-target="#exampleModal" data-backdrop="false">Agregar Familiar</button><br>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Edad</th>
+              <th>Parentesco o relación</th>
+              <th>Ocupación</th>
+              <th>Dependientes económicos (SI /NO)</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  *ngFor="let p of familiares; let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{p.fam_nombre}} </td>
+              <td>{{p.fam_edad}} </td>
+              <td>{{p.fam_parentesco}}</td>
+              <td>{{p.fam_ocupacion}}</td>
+              <td>{{p.fam_dependientes}}</td>
+              <td>
+                <div class="row">
+                  <button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal"
+                  data-target="#exampleModal2" data-backdrop="false" (click)="CargaFamiliar(p.fam_id)">Editar</button>
+                  <button type="button" class="btn btn-danger btn-sm btn-block" id="eliminar" (click)="Borrar(p.fam_id)">Borrar</button>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+
+
       <div class="col-sm">
         <mat-form-field class="form-element">
-          <mat-label>Teléfono de contacto</mat-label>
-          <input matInput type="tel" [(ngModel)]="pac.pac_telefono" name="telefono" ngDefaultControl>
+          <mat-label>Teléfono de contacto principal</mat-label>
+          <input matInput type="tel" [(ngModel)]="pacIns.pac_telefono" id="pac_telefono" name="pac_telefono" ngDefaultControl>
         </mat-form-field>
       </div>
-      <div class="col-sm-5">
-        <mat-form-field class="form-element">
-          <mat-label>Contactar en caso de emergencia</mat-label>
-          <input matInput type="tel" [(ngModel)]="pac.pac_contacto_eme" name="telefono" ngDefaultControl>
-        </mat-form-field>
+
+
+      <div class="col-sm-12">
+        <h5><label>Contactar en caso de emergencia</label></h5>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Persona</th>
+              <th scope="col">Teléfono</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td><input type="text" [(ngModel)]="pacIns.pac_contacto_eme" name="contacto1" style="width: 100%;"></td>
+              <td><input type="tel" [(ngModel)]="pacIns.pac_telefono_eme" name="telefono1" style="width: 100%;"></td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td><input type="text" [(ngModel)]="pacIns.pac_contacto_eme2" name="contacto2" style="width: 100%;"></td>
+              <td><input type="tel" [(ngModel)]="pacIns.pac_telefono_eme2" name="telefono2" style="width: 100%;"></td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td><input type="text" [(ngModel)]="pacIns.pac_contacto_eme3" name="contacto3" style="width: 100%;"></td>
+              <td><input type="tel" [(ngModel)]="pacIns.pac_telefono_eme3" name="telefono3" style="width: 100%;"></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-  
-      <div class="col-sm">
-        <mat-form-field class="form-element">
-          <mat-label>Teléfono de emergencia</mat-label>
-          <input matInput type="tel" [(ngModel)]="pac.pac_telefono_eme" name="telefono" ngDefaultControl>
-        </mat-form-field>
-      </div>
+
       <div class="col-12">
         <mat-form-field class="form-element">
-          <mat-label>Domicilio</mat-label>
-          <textarea matInput [(ngModel)]="pac.pac_domicilio" name="domicilio" ngDefaultControl ></textarea>
+          <mat-label>Vive con:</mat-label>
+          <textarea matInput cols="5" rows="5" [(ngModel)]="pacIns.pac_vive_con" name="pac_vive_con"
+            ngDefaultControl></textarea>
         </mat-form-field>
       </div>
+
+      <div class="col-sm-12">
+        <h5><label>Suicidio</label></h5><br>
+        <table class="table table-bordered">
+          <tr>
+            <td>
+              <label>Ideación suicida</label>
+              <select class="form-control" [(ngModel)]="pacIns.pac_idea_su" id="formGroupExampleInput2">
+          <!--       <option value="" selected>--Seleccione--</option> -->
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+            </td>
+            <td>
+              <label>Tiempo:</label>
+              <select class="form-control" [(ngModel)]="pacIns.pac_idea_su_tiempo" id="formGroupExampleInput2">
+            <!--     <option value="">--Seleccione--</option> -->
+                <option value="Últimos 3 meses">Últimos 3 meses</option>
+                <option value="4 – 12 meses">4 – 12 meses</option>
+                <option value="Más de 1 año">Más de 1 año</option>
+              </select>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <label>Intento suicida</label>
+              <select class="form-control" [(ngModel)]="pacIns.pac_intento_su" id="formGroupExampleInput2">
+              <!--   <option value="" selected>--Seleccione--</option> -->
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+            </td>
+            <td>
+              <label>Tiempo:</label>
+              <select class="form-control" [(ngModel)]="pacIns.pac_intento_su_tiempo" id="formGroupExampleInput2">
+              <!--   <option value="">--Seleccione--</option> -->
+                <option value="Últimos 3 meses">Últimos 3 meses</option>
+                <option value="4 – 12 meses">4 – 12 meses</option>
+                <option value="Más de 1 año">Más de 1 año</option>
+              </select>
+            </td>
+            <td>
+              <label>Método:</label>
+              <select class="form-control" [(ngModel)]="pacIns.pac_intento_su_metodo" id="formGroupExampleInput2">
+              <!--   <option value="" selected="selected">--Seleccione--</option> -->
+                <option value="Arma de fuego">Arma de fuego</option>
+                <option value="Ahorcamiento">Ahorcamiento</option>
+                <option value="Automedicación">Automedicación</option>
+                <option value="Sustancias tóxicas">Sustancias tóxicas</option>
+                <option value="Otro">Otro</option>
+              </select>
+              <div *ngIf="pacIns.pac_intento_su_metodo=='Otro'">
+                  <textarea class="form-control" [(ngModel)]="pacIns.pac_intento_su_especifique" placeholder="Especifique Método:"></textarea>
+              </div>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <label>Plan suicida</label>
+              <select class="form-control" [(ngModel)]="pacIns.pac_plan_su" id="formGroupExampleInput2">
+             <!--    <option value="" selected>--Seleccione--</option> -->
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+            </td>
+            <td>
+              <label>Tiempo:</label>
+              <select class="form-control" [(ngModel)]="pacIns.pac_plan_su_tiempo" id="formGroupExampleInput2">
+                <!-- <option value="">--Seleccione--</option> -->
+                <option value="Últimos 3 meses">Últimos 3 meses</option>
+                <option value="4 – 12 meses">4 – 12 meses</option>
+                <option value="Más de 1 año">Más de 1 año</option>
+              </select>
+            </td>
+            <td>
+              <label>Método:</label>
+              <select class="form-control" [(ngModel)]="pacIns.pac_plan_su_metodo" id="formGroupExampleInput2">
+              <!--   <option value="" selected="selected">--Seleccione--</option> -->
+                <option value="Arma de fuego">Arma de fuego</option>
+                <option value="Ahorcamiento">Ahorcamiento</option>
+                <option value="Automedicación">Automedicación</option>
+                <option value="Sustancias tóxicas">Sustancias letales</option>
+                <option value="Otro">Otro</option>
+              </select>
+              <div *ngIf="pacIns.pac_plan_su_metodo=='Otro'">
+                  <textarea class="form-control" [(ngModel)]="pacIns.pac_plan_su_especifique" placeholder="Especifique Método:"></textarea>
+              </div>
+            </td>
+            <td>
+              <label>Nivel de estructura:</label>
+              <select class="form-control" [(ngModel)]="pacIns.pac_plan_su_nivel" id="formGroupExampleInput2">
+             <!--    <option value="" selected="selected">--Seleccione--</option> -->
+                <option value="Alto">Alto</option>
+                <option value="Medio">Medio</option>
+                <option value="Bajo">Bajo</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Autolesión</label>
+              <select class="form-control" [(ngModel)]="pacIns.pac_autolesion" id="formGroupExampleInput2">
+             <!--    <option value="" selected>--Seleccione--</option> -->
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+            </td>
+            <td>
+              <label>Tiempo:</label>
+              <select class="form-control" [(ngModel)]="pacIns.pac_autolesion_tiempo" id="formGroupExampleInput2">
+              <!--   <option value="">--Seleccione--</option> -->
+                <option value="Últimos 3 meses">Últimos 3 meses</option>
+                <option value="4 – 12 meses">4 – 12 meses</option>
+                <option value="Más de 1 año">Más de 1 año</option>
+              </select>
+            </td>
+            <td>
+              <label>Método:</label>
+              <select class="form-control" [(ngModel)]="pacIns.pac_autolesion_metodo" id="formGroupExampleInput2">
+              <!--   <option value="">--Seleccione--</option> -->
+                <option value="Navaja">Navaja</option>
+                <option value="Quemadura">Quemadura</option>
+                <option value="Rascarse">Rascarse</option>
+                <option value="Arrancar piel">Arrancar piel</option>
+                <option value="Golpearse">Golpearse</option>
+                <option value="Otro">Otro</option>
+              </select>
+              <div *ngIf="pacIns.pac_autolesion_metodo=='Otro'">
+                <textarea class="form-control" [(ngModel)]="pacIns.pac_autolesion_especifique" placeholder="Especifique Método:"></textarea>
+              </div>
+            </td>
+            <td>
+              <label>Lugar:</label>
+              <select class="form-control" [(ngModel)]="pacIns.pac_autolesion_lugar" id="formGroupExampleInput2">
+              <!--   <option value="">--Seleccione--</option> -->
+                <option value="Dedos">Dedos</option>
+                <option value="Manos">Manos</option>
+                <option value="Brazos">Brazos</option>
+                <option value="Piernas">Piernas</option>
+                <option value="Ingle">Ingle</option>
+                <option value="Cabeza">Cabeza</option>
+                <option value="Otro">Otro</option>
+              </select>
+              <div *ngIf="pacIns.pac_autolesion_lugar=='Otro'">
+                <textarea class="form-control" [(ngModel)]="pacIns.pac_autolesion_lu_espe" placeholder="Especifique Lugar:"></textarea>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+
+  
 
       <div class="col-12" *ngIf="perfil==2 || perfil==3 ">
         <div class="col-sm">
@@ -147,7 +456,7 @@
           </mat-form-field> -->
 
           <label for="exampleFormControlSelect1">Compartir con:  (Opcional para R1 y R2)</label>
-          <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="pac.pac_comparte_usrid">
+          <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="pacIns.pac_comparte_usrid">
            <!--  <option *ngFor="let a of alumnos" value="{{ a.usr_id }}" >{{a.usr_paterno}} {{a.usr_materno}} {{a.usr_nombre}}</option> -->
            <option *ngFor="let a of alumnos"
            [value]="a.usr_id" 
@@ -155,7 +464,8 @@
            </select>
         </div>
       </div>
-      <div class="col-12">
+
+      <div class="col-12" *ngIf="perfil!=5">
         <div class="col-sm">
        <!--    <mat-form-field > -->
             <!-- <mat-label>Tutor:</mat-label>
@@ -170,21 +480,19 @@
             </select> -->
             <!-- (change)="getAfiliados($event.target.value)" -->
             <label for="exampleFormControlSelect1">Supervisor:</label>
-            <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="pac.pac_tutor">
-              <option selected="selected" value="0" *ngIf="pac.pac_tutor==0">-- Seleccione un Supervisor --</option>
+            <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="pacIns.pac_tutor">
+              <option selected="selected" value="0" *ngIf="pacIns.pac_tutor==0">-- Seleccione un Supervisor --</option>
               <option *ngFor="let a of tutor" value="{{ a.usr_id }}" selected="selected">{{a.usr_paterno}} {{a.usr_materno}} {{a.usr_nombre}}</option>
              </select>
            <!--  {{pac.pac_tutor}} -->
         </div>
       </div>
 
-      <div class="col-12">
+      <div class="col-12" *ngIf="perfil!=5">
         <div class="col-sm">
-          
- 
             <label for="exampleFormControlSelect1">Terapeuta:</label>
-            <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="pac.pac_terapeuta">
-              <option selected="selected" value="0" *ngIf="pac.pac_terapeuta==0">-- Seleccione  --</option>
+            <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="pacIns.pac_terapeuta">
+              <option selected="selected" value="0" *ngIf="pacIns.pac_terapeuta==0">-- Seleccione  --</option>
          <!--      <option selected="selected" value="" *ngIf="pac.pac_terapeuta==null">-- Seleccione Terapeuta --</option> -->
               <option *ngFor="let a of terapeutas" value="{{ a.tera_id }}" selected="selected">{{a.tera_paterno}} {{a.tera_materno}} {{a.tera_nombres}}</option>
              </select>
@@ -192,16 +500,16 @@
         </div>
       </div>
 
-      <div class="col-12">
+      <div class="col-12" *ngIf="perfil!=5">
         <div class="col-sm">
 
             <label for="exampleFormControlSelect1">Coterapeuta:</label>
-            <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="pac.pac_coterapeuta">
+            <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="pacIns.pac_coterapeuta">
               <!-- <option selected="selected" value="0">-- Seleccione un año --</option> -->
 <!--               <option selected="selected" value="" *ngIf="pac.pac_coterapeuta==null">-- Seleccione Terapeuta --</option>
 -->            
  <!-- <option selected="selected" value="" *ngIf="!pac.pac_coterapeuta">-- Seleccione Terapeuta --</option> -->
-                  <option selected="selected" value="0" *ngIf="pac.pac_coterapeuta==0">-- Seleccione  --</option>
+                  <option selected="selected" value="0" *ngIf="pacIns.pac_coterapeuta==0">-- Seleccione  --</option>
                   <option *ngFor="let b of terapeutas" value="{{ b.tera_id }}" selected="selected">{{b.tera_paterno}} {{b.tera_materno}} {{b.tera_nombres}}</option>
              </select>
            <!--  {{pac.pac_tutor}} -->
@@ -212,3 +520,109 @@
       </div>
     </div>
   </div>
+
+  <br><br>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar Familiar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiar()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="formGroupExampleInput">Nombre</label>
+            <input type="text" class="form-control" [(ngModel)]="fam.fam_nombre" id="formGroupExampleInput"
+              placeholder="Ingrese Nombre">
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput2">Edad</label>
+            <input type="number" class="form-control" [(ngModel)]="fam.fam_edad" id="formGroupExampleInput2"
+              placeholder="Ingrese Edad">
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput2">Parentesco o relación</label>
+            <input type="text" class="form-control" [(ngModel)]="fam.fam_parentesco" id="formGroupExampleInput2"
+              placeholder="Ingrese Parentesco o relación">
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput2">Ocupación</label>
+            <input type="text" class="form-control" [(ngModel)]="fam.fam_ocupacion" id="formGroupExampleInput2"
+              placeholder="Ingrese Ocupación">
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput2">Dependientes económicos (SI /NO)</label>
+            <select class="form-control" [(ngModel)]="fam.fam_dependientes" id="formGroupExampleInput2">
+              <option value="">--Seleccione--</option>
+              <option value="SI">SI</option>
+              <option value="NO">NO</option>
+            </select>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="limpiar()">Cerrar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="GuardarFam()">Guardar
+            Familiar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <br><br>
+  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Actualizar Familiar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="formGroupExampleInput">Nombre</label>
+            <input type="text" class="form-control" [(ngModel)]="cargafam.fam_nombre" id="formGroupExampleInput"
+              placeholder="Ingrese Nombre">
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput2">Edad</label>
+            <input type="number" class="form-control" [(ngModel)]="cargafam.fam_edad" id="formGroupExampleInput2"
+              placeholder="Ingrese Edad">
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput2">Parentesco o relación</label>
+            <input type="text" class="form-control" [(ngModel)]="cargafam.fam_parentesco" id="formGroupExampleInput2"
+              placeholder="Ingrese Parentesco o relación">
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput2">Ocupación</label>
+            <input type="text" class="form-control" [(ngModel)]="cargafam.fam_ocupacion" id="formGroupExampleInput2"
+              placeholder="Ingrese Ocupación">
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput2">Dependientes económicos (SI /NO)</label>
+            <select class="form-control" [(ngModel)]="cargafam.fam_dependientes" id="formGroupExampleInput2">
+              <option value="">--Seleccione--</option>
+              <option value="SI">SI</option>
+              <option value="NO">NO</option>
+            </select>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cerrar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="actualizar" (click)="Actualizar()">Actualizar
+            Familiar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</block-ui>

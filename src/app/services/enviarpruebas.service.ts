@@ -48,6 +48,12 @@ export class PruebasService {
     );
   }
 
+  GetDiagrama(id:number): Observable<any> {
+    return this.http.get(`${environment.rutaAPI}` + '/Archivos/ArchivosDiagrama/'+id).pipe(
+      map(response => response as any)
+    );
+  }
+
 
   UpdatePrueba(id: number, prueba: File): Observable<any> {
     const formData = new FormData();

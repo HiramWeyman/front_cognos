@@ -3,6 +3,7 @@ import { Diagnostico } from '@/models/Diagnostico';
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppService } from '@services/app.service';
 import { ComentariosService } from '@services/comentarios.service';
 import { DiagnosticoService } from '@services/diagnostico.service';
 import { SharednumberService } from '@services/sharednumber.service';
@@ -26,18 +27,21 @@ export class DiagnosticoComponent {
   fecCom:any;
   UsuarioId: any;
   UsuarioNombre: any;
+  ckeConfig:any;
   constructor(
     private _diag: DiagnosticoService,
     private router: Router,
     private sharednumber:SharednumberService,
     private datePipe: DatePipe,
-    private _com:ComentariosService
+    private _com:ComentariosService,
+    private appService: AppService
   ) { }
   ngOnInit(): void {
-    this.expediente=sessionStorage.getItem('Expediente');
-    this.Sessiontab=sessionStorage.getItem('IndexTab');
-    this.UsuarioId=sessionStorage.getItem('UserId');
-    this.UsuarioNombre=sessionStorage.getItem('UserName');
+  
+    this.expediente=localStorage.getItem('Expediente');
+    this.Sessiontab=localStorage.getItem('IndexTab');
+    this.UsuarioId=localStorage.getItem('UserId');
+    this.UsuarioNombre=localStorage.getItem('UserName');
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
@@ -46,6 +50,30 @@ export class DiagnosticoComponent {
           this.cargarComentarios();
         }
       });
+
+      this.ckeConfig = {
+        allowedContent: false,
+        forcePasteAsPlainText: true,
+        font_names: 'Arial;Times New Roman;Verdana',
+        toolbarGroups: [
+          { name: 'document', groups: ['mode', 'document', 'doctools'] },
+          { name: 'clipboard', groups: ['clipboard', 'undo'] },
+          { name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing'] },
+          { name: 'forms', groups: ['forms'] },
+          '/',
+          { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+          { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph'] },
+          { name: 'links', groups: ['links'] },
+          { name: 'insert', groups: ['insert'] },
+          '/',
+          { name: 'styles', groups: ['styles'] },
+          { name: 'colors', groups: ['colors'] },
+          { name: 'tools', groups: ['tools'] },
+          { name: 'others', groups: ['others'] },
+          { name: 'about', groups: ['about'] }
+        ],
+        removeButtons: 'Source,Save,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Strike,Subscript,Superscript,CopyFormatting,RemoveFormat,Outdent,Indent,CreateDiv,Blockquote,BidiLtr,BidiRtl,Language,Unlink,Anchor,Image,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Maximize,ShowBlocks,About'
+      };
    
     
    

@@ -28,6 +28,7 @@ export class Sesion
       sesion_recomendacion_sup : string;
       sesion_fecha_captura :Date;
       sesion_fecha_modificacion :Date;
+      sesion_fecha :Date;
       sesion_paciente_id :number; 
       sesion_impedimiento : string;
 

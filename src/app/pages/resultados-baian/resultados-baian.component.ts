@@ -1,7 +1,8 @@
 import { ResultadosBAIAN } from '@/models/ResultadosBAIAN';
 import { ResultadosSCL } from '@/models/ResultadosSCL';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from '@services/app.service';
 import { ResultadosService } from '@services/resultados.service';
 
 @Component({
@@ -15,11 +16,12 @@ export class ResultadosBaianComponent {
   total!:any;
   expediente!: any;
 /*   pac: Pacientes = new Pacientes(); */
-  constructor(private route: ActivatedRoute, private _res: ResultadosService) {
+  constructor(private route: ActivatedRoute, private _res: ResultadosService,private appService: AppService,private router: Router) {
 
   }
   ngOnInit(): void {
-    this.expediente=sessionStorage.getItem('Expediente');
+  
+    this.expediente=localStorage.getItem('Expediente');
     this.id = this.route.snapshot.paramMap.get('id');
     this.cargarResBAIAN();
     this.cargarTotalBAIAN();

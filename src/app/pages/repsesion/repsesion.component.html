@@ -18,10 +18,12 @@
     <!--Fin del titulo-->
     <div class="izq">
         <h4>Caso: {{pac.sesion_caso}}</h4><br>
-        <label>N° de sesión:{{pac.sesion_no}}</label><br>
-        <label>Terapeuta.   {{nombretera}}</label><br>
-        <label>Coterapeuta. {{nombrecotera}}</label><br>
-        <label>Fecha. {{pac.sesion_fecha_captura}}</label><br><br>
+        <div><label>N° de sesión: {{pac.sesion_no}}</label></div>
+        <div *ngIf="perfil!=5"><label>Terapeuta.   {{nombretera}}</label></div>
+        <div *ngIf="perfil!=5"><label>Coterapeuta. {{nombrecotera}}</label></div>
+        <div><label>Fecha. {{pac.sesion_fecha}}</label></div>
+        <br>
+      
 
         <label>1. Objetivo general de la sesión</label><br>
         <p>{{pac.sesion_objetivo}}</p><br>

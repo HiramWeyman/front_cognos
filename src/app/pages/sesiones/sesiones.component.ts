@@ -3,11 +3,12 @@ import { Tabla2 } from '@/models/Tabla2';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SesionService } from '@services/sesiones.service';
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 import { SharednumberService } from '@services/sharednumber.service';
+import { AppService } from '@services/app.service';
 
 @Component({
   selector: 'app-sesiones',
@@ -21,12 +22,13 @@ export class SesionesComponent implements OnInit{
   expediente!: any;
   Sessiontab!: any;
   Indextab:any;
-  constructor(private route: ActivatedRoute, private paginator: MatPaginatorIntl,private _se:SesionService,private datePipe: DatePipe,private sharednumber:SharednumberService) {
+  constructor(private route: ActivatedRoute, private paginator: MatPaginatorIntl,private _se:SesionService,private datePipe: DatePipe,private sharednumber:SharednumberService,private appService: AppService,private router: Router,) {
     this.paginator.itemsPerPageLabel = "Registros por página";
   }
   ngOnInit(): void {
-    this.expediente=sessionStorage.getItem('Expediente');
-    this.Sessiontab=sessionStorage.getItem('IndexTab');
+   
+    this.expediente=localStorage.getItem('Expediente');
+    this.Sessiontab=localStorage.getItem('IndexTab');
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
@@ -57,8 +59,8 @@ export class SesionesComponent implements OnInit{
         this.sesiones = se;
         console.log(this.sesiones);
         for(let i=0;i<this.sesiones.length;i++){
-          this.fec =this.datePipe.transform(this.sesiones[i].sesion_fecha_captura,"dd/MM/yyyy");
-          this.sesiones[i].sesion_fecha_captura= this.fec;
+          this.fec =this.datePipe.transform(this.sesiones[i].sesion_fecha,"dd/MM/yyyy");
+          this.sesiones[i].sesion_fecha= this.fec;
         }
         console.log(this.sesiones);
         this.dataSource = new MatTableDataSource(this.sesiones);

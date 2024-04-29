@@ -14,9 +14,9 @@ export class UserComponent implements OnInit {
 
     ngOnInit(): void {
      
-        this.userId=sessionStorage.getItem('UserId'); 
+        this.userId=localStorage.getItem('UserId'); 
       /*   this.user = this.appService.user; */
-        this.user = sessionStorage.getItem('UserMail');
+        this.user = localStorage.getItem('UserMail');
         console.log(this.user);
     }
 

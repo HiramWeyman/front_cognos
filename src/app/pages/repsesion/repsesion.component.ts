@@ -3,6 +3,7 @@ import { SesionVista } from '@/models/SesionVista';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from '@services/app.service';
 import { SesionService } from '@services/sesiones.service';
 import * as html2pdf from 'html2pdf.js';
 @Component({
@@ -21,10 +22,13 @@ export class RepsesionComponent implements OnInit{
   nombretera:any;
   nombrecotera:any;
   text_tarea:any;
-  constructor(private route: ActivatedRoute, private router: Router,private _se:SesionService,private datePipe: DatePipe) {
+  perfil:any;
+  constructor(private route: ActivatedRoute, private router: Router,private _se:SesionService,private datePipe: DatePipe,private appService: AppService) {
   }
   ngOnInit(): void {
-    this.expediente=sessionStorage.getItem('Expediente');
+  
+    this.expediente=localStorage.getItem('Expediente');
+    this.perfil=localStorage.getItem('UserPerfil');
     this.idx = this.route.snapshot.paramMap.get('idx');
     this.getDataSesion();
     console.log(this.idx);
@@ -36,8 +40,8 @@ export class RepsesionComponent implements OnInit{
       
         this.pac = fu;
         console.log(this.pac);
-        this.fec =this.datePipe.transform(this.pac.sesion_fecha_captura,"dd/MM/yyyy");
-        this.pac.sesion_fecha_captura= this.fec;
+        this.fec =this.datePipe.transform(this.pac.sesion_fecha,"dd/MM/yyyy");
+        this.pac.sesion_fecha= this.fec;
         console.log(this.pac);
        /*  alert(this.pac.sesion_terapeuta);
         alert(this.pac.sesion_coterapeuta); */

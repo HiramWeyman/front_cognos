@@ -50,7 +50,7 @@ const routes: Routes = [
             },
             {
                 path: 'pacientes',
-                component: PacientesComponent
+                component: PacientesComponent,
             },
             {
                 path: 'regpaciente',

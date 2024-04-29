@@ -16,9 +16,17 @@ export class AppService {
     public user: any = null;
     public username: any=null;
     correo:EnvioCorreo=new EnvioCorreo();
-    constructor(private http: HttpClient,private router: Router, private toastr: ToastrService) { }
+    private loggedIn: boolean = false;
+    constructor(private http: HttpClient,private router: Router, private toastr: ToastrService) {
+          // Verificar si hay información de inicio de sesión en el almacenamiento local al iniciar el servicio
+          this.loggedIn = !!localStorage.getItem('isLoggedIn');
+     }
 
     public urlEndPoint = `${environment.rutaAPI}`;
+
+
+    
+
 
      getLogin(login: Login): Observable<Login[]> {
         //console.log(login);
@@ -31,16 +39,19 @@ export class AppService {
                 // sessionStorage.setItem(_TOKEN, matricula.toString());
                 //console.log(response);
                 this.username=response.result.usuario.usr_nombre.toString()+' '+response.result.usuario.usr_paterno.toString()+' '+response.result.usuario.usr_materno.toString();
-                sessionStorage.setItem('UserMail', response.result.usuario.usr_email.toString());
-                sessionStorage.setItem('UserId', response.result.usuario.usr_id);
-                sessionStorage.setItem('UserPerfil', response.result.usuario.usr_per_id);
-                sessionStorage.setItem('UserName', this.username);
+                localStorage.setItem('UserMail', response.result.usuario.usr_email.toString());
+                localStorage.setItem('UserId', response.result.usuario.usr_id);
+                localStorage.setItem('UserPerfil', response.result.usuario.usr_per_id);
+                localStorage.setItem('UserName', this.username);
                 this.user = response.result.usuario.usr_email.toString();
                // console.log(response);
-                console.log(response.result.usuario.usr_email);
-                console.log(this.user);
+               // console.log(response.result.usuario.usr_email);
+                //console.log(this.user);
                 this.router.navigate(['/']);
                 this.toastr.success('Login exitoso');
+                this.loggedIn = true;
+                // Almacenar el estado de inicio de sesión en el almacenamiento local
+                localStorage.setItem('isLoggedIn', 'true');
                 return response;
                
             })
@@ -68,6 +79,10 @@ export class AppService {
       return this.http.post<string>(`${this.urlEndPoint+'/RecuperaPass/EnvioMail?email='+email}`, this.correo.email);
       //return this.http.post<comFM>(`${environment.rutaAPI}` + '/Usuarios/registro', com);
     }
+
+    UpdatePass(id:number,pass: string): Observable<any> {
+        return this.http.patch<any>(`${environment.rutaAPI}` + '/Usuarios/cambiaPass/'+id+'/'+pass, '');
+      }
 
     ValidaPadron(email:string)  {
         return this.http.get(`${environment.rutaAPI}` + '/Usuarios/validaUsr/'+email.trim());
@@ -148,7 +163,7 @@ export class AppService {
 
     async getProfile() {
         try {
-            this.user = sessionStorage.UserLogin;
+            this.user = sessionStorage.UserMail;
             
             /* this.user = await Gatekeeper.getProfile(); */
         } catch (error) {
@@ -168,6 +183,15 @@ export class AppService {
         sessionStorage.removeItem('UserName');
         sessionStorage.removeItem('IndexTabla');
         this.user = null;
+        this.loggedIn = false;
+        // Eliminar el estado de inicio de sesión del almacenamiento local al cerrar sesión
+        localStorage.removeItem('isLoggedIn');
         this.router.navigate(['/login']);
+       
     } 
+
+    isAuthenticated(): boolean {
+        // Verifica si el usuario tiene una sesión activa
+        return this.loggedIn;
+      }
 }

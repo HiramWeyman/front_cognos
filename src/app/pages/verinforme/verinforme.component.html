@@ -28,13 +28,179 @@
         <label>Edad: {{informe.inf_edad}} años</label><br>
         <label>Fecha de Nacimiento: {{informe.inf_fecha_nacimiento}}</label><br>
         <label>Fecha de Inicio: {{informe.inf_fecha_ingreso}}</label><br>
+        <label>Género: {{informe.gen_desc}}</label><br>
         <label>Nivel de estudios: {{informe.esc_desc}} </label><br>
-        <label>Estado Civil: {{informe.civil_desc}} </label><br>
-        <label>Estructura Familiar: {{informe.inf_estructura_fam}} </label><br>
         <label>Situación laboral: {{informe.inf_ocupacion}}</label><br>
-        <label>Teléfono: {{informe.inf_telefono}}</label><br>
-        <label>Email: {{informe.inf_email}}</label><br>        
+        <label>Email: {{informe.inf_email}}</label><br>    
+        <label>Domicilio: {{informe.inf_domicilio}}</label><br> 
+        <label>Vive con: {{informe.inf_vive_con}}</label><br> 
+        <label>Teléfono de contacto principal: {{informe.inf_telefono}} </label><br> 
+        <div class="col-sm-12">
+          <h5><label>Contactar en caso de emergencia</label></h5>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Persona</th>
+                <th scope="col">Teléfono</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td><input type="text" [(ngModel)]="informe.inf_contacto_eme" name="contacto1" style="width: 100%;" readonly></td>
+                <td><input type="tel" [(ngModel)]="informe.inf_telefono_eme" name="telefono1" style="width: 100%;" readonly></td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td><input type="text" [(ngModel)]="informe.inf_contacto_eme2" name="contacto2" style="width: 100%;" readonly></td>
+                <td><input type="tel" [(ngModel)]="informe.inf_telefono_eme2" name="telefono2" style="width: 100%;" readonly></td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td><input type="text" [(ngModel)]="informe.inf_contacto_eme3" name="contacto3" style="width: 100%;" readonly></td>
+                <td><input type="tel" [(ngModel)]="informe.inf_telefono_eme3" name="telefono3" style="width: 100%;" readonly></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
     </div><br>
+
+    <div class="d-flex justify-content-center"><label>Datos Demográficos</label></div><br>
+    <div class="izq">
+      
+      <div><label>Orientación Sexual: {{orientacion}} </label></div>
+      <div *ngIf="informe.inf_orientacion==4"><label>Orientación Sexual Específica : {{informe.inf_especifique_or}} </label></div>
+      <div><label>Estado Civil: {{informe.civil_desc}} </label></div>
+      <div *ngIf="informe.inf_edocivil==6"> <label >Estado Civil Específico : {{informe.inf_especifique}} </label></div>
+      <div><label>Tiene Pareja?: {{informe.inf_pareja}} </label></div>
+      <div><label>Religión: {{religion}} </label></div>
+      <div *ngIf="informe.inf_religion==6"><label>Religión Específica: {{informe.inf_especifique_reg}} </label></div>
+      <div><label>Trabaja?: {{informe.inf_trabaja}} </label></div>
+      <div *ngIf="informe.inf_trabaja=='SI'"><label>Lugar de Trabajo: {{informe.inf_lugar_trabajo}} </label></div>
+      <div *ngIf="informe.inf_trabaja=='SI'"><label>Cuantas horas a la semana: {{informe.inf_horas_semana}} </label></div>
+
+     <!--  <label>Teléfono: {{informe.inf_telefono}}</label><br> -->
+    </div><br><br>
+
+    <div class="d-flex justify-content-center"><label>Estructura Familiar</label></div>
+    <div class="d-flex justify-content-center">
+      <div>
+        <table class="table table-bordered" >
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Edad</th>
+              <th>Parentesco o relación</th>
+              <th>Ocupación</th>
+              <th>Dependientes económicos (SI /NO)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  *ngFor="let p of familiares; let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{p.fam_nombre}} </td>
+              <td>{{p.fam_edad}} </td>
+              <td>{{p.fam_parentesco}}</td>
+              <td>{{p.fam_ocupacion}}</td>
+              <td>{{p.fam_dependientes}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div><br><br>
+
+    <div class="d-flex justify-content-center"><label>Suicidio</label></div>
+    <div class="d-flex justify-content-center">
+      <div>
+        <table class="table table-bordered" >
+          <tr>
+            <td>
+              <label>Ideación suicida</label><br>
+              <label>{{informe.inf_idea_su}}</label>
+            </td>
+            <td>
+              <label>Tiempo:</label><br>
+              <label>{{informe.inf_idea_su_tiempo}}</label>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <label>Intento suicida</label><br>
+              <label>{{informe.inf_intento_su}}</label>
+            </td>
+            <td>
+              <label>Tiempo:</label><br>
+              <label>{{informe.inf_intento_su_tiempo}}</label>
+            </td>
+            <td>
+              <label>Método:</label><br>
+              <label>{{informe.inf_intento_su_metodo}}</label>
+
+              <div *ngIf="informe.inf_intento_su_metodo=='Otro'">
+                <label>Método específico:</label><br>
+                <label>{{informe.inf_intento_su_especifique}}</label>
+              </div>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <label>Plan suicida</label><br>
+              <label>{{informe.inf_plan_su}}</label>
+            </td>
+            <td>
+              <label>Tiempo:</label><br>
+              <label>{{informe.inf_plan_su_tiempo}}</label>
+            </td>
+            <td>
+              <label>Método:</label><br>
+              <label>{{informe.inf_plan_su_metodo}}</label>
+           
+              <div *ngIf="informe.inf_plan_su_metodo=='Otro'">
+                <label>Método específico:</label><br>
+                <label>{{informe.inf_plan_su_especifique}}</label>
+              </div>
+            </td>
+            <td>
+              <label>Nivel de estructura:</label><br>
+              <label>{{informe.inf_plan_su_nivel}}</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Autolesión</label><br>
+              <label>{{informe.inf_autolesion}}</label>
+            </td>
+            <td>
+              <label>Tiempo:</label><br>
+              <label>{{informe.inf_autolesion_tiempo}}</label>
+            </td>
+            <td>
+              <label>Método:</label><br>
+              <label>{{informe.inf_autolesion_metodo}}</label>
+              <div *ngIf="informe.inf_autolesion_metodo=='Otro'">
+                <label>Método específico:</label><br>
+                <label>{{informe.inf_autolesion_especifique}}</label>
+              </div>
+            </td>
+            <td>
+              <label>Lugar:</label><br>
+              <label>{{informe.inf_autolesion_lugar}}</label>
+              <div *ngIf="informe.inf_autolesion_lugar=='Otro'">
+                <label>Lugar específico:</label><br>
+                <label>{{informe.inf_autolesion_lu_espe}}</label>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+     
+    </div>
+ 
     <div class="izq">
       <h5>Estado de Salud Física y Mental.</h5><br>
       <label>Sueño:</label><br> 
@@ -230,8 +396,10 @@
 
 <div class="izq">
   <h3>7.Formulación del Caso (anexar diagrama) </h3><br>
-  <label>imagen 1</label><br> 
-  <label>imagen 2</label><br> 
+<!--   <label>imagen 1</label><br> 
+  <label>imagen 2</label><br>  -->
+  <div class="d-flex justify-content-center"><img #imgRef3></div>
+  <br>
   <label>Hipótesis de Origen y mantenimiento.</label><br> 
   <p [innerHTML]="caso.form_hipotesis" ></p>
   <label>Contraste de hipótesis.</label><br> 
@@ -274,7 +442,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let p of sesiones; let i = index">
-        <td>{{p.sesion_fecha_captura}}</td>
+        <td>{{p.sesion_fecha}}</td>
         <td>{{p.sesion_no}}</td>
         <td>{{p.sesion_objetivo}}</td>
         <!-- <td>{{p.sesion_tecnica_abc}}</td> -->
