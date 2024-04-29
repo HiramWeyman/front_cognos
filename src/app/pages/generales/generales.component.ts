@@ -3,6 +3,7 @@ import { EstructuraFam } from '@/models/estructuraFam';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppService } from '@services/app.service';
 import { FamiliarService } from '@services/familiar.service';
 import { PacientesService } from '@services/pacientes.service';
 import { SharednumberService } from '@services/sharednumber.service';
@@ -19,9 +20,8 @@ import Swal from 'sweetalert2';
 export class GeneralesComponent implements OnInit{
   @BlockUI()
   blockUI!: NgBlockUI;
-  pac: Pacientes = new Pacientes();
+  pacIns: Pacientes = new Pacientes();
   pacientes: Pacientes[];
-  private subscription: Subscription;
   public ExpedienteId: any = null;
   public Indextab: any = null;
   public Sessiontab: any = null;
@@ -46,17 +46,19 @@ export class GeneralesComponent implements OnInit{
     private _fam: FamiliarService,
     private router: Router,
     private datePipe: DatePipe,
-    private sharednumber:SharednumberService
+    private sharednumber:SharednumberService,
+    private appService: AppService
   ) { }
   ngOnInit(): void {
-    this.ExpedienteId = sessionStorage.getItem('Expediente');
-    this.Sessiontab=sessionStorage.getItem('IndexTab');
-    this.perfil=sessionStorage.getItem('UserPerfil');
+   
+    this.ExpedienteId = localStorage.getItem('Expediente');
+    this.Sessiontab=localStorage.getItem('IndexTab');
+    this.perfil=localStorage.getItem('UserPerfil');
     this.cargarPacientes();
     this.cargarTutores();
     this.cargarTerapeutas();
     this.cargarAlumnos();
-    console.log(sessionStorage.getItem('llaveFam'));
+    console.log(sessionStorage.getItem('llaveFam')+'llave');
    
  /*    this.sharednumber.numero$.subscribe(val=>
       {
@@ -72,14 +74,14 @@ export class GeneralesComponent implements OnInit{
 
   ActualizarPac() {
     this.blockUI.start('Actualizando Paciente...');
-    console.log(this.pac);
-    if(this.pac.pac_terapeuta==0){
-      this.pac.pac_terapeuta==null;
+    console.log(this.pacIns);
+    if(this.pacIns.pac_terapeuta==0){
+      this.pacIns.pac_terapeuta==null;
     }
-    if(this.pac.pac_coterapeuta==0){
-      this.pac.pac_coterapeuta==null;
+    if(this.pacIns.pac_coterapeuta==0){
+      this.pacIns.pac_coterapeuta==null;
     }
-    if(!this.pac.pac_genero){
+    if(!this.pacIns.pac_genero){
       this.blockUI.stop();
       swal.fire({
         title: 'Información!!!',
@@ -88,7 +90,7 @@ export class GeneralesComponent implements OnInit{
       });
       return;
     }
-    if(!this.pac.pac_edocivil){
+    if(!this.pacIns.pac_edocivil){
       this.blockUI.stop();
       swal.fire({
         title: 'Información!!!',
@@ -97,7 +99,7 @@ export class GeneralesComponent implements OnInit{
       });
       return;
     }
-    if(!this.pac.pac_escolaridad){
+    if(!this.pacIns.pac_escolaridad){
       this.blockUI.stop();
       swal.fire({
         title: 'Información!!!',
@@ -126,12 +128,12 @@ export class GeneralesComponent implements OnInit{
       });
       return;
     }
-    this.pac.pac_llave_fam=String(sessionStorage.getItem('llaveFam'));
+    this.pacIns.pac_llave_fam=String(sessionStorage.getItem('llaveFam'));
 /*     this.pac.pac_paterno=this.paterno;
     this.pac.pac_materno=this.materno;
     this.pac.pac_materno=this.nombre; */
-    console.log(this.pac);
-    this.subscription = this._pac.UpdatePacientes(this.pac)
+    console.log(this.pacIns);
+    this._pac.UpdatePacientes(this.pacIns)
         .subscribe((data: any) => {
           this.blockUI.stop();
           swal.fire({
@@ -158,33 +160,33 @@ export class GeneralesComponent implements OnInit{
   cargarPacientes() {
     this._pac.GetPaciente(this.ExpedienteId).subscribe(
       pac => {
-        this.pac = pac;
+        this.pacIns = pac;
         console.log('Paciente Generales');
-        console.log(this.pac);
+        console.log(this.pacIns);
        /*  this.paterno=this.pac.pac_paterno;
         this.materno=this.pac.pac_materno;
         this.nombre=this.pac.pac_materno; */
 
-        if(this.pac.pac_terapeuta==null){
-          this.pac.pac_terapeuta==0;
+        if(this.pacIns.pac_terapeuta==null){
+          this.pacIns.pac_terapeuta==0;
         }
-        if(this.pac.pac_coterapeuta==null){
-          this.pac.pac_coterapeuta==0;
+        if(this.pacIns.pac_coterapeuta==null){
+          this.pacIns.pac_coterapeuta==0;
         }
-        console.log(this.pac.pac_llave_fam);
-        if(this.pac.pac_llave_fam=="null"){
+        console.log(this.pacIns.pac_llave_fam);
+        if(this.pacIns.pac_llave_fam=="null"){
           var num = Math.floor(Math.random() * 90000) + 10000;
           //console.log(num);
           this.llave = String(num);
           //console.log(this.llave);
           sessionStorage.setItem('llaveFam', this.llave);
           console.log(sessionStorage.getItem('llaveFam'));
-          this.pac.pac_llave_fam=String(sessionStorage.getItem('llaveFam'));
-          console.log(this.pac.pac_llave_fam);
+          this.pacIns.pac_llave_fam=String(sessionStorage.getItem('llaveFam'));
+          console.log(this.pacIns.pac_llave_fam);
         }
-        if(this.pac.pac_llave_fam!=null){
+        if(this.pacIns.pac_llave_fam!=null){
           //alert('Verdadero');
-          sessionStorage.setItem('llaveFam', this.pac.pac_llave_fam);
+          sessionStorage.setItem('llaveFam', this.pacIns.pac_llave_fam);
           //console.log(sessionStorage.getItem('llaveFam'));
           this.cargarFamiliares();
         }
@@ -210,48 +212,12 @@ export class GeneralesComponent implements OnInit{
             //console.log(this.llave);
             sessionStorage.setItem('llaveFam', this.llave);
             console.log(sessionStorage.getItem('llaveFam'));
-            this.pac.pac_llave_fam=String(sessionStorage.getItem('llaveFam'));
-            console.log(this.pac.pac_llave_fam);
+            this.pacIns.pac_llave_fam=String(sessionStorage.getItem('llaveFam'));
+            console.log(this.pacIns.pac_llave_fam);
           } 
 
-     /*      console.log(sessionStorage.getItem('llaveFam'));
-          var num = Math.floor(Math.random() * 90000) + 10000;
-          //console.log(num);
-          this.llave = String(num);
-          //console.log(this.llave);
-          sessionStorage.setItem('llaveFam', this.llave);
-          console.log(sessionStorage.getItem('llaveFam'));
-          this.pac.pac_llave_fam=String(sessionStorage.getItem('llaveFam'));
-          console.log(this.pac.pac_llave_fam); */
- /*          console.log(sessionStorage.getItem('llaveFam'));
-          if (sessionStorage.getItem('llaveFam') == 'undefined' || sessionStorage.getItem('llaveFam') == null) {
-            var num = Math.floor(Math.random() * 90000) + 10000;
-            //console.log(num);
-            this.llave = String(num);
-            //console.log(this.llave);
-            sessionStorage.setItem('llaveFam', this.llave);
-            console.log(sessionStorage.getItem('llaveFam'));
-            this.pac.pac_llave_fam=String(sessionStorage.getItem('llaveFam'));
-            console.log(this.pac.pac_llave_fam);
-          }
-          else {
-            return;
-          } */
-          
         }
- /*        if(!this.pac.pac_llave_fam){
-          var num = Math.floor(Math.random() * 90000) + 10000;
-          //console.log(num);
-          this.llave = String(num);
-          //console.log(this.llave);
-          sessionStorage.setItem('llaveFam', this.llave);
-          console.log(sessionStorage.getItem('llaveFam'));
-          
-        }else{
-          sessionStorage.setItem('llaveFam', this.pac.pac_llave_fam)
-        } */
-        
-       
+  
       }, error => {
         //console.log(error);
         swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });

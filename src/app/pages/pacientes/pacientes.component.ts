@@ -10,6 +10,7 @@ import { PacientesService } from '@services/pacientes.service';
 import { Pacientes } from '@/models/Pacientes';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
+import { AppService } from '@services/app.service';
 
 export interface PeriodicElement {
   pac_id: number;
@@ -31,15 +32,16 @@ export class PacientesComponent implements OnInit {
   fec:any;
   perfil:any;
   usuario_id:any;
-  constructor(private router: Router,private paginator: MatPaginatorIntl, private _pac: PacientesService, private datePipe: DatePipe) {
+  constructor(private router: Router,private paginator: MatPaginatorIntl, private _pac: PacientesService, private datePipe: DatePipe,private appService: AppService) {
     this.paginator.itemsPerPageLabel = "Registros por página";
   }
   ngOnInit(): void {
+
     localStorage.removeItem('llaveFam');
     sessionStorage.removeItem('llaveFam');
-    sessionStorage.removeItem('Expediente');
-    this.perfil=sessionStorage.getItem('UserPerfil');
-    this.usuario_id=sessionStorage.getItem('UserId');
+    localStorage.removeItem('Expediente');
+    this.perfil=localStorage.getItem('UserPerfil');
+    this.usuario_id=localStorage.getItem('UserId');
     console.log(this.perfil);
     if(this.perfil==1){
       this.cargarPacientes();

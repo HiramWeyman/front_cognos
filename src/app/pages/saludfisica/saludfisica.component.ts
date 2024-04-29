@@ -3,6 +3,7 @@ import { SaludFM } from '@/models/SaludFM';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppService } from '@services/app.service';
 import { ComentariosService } from '@services/comentarios.service';
 import { SaludfmService } from '@services/saludfm.service';
 import { SharednumberService } from '@services/sharednumber.service';
@@ -38,16 +39,17 @@ export class SaludfisicaComponent implements OnInit{
     private router: Router,
     private sharednumber:SharednumberService,
     private _com:ComentariosService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private appService: AppService
   ) { }
 
   numero$ = this.sharednumber.numero$
   ngOnInit(): void {
-    
-    this.expediente=sessionStorage.getItem('Expediente');
-    this.Sessiontab=sessionStorage.getItem('IndexTab');
-    this.UsuarioId=sessionStorage.getItem('UserId');
-    this.UsuarioNombre=sessionStorage.getItem('UserName');
+  
+    this.expediente=localStorage.getItem('Expediente');
+    this.Sessiontab=localStorage.getItem('IndexTab');
+    this.UsuarioId=localStorage.getItem('UserId');
+    this.UsuarioNombre=localStorage.getItem('UserName');
     
 
     

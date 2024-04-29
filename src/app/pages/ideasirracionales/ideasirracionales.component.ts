@@ -1,5 +1,7 @@
 import { Creencias } from '@/models/Creencias';
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AppService } from '@services/app.service';
 import { CreenciasService } from '@services/creencias.service';
 import { SharednumberService } from '@services/sharednumber.service';
 /* import { Chart } from 'chart.js'; */
@@ -34,11 +36,14 @@ export class IdeasirracionalesComponent implements OnInit {
   constructor(
     private elementRef: ElementRef,
     private _cree: CreenciasService,
-    private sharednumber: SharednumberService) {
+    private sharednumber: SharednumberService,
+    private appService: AppService,
+    private router: Router,) {
   }
 
   ngOnInit() {
-    this.expediente = sessionStorage.getItem('Expediente');
+   
+    this.expediente = localStorage.getItem('Expediente');
   
     this.sharednumber.numero$.subscribe(val => {
       this.Indextab = val;

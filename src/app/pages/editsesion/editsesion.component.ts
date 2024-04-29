@@ -1,6 +1,7 @@
 import { Sesion } from '@/models/Sesion';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from '@services/app.service';
 import { PacientesService } from '@services/pacientes.service';
 import { SesionService } from '@services/sesiones.service';
 import swal from 'sweetalert2';
@@ -16,12 +17,13 @@ export class EditsesionComponent implements OnInit {
   terapeutas: any[];
   ckeConfig:any;
   perfil:any;
-  constructor(private route: ActivatedRoute, private router: Router,private _se:SesionService, private _pac2: PacientesService,) {
+  constructor(private route: ActivatedRoute, private router: Router,private _se:SesionService, private _pac2: PacientesService,private appService: AppService) {
    
   }
   ngOnInit(): void {
-    this.expediente=sessionStorage.getItem('Expediente');
-    this.perfil=sessionStorage.getItem('UserPerfil');
+  
+    this.expediente=localStorage.getItem('Expediente');
+    this.perfil=localStorage.getItem('UserPerfil');
     this.idx = this.route.snapshot.paramMap.get('idx');
     this.getDataSesion();
     console.log(this.idx);

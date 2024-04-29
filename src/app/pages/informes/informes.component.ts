@@ -4,13 +4,14 @@ import { Tabla1 } from '@/models/Tabla1';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InformeService } from '@services/informe.service';
 import { PacientesService } from '@services/pacientes.service';
 import { SharednumberService } from '@services/sharednumber.service';
 import swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
+import { AppService } from '@services/app.service';
 
 @Component({
   selector: 'app-informes',
@@ -36,15 +37,18 @@ export class InformesComponent implements OnInit  {
     private sharednumber:SharednumberService,
     private _pac: PacientesService,
     private _inf:InformeService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private appService: AppService,
+    private router: Router,
     ) {
     this.paginator.itemsPerPageLabel = "Registros por página";
   }
   ngOnInit(): void {
-    this.ExpedienteId=sessionStorage.getItem('Expediente');
-    this.Sessiontab=sessionStorage.getItem('IndexTab');
-    this.UsuarioId=sessionStorage.getItem('UserId');
-    this.UsuarioNombre=sessionStorage.getItem('UserName');
+  
+    this.ExpedienteId=localStorage.getItem('Expediente');
+    this.Sessiontab=localStorage.getItem('IndexTab');
+    this.UsuarioId=localStorage.getItem('UserId');
+    this.UsuarioNombre=localStorage.getItem('UserName');
     console.log('Id del expediente '+this.ExpedienteId);
     console.log(this.ExpedienteId);
     this.sharednumber.numero$.subscribe(val=>

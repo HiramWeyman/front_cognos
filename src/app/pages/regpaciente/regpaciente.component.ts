@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { FamiliarService } from '@services/familiar.service';
 import Swal from 'sweetalert2';
+import { AppService } from '@services/app.service';
 
 @Component({
   selector: 'app-regpaciente',
@@ -37,12 +38,15 @@ export class RegpacienteComponent implements OnInit {
     private _pac: PacientesService,
     private _fam: FamiliarService,
     private router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private appService: AppService,
+    
 
   ) { }
   ngOnInit(): void {
-    this.userId = sessionStorage.getItem('UserId');
-    this.perfil = sessionStorage.getItem('UserPerfil');
+   
+    this.userId = localStorage.getItem('UserId');
+    this.perfil = localStorage.getItem('UserPerfil');
     this.cargarTutores();
     this.tutor = [0];
     this.cargarTerapeutas();
