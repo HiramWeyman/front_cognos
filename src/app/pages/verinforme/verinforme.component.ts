@@ -18,7 +18,7 @@ import { Tratamiento } from '@/models/Tratamiento';
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AnalisisFuService } from '@services/analisisfu.service';
 import { AntecedentesService } from '@services/antecedentes.service';
 import { CreenciasService } from '@services/creencias.service';
@@ -38,6 +38,7 @@ import Chart from 'chart.js/auto';
 import { PruebasService } from '@services/enviarpruebas.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FamiliarService } from '@services/familiar.service';
+import { AppService } from '@services/app.service';
 
 @Component({
   selector: 'app-verinforme',
@@ -100,9 +101,12 @@ export class VerinformeComponent {
     private _env:PruebasService,
     private _fam: FamiliarService,
     private elementRef: ElementRef,
-    private _sanitizer: DomSanitizer)
+    private _sanitizer: DomSanitizer,
+    private appService: AppService,
+    private router: Router,)
      {}
   ngOnInit(): void {
+   
     this.idx = this.route.snapshot.paramMap.get('idx');
     console.log('parametro que se envia');
     console.log(this.idx);

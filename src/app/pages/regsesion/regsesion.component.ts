@@ -7,6 +7,7 @@ import swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
 import { SesionService } from '@services/sesiones.service';
 import { Sesion } from '@/models/Sesion';
+import { AppService } from '@services/app.service';
 @Component({
   selector: 'app-regsesion',
   templateUrl: './regsesion.component.html',
@@ -27,12 +28,12 @@ constructor(
   private router: Router,
   private datePipe: DatePipe,
   private _pac2: PacientesService,
-  
+  private appService: AppService
 ) {}
   ngOnInit(): void {
- 
-    this.expediente=sessionStorage.getItem('Expediente');
-    this.perfil=sessionStorage.getItem('UserPerfil');
+   
+    this.expediente=localStorage.getItem('Expediente');
+    this.perfil=localStorage.getItem('UserPerfil');
     console.log(this.expediente);
     this.cargarTerapeutas();
     this.ckeConfig = {

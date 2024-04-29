@@ -3,6 +3,7 @@ import { SesionVista } from '@/models/SesionVista';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from '@services/app.service';
 import { SesionService } from '@services/sesiones.service';
 import * as html2pdf from 'html2pdf.js';
 @Component({
@@ -22,11 +23,12 @@ export class RepsesionComponent implements OnInit{
   nombrecotera:any;
   text_tarea:any;
   perfil:any;
-  constructor(private route: ActivatedRoute, private router: Router,private _se:SesionService,private datePipe: DatePipe) {
+  constructor(private route: ActivatedRoute, private router: Router,private _se:SesionService,private datePipe: DatePipe,private appService: AppService) {
   }
   ngOnInit(): void {
-    this.expediente=sessionStorage.getItem('Expediente');
-    this.perfil=sessionStorage.getItem('UserPerfil');
+  
+    this.expediente=localStorage.getItem('Expediente');
+    this.perfil=localStorage.getItem('UserPerfil');
     this.idx = this.route.snapshot.paramMap.get('idx');
     this.getDataSesion();
     console.log(this.idx);

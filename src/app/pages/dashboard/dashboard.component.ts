@@ -11,10 +11,10 @@ name:any;
 userId:any;
 constructor(private router: Router){}
     ngOnInit(): void {
-        this.name=sessionStorage.getItem('UserName'); 
-        this.userId=sessionStorage.getItem('UserId'); 
-        console.log(sessionStorage.getItem('UserName'));
-        if(this.name==null||this.name==null){
+        this.name=localStorage.getItem('UserName'); 
+        this.userId=localStorage.getItem('UserId'); 
+        console.log(localStorage.getItem('UserName'));
+        if(!this.name){
             this.router.navigate(['/login']);
         }
     }

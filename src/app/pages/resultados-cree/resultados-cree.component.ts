@@ -1,6 +1,7 @@
 import { ResultadosCree } from '@/models/ResultadosCree';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from '@services/app.service';
 import { ResultadosService } from '@services/resultados.service';
 
 @Component({
@@ -23,11 +24,12 @@ export class ResultadosCreeComponent {
   total9!:any;
   total10!:any;
 /*   pac: Pacientes = new Pacientes(); */
-  constructor(private route: ActivatedRoute, private _res: ResultadosService,) {
+  constructor(private route: ActivatedRoute, private _res: ResultadosService,private appService: AppService,private router: Router) {
 
   }
   ngOnInit(): void {
-    this.expediente=sessionStorage.getItem('Expediente');
+  
+    this.expediente=localStorage.getItem('Expediente');
     this.id = this.route.snapshot.paramMap.get('id');
     console.log(this.id);
     this.cargarResCree();

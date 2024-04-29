@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import { SharednumberService } from '@services/sharednumber.service';
 import { ComentariosService } from '@services/comentarios.service';
 import { Comentarios } from '@/models/Comentarios';
+import { AppService } from '@services/app.service';
 
 @Component({
   selector: 'app-antecedentes',
@@ -41,13 +42,15 @@ export class AntecedentesComponent {
     private sharednumber:SharednumberService,
     private datePipe: DatePipe,
     private _com:ComentariosService,
+    private appService: AppService
   
   ) { }
   ngOnInit(): void {
-    this.expediente=sessionStorage.getItem('Expediente');
-    this.Sessiontab=sessionStorage.getItem('IndexTab');
-    this.UsuarioId=sessionStorage.getItem('UserId');
-    this.UsuarioNombre=sessionStorage.getItem('UserName');
+ 
+    this.expediente=localStorage.getItem('Expediente');
+    this.Sessiontab=localStorage.getItem('IndexTab');
+    this.UsuarioId=localStorage.getItem('UserId');
+    this.UsuarioNombre=localStorage.getItem('UserName');
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;

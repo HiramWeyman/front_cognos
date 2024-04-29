@@ -1,58 +1,74 @@
-<!-- Content Header (Page header) -->
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Blank Page</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Blank Page</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-    <!-- /.container-fluid -->
-</section>
-
-<!-- Main content -->
-<section class="content">
-    <!-- Default box -->
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Title</h3>
-
-                <div class="card-tools">
-                    <button
-                        type="button"
-                        class="btn btn-tool"
-                        data-widget="collapse"
-                        data-toggle="tooltip"
-                        title="Collapse"
-                    >
-                        <i class="fa fa-minus"></i>
-                    </button>
-                    <button
-                        type="button"
-                        class="btn btn-tool"
-                        data-widget="remove"
-                        data-toggle="tooltip"
-                        title="Remove"
-                    >
-                        <i class="fa fa-times"></i>
-                    </button>
+<block-ui>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Catálogo de Terapeutas</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="text" [(ngModel)]="searchString" class="form-control mb-3" placeholder="Buscar en la tabla...">
+                <button class="btn btn-primary sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" (click)="Limpiar()">Registrar Terapeuta</button>
+                <hr>
+                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-bordered table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th style="position: sticky; top: 0;" scope="col">ID</th>
+                                <th style="position: sticky; top: 0;" scope="col">Nombre</th>
+                                <th style="position: sticky; top: 0;" scope="col">Editar</th>
+                                <th style="position: sticky; top: 0;" scope="col">Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of filteredItems">
+                                <td>{{ item.tera_id }}</td>
+                                <td>{{ item.tera_paterno }} {{ item.tera_materno }} {{ item.tera_nombres }}</td>
+                                <td><button class="btn btn-primary sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" (click)="getTerapeuta(item.tera_id)">Editar</button></td>
+                                <td><button class="btn btn-danger sm" (click)="Eliminar(item.tera_id)">Eliminar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="card-body">
-                Start creating your amazing application!
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer">Footer</div>
-            <!-- /.card-footer-->
         </div>
     </div>
-    <!-- /.card -->
-</section>
-<!-- /.content -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Terapeutas</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Apellido Paterno:</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="tera.tera_paterno">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Apellido Materno:</label>
+                    <input type="text" class="form-control" id="recipient-name" [(ngModel)]="tera.tera_materno">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Nombre:</label>
+                    <input type="text" class="form-control" id="recipient-name" [(ngModel)]="tera.tera_nombres">
+                </div>
+              
+            </div>
+            <ng-template [ngIf]="tera.tera_id" [ngIfElse]="elseBlock">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" #myModalClose>Cerrar</button>
+                    <button type="button" class="btn btn-primary" (click)="Editar()">Actualizar</button>
+                </div>
+              </ng-template>
+              <ng-template #elseBlock>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" #myModalClose>Cerrar</button>
+                    <button type="button" class="btn btn-primary" (click)="Registrar()">Registrar</button>
+                  </div>
+              </ng-template>
+            
+          </div>
+        </div>
+      </div>
+</block-ui>

@@ -5,6 +5,8 @@ import { PacientesService } from '@services/pacientes.service';
 import { SharednumberService } from '@services/sharednumber.service';
 import swal from 'sweetalert2';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { AppService } from '@services/app.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-enviopruebas',
@@ -37,14 +39,17 @@ export class EnviopruebasComponent implements OnInit {
  
     private sharednumber:SharednumberService,
     private _pac: PacientesService,
-    private _env:PruebasService
+    private _env:PruebasService,
+    private appService: AppService,
+    private router: Router
 
   ) { }
   ngOnInit(): void {
-    this.ExpedienteId=sessionStorage.getItem('Expediente');
-    this.Sessiontab=sessionStorage.getItem('IndexTab');
-    this.UsuarioId=sessionStorage.getItem('UserId');
-    this.UsuarioNombre=sessionStorage.getItem('UserName');
+  
+    this.ExpedienteId=localStorage.getItem('Expediente');
+    this.Sessiontab=localStorage.getItem('IndexTab');
+    this.UsuarioId=localStorage.getItem('UserId');
+    this.UsuarioNombre=localStorage.getItem('UserName');
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;

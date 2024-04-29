@@ -30,15 +30,15 @@ export class MenuSidebarComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.user = sessionStorage.getItem('UserMail');
-        this.perfil = Number(sessionStorage.getItem('UserPerfil'));
+        this.user = localStorage.getItem('UserMail');
+        this.perfil = Number(localStorage.getItem('UserPerfil'));
         console.log('Perfil ' + this.perfil);
         /* this.user = this.appService.user; */
         this.ui = this.store.select('ui');
         this.ui.subscribe((state: UiState) => {
             this.classes = `${BASE_CLASSES} ${state.sidebarSkin}`;
         });
-        this.user = sessionStorage.getItem('UserMail');
+        this.user = localStorage.getItem('UserMail');
 
 
     }
@@ -75,15 +75,15 @@ export const MENU = [
         iconClasses: 'fas fa-folder',        
         children: [
             {
-                name: 'Técnicas de Evaluación',
+                name: 'Padrón COGNOS',
                 iconClasses: 'far fa-address-book',
                 path: ['/sub-menu-1']
             },
-            {
-                name: 'Tutores',
+           {
+                name: 'Cat Terapeutas',
                 iconClasses: 'fas fa-users',
                 path: ['/sub-menu-2']
-            }
+            } 
         ]
     }
 ];
