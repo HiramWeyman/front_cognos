@@ -1,7 +1,8 @@
+import { Freingreso } from '@/models/Freingreso';
 import { Pacientes } from '@/models/Pacientes';
 import { EstructuraFam } from '@/models/estructuraFam';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from '@services/app.service';
 import { FamiliarService } from '@services/familiar.service';
@@ -12,6 +13,7 @@ import { Subscription } from 'rxjs';
 import swal from 'sweetalert2';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-generales',
   templateUrl: './generales.component.html',
@@ -20,11 +22,13 @@ import Swal from 'sweetalert2';
 export class GeneralesComponent implements OnInit{
   @BlockUI()
   blockUI!: NgBlockUI;
+  @ViewChild('myModalClose3') modalClose3; // Referencia al boton en modal en el HTML para fecha de reingreso
   pacIns: Pacientes = new Pacientes();
   pacientes: Pacientes[];
   public ExpedienteId: any = null;
   public Indextab: any = null;
   public Sessiontab: any = null;
+  public userMail: any = null;
   public fnac: any = null;
   public fing: any = null;
   selectedValue: any;
@@ -41,6 +45,10 @@ export class GeneralesComponent implements OnInit{
   paterno:string;
   materno:string;
   nombre:string;
+  freingreso:Freingreso=new Freingreso();
+  fechasing:any;
+  fechasingRec:any;//Recipiente para transformar la fecha de reingreso
+
   constructor(
     private _pac: PacientesService,
     private _fam: FamiliarService,
@@ -54,10 +62,12 @@ export class GeneralesComponent implements OnInit{
     this.ExpedienteId = localStorage.getItem('Expediente');
     this.Sessiontab=localStorage.getItem('IndexTab');
     this.perfil=localStorage.getItem('UserPerfil');
+    this.userMail=localStorage.getItem('UserMail');
     this.cargarPacientes();
     this.cargarTutores();
     this.cargarTerapeutas();
     this.cargarAlumnos();
+    this.CargarFecIng();
     console.log(sessionStorage.getItem('llaveFam')+'llave');
    
  /*    this.sharednumber.numero$.subscribe(val=>
@@ -355,6 +365,90 @@ export class GeneralesComponent implements OnInit{
       this.blockUI.stop();
       console.log(error);
       //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+    });
+  }
+
+  CargarFecIng(){
+    this._pac.GetFechaReingreso(Number(this.ExpedienteId)).subscribe(
+      fe => {
+        this.fechasing = fe;
+        for(let i=0;i<this.fechasing.length;i++){
+          this.fechasingRec =this.datePipe.transform(this.fechasing[i].fecha_rei,"dd/MM/yyyy");
+          this.fechasing[i].fecha_rei= this.fechasingRec;
+        }
+        console.log(this.fechasing);
+      }
+    );
+    
+  }
+  GuardaFecIng(){
+    this.blockUI.start('Guardanfo fecha ...');
+    if(!this.freingreso.fecha_rei){
+      this.blockUI.stop();
+      swal.fire({
+        title: 'Información!!!',
+        text: 'Falta Ingresar Fecha de Reingreso',
+        icon: 'info'
+      });
+      return;
+    }
+    this.freingreso.Id_pac_rei=this.ExpedienteId;
+    this.freingreso.usuario_rei=this.userMail;
+    this.freingreso.Idrei=0;
+    console.log(this.freingreso);
+    this._pac.InsertFechaReingreso(this.freingreso).subscribe(
+      res=>{
+        this.blockUI.stop();
+        if(res){
+          this.resp=res;
+          Swal.fire('Guardando Fecha', `${this.resp.descripcion}`, 'success');
+          this.CargarFecIng();
+          this.freingreso.Id_pac_rei=null;
+          this.freingreso.usuario_rei=null;
+          this.freingreso.Idrei=null;
+          this.freingreso.fecha_rei=null;
+          this.modalClose3.nativeElement.click();
+        } 
+      },
+      error => {
+        this.blockUI.stop();
+        console.log(error);
+        swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      }
+    );
+  }
+ 
+
+  DeleteFecIng(id:number){
+    console.log(id);
+    swal.fire({
+      title: "Esta seguro de que quiere eliminar esta Fecha?",
+      text: "Una vez eliminada no se podra recuperar!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, Eliminalo!",
+      cancelButtonText: "Cancelar!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.blockUI.start('Eliminando Certificado ...');
+        this._pac.DeleteFechaReingreso(id).subscribe(datos => {
+          
+            if (datos) {
+              this.blockUI.stop();
+              this.resp = datos;
+              swal.fire('Eliminando Certificado', `${this.resp.descripcion}`, 'success');
+              this.CargarFecIng();
+            }
+         
+          }, error => {
+            this.blockUI.stop();
+            console.log(error);
+            swal.fire({ title: 'ERROR!!!', text: error.error, icon: 'error' });
+          });
+    
+      }
     });
   }
 }

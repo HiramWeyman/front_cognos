@@ -39,6 +39,8 @@ import { PruebasService } from '@services/enviarpruebas.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FamiliarService } from '@services/familiar.service';
 import { AppService } from '@services/app.service';
+import { PacientesService } from '@services/pacientes.service';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-verinforme',
@@ -46,6 +48,8 @@ import { AppService } from '@services/app.service';
   styleUrls: ['./verinforme.component.scss']
 })
 export class VerinformeComponent {
+  @BlockUI()
+  blockUI!: NgBlockUI;
   idx!: any;
   informe: InformeVista = new InformeVista();
  /*  informe: InformeVista = new InformeVista(); */
@@ -79,6 +83,8 @@ export class VerinformeComponent {
   orientacion:string;
   religion:string;
   familiares: any[];
+  fechasing:any;
+  fechasingRec:any;//Recipiente para transformar la fecha de reingreso
   @ViewChild('imgRef') img:ElementRef;
   @ViewChild('imgRef2') img2:ElementRef;
   @ViewChild('imgRef3') img3:ElementRef;
@@ -101,6 +107,7 @@ export class VerinformeComponent {
     private _env:PruebasService,
     private _fam: FamiliarService,
     private elementRef: ElementRef,
+    private _pac: PacientesService,
     private _sanitizer: DomSanitizer,
     private appService: AppService,
     private router: Router,)
@@ -116,6 +123,7 @@ export class VerinformeComponent {
 
 
   cargarInforme() {
+    this.blockUI.start('Cargando Informe ...');
     console.log(this.idx);
     this._inf.GetInforme(Number(this.idx)).subscribe(
       se => {
@@ -175,6 +183,7 @@ export class VerinformeComponent {
      } 
         console.log(this.informe);
         this.cargarFamiliares();
+        this.CargarFecIng();
         this.cargarSalud();
         this.cargarProb();
         this.cargarPrev();
@@ -193,10 +202,26 @@ export class VerinformeComponent {
         this.cargarPruebaSCL();
         this.cargarPruebaSCID();
         this.cargarImagenFormCaso();
+        this.blockUI.stop();
       }, error => {
         //console.log(error);
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
       });
+  }
+
+
+  CargarFecIng(){
+    this._pac.GetFechaReingreso(Number(this.informe.inf_paciente_id)).subscribe(
+      fe => {
+        this.fechasing = fe;
+        for(let i=0;i<this.fechasing.length;i++){
+          this.fechasingRec =this.datePipe.transform(this.fechasing[i].fecha_rei,"dd/MM/yyyy");
+          this.fechasing[i].fecha_rei= this.fechasingRec;
+        }
+        console.log(this.fechasing);
+      }
+    );
+    
   }
 
 
