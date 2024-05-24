@@ -1,6 +1,22 @@
 <block-ui>
   <div class="container">
     <div class="row">
+      <div class="col-12">
+        <button type="button" data-toggle="modal" data-target="#fechaIng" data-backdrop="false" class="btn btn-primary btn-sm">Agregar Fecha de Reingreso +</button>
+        <table *ngIf="fechasing.length>0">
+          <tr>
+            <thead><b>Fecha de Reingreso</b></thead>
+            <thead></thead>
+          </tr>
+          <tbody>
+            <tr *ngFor="let item of fechasing">
+              <td><b>{{item.fecha_rei}}</b></td>
+              <td><button type="button" class="btn btn-xs btn-danger" (click)="DeleteFecIng(item.idrei)">Borrar fecha</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div class="col-sm">
         <mat-form-field class="form-element">
           <mat-label>Apellido Paterno</mat-label>
@@ -625,4 +641,26 @@
       </div>
     </div>
   </div>
+
+
+  <!-- Modal -->
+<div #myModal class="modal fade" id="fechaIng" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Fecha de reingreso</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="date" class="form-control" [(ngModel)]="freingreso.fecha_rei">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" #myModalClose3>Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="GuardaFecIng()">Guardar Fecha</button>
+      </div>
+    </div>
+  </div>
+</div>
 </block-ui>

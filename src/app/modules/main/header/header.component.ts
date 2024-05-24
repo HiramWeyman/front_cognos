@@ -34,12 +34,12 @@ export class HeaderComponent implements OnInit {
     }
 
     logout() {
-        sessionStorage.removeItem('Expediente');
-        sessionStorage.removeItem('IndexTab');
-        sessionStorage.removeItem('UserMail');
-        sessionStorage.removeItem('UserId');
-        sessionStorage.removeItem('UserPerfil');
-        sessionStorage.removeItem('UserName');
+        localStorage.removeItem('Expediente');
+        localStorage.removeItem('IndexTab');
+        localStorage.removeItem('UserMail');
+        localStorage.removeItem('UserId');
+        localStorage.removeItem('UserPerfil');
+        localStorage.removeItem('UserName');
         this.appService.logout();
     }
 

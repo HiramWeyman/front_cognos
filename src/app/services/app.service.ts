@@ -175,13 +175,13 @@ export class AppService {
     logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('gatekeeper_token');
-        sessionStorage.removeItem('Expediente');
-        sessionStorage.removeItem('IndexTab');
-        sessionStorage.removeItem('UserMail');
-        sessionStorage.removeItem('UserId');
-        sessionStorage.removeItem('UserPerfil');
-        sessionStorage.removeItem('UserName');
-        sessionStorage.removeItem('IndexTabla');
+        localStorage.removeItem('Expediente');
+        localStorage.removeItem('IndexTab');
+        localStorage.removeItem('UserMail');
+        localStorage.removeItem('UserId');
+        localStorage.removeItem('UserPerfil');
+        localStorage.removeItem('UserName');
+        localStorage.removeItem('IndexTabla');
         this.user = null;
         this.loggedIn = false;
         // Eliminar el estado de inicio de sesión del almacenamiento local al cerrar sesión
