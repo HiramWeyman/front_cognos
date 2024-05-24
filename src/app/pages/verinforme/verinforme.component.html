@@ -1,3 +1,4 @@
+<block-ui>
 <div id="reporte" class="container" style="overflow: scroll;background-color: white;">
     <br>
     <!--Titulo del Informe-->
@@ -28,6 +29,16 @@
         <label>Edad: {{informe.inf_edad}} años</label><br>
         <label>Fecha de Nacimiento: {{informe.inf_fecha_nacimiento}}</label><br>
         <label>Fecha de Inicio: {{informe.inf_fecha_ingreso}}</label><br>
+        <table *ngIf="fechasing.length>0">
+          <tr>
+            <thead><b>Fechas de Reingreso</b></thead>
+          </tr>
+          <tbody>
+            <tr *ngFor="let item of fechasing">
+              <td><b>{{item.fecha_rei}}</b></td>
+            </tr>
+          </tbody>
+        </table>
         <label>Género: {{informe.gen_desc}}</label><br>
         <label>Nivel de estudios: {{informe.esc_desc}} </label><br>
         <label>Situación laboral: {{informe.inf_ocupacion}}</label><br>
@@ -539,3 +550,4 @@
     <button class="btn btn-danger sm" (click)="onExportClick()">Exportar PDF</button>
     <button class="btn btn-primary sm mt-2" [routerLink]="['/exp',informe.inf_paciente_id]">Regresar </button>
 </div>
+</block-ui>

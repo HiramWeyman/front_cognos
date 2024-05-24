@@ -8,6 +8,7 @@ import { Login } from '@/models/Login';
 import { Observable, map } from 'rxjs';
 import { Pacientes } from '@/models/Pacientes';
 import { Terapeutas } from '@/models/Terapeutas';
+import { Freingreso } from '@/models/Freingreso';
 
 @Injectable({
   providedIn: 'root'
@@ -84,5 +85,20 @@ export class PacientesService {
   UpdatePacientes(paciente: Pacientes): Observable<Pacientes> {
     return this.http.patch<Pacientes>(`${environment.rutaAPI}` + '/Pacientes/'+paciente.pac_id, paciente);
   }
+
+  GetFechaReingreso(id:number): Observable<any> {
+    return this.http.get<any>(`${environment.rutaAPI}` + '/Reingreso/getFreingreso/'+id);
+  }
+
+  InsertFechaReingreso(fec: Freingreso): Observable<Freingreso> {
+    console.log('Datos de la fecha');
+    console.log(fec);
+    return this.http.post<Freingreso>(`${environment.rutaAPI}` + '/Reingreso/insertFreingreso', fec);
+  }
+
+  DeleteFechaReingreso(id:number): Observable<any> {
+    return this.http.delete<any>(`${environment.rutaAPI}` + '/Reingreso/deleteFechareingreso/'+id);
+  }
+
 
 }
