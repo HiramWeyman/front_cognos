@@ -1,6 +1,8 @@
 import { Sesion } from '@/models/Sesion';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RichTextEditorComponent } from '@pages/rich-text-editor/rich-text-editor.component';
+/* import { AngularEditorConfig } from '@kolkov/angular-editor'; */
 import { AppService } from '@services/app.service';
 import { PacientesService } from '@services/pacientes.service';
 import { SesionService } from '@services/sesiones.service';
@@ -13,44 +15,24 @@ import swal from 'sweetalert2';
 export class EditsesionComponent implements OnInit {
   idx!: any;
   expediente!: any;
-  pac:Sesion=new Sesion();
+  pac: Sesion = new Sesion();
   terapeutas: any[];
-  ckeConfig:any;
-  perfil:any;
-  constructor(private route: ActivatedRoute, private router: Router,private _se:SesionService, private _pac2: PacientesService,private appService: AppService) {
-   
-  }
+  perfil: any;
+  @ViewChildren(RichTextEditorComponent) richTextEditors!: QueryList<RichTextEditorComponent>;
+  editorContent1: any;
+  editorContent2: any;
+  editorContent3: any;
+  constructor(private route: ActivatedRoute, private router: Router, private _se: SesionService, private _pac2: PacientesService, private appService: AppService) { }
+
   ngOnInit(): void {
-  
-    this.expediente=localStorage.getItem('Expediente');
-    this.perfil=localStorage.getItem('UserPerfil');
+
+    this.expediente = localStorage.getItem('Expediente');
+    this.perfil = localStorage.getItem('UserPerfil');
     this.idx = this.route.snapshot.paramMap.get('idx');
     this.getDataSesion();
     console.log(this.idx);
     this.cargarTerapeutas();
-    this.ckeConfig = {
-      allowedContent: false,
-      forcePasteAsPlainText: true,
-      font_names: 'Arial;Times New Roman;Verdana',
-      toolbarGroups: [
-        { name: 'document', groups: ['mode', 'document', 'doctools'] },
-        { name: 'clipboard', groups: ['clipboard', 'undo'] },
-        { name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing'] },
-        { name: 'forms', groups: ['forms'] },
-        '/',
-        { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
-        { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph'] },
-        { name: 'links', groups: ['links'] },
-        { name: 'insert', groups: ['insert'] },
-        '/',
-        { name: 'styles', groups: ['styles'] },
-        { name: 'colors', groups: ['colors'] },
-        { name: 'tools', groups: ['tools'] },
-        { name: 'others', groups: ['others'] },
-        { name: 'about', groups: ['about'] }
-      ],
-      removeButtons: 'Source,Save,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Strike,Subscript,Superscript,CopyFormatting,RemoveFormat,Outdent,Indent,CreateDiv,Blockquote,BidiLtr,BidiRtl,Language,Unlink,Anchor,Image,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Maximize,ShowBlocks,About'
-    };
+
   }
 
   cargarTerapeutas() {
@@ -58,7 +40,7 @@ export class EditsesionComponent implements OnInit {
       fu => {
         this.terapeutas = fu;
         console.log(this.terapeutas);
-      
+
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -74,37 +56,51 @@ export class EditsesionComponent implements OnInit {
       key = String.fromCharCode(key);
     }
     const regex = /[0-9]|\./;
-     if (!regex.test(key)) {
+    if (!regex.test(key)) {
       event.returnValue = false;
-       if (event.preventDefault) {
+      if (event.preventDefault) {
         event.preventDefault();
-       }
-     }
+      }
     }
+  }
 
-    getDataSesion(){
-      this._se.Getsesion(this.idx).subscribe(
-        fu => {
-        
-          this.pac = fu;
-          //console.log(this.trata);
-        }, error => {
-          console.log(error);
-          //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
-        });
-    }
+  getDataSesion() {
+    this._se.Getsesion(this.idx).subscribe(
+      fu => {
 
-    UpdateDatosSesion(sesion:Sesion): void {
-      this._se.UpdateSesion(sesion).subscribe(dp => {
-        
-          swal.fire('Actualizando Datos', `Actualización Exitosa!`, 'success');
-          this.pac=new Sesion();
-          this.router.navigate(['/exp',this.expediente]);
-      
-      },error => {
+        this.pac = fu;
+        //console.log(this.trata);
+      }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
       });
+  }
+
+  UpdateDatosSesion(sesion: Sesion): void {
+    const editorsArray = this.richTextEditors.toArray();
+    if (editorsArray.length > 0) {
+      this.editorContent1 = editorsArray[0].getContent();
     }
- 
+    if (editorsArray.length > 1) {
+      this.editorContent2 = editorsArray[1].getContent();
+    }
+    if (editorsArray.length > 2) {
+      this.editorContent3 = editorsArray[2].getContent();
+    }
+
+    this.pac.sesion_evento_act=this.editorContent1;
+    this.pac.sesion_pensamientos_cre=this.editorContent2;
+    this.pac.sesion_consecuencia_emo=this.editorContent3;
+    this._se.UpdateSesion(sesion).subscribe(dp => {
+
+      swal.fire('Actualizando Datos', `Actualización Exitosa!`, 'success');
+      this.pac = new Sesion();
+      this.router.navigate(['/exp', this.expediente]);
+
+    }, error => {
+      console.log(error);
+      //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+    });
+  }
+
 }

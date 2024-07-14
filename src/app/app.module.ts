@@ -67,7 +67,7 @@ import { IdeasirracionalesComponent } from './pages/ideasirracionales/ideasirrac
 import { SesionesComponent } from './pages/sesiones/sesiones.component';
 import { InformesComponent } from './pages/informes/informes.component';
 import { VerinformeComponent } from './pages/verinforme/verinforme.component';
-import { CKEditorModule } from 'ng2-ckeditor';
+
 import { FormsModule } from '@angular/forms';
 import { RegpacienteComponent } from './pages/regpaciente/regpaciente.component';
 import {MAT_DATE_LOCALE} from '@angular/material/core';
@@ -89,6 +89,10 @@ import { ResBaianComponent } from './pages/res-baian/res-baian.component';
 import { ResBdidpComponent } from './pages/res-bdidp/res-bdidp.component';
 import { ResCreeComponent } from './pages/res-cree/res-cree.component';
 import { RisraComponent } from './pages/risra/risra.component';
+
+import { RichTextEditorComponent } from './pages/rich-text-editor/rich-text-editor.component';
+
+
 
 registerLocaleData(localeEn, 'en-EN');
 
@@ -148,6 +152,9 @@ registerLocaleData(localeEn, 'en-EN');
         ResBdidpComponent,
         ResCreeComponent,
         RisraComponent,
+        RichTextEditorComponent,
+ 
+
      
         
     /*     PacientesComponent, */
@@ -158,7 +165,7 @@ registerLocaleData(localeEn, 'en-EN');
         ProfabricComponentsModule,
         CommonModule,
         BrowserModule,
-        CKEditorModule,
+     
         FormsModule,
         StoreModule.forRoot({auth: authReducer, ui: uiReducer}),
         HttpClientModule,
@@ -179,6 +186,7 @@ registerLocaleData(localeEn, 'en-EN');
         MatTreeModule,
         MatToolbarModule,
         BrowserAnimationsModule,
+  
         BlockUIModule.forRoot(),
         ToastrModule.forRoot({
             timeOut: 3000,

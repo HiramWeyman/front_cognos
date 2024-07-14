@@ -1,76 +1,67 @@
-
 <div class="contenedor">
-    <div class="ckeditorContainer">
-        <div class="content" align="center">
-            <mat-label><b>Antecedentes.</b></mat-label>
-        </div>
-        <ckeditor [(ngModel)]="analisis.analisis_ant_desc" [config]="ckeConfig">
+    <div>
+        <app-rich-text-editor [(ngModel)]="analisis.analisis_ant_desc" #richTextEditor1></app-rich-text-editor>
+    </div>
+    <div>
+        <app-rich-text-editor [(ngModel)]="analisis.analisis_con_desc" #richTextEditor2></app-rich-text-editor>
+    </div>
+    <div>
+        <app-rich-text-editor [(ngModel)]="analisis.analisis_cons_desc" #richTextEditor3></app-rich-text-editor>
+    </div>
 
-        </ckeditor>
-    </div>
-    <hr>
-    <div class="ckeditorContainer">
-        <div class="content" align="center">
-            <mat-label><b>Conducta.</b></mat-label>
-        </div>
-        <ckeditor [(ngModel)]="analisis.analisis_con_desc" [config]="ckeConfig">
-        </ckeditor>
-    </div>
-    <div class="ckeditorContainer">
-        <div class="content" align="center">
-            <mat-label><b>Consecuentes.</b></mat-label>
-        </div>
-        <ckeditor [(ngModel)]="analisis.analisis_cons_desc" [config]="ckeConfig">
-        </ckeditor>
-       
-    </div><br><br>
+
     <div class="row d-flex justify-content-center">
         <div class="form-element">
-            <button mat-raised-button color="primary" type="button" class="button" (click)="Guardar()" [disabled]="habilita==true"  >Guardar Datos</button>
+            <button mat-raised-button color="primary" type="button" class="button" (click)="Guardar()"
+                [disabled]="habilita==true">Guardar Datos</button>
         </div>
         <div class="form-element">
-            <button mat-button color="primary" type="button" class="button" (click)="UpdateDatos()">Actualizar Datos</button>
+            <button mat-button color="primary" type="button" class="button" (click)="UpdateDatos()">Actualizar
+                Datos</button>
         </div>
         <div class="form-element">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-backdrop="false">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                data-backdrop="false">
                 Comentarios
-            </button>   
+            </button>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Agregar Comentarios</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Comentarios</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea cols="5" rows="5" placeholder="Ingresar comentario" class="form-control"
+                    [(ngModel)]="com.com_comentario"></textarea><br>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Comentario</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of comentarios; let i = index">
+                            <td><b>{{p.com_nombre_usuario}}</b></td>
+                            <td><b>{{p.com_comentario}}</b></td>
+                            <td><b>{{p.com_fecha_captura}}</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="GuardarComentario()">Guardar comentario</button>
+            </div>
         </div>
-        <div class="modal-body">
-        <textarea cols="5" rows="5" placeholder="Ingresar comentario" class="form-control" [(ngModel)]="com.com_comentario" ></textarea><br>
-          <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Usuario</th>
-                    <th>Comentario</th>
-                    <th>Fecha</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let p of comentarios; let i = index">
-                    <td><b>{{p.com_nombre_usuario}}</b></td>
-                    <td><b>{{p.com_comentario}}</b></td>
-                    <td><b>{{p.com_fecha_captura}}</b></td>
-                </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" (click)="GuardarComentario()">Guardar comentario</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>

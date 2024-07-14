@@ -1,31 +1,15 @@
 <block-ui>
 <div class="contenedor">
-  <!--  <ckeditor [(ngModel)]="caso.form_hipotesis" 
-  #myckeditor="ngModel"
-  name="myckeditor"
-  required
-  [config]="ckeConfig" 
-  debounce="500" 
-  (change)="onChange($event)">
-</ckeditor> -->
-
   <div class="ckeditorContainer">
     <div class="content" align="center">
       <mat-label><b>Hipótesis de Origen y mantenimiento.</b></mat-label>
     </div>
-    <ckeditor [(ngModel)]="caso.form_hipotesis" #myckeditor="ngModel" name="myckeditor" required [config]="ckeConfig"
-      debounce="500" (change)="onChange($event)">
-    </ckeditor>
-    <!--  <ckeditor [(ngModel)]="caso.form_hipotesis">
-    
-        </ckeditor> -->
+    <app-rich-text-editor [(ngModel)]="caso.form_hipotesis" #richTextEditor1></app-rich-text-editor>
     <hr><br>
     <div class="content" align="center">
       <mat-label><b>Contraste de hipótesis (pruebas aplicadas).</b></mat-label>
     </div>
-    <ckeditor [(ngModel)]="caso.form_contraste" [config]="ckeConfig" #myckeditor2="ngModel" name="myckeditor2">
-
-    </ckeditor>
+    <app-rich-text-editor [(ngModel)]="caso.form_contraste" #richTextEditor2></app-rich-text-editor>
   </div>
   <br><br>
 

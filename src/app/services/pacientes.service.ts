@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Gatekeeper } from 'gatekeeper-client-sdk';
+/* import { Gatekeeper } from 'gatekeeper-client-sdk'; */
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Login } from '@/models/Login';

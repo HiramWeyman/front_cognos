@@ -1,8 +1,10 @@
 import { Comentarios } from '@/models/Comentarios';
 import { Otras } from '@/models/Otras';
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
+import { RichTextEditorComponent } from '@pages/rich-text-editor/rich-text-editor.component';
+/* import { AngularEditorConfig } from '@kolkov/angular-editor'; */
 import { AppService } from '@services/app.service';
 import { ComentariosService } from '@services/comentarios.service';
 import { OtrasService } from '@services/otras.service';
@@ -15,6 +17,13 @@ import swal from 'sweetalert2';
   styleUrls: ['./areasconsiderar.component.scss']
 })
 export class AreasconsiderarComponent {
+  @ViewChildren(RichTextEditorComponent) richTextEditors!: QueryList<RichTextEditorComponent>;
+  editorContent1: any;
+  editorContent2: any;
+  editorContent3: any;
+  editorContent4: any;
+  editorContent5: any;
+
   expediente!: any;
   Sessiontab!: any;
   otras:Otras= new Otras();
@@ -25,7 +34,7 @@ export class AreasconsiderarComponent {
   fecCom:any;
   UsuarioId: any;
   UsuarioNombre: any;
-  ckeConfig:any;
+
   private subscription: Subscription;
   constructor(
     private _otras: OtrasService,
@@ -35,6 +44,8 @@ export class AreasconsiderarComponent {
     private _com:ComentariosService,
     private appService: AppService
   ) { }
+
+
   ngOnInit(): void {
 
     this.expediente=localStorage.getItem('Expediente');
@@ -50,34 +61,32 @@ export class AreasconsiderarComponent {
         }
       });
 
-      this.ckeConfig = {
-        allowedContent: false,
-        forcePasteAsPlainText: true,
-        font_names: 'Arial;Times New Roman;Verdana',
-        toolbarGroups: [
-          { name: 'document', groups: ['mode', 'document', 'doctools'] },
-          { name: 'clipboard', groups: ['clipboard', 'undo'] },
-          { name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing'] },
-          { name: 'forms', groups: ['forms'] },
-          '/',
-          { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
-          { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph'] },
-          { name: 'links', groups: ['links'] },
-          { name: 'insert', groups: ['insert'] },
-          '/',
-          { name: 'styles', groups: ['styles'] },
-          { name: 'colors', groups: ['colors'] },
-          { name: 'tools', groups: ['tools'] },
-          { name: 'others', groups: ['others'] },
-          { name: 'about', groups: ['about'] }
-        ],
-        removeButtons: 'Source,Save,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Strike,Subscript,Superscript,CopyFormatting,RemoveFormat,Outdent,Indent,CreateDiv,Blockquote,BidiLtr,BidiRtl,Language,Unlink,Anchor,Image,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Maximize,ShowBlocks,About'
-      };
-   
-   
   }
 
   Guardar(){
+    const editorsArray = this.richTextEditors.toArray();
+    if (editorsArray.length > 0) {
+      this.editorContent1 = editorsArray[0].getContent();
+    }
+    if (editorsArray.length > 1) {
+      this.editorContent2 = editorsArray[1].getContent();
+    }
+    if (editorsArray.length > 2) {
+      this.editorContent3 = editorsArray[2].getContent();
+    }
+    if (editorsArray.length > 3) {
+      this.editorContent4 = editorsArray[3].getContent();
+    }
+    if (editorsArray.length > 4) {
+      this.editorContent5 = editorsArray[4].getContent();
+    }
+
+    this.otras.otras_autocontrol=this.editorContent1;
+    this.otras.otras_aspectos_m=this.editorContent2;
+    this.otras.otras_recursos_p=this.editorContent3;
+    this.otras.otras_apoyo_s=this.editorContent4;
+    this.otras.otras_situacion_v=this.editorContent5;
+
     if(!this.otras.otras_autocontrol){
       swal.fire('Guardando Datos', `Escriba una descripción en Autocontrol!`, 'info');
       return;
@@ -118,6 +127,28 @@ export class AreasconsiderarComponent {
 
 
   UpdateDatos(): void {
+    const editorsArray = this.richTextEditors.toArray();
+    if (editorsArray.length > 0) {
+      this.editorContent1 = editorsArray[0].getContent();
+    }
+    if (editorsArray.length > 1) {
+      this.editorContent2 = editorsArray[1].getContent();
+    }
+    if (editorsArray.length > 2) {
+      this.editorContent3 = editorsArray[2].getContent();
+    }
+    if (editorsArray.length > 3) {
+      this.editorContent4 = editorsArray[3].getContent();
+    }
+    if (editorsArray.length > 4) {
+      this.editorContent5 = editorsArray[4].getContent();
+    }
+
+    this.otras.otras_autocontrol=this.editorContent1;
+    this.otras.otras_aspectos_m=this.editorContent2;
+    this.otras.otras_recursos_p=this.editorContent3;
+    this.otras.otras_apoyo_s=this.editorContent4;
+    this.otras.otras_situacion_v=this.editorContent5;
     this._otras.UpdateOtras(this.otras).subscribe(dp => {
       
         swal.fire('Actualizando Datos', `Actualización Exitosa!`, 'success');
@@ -134,7 +165,7 @@ export class AreasconsiderarComponent {
     this._otras.GetOtras(this.expediente).subscribe(
       fu => {
         this.otras = fu;
-        //console.log(this.otras);
+        console.log(this.otras);
         if(this.otras!=null){
           this.habilita=true;
         }

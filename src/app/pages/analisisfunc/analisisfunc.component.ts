@@ -1,26 +1,36 @@
 import { AnalisisFU } from '@/models/AnalisisFU';
 import { Comentarios } from '@/models/Comentarios';
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms'; 
 import { AnalisisFuService } from '@services/analisisfu.service';
 import { AppService } from '@services/app.service';
 import { ComentariosService } from '@services/comentarios.service';
 import { SharednumberService } from '@services/sharednumber.service';
 import { Subscription } from 'rxjs';
 import swal from 'sweetalert2';
+import { RichTextEditorComponent } from '@pages/rich-text-editor/rich-text-editor.component';
+declare const tinymce: any;
 @Component({
   selector: 'app-analisisfunc',
   templateUrl: './analisisfunc.component.html',
   styleUrls: ['./analisisfunc.component.scss']
 })
 export class AnalisisfuncComponent {
+/*   @ViewChild('editor') editorElement!: ElementRef; */
+  @ViewChildren(RichTextEditorComponent) richTextEditors!: QueryList<RichTextEditorComponent>;
+  editorContent1: any;
+  editorContent2: any;
+  editorContent3: any;
+
+
   antecedentes: string = '<p>Antecedentes</p>';
   conducta: string = '<p>Conducta</p>';
   consecuentes: string = '<p>Consecuentes</p>';
   expediente!: any;
   Sessiontab!: any;
-  analisis:AnalisisFU= new AnalisisFU();
+  analisis:AnalisisFU= new AnalisisFU(); 
   habilita:boolean=false;
   Indextab: any ;
   com:Comentarios=new Comentarios();
@@ -28,7 +38,7 @@ export class AnalisisfuncComponent {
   fecCom:any;
   UsuarioId: any;
   UsuarioNombre: any;
-  ckeConfig:any;
+
   private subscription: Subscription;
   constructor(
     private _analisis: AnalisisFuService,
@@ -37,7 +47,12 @@ export class AnalisisfuncComponent {
     private datePipe: DatePipe,
     private _com:ComentariosService,
     private appService: AppService
-  ) { }
+  ) { 
+
+
+  }
+
+
   ngOnInit(): void {
  
     this.expediente=localStorage.getItem('Expediente');
@@ -52,51 +67,76 @@ export class AnalisisfuncComponent {
           this.cargarComentarios();
         }
       });
-    
-      this.ckeConfig = {
-        allowedContent: false,
-        forcePasteAsPlainText: true,
-        font_names: 'Arial;Times New Roman;Verdana',
-        toolbarGroups: [
-          { name: 'document', groups: ['mode', 'document', 'doctools'] },
-          { name: 'clipboard', groups: ['clipboard', 'undo'] },
-          { name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing'] },
-          { name: 'forms', groups: ['forms'] },
-          '/',
-          { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
-          { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph'] },
-          { name: 'links', groups: ['links'] },
-          { name: 'insert', groups: ['insert'] },
-          '/',
-          { name: 'styles', groups: ['styles'] },
-          { name: 'colors', groups: ['colors'] },
-          { name: 'tools', groups: ['tools'] },
-          { name: 'others', groups: ['others'] },
-          { name: 'about', groups: ['about'] }
-        ],
-        removeButtons: 'Source,Save,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Strike,Subscript,Superscript,CopyFormatting,RemoveFormat,Outdent,Indent,CreateDiv,Blockquote,BidiLtr,BidiRtl,Language,Unlink,Anchor,Image,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Maximize,ShowBlocks,About'
-      };
-   
+
   }
 
+
   Guardar(){
-  
     this.analisis.analisis_paciente_id=this.expediente;
-    this._analisis.GuardarAnalisis(this.analisis).subscribe(datos => {
+    const editorsArray = this.richTextEditors.toArray();
+    if (editorsArray.length > 0) {
+      this.editorContent1 = editorsArray[0].getContent();
+    }
+    if (editorsArray.length > 1) {
+      this.editorContent2 = editorsArray[1].getContent();
+    }
+    if (editorsArray.length > 2) {
+      this.editorContent3 = editorsArray[2].getContent();
+    }
+
+    console.log('Contenido del editor 1:', this.editorContent1);
+    console.log('Contenido del editor 2:', this.editorContent2);
+    console.log('Contenido del editor 3:', this.editorContent3);
+
+    this.analisis.analisis_ant_desc=this.editorContent1;
+    this.analisis.analisis_con_desc=this.editorContent2;
+    this.analisis.analisis_cons_desc=this.editorContent3;
+    console.log(this.analisis.analisis_ant_desc);
+   if(!this.analisis.analisis_ant_desc){
+      swal.fire({ title: 'info!!!', text: 'Requiere descripción de antecedentes', icon: 'info' });
+      return;
+    }
+    if(!this.analisis.analisis_con_desc){
+      swal.fire({ title: 'info!!!', text: 'Requiere descripción de conducta', icon: 'info' });
+      return;
+    }
+    if(!this.analisis.analisis_cons_desc){
+      swal.fire({ title: 'info!!!', text: 'Requiere descripción de consecuentes', icon: 'info' });
+      return;
+    } 
+     this._analisis.GuardarAnalisis(this.analisis).subscribe(datos => {
       
       if(datos){
         swal.fire('Guardando Datos', `Datos Guardados Exitosamente!`, 'success');
       }
-      this.ngOnInit();
+      this.ngOnInit(); 
 
-    },error => {
-      console.log(error);
+     },error => {
+      console.log(error); 
       //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
-    });
+     }); 
   }
 
 
   UpdateDatos(): void {
+    const editorsArray = this.richTextEditors.toArray();
+    if (editorsArray.length > 0) {
+      this.editorContent1 = editorsArray[0].getContent();
+    }
+    if (editorsArray.length > 1) {
+      this.editorContent2 = editorsArray[1].getContent();
+    }
+    if (editorsArray.length > 2) {
+      this.editorContent3 = editorsArray[2].getContent();
+    }
+
+    console.log('Contenido del editor 1:', this.editorContent1);
+    console.log('Contenido del editor 2:', this.editorContent2);
+    console.log('Contenido del editor 3:', this.editorContent3);
+
+    this.analisis.analisis_ant_desc=this.editorContent1;
+    this.analisis.analisis_con_desc=this.editorContent2;
+    this.analisis.analisis_cons_desc=this.editorContent3;
     this._analisis.UpdateAnalisis(this.analisis).subscribe(dp => {
       
         swal.fire('Actualizando Datos', `Actualización Exitosa!`, 'success');
@@ -106,7 +146,7 @@ export class AnalisisfuncComponent {
       console.log(error);
       //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
     });
-  }
+  } 
 
 
   cargarAnalisis() {

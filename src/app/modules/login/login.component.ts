@@ -111,7 +111,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 });
             }
 
-    async loginByGoogle() {
+/*     async loginByGoogle() {
         this.isGoogleLoading = true;
         await this.appService.loginByGoogle();
         this.isGoogleLoading = false;
@@ -122,7 +122,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         await this.appService.loginByFacebook();
         this.isFacebookLoading = false;
     }
-
+ */
     ngOnDestroy() {
         this.renderer.removeClass(
             document.querySelector('app-root'),

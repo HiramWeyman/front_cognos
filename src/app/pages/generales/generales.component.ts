@@ -46,7 +46,8 @@ export class GeneralesComponent implements OnInit{
   materno:string;
   nombre:string;
   freingreso:Freingreso=new Freingreso();
-  fechasing:any;
+/*   fechasing:any; */
+  fechasing: any[] = [];
   fechasingRec:any;//Recipiente para transformar la fecha de reingreso
 
   constructor(

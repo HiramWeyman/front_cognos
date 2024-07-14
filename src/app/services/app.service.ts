@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Gatekeeper } from 'gatekeeper-client-sdk';
+/* import { Gatekeeper } from 'gatekeeper-client-sdk'; */
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Login } from '@/models/Login';
@@ -101,7 +101,7 @@ export class AppService {
         }
     } */
 
-    async registerByAuth({ email, password }) {
+/*     async registerByAuth({ email, password }) {
         try {
             const token = await Gatekeeper.registerByAuth(email, password);
             localStorage.setItem('token', token);
@@ -111,9 +111,9 @@ export class AppService {
         } catch (error) {
             this.toastr.error(error.message);
         }
-    }
+    } */
 
-    async loginByGoogle() {
+/*     async loginByGoogle() {
         try {
             const token = await Gatekeeper.loginByGoogle();
             localStorage.setItem('token', token);
@@ -123,9 +123,9 @@ export class AppService {
         } catch (error) {
             this.toastr.error(error.message);
         }
-    }
+    } */
 
-    async registerByGoogle() {
+/*     async registerByGoogle() {
         try {
             const token = await Gatekeeper.registerByGoogle();
             localStorage.setItem('token', token);
@@ -135,9 +135,9 @@ export class AppService {
         } catch (error) {
             this.toastr.error(error.message);
         }
-    }
+    } */
 
-    async loginByFacebook() {
+  /*   async loginByFacebook() {
         try {
             const token = await Gatekeeper.loginByFacebook();
             localStorage.setItem('token', token);
@@ -147,9 +147,9 @@ export class AppService {
         } catch (error) {
             this.toastr.error(error.message);
         }
-    }
+    } */
 
-    async registerByFacebook() {
+/*     async registerByFacebook() {
         try {
             const token = await Gatekeeper.registerByFacebook();
             localStorage.setItem('token', token);
@@ -159,7 +159,7 @@ export class AppService {
         } catch (error) {
             this.toastr.error(error.message);
         }
-    }
+    } */
 
     async getProfile() {
         try {

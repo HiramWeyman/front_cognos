@@ -1,0 +1,35 @@
+.editor {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+button, .form-control-color, select {
+  margin: 5px;
+}
+
+.editable {
+  min-height: 200px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+  overflow-y: auto;
+  text-align: left; /* Asegúrate de que el texto esté alineado a la izquierda por defecto */
+  direction: ltr;   /* Establece la dirección del texto de izquierda a derecha */
+}
+
+.form-control-color {
+  width: 36px;
+  height: 36px;
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.btn-secondary .form-control-color {
+  margin: 0 5px;
+  position: relative;
+  top: -3px;
+}

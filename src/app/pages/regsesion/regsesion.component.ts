@@ -1,5 +1,5 @@
 import { Pacientes } from '@/models/Pacientes';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { PacientesService } from '@services/pacientes.service';
 import { Subscription } from 'rxjs';
@@ -8,12 +8,18 @@ import { DatePipe } from '@angular/common';
 import { SesionService } from '@services/sesiones.service';
 import { Sesion } from '@/models/Sesion';
 import { AppService } from '@services/app.service';
+import { RichTextEditorComponent } from '@pages/rich-text-editor/rich-text-editor.component';
+/* import { AngularEditorConfig } from '@kolkov/angular-editor'; */
 @Component({
   selector: 'app-regsesion',
   templateUrl: './regsesion.component.html',
   styleUrls: ['./regsesion.component.scss']
 })
 export class RegsesionComponent {
+@ViewChildren(RichTextEditorComponent) richTextEditors!: QueryList<RichTextEditorComponent>;
+editorContent1: any;
+editorContent2: any;
+editorContent3: any;
 pac:Sesion=new Sesion();
 private subscription: Subscription;
 public userId: any = null;
@@ -21,7 +27,7 @@ public fnac: any = null;
 public fing: any = null;
 expediente!: any;
 terapeutas: any[];
-ckeConfig:any;
+
 perfil:any;
 constructor(
   private _pac: SesionService,
@@ -30,35 +36,14 @@ constructor(
   private _pac2: PacientesService,
   private appService: AppService
 ) {}
+
   ngOnInit(): void {
    
     this.expediente=localStorage.getItem('Expediente');
     this.perfil=localStorage.getItem('UserPerfil');
     console.log(this.expediente);
     this.cargarTerapeutas();
-    this.ckeConfig = {
-      allowedContent: false,
-      forcePasteAsPlainText: true,
-      font_names: 'Arial;Times New Roman;Verdana',
-      toolbarGroups: [
-        { name: 'document', groups: ['mode', 'document', 'doctools'] },
-        { name: 'clipboard', groups: ['clipboard', 'undo'] },
-        { name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing'] },
-        { name: 'forms', groups: ['forms'] },
-        '/',
-        { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
-        { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph'] },
-        { name: 'links', groups: ['links'] },
-        { name: 'insert', groups: ['insert'] },
-        '/',
-        { name: 'styles', groups: ['styles'] },
-        { name: 'colors', groups: ['colors'] },
-        { name: 'tools', groups: ['tools'] },
-        { name: 'others', groups: ['others'] },
-        { name: 'about', groups: ['about'] }
-      ],
-      removeButtons: 'Source,Save,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Strike,Subscript,Superscript,CopyFormatting,RemoveFormat,Outdent,Indent,CreateDiv,Blockquote,BidiLtr,BidiRtl,Language,Unlink,Anchor,Image,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Maximize,ShowBlocks,About'
-    };
+  
   }
 
   cargarTerapeutas() {
@@ -77,7 +62,20 @@ constructor(
   
     this.pac.sesion_paciente_id=this.expediente;
     this.pac.sesion_caso=this.expediente;
-  
+    const editorsArray = this.richTextEditors.toArray();
+    if (editorsArray.length > 0) {
+      this.editorContent1 = editorsArray[0].getContent();
+    }
+    if (editorsArray.length > 1) {
+      this.editorContent2 = editorsArray[1].getContent();
+    }
+    if (editorsArray.length > 2) {
+      this.editorContent3 = editorsArray[2].getContent();
+    }
+
+    this.pac.sesion_evento_act=this.editorContent1;
+    this.pac.sesion_pensamientos_cre=this.editorContent2;
+    this.pac.sesion_consecuencia_emo=this.editorContent3;
     console.log(this.pac);
     this._pac.GuardarSesion(this.pac).subscribe(datos => {
       

@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.usuario.usr_per_id=0;
     }
 
-    async registerByAuth() {
+  /*   async registerByAuth() {
         if (this.registerForm.valid) {
             this.isAuthLoading = true;
             await this.appService.registerByAuth(this.registerForm.value);
@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         } else {
             this.toastr.error('Formulario no es valido!');
         }
-    }
+    } */
 
     registro() {
         this.blockUI.start('Registrando...');

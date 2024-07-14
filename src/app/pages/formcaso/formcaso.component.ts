@@ -2,8 +2,10 @@ import { Comentarios } from '@/models/Comentarios';
 import { Evolucion } from '@/models/Evolucion';
 import { FormCaso } from '@/models/FormCaso';
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
+import { RichTextEditorComponent } from '@pages/rich-text-editor/rich-text-editor.component';
+/* import { AngularEditorConfig } from '@kolkov/angular-editor'; */
 import { AppService } from '@services/app.service';
 import { ComentariosService } from '@services/comentarios.service';
 import { PruebasService } from '@services/enviarpruebas.service';
@@ -20,6 +22,10 @@ import swal from 'sweetalert2';
   styleUrls: ['./formcaso.component.scss']
 })
 export class FormcasoComponent {
+  @ViewChildren(RichTextEditorComponent) richTextEditors!: QueryList<RichTextEditorComponent>;
+  editorContent1: any;
+  editorContent2: any;
+
   @BlockUI()
   blockUI!: NgBlockUI;
   expediente!: any;
@@ -32,15 +38,12 @@ export class FormcasoComponent {
   fecCom:any;
   UsuarioId: any;
   UsuarioNombre: any;
-  name = 'ng2-ckeditor';
-  ckeConfig: any;
   mycontent: string;
   log: string = '';
   diagrama!: File;
   diagramaFoto:any;
   resp:any;
-  @ViewChild("myckeditor") ckeditor: any;
-  @ViewChild("myckeditor2") ckeditor2: any;
+
   @ViewChild('myInputDiagrama')
   myInputDiagrama!: ElementRef;
   @ViewChild('myInputDiagramaUp')
@@ -55,8 +58,9 @@ export class FormcasoComponent {
     private _env:PruebasService,
     private appService: AppService
   ) { 
-    this.mycontent = `<p>My html content</p>`;
+    
   }
+
   ngOnInit(): void {
   
     this.expediente=localStorage.getItem('Expediente');
@@ -73,30 +77,7 @@ export class FormcasoComponent {
         }
       });
 
-      this.ckeConfig = {
-        allowedContent: false,
-        forcePasteAsPlainText: true,
-        font_names: 'Arial;Times New Roman;Verdana',
-        toolbarGroups: [
-          { name: 'document', groups: ['mode', 'document', 'doctools'] },
-          { name: 'clipboard', groups: ['clipboard', 'undo'] },
-          { name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing'] },
-          { name: 'forms', groups: ['forms'] },
-          '/',
-          { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
-          { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph'] },
-          { name: 'links', groups: ['links'] },
-          { name: 'insert', groups: ['insert'] },
-          '/',
-          { name: 'styles', groups: ['styles'] },
-          { name: 'colors', groups: ['colors'] },
-          { name: 'tools', groups: ['tools'] },
-          { name: 'others', groups: ['others'] },
-          { name: 'about', groups: ['about'] }
-        ],
-        removeButtons: 'Source,Save,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Strike,Subscript,Superscript,CopyFormatting,RemoveFormat,Outdent,Indent,CreateDiv,Blockquote,BidiLtr,BidiRtl,Language,Unlink,Anchor,Image,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Maximize,ShowBlocks,About'
-      };
-
+      
   }
 
   onChange($event: any): void {
@@ -104,6 +85,15 @@ export class FormcasoComponent {
   }
 
   Guardar(){
+    const editorsArray = this.richTextEditors.toArray();
+    if (editorsArray.length > 0) {
+      this.editorContent1 = editorsArray[0].getContent();
+    }
+    if (editorsArray.length > 1) {
+      this.editorContent2 = editorsArray[1].getContent();
+    }
+    this.caso.form_hipotesis= this.editorContent1;
+    this.caso.form_contraste= this.editorContent2;
   
     if(!this.caso.form_hipotesis){
       swal.fire('Guardando Datos', `Escriba una descripción en Hipótesis de Origen y mantenimiento!`, 'info');
@@ -129,6 +119,15 @@ export class FormcasoComponent {
 
 
   UpdateDatos(): void {
+    const editorsArray = this.richTextEditors.toArray();
+    if (editorsArray.length > 0) {
+      this.editorContent1 = editorsArray[0].getContent();
+    }
+    if (editorsArray.length > 1) {
+      this.editorContent2 = editorsArray[1].getContent();
+    }
+    this.caso.form_hipotesis= this.editorContent1;
+    this.caso.form_contraste= this.editorContent2;
     this._frm.Updateform(this.caso).subscribe(dp => {
       
         swal.fire('Actualizando Datos', `Actualización Exitosa!`, 'success');

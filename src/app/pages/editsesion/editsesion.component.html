@@ -201,8 +201,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <ckeditor [(ngModel)]="pac.sesion_evento_act" [config]="ckeConfig">
-          </ckeditor>
+          <app-rich-text-editor [(ngModel)]="pac.sesion_evento_act" #richTextEditor1></app-rich-text-editor>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -222,8 +221,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <ckeditor [(ngModel)]="pac.sesion_pensamientos_cre" [config]="ckeConfig">
-          </ckeditor>
+          <app-rich-text-editor [(ngModel)]="pac.sesion_pensamientos_cre" #richTextEditor2></app-rich-text-editor>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -243,8 +241,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <ckeditor [(ngModel)]="pac.sesion_consecuencia_emo" [config]="ckeConfig">
-          </ckeditor>
+          <app-rich-text-editor [(ngModel)]="pac.sesion_consecuencia_emo" #richTextEditor3></app-rich-text-editor>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

@@ -4,38 +4,29 @@
     <div class="content" align="center">
       <mat-label><b>Autocontrol.</b></mat-label>
     </div>
-    <ckeditor [(ngModel)]="otras.otras_autocontrol" [config]="ckeConfig">
-
-    </ckeditor>
+    <app-rich-text-editor [(ngModel)]="otras.otras_autocontrol" #richTextEditor1></app-rich-text-editor>
     <hr><br>
     <div class="content" align="center">
       <mat-label><b>Aspectos motivacionales.</b></mat-label>
     </div>
-    <ckeditor [(ngModel)]="otras.otras_aspectos_m" [config]="ckeConfig">
-
-    </ckeditor>
+    <app-rich-text-editor [(ngModel)]="otras.otras_aspectos_m" #richTextEditor2></app-rich-text-editor>
     <hr><br>
 
     <div class="content" align="center">
       <mat-label><b>Recursos personales.</b></mat-label>
     </div>
-    <ckeditor [(ngModel)]="otras.otras_recursos_p" [config]="ckeConfig">
-
-    </ckeditor>
+    <app-rich-text-editor [(ngModel)]="otras.otras_recursos_p" #richTextEditor3></app-rich-text-editor>
     <hr><br>
 
     <div class="content" align="center">
       <mat-label><b>Apoyo social.</b></mat-label>
     </div>
-    <ckeditor [(ngModel)]="otras.otras_apoyo_s" [config]="ckeConfig">
-
-    </ckeditor>
+    <app-rich-text-editor [(ngModel)]="otras.otras_apoyo_s" #richTextEditor4></app-rich-text-editor>
     <hr><br>
     <div class="content" align="center">
       <mat-label><b>Situación vital y estilo de vida.</b></mat-label>
     </div>
-    <ckeditor [(ngModel)]="otras.otras_situacion_v" [config]="ckeConfig">
-    </ckeditor>
+    <app-rich-text-editor [(ngModel)]="otras.otras_situacion_v" #richTextEditor5></app-rich-text-editor>
     <hr><br>
     <br><br>
     <div class="row d-flex justify-content-center">
