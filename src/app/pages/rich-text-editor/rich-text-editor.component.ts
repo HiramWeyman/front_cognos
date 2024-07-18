@@ -82,4 +82,13 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   getContent(): string {
     return this.content;
   }
+
+  clearContent(): void {
+    this.content = '';
+    if (this.editorContentRef) {
+      this.editorContentRef.nativeElement.innerHTML = '';
+    }
+    this.onChange(this.content);
+    this.onTouched();
+  }
 }

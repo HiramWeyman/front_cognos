@@ -1,8 +1,9 @@
 import { Comentarios } from '@/models/Comentarios';
 import { Tratamiento } from '@/models/Tratamiento';
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { RichTextEditorComponent } from '@pages/rich-text-editor/rich-text-editor.component';
 import { AppService } from '@services/app.service';
 import { ComentariosService } from '@services/comentarios.service';
 import { SharednumberService } from '@services/sharednumber.service';
@@ -14,6 +15,7 @@ import swal from 'sweetalert2';
   styleUrls: ['./tratamiento.component.scss']
 })
 export class TratamientoComponent {
+  @ViewChild(RichTextEditorComponent) richTextEditor!: RichTextEditorComponent;
   expediente!: any;
   Sessiontab!: any;
   trata:Tratamiento= new Tratamiento();
@@ -55,12 +57,14 @@ export class TratamientoComponent {
   GuardarTrata(){
   
     this.trata.trata_paciente_id=this.expediente;
+    const contenidoEditor = this.richTextEditor.getContent();
+    this.trata.trata_tecnica=contenidoEditor;
     this._tr.GuardarTratamiento(this.trata).subscribe(datos => {
       
       if(datos){
         swal.fire('Guardando Datos', `Datos Guardados Exitosamente!`, 'success');
-        this.trata.trata_objetivo='';
-        this.trata.trata_tecnica='';
+        this.trata= new Tratamiento();
+        this.richTextEditor.clearContent();
       }
       this.ngOnInit();
 
@@ -84,10 +88,17 @@ export class TratamientoComponent {
   
 
   UpdateDatosTrata(trata:Tratamiento): void {
+    const contenidoEditor = this.richTextEditor.getContent();
+    this.trata.trata_tecnica=contenidoEditor;
     this._tr.UpdateTratamiento(trata).subscribe(dp => {
       
         swal.fire('Actualizando Datos', `Actualización Exitosa!`, 'success');
+     /*    this.trata.trata_objetivo='';
+        this.trata.trata_tecnica=''; */
         this.trata= new Tratamiento();
+        this.richTextEditor.clearContent();
+       
+
         this.ngOnInit();
     
     },error => {
@@ -118,6 +129,12 @@ export class TratamientoComponent {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
       });
+  }
+  limpiar(){
+    console.log(this.trata);
+    this.trata.trata_objetivo="";
+    this.trata.trata_tecnica="";
+    this.richTextEditor.clearContent();
   }
 
   GuardarComentario(){

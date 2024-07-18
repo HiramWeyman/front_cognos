@@ -5,7 +5,7 @@
       Comentarios
     </button>  
     </div>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#trata" data-backdrop="false">Agregar</button> 
+    <button class="btn btn-primary" data-toggle="modal" data-target="#trata" data-backdrop="false" (click)="limpiar()">Agregar</button> 
     <table class="table table-bordered">
         <thead>
           <tr>
@@ -50,14 +50,15 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Técnica.</label>
-            <ckeditor [(ngModel)]="trata.trata_tecnica">
+            <app-rich-text-editor [(ngModel)]="trata.trata_tecnica" #richTextEditor></app-rich-text-editor>
+           <!--  <ckeditor [(ngModel)]="trata.trata_tecnica">
             </ckeditor>
-            <!-- <textarea rows="4" cols="5" class="form-control" [(ngModel)]="trata.trata_tecnica"></textarea> -->
+            <textarea rows="4" cols="5" class="form-control" [(ngModel)]="trata.trata_tecnica"></textarea>  -->
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>        
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="limpiar()">Cerrar</button>        
         <button type="button" class="btn btn-primary" (click)="GuardarTrata();" *ngIf="trata.trata_id==null else elseBlock">Guardar</button>
         <ng-template #elseBlock>
           <button class="btn btn-primary"  (click)='UpdateDatosTrata(trata);' id="send" data-dismiss="modal">Editar</button>
