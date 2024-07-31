@@ -90,7 +90,7 @@ export class ResultadosCreeComponent {
   }
 
   cargarTotalCree4() {
-    this._res.GetCreeTotal1(this.id).subscribe(
+    this._res.GetCreeTotal4(this.id).subscribe(
       fu => {
         this.total4 = fu;
         console.log(this.total4);
