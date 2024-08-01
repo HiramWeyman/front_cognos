@@ -20,13 +20,13 @@ export class EnviopruebasComponent implements OnInit {
   Sessiontab!: any;
   UsuarioId: any;
   UsuarioNombre: any;
-  Indextab:any;
+  Indextab: any;
   pac: Pacientes = new Pacientes();
-  pruebascl:any;
-  pruebascid:any;
+  pruebascl: any;
+  pruebascid: any;
   prueba!: File;
-  habilitaSCL:boolean=false;
-  habilitaSCID:boolean=false;
+  habilitaSCL: boolean = false;
+  habilitaSCID: boolean = false;
   @ViewChild('myInputSCL')
   myInputSCL!: ElementRef;
   @ViewChild('myInputSCLup')
@@ -36,38 +36,37 @@ export class EnviopruebasComponent implements OnInit {
   @ViewChild('myInputSCIDup')
   myInputSCIDup!: ElementRef;
   constructor(
- 
-    private sharednumber:SharednumberService,
+
+    private sharednumber: SharednumberService,
     private _pac: PacientesService,
-    private _env:PruebasService,
+    private _env: PruebasService,
     private appService: AppService,
     private router: Router
 
   ) { }
   ngOnInit(): void {
-  
-    this.ExpedienteId=localStorage.getItem('Expediente');
-    this.Sessiontab=localStorage.getItem('IndexTab');
-    this.UsuarioId=localStorage.getItem('UserId');
-    this.UsuarioNombre=localStorage.getItem('UserName');
-    this.sharednumber.numero$.subscribe(val=>
-      {
-        this.Indextab=val;
-        if(this.Indextab==10||this.Sessiontab==10){
-          this.cargarPacientes();
-          this.cargarPruebaSCL();
-          this.cargarPruebaSCID();
-        }
-      });
-    
+
+    this.ExpedienteId = localStorage.getItem('Expediente');
+    this.Sessiontab = localStorage.getItem('IndexTab');
+    this.UsuarioId = localStorage.getItem('UserId');
+    this.UsuarioNombre = localStorage.getItem('UserName');
+    this.sharednumber.numero$.subscribe(val => {
+      this.Indextab = val;
+      if (this.Indextab == 10 || this.Sessiontab == 10) {
+        this.cargarPacientes();
+        this.cargarPruebaSCL();
+        this.cargarPruebaSCID();
+      }
+    });
+
   }
 
   cargarPacientes() {
     this._pac.GetPaciente(this.ExpedienteId).subscribe(
       pac => {
         this.pac = pac;
-       /*  console.log(this.pac); */
-       
+        /*  console.log(this.pac); */
+
       }, error => {
         //console.log(error);
         swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -79,11 +78,11 @@ export class EnviopruebasComponent implements OnInit {
       pac => {
         this.pruebascl = pac;
         console.log(this.pruebascl);
-        if(this.pruebascl!=null){
-          this.habilitaSCL=true;
+        if (this.pruebascl != null) {
+          this.habilitaSCL = true;
         }
-        else{
-          this.habilitaSCL=false;
+        else {
+          this.habilitaSCL = false;
         }
       }, error => {
         //console.log(error);
@@ -95,30 +94,58 @@ export class EnviopruebasComponent implements OnInit {
     this._env.GetPruebaSCID(this.ExpedienteId).subscribe(
       pac => {
         this.pruebascid = pac;
-         console.log(this.pruebascid); 
-         if(this.pruebascid!=null){
-          this.habilitaSCID=true;
+        console.log(this.pruebascid);
+        if (this.pruebascid != null) {
+          this.habilitaSCID = true;
         }
-       
+
       }, error => {
         //console.log(error);
         swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
       });
   }
 
-  enviarPruebas(num_prueba:number)
-  {
-    this._env.EnviarPrueba(this.pac.pac_id,this.pac.pac_email,num_prueba).subscribe(prb=>{
+  enviarPruebas(num_prueba: number) {
+    this._env.EnviarPrueba(this.pac.pac_id, this.pac.pac_email, num_prueba).subscribe(prb => {
 
       console.log(prb);
-   /*    swal.fire('Enviando Correo', `Correo Enviado Exitosamente!`, 'success'); */
-      if(prb){
+      /*    swal.fire('Enviando Correo', `Correo Enviado Exitosamente!`, 'success'); */
+      if (prb) {
         swal.fire('Enviando Correo', `Correo Enviado Exitosamente!`, 'success');
       }
-    },error => {
+    }, error => {
       console.log(error);
       //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
     });
+
+  }
+
+  aplicarPruebas(num_prueba: number) {
+    switch (num_prueba) {
+
+      case 2:
+        window.open("https://pruebas.iescognos.com/inicio/"+this.ExpedienteId, "_blank");
+        break;
+      case 5:
+        window.open("https://pruebas.iescognos.com/testscid/"+this.ExpedienteId, "_blank");
+        break;
+
+      case 1:
+        window.open("https://pruebas.iescognos.com/testbaian/"+this.ExpedienteId, "_blank");
+        break;
+
+      case 3:
+        window.open("https://pruebas.iescognos.com/testbdidp/"+this.ExpedienteId, "_blank");
+        break;
+
+      case 4:
+        window.open("https://pruebas.iescognos.com/testisra/"+this.ExpedienteId, "_blank");
+        break;
+
+      case 6:
+        window.open("https://pruebas.iescognos.com/testcreencias/"+this.ExpedienteId, "_blank");
+        break;
+    }
 
   }
 
@@ -133,11 +160,11 @@ export class EnviopruebasComponent implements OnInit {
   }
 
 
-  
-  guardar(tipo_prueba:number) {
+
+  guardar(tipo_prueba: number) {
     this.blockUI.start('Guardando...');
-/*   console.log(this.ponencia_id); */
-    if (this.prueba== null) {
+    /*   console.log(this.ponencia_id); */
+    if (this.prueba == null) {
       this.blockUI.stop();
       swal.fire({
         title: 'Info!!!',
@@ -148,18 +175,18 @@ export class EnviopruebasComponent implements OnInit {
 
       return;
     }
-    console.info(this.prueba.name); 
+    console.info(this.prueba.name);
     console.info(this.prueba);
-  
-    this._env.pruebasAll(this.pac.pac_id,tipo_prueba,this.prueba).subscribe(usr => {
-   
-        if(usr){
-          this.blockUI.stop();
-          swal.fire('Archivos subidos', `Sus archivos se subieron con éxito!`, 'success');
-          this.ngOnInit();
-          this.prueba =null;
-          this.resetInput();
-        }
+
+    this._env.pruebasAll(this.pac.pac_id, tipo_prueba, this.prueba).subscribe(usr => {
+
+      if (usr) {
+        this.blockUI.stop();
+        swal.fire('Archivos subidos', `Sus archivos se subieron con éxito!`, 'success');
+        this.ngOnInit();
+        this.prueba = null;
+        this.resetInput();
+      }
 
     },
       error => {
@@ -171,15 +198,15 @@ export class EnviopruebasComponent implements OnInit {
           icon: 'error'
         });
 
-      }); 
+      });
 
 
   }
 
 
-  Actualizar(tipi_prueba:number) {
-    var idX:number;
-    if(this.pruebascl==null || !this.pruebascid==null ){
+  Actualizar(tipi_prueba: number) {
+    var idX: number;
+    if (this.pruebascl == null || !this.pruebascid == null) {
       this.blockUI.stop();
       swal.fire({
         title: 'Info!!!',
@@ -203,62 +230,62 @@ export class EnviopruebasComponent implements OnInit {
     }
 
 
-    if(tipi_prueba==1){
-      idX=this.pruebascl.documentId;
+    if (tipi_prueba == 1) {
+      idX = this.pruebascl.documentId;
     }
-    else{
-      idX=this.pruebascid.documentId;
+    else {
+      idX = this.pruebascid.documentId;
     }
     this.blockUI.start('Guardando...');
     /*   console.log(this.ponencia_id); */
-        if (this.prueba== null) {
-          this.blockUI.stop();
-          swal.fire({
-            title: 'Info!!!',
-            text: 'Seleccione el archivo de su prueba Test SCL 90 R',
-            icon: 'info',
-            timer: 2000
-          });
-    
-          return;
-        }
-        console.info(this.prueba.name); 
-        console.info(this.prueba);
-      
-        this._env.UpdatePrueba(idX,this.prueba).subscribe(usr => {
-       
-          this.blockUI.stop();
-          this.resetFileUploader();
-          swal.fire('Archivos subidos', `Su archivo se actualizo con éxito!`, 'success');
-          this.resetInput();
-          this.prueba =null;
-          this.cargarPruebaSCL();
-          this.cargarPruebaSCID();
-         
-          this.myInputSCL.nativeElement.value = "";
-        /*   this.resetInput(); */
-        },
-          error => {
-            console.log(error);
-            this.blockUI.stop();
-            swal.fire({
-              title: 'ERROR!!!',
-              text: error.error.message,
-              icon: 'error'
-            });
-    
-          }); 
+    if (this.prueba == null) {
+      this.blockUI.stop();
+      swal.fire({
+        title: 'Info!!!',
+        text: 'Seleccione el archivo de su prueba Test SCL 90 R',
+        icon: 'info',
+        timer: 2000
+      });
+
+      return;
+    }
+    console.info(this.prueba.name);
+    console.info(this.prueba);
+
+    this._env.UpdatePrueba(idX, this.prueba).subscribe(usr => {
+
+      this.blockUI.stop();
+      this.resetFileUploader();
+      swal.fire('Archivos subidos', `Su archivo se actualizo con éxito!`, 'success');
+      this.resetInput();
+      this.prueba = null;
+      this.cargarPruebaSCL();
+      this.cargarPruebaSCID();
+
+      this.myInputSCL.nativeElement.value = "";
+      /*   this.resetInput(); */
+    },
+      error => {
+        console.log(error);
+        this.blockUI.stop();
+        swal.fire({
+          title: 'ERROR!!!',
+          text: error.error.message,
+          icon: 'error'
+        });
+
+      });
 
   }
 
-/*   .then(
-    function(){
-      window.location.reload();
-    }
-  ) */
-  Delete(tipo_prueba:number){
+  /*   .then(
+      function(){
+        window.location.reload();
+      }
+    ) */
+  Delete(tipo_prueba: number) {
 
-    if(this.pruebascl==null || !this.pruebascid==null ){
+    if (this.pruebascl == null || !this.pruebascid == null) {
       swal.fire({
         title: 'Info!!!',
         text: 'No hay archivo para eliminar',
@@ -268,60 +295,60 @@ export class EnviopruebasComponent implements OnInit {
       return;
     }
 
-    if(tipo_prueba==1){
+    if (tipo_prueba == 1) {
       this.blockUI.start('Eliminando...');
-          this._env.DeletePruebas(tipo_prueba,this.pruebascl.documentId).subscribe(usr => {
-         
-            if(usr){
-              this.blockUI.stop();
-              swal.fire('Archivo Eliminado', `Su archivo se elimino con éxito!`, 'success');
-              this.ngOnInit();
-              this.resetInput();
-            }
+      this._env.DeletePruebas(tipo_prueba, this.pruebascl.documentId).subscribe(usr => {
 
-            
-          },
-            error => {
-              console.log(error);
-              this.blockUI.stop();
-              swal.fire({
-                title: 'ERROR!!!',
-                text: error.error.message,
-                icon: 'error'
-              });
-      
-            }); 
-    }else{
+        if (usr) {
+          this.blockUI.stop();
+          swal.fire('Archivo Eliminado', `Su archivo se elimino con éxito!`, 'success');
+          this.ngOnInit();
+          this.resetInput();
+        }
+
+
+      },
+        error => {
+          console.log(error);
+          this.blockUI.stop();
+          swal.fire({
+            title: 'ERROR!!!',
+            text: error.error.message,
+            icon: 'error'
+          });
+
+        });
+    } else {
       this.blockUI.start('Eliminando...');
-          this._env.DeletePruebas(tipo_prueba,this.pruebascid.documentId).subscribe(usr => {
-         
-            if(usr){
-              this.blockUI.stop();
-              swal.fire('Archivo Eliminado', `Su archivo se elimino con éxito!`, 'success');
-              this.ngOnInit();
-              this.resetInput();
-            }
-          },
-            error => {
-              console.log(error);
-              this.blockUI.stop();
-              swal.fire({
-                title: 'ERROR!!!',
-                text: error.error.message,
-                icon: 'error'
-              });
-      
-            }); 
+      this._env.DeletePruebas(tipo_prueba, this.pruebascid.documentId).subscribe(usr => {
+
+        if (usr) {
+          this.blockUI.stop();
+          swal.fire('Archivo Eliminado', `Su archivo se elimino con éxito!`, 'success');
+          this.ngOnInit();
+          this.resetInput();
+        }
+      },
+        error => {
+          console.log(error);
+          this.blockUI.stop();
+          swal.fire({
+            title: 'ERROR!!!',
+            text: error.error.message,
+            icon: 'error'
+          });
+
+        });
     }
-  
+
   }
 
-  resetFileUploader() { 
+  resetFileUploader() {
     this.myInputSCL.nativeElement.value = null;
   }
   refresh(): void {
     window.location.reload();
-}
+  }
   resetInput() {
     console.log(this.myInputSCL.nativeElement.files);
     this.myInputSCL.nativeElement.value = "";
@@ -338,43 +365,43 @@ export class EnviopruebasComponent implements OnInit {
   }
 
 
-  archivo1(){
+  archivo1() {
     window.open("assets/files/Alta de paciente Unidad Bajo Costo.docx", "_blank");
   }
 
-  archivo2(){
+  archivo2() {
     window.open("assets/files/Anexo - Evaluación escolar COGNOS.docx", "_blank");
   }
 
-  archivo3(){
+  archivo3() {
     window.open("assets/files/Baja de paciente Unidad Bajo Costo.docx", "_blank");
   }
 
-  archivo4(){
+  archivo4() {
     window.open("assets/files/Canalización paciente online a presencial.docx", "_blank");
   }
 
-  archivo5(){
+  archivo5() {
     window.open("assets/files/Consentimiento de Estudio de caso para Tesis.docx", "_blank");
   }
 
-  archivo6(){
+  archivo6() {
     window.open("assets/files/Consentimiento de grabación en audio.docx", "_blank");
   }
 
-  archivo7(){
+  archivo7() {
     window.open("assets/files/Consentimiento Informado Online Maestria.docx", "_blank");
   }
 
-  archivo8(){
+  archivo8() {
     window.open("assets/files/Consentimiento Informado Presencial Maestria.docx", "_blank");
   }
 
-  archivo9(){
+  archivo9() {
     window.open("assets/files/Consentimiento para la evaluación escolar COGNOS.docx", "_blank");
   }
 
-  archivo10(){
+  archivo10() {
     window.open("assets/files/Consentimiento para solicitar información en escuela para padres.docx", "_blank");
   }
 

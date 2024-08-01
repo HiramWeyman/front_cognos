@@ -22,7 +22,7 @@ export class ResultadosBdidpComponent {
     this.expediente=localStorage.getItem('Expediente');
     this.id = this.route.snapshot.paramMap.get('id');
     this.cargarResBDIDP();
-/*     this.cargarTotalBDIDP(); */
+    this.cargarTotalBDIDP(); 
   }
 
   cargarResBDIDP() {
@@ -36,7 +36,7 @@ export class ResultadosBdidpComponent {
       });
   }
 
-/*   cargarTotalBDIDP() {
+  cargarTotalBDIDP() {
     this._res.GetTotalBDIDP(this.id).subscribe(
       fu => {
         this.total = fu;
@@ -45,5 +45,5 @@ export class ResultadosBdidpComponent {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
       });
-  } */
+  } 
 }

@@ -48,6 +48,11 @@ export class ResultadosService {
     return this.http.get(`${environment.rutaAPI}` + '/baiAn/testBAIanTotal/'+id);
   }
 
+  GetTotalBDI(id:number)  {
+    return this.http.get(`${environment.rutaAPI}` + '/bdiDp/testBDIdpTotal/'+id);
+  }
+
+
   GetResultadosBDIDPList(Id:number): Observable<ResultadosBDIDP[]> {
     return this.http.get(`${environment.rutaAPI}` + '/bdiDp/testBDIdpRespuestas/'+Id).pipe(
       map(response => response as ResultadosBDIDP[])

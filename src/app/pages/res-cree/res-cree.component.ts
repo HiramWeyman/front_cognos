@@ -42,4 +42,8 @@ export class ResCreeComponent {
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
       });
   }
+
+  AplicarRes(maestro_id:number){
+     console.log(maestro_id);
+  }
 }

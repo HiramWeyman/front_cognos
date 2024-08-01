@@ -7,6 +7,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Resultados</th>
+                <th scope="col">Aplicar Resultados a Expediente</th>
               </tr>
             </thead>
             <tbody>
@@ -15,6 +16,7 @@
                 <th scope="row">{{i+1}}</th>
                 <td>{{item.maestro_fecha}}</td>
                 <td><button class="btn btn-primary btn-sm" [routerLink]="['/rescree',item.maestro_id]">Resultados</button></td>
+                <td><button class="btn btn-primary btn-sm" (click)="AplicarRes(item.maestro_id)">Aplicar Resultados</button></td>
               </tr>
 
             </tbody>

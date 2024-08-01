@@ -35,6 +35,15 @@ export class ResBdidpComponent {
         for(let i=0;i<this.resultados.length;i++){
           this.fecMaestro =this.datePipe.transform(this.resultados[i].maestro_fecha,"dd/MM/yyyy");
           this.resultados[i].maestro_fecha= this.fecMaestro;
+          this._res.GetTotalBDIDP(this.resultados[i].maestro_id).subscribe(
+            fu => {
+              this.total = fu;
+              console.log(this.total);
+              this.resultados[i].maestro_interpretacion = this.getEstatus(this.total);
+            }, error => {
+              console.log(error);
+              //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+            });
         }
         console.log(this.resultados);
       }, error => {
@@ -42,4 +51,21 @@ export class ResBdidpComponent {
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
       });
   }
+
+  getEstatus(total: number): string {
+    if(total>=0 && total<=9){
+      return'Normal';
+    }
+    else if(total>=10 && total<=18){
+      return 'Leve';
+    }
+    else if(total>=19 && total<=29){
+      return 'Moderada';
+    }
+    else if(total>=30 && total<=63){
+      return 'Severa';
+    }
+   
+  }
+
 }
