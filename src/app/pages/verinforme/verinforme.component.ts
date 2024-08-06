@@ -41,7 +41,9 @@ import { FamiliarService } from '@services/familiar.service';
 import { AppService } from '@services/app.service';
 import { PacientesService } from '@services/pacientes.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 @Component({
   selector: 'app-verinforme',
   templateUrl: './verinforme.component.html',
@@ -72,6 +74,7 @@ export class VerinformeComponent {
   sesiones: Sesion[];
   fecSesion:any;
   creencia: Creencias = new Creencias();
+  creenciaGrafica:any;
   myChart: any;
   pruebascl:any;
   pruebascid:any;
@@ -88,6 +91,8 @@ export class VerinformeComponent {
   @ViewChild('imgRef') img:ElementRef;
   @ViewChild('imgRef2') img2:ElementRef;
   @ViewChild('imgRef3') img3:ElementRef;
+//variable para graficas ellis
+charts: Chart[] = [];
   constructor(
     private route: ActivatedRoute,
     private datePipe: DatePipe,
@@ -110,7 +115,8 @@ export class VerinformeComponent {
     private _pac: PacientesService,
     private _sanitizer: DomSanitizer,
     private appService: AppService,
-    private router: Router,)
+    private router: Router,
+    private http: HttpClient)
      {}
   ngOnInit(): void {
    
@@ -398,72 +404,92 @@ export class VerinformeComponent {
   }
 
   cargarCreencias() {
-    this._cree.GetCreencias(this.informe.inf_paciente_id).subscribe(
-      fu => {
-        this.creencia = fu;
-        console.log(this.creencia);
-        if (this.creencia != null) {
-
-          const array = [];
-         
-          
-          array.push(Number(this.creencia.creencia_irra1));
-          array.push(this.creencia.creencia_irra2);
-          array.push(this.creencia.creencia_irra3);
-          array.push(this.creencia.creencia_irra4);
-          array.push(this.creencia.creencia_irra5);
-          array.push(this.creencia.creencia_irra6);
-          array.push(this.creencia.creencia_irra7);
-          array.push(this.creencia.creencia_irra8);
-          array.push(this.creencia.creencia_irra9);
-          array.push(this.creencia.creencia_irra10); 
-
-
-          let htmlRef = this.elementRef.nativeElement.querySelector(`#myChart`);
-          if (this.myChart) {
-            this.myChart.destroy();
-          }
-          this.myChart = new Chart(htmlRef, {
-            type: 'bar',
-            data: {
-              labels: ['Irrac1', 'Irrac2', 'Irrac3', 'Irrac4', 'Irrac5', 'Irrac6', 'Irrac7', 'Irrac8', 'Irrac9', 'Irrac10',],
-              datasets: [{
-                label: 'Ideas Irracionales',
-                //data: [this.creencia1, this.creencia2, this.creencia3, this.creencia4, this.creencia5, this.creencia6, this.creencia7, this.creencia8, this.creencia9, this.creencia10],/*  */
-                data: array,
-                backgroundColor: "red",
-                /* backgroundColor:"#0196FD", */
-                borderColor: "#0196FD",
-                borderWidth: 1
-              },
-                /*           {
-                            label: 'Dat21',
-                            data: [19, 12, 5, 3, 1, 6],
-                            backgroundColor:"#FFAF00",
-                            borderColor: "#FFAF00",
-                            borderWidth: 1
-                         } */
-              ]
-            },
-            options: {
-              scales: {
-                y: {
-                  min: 0,
-                  max: 9,
-                  /* beginAtZero: true */
-                }
-              }
-            }
+    //Traemos los maestros de esta prueba registrados
+        this._cree.GetMaestrosCreencia(this.informe.inf_paciente_id).subscribe(
+          response=>{
+            this.creenciaGrafica=response;
+            //consultamos los detalles
+            this.creenciaGrafica.forEach((item, index) => {
+              this.getDetails(item.most_id_maestro, index);
+            });
           });
-
-          console.log(array);
-        }
-      }, error => {
-        console.log(error);
-        //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
-      });
   }
 
+  //Metodo para los detalles
+  getDetails(most_id_maestro: number, index: number) {
+    this.http.get<any>(`${environment.rutaAPI}/ellis/getSumasEllis/${most_id_maestro}`).subscribe(detail => {
+      console.log(`Index: ${index}, Details:`, detail);
+      const valores = [
+        detail[0].irrac1 ?? 0,
+        detail[0].irrac2 ?? 0,
+        detail[0].irrac3 ?? 0,
+        detail[0].irrac4 ?? 0,
+        detail[0].irrac5 ?? 0,
+        detail[0].irrac6 ?? 0,
+        detail[0].irrac7 ?? 0,
+        detail[0].irrac8 ?? 0,
+        detail[0].irrac9 ?? 0,
+        detail[0].irrac10 ?? 0
+      ].map(value => Number(value)); // Asegúrate de convertir a número
+
+      console.log('Valores:', valores);
+
+      const etiquetas = [
+        'Irrac1', 'Irrac2', 'Irrac3', 'Irrac4', 'Irrac5',
+        'Irrac6', 'Irrac7', 'Irrac8', 'Irrac9', 'Irrac10'
+      ];
+
+      this.drawChart(valores, etiquetas, index);
+    });
+  
+  }
+
+  //Dibujando las graficas
+  drawChart(valores: number[], etiquetas: string[], index: number) {
+    const canvasId = `canvasId-${index}`;
+    const canvasElement = <HTMLCanvasElement>document.getElementById(canvasId);
+
+    // Destruir gráfica anterior si existe
+    if (this.charts[index]) {
+      this.charts[index].destroy();
+    }
+
+    // Crear nueva gráfica
+    this.charts[index] = new Chart(canvasElement, {
+      type: 'bar',
+      data: {
+        labels: etiquetas,
+        datasets: [
+          {
+            label: `Gráfica ${index + 1}`,
+            data: valores,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        plugins: {
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            formatter: (value) => Math.round(value), // Ajusta esto según la precisión deseada
+            font: {
+              weight: 'bold'
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+  }
+  
 
   cargarPruebaSCL() {
     this._env.GetPruebaSCL(this.informe.inf_paciente_id).subscribe(

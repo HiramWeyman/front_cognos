@@ -40,6 +40,7 @@
     "@profabric/angular-components": "0.1.7",
     "bootstrap": "5.2",
     "chart.js": "^4.3.3",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "core-js": "3.25.0",
     "html2pdf.js": "^0.10.1",
     "luxon": "3.0.3",

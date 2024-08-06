@@ -29,4 +29,11 @@ export class CreenciasService {
   UpdateCreencias(Creencias: Creencias): Observable<Creencias> {
     return this.http.patch<Creencias>(`${environment.rutaAPI}` + '/Creencias/'+Creencias.creencia_id, Creencias);
   }
+
+//Se obtiene los numeros maestro de la tabla que va a mostrar en el informe
+  GetMaestrosCreencia(id:number): Observable<any> {
+    return this.http.get(`${environment.rutaAPI}` + '/Creencias/GetIdsPruebaEllis/'+id).pipe(
+      map(response => response as any)
+    );
+  }
 }

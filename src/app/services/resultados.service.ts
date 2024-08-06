@@ -161,6 +161,11 @@ getResISRAMaestro(Id:number):Observable<Maestro[]>{
 }
 
 
+//Asignar los id a la tabla mostrar en expediente
+AsignarIds(ids:string,prueba:number,exp:number)  {
+  return this.http.delete(`${environment.rutaAPI}` + '/ellis/AsignarPruebasEllis?ids='+ids+'&prueba='+prueba+'&exp='+exp);
+}
+
 
 
 }

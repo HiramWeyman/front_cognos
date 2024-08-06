@@ -467,10 +467,13 @@
 
 
 <div class="contenedor">
+  <div *ngFor="let item of creenciaGrafica; let i = index">
+    <canvas id="canvasId-{{i}}"></canvas>
+  </div>
   <!--  <div style="width: 600px;height: 600px;">
        
    </div> -->
-   <canvas id="myChart"></canvas>
+  <!--  <canvas id="myChart"></canvas>
      <table class="table">
        <thead class="thead-dark">
          <tr>
@@ -537,7 +540,7 @@
            <td><input type="text" [(ngModel)]="creencia.creencia_irra10" readonly> </td>
          </tr>
        </tbody>
-     </table>
+     </table> -->
      <br><br>
      <img #imgRef><br>
      <img #imgRef2><br>
