@@ -204,22 +204,7 @@ export class RessclComponent {
 
   }
 
-  cargarPruebaSCL(maestro_id:number) {
-    this._env.GetPruebaSCL(maestro_id).subscribe(
-      pac => {
-        this.pruebascl = pac;
-        console.log(this.pruebascl);
-        if (this.pruebascl != null) {
-          this.habilitaSCL = true;
-        }
-        else {
-          this.habilitaSCL = false;
-        }
-      }, error => {
-        //console.log(error);
-        swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
-      });
-  }
+  
 
   resetFileUploader() {
     this.myInputSCL.nativeElement.value = null;

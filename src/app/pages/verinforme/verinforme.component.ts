@@ -88,6 +88,9 @@ export class VerinformeComponent {
   familiares: any[];
   fechasing:any;
   fechasingRec:any;//Recipiente para transformar la fecha de reingreso
+  //Cambio para los archivos de imagen scl
+  files: any[] = [];
+  files2: any[] = [];
   @ViewChild('imgRef') img:ElementRef;
   @ViewChild('imgRef2') img2:ElementRef;
   @ViewChild('imgRef3') img3:ElementRef;
@@ -473,7 +476,8 @@ charts: Chart[] = [];
         plugins: {
           datalabels: {
             anchor: 'end',
-            align: 'top',
+            align: 'start', // Cambia la alineación para evitar que se empalmen con la gráfica siguiente
+            /* align: 'top', */
             formatter: (value) => Math.round(value), // Ajusta esto según la precisión deseada
             font: {
               weight: 'bold'
@@ -494,26 +498,8 @@ charts: Chart[] = [];
   cargarPruebaSCL() {
     this._env.GetPruebaSCL(this.informe.inf_paciente_id).subscribe(
       pac => {
-        this.pruebascl = pac;
-        console.log(this.pruebascl);
-        
-        if(this.pruebascl){
-          console.log(this.pruebascl.dataFiles);
-          if(this.pruebascl.fileType=='.png'){
-            this.src = 'data:image/png;base64,'+this.pruebascl.dataFiles;
-            this.img.nativeElement.src = this.src;
-          }
-          else if(this.pruebascl.fileType=='.jpeg'){
-            this.src = 'data:image/jpeg;base64,'+this.pruebascl.dataFiles;
-            this.img.nativeElement.src = this.src;
-          }
-          else if(this.pruebascl.fileType=='.jpg'){
-            this.src = 'data:image/jpg;base64,'+this.pruebascl.dataFiles;
-            this.img.nativeElement.src = this.src;
-          }
-        }else{
-          return;
-        }
+        this.files = pac;
+        console.log(this.files);
       }, error => {
         //console.log(error);
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -523,31 +509,9 @@ charts: Chart[] = [];
   cargarPruebaSCID() {
     this._env.GetPruebaSCID(this.informe.inf_paciente_id).subscribe(
       pac => {
-        this.pruebascid = pac;
-         console.log(this.pruebascid); 
-          if(this.pruebascid){
-            if(this.pruebascid.fileType=='.png'){
-              this.src2 = 'data:image/png;base64,'+this.pruebascid.dataFiles;
-              this.img2.nativeElement.src = this.src2;
-            }
-            else if(this.pruebascid.fileType=='.jpeg'){
-              this.src2 = 'data:image/jpeg;base64,'+this.pruebascid.dataFiles;
-              this.img2.nativeElement.src = this.src2;
-            }
-            else if(this.pruebascid.fileType=='.jpg'){
-              this.src2 = 'data:image/jpg;base64,'+this.pruebascid.dataFiles;
-              this.img2.nativeElement.src = this.src2;
-            }
-    
-    
-             this.src2 = 'data:image/png;base64,'+this.pruebascid.dataFiles;
-             this.img2.nativeElement.src = this.src2;
-          }
-          else{
-            return;
-          }
+         this.files2 = pac;
+         console.log(this.files2);
       
-       
       }, error => {
         //console.log(error);
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });

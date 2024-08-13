@@ -36,17 +36,29 @@ export class PruebasService {
     return this.http.post<any>(`${this.urlEndPoint+'/Archivos?id_pac='+id_pac+'&tipo_prueba='+tipo_prueba}`, formData)
   }
 
-  GetPruebaSCL(id:number): Observable<any> {
+/*   GetPruebaSCL(id:number): Observable<any> {
     return this.http.get(`${environment.rutaAPI}` + '/Archivos/ArchivosSCL/'+id).pipe(
       map(response => response as any)
     );
-  }
+  } */
 
-  GetPruebaSCID(id:number): Observable<any> {
+    GetPruebaSCL(id:number): Observable<any> {
+      return this.http.get(`${environment.rutaAPI}` + '/scl/ArchivosSCLInforme/'+id).pipe(
+        map(response => response as any)
+      );
+    }
+
+    GetPruebaSCID(id:number): Observable<any> {
+      return this.http.get(`${environment.rutaAPI}` + '/scid/ArchivosSCIDInforme/'+id).pipe(
+        map(response => response as any)
+      );
+    }
+
+ /*  GetPruebaSCID(id:number): Observable<any> {
     return this.http.get(`${environment.rutaAPI}` + '/Archivos/ArchivosSCID/'+id).pipe(
       map(response => response as any)
     );
-  }
+  } */
 
   GetDiagrama(id:number): Observable<any> {
     return this.http.get(`${environment.rutaAPI}` + '/Archivos/ArchivosDiagrama/'+id).pipe(
