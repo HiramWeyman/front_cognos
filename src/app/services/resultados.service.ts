@@ -15,6 +15,7 @@ import { ResultadosBDIDP } from '@/models/resultadosBDIDP';
 import { ResultadosCree } from '@/models/ResultadosCree';
 import { ResultadosSCID } from '@/models/RessultadosSCID';
 import { Maestro } from '@/models/Maestro';
+import { MaestroCambio } from '@/models/MaestroCambio';
 
 @Injectable({
   providedIn: 'root'
@@ -124,9 +125,9 @@ export class ResultadosService {
     );
   }
 //Metodos para obtener los datos de la tabla maestra
-getResSCLMaestro(Id:number):Observable<Maestro[]>{
+getResSCLMaestro(Id:number):Observable<MaestroCambio[]>{
   return this.http.get(`${environment.rutaAPI}` + '/scl/MaestroSCLList/'+Id).pipe(
-    map(response => response as Maestro[])
+    map(response => response as MaestroCambio[])
   );
 }
 

@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 export class ResCreeComponent {
   
   id!: any;
-  resultados: MaestroCambio[];
+  resultados: any[];
   selectedItems: MaestroCambio[] = []; 
   total!:any;
   fecMaestro:any;
@@ -74,13 +74,9 @@ respuesta!:any;
             }
         });
 
-
-
     }
     //console.log(this.selectedItems); // Para verificar los elementos seleccionados
   }
 
-  AplicarRes(maestro_id:number){
-     console.log(maestro_id);
-  }
+
 }

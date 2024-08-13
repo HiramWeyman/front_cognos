@@ -143,7 +143,9 @@ export class EnviopruebasComponent implements OnInit {
         break;
 
       case 6:
-        window.open("https://pruebas.iescognos.com/testcreencias/"+this.ExpedienteId, "_blank");
+        http://localhost:8000/
+        window.open("http://localhost:8000/testcreencias/"+this.ExpedienteId, "_blank");
+       /*  window.open("https://pruebas.iescognos.com/testcreencias/"+this.ExpedienteId, "_blank"); */
         break;
     }
 
