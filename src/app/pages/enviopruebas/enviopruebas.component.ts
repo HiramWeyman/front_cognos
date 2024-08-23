@@ -54,8 +54,8 @@ export class EnviopruebasComponent implements OnInit {
       this.Indextab = val;
       if (this.Indextab == 10 || this.Sessiontab == 10) {
         this.cargarPacientes();
-        this.cargarPruebaSCL();
-        this.cargarPruebaSCID();
+    /*     this.cargarPruebaSCL();
+        this.cargarPruebaSCID(); */
       }
     });
 
