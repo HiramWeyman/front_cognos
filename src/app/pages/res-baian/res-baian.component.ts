@@ -70,23 +70,17 @@ export class ResBaianComponent {
   }
 
   getEstatus(total: number): string {
-    if(total>1 && total<=10){
-      return'Altibajos Normales';
+    if(total>=0 && total<=9){
+      return'Normal';
     }
-    else if(total>=11 && total<=16){
-      return 'Leve perturbación del estado de ánimo';
+    else if(total>=10 && total<=18){
+      return 'Leve';
     }
-    else if(total>=17 && total<=20){
-      return 'Estado de Depresión Intermitente';
+    else if(total>=19 && total<=29){
+      return 'Moderada';
     }
-    else if(total>=21 && total<=30){
-      return 'Depresión Moderada';
-    }
-    else if(total>=31 && total<=40){
-      return 'Depresión Grave';
-    }
-    else if(total>40){
-      return 'Depresión Extrema';
+    else if(total>=30 && total<=63){
+      return 'Severa';
     }
    
   }
