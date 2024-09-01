@@ -91,6 +91,7 @@ export class VerinformeComponent {
   //Cambio para los archivos de imagen scl
   files: any[] = [];
   files2: any[] = [];
+  files3: any[] = [];
   @ViewChild('imgRef') img:ElementRef;
   @ViewChild('imgRef2') img2:ElementRef;
   @ViewChild('imgRef3') img3:ElementRef;
@@ -210,6 +211,7 @@ charts: Chart[] = [];
         this.cargarCreencias();
         this.cargarPruebaSCL();
         this.cargarPruebaSCID();
+        this.cargarPruebaIsra();
         this.cargarImagenFormCaso();
         this.blockUI.stop();
       }, error => {
@@ -517,6 +519,19 @@ charts: Chart[] = [];
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
       });
   }
+
+  cargarPruebaIsra() {
+    this._env.GetPruebaIsra(this.informe.inf_paciente_id).subscribe(
+      pac => {
+         this.files3 = pac;
+         console.log(this.files3);
+      
+      }, error => {
+        //console.log(error);
+        Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
 
   cargarImagenFormCaso() {
     this._env.GetDiagrama(this.informe.inf_paciente_id).subscribe(

@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Login } from '@/models/Login';
-import { Observable, map } from 'rxjs';
+import {  Observable, map } from 'rxjs';
 import { Sesion } from '@/models/Sesion';
 import { SesionVista } from '@/models/SesionVista';
 import { Comentarios } from '@/models/Comentarios';
@@ -16,6 +16,7 @@ import { ResultadosCree } from '@/models/ResultadosCree';
 import { ResultadosSCID } from '@/models/RessultadosSCID';
 import { Maestro } from '@/models/Maestro';
 import { MaestroCambio } from '@/models/MaestroCambio';
+import { MaestroIsra } from '@/models/MaestroIsra';
 
 @Injectable({
   providedIn: 'root'
@@ -155,9 +156,9 @@ getResCREEMaestro(Id:number):Observable<Maestro[]>{
   );
 }
 
-getResISRAMaestro(Id:number):Observable<Maestro[]>{
+getResISRAMaestro(Id:number):Observable<MaestroIsra[]>{
   return this.http.get(`${environment.rutaAPI}` + '/isra/MaestroIsraList/'+Id).pipe(
-    map(response => response as Maestro[])
+    map(response => response as MaestroIsra[])
   );
 }
 

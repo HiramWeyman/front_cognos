@@ -54,6 +54,12 @@ export class PruebasService {
       );
     }
 
+    GetPruebaIsra(id:number): Observable<any> {
+      return this.http.get(`${environment.rutaAPI}` + '/isra/ArchivosIsraInforme/'+id).pipe(
+        map(response => response as any)
+      );
+    }
+
  /*  GetPruebaSCID(id:number): Observable<any> {
     return this.http.get(`${environment.rutaAPI}` + '/Archivos/ArchivosSCID/'+id).pipe(
       map(response => response as any)
