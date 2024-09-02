@@ -49,6 +49,25 @@ export class ResultadosCreeComponent {
     this._res.GetResultadosCreeList(this.id).subscribe(
       fu => {
         this.resultados = fu;
+        for(let i=0;i<this.resultados.length;i++){
+          if(this.resultados[i].ellis_p=='*'){
+            if(this.resultados[i].res_respuesta==1){
+              this.resultados[i].desc_resp='Estoy de Acuerdo'
+            }
+            else{
+              this.resultados[i].desc_resp='No estoy de Acuerdo'
+            }
+          }
+          else{
+            if(this.resultados[i].res_respuesta==1){
+              this.resultados[i].desc_resp='No estoy de Acuerdo'
+            }
+            else{
+              this.resultados[i].desc_resp='Estoy de Acuerdo'
+            }
+          }
+          
+        }
         console.log(this.resultados);
       }, error => {
         console.log(error);

@@ -31,6 +31,22 @@ export class ResultadosBaianComponent {
     this._res.GetResultadosBAIANList(this.id).subscribe(
       fu => {
         this.resultados = fu;
+        for(let i=0;i<this.resultados.length;i++){
+          if(this.resultados[i].res_respuesta==0){
+            this.resultados[i].desc_resp='Nada'
+          }
+          else if(this.resultados[i].res_respuesta==1){
+            this.resultados[i].desc_resp='Poco'
+          }
+          else if(this.resultados[i].res_respuesta==2){
+            this.resultados[i].desc_resp='Bastante'
+          }
+          else if(this.resultados[i].res_respuesta==3){
+            this.resultados[i].desc_resp='Mucho'
+          }
+      
+          
+        }
         console.log(this.resultados);
       }, error => {
         console.log(error);

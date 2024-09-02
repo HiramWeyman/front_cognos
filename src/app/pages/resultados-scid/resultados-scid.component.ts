@@ -31,6 +31,15 @@ export class ResultadosScidComponent {
     this._res.GetResultadosSCIDList(this.id).subscribe(
       fu => {
         this.resultados = fu;
+        for(let i=0;i<this.resultados.length;i++){
+          if(this.resultados[i].res_respuesta==0){
+            this.resultados[i].desc_resp='No'
+          }
+          else{
+            this.resultados[i].desc_resp='Si'
+          }
+         
+        }
         console.log(this.resultados);
       }, error => {
         console.log(error);
