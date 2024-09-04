@@ -50,6 +50,20 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
   styleUrls: ['./verinforme.component.scss']
 })
 export class VerinformeComponent {
+//Datos de prueba
+pacienteNombre = 'Juan Pérez';
+fechaActual = new Date();
+
+analisisDatos = [
+  { descripcion: 'Análisis 1', resultado: 'Positivo' },
+  { descripcion: 'Análisis 2', resultado: 'Negativo' }
+];
+
+graficaURL = 'https://via.placeholder.com/800x400';
+
+///////
+
+
   @BlockUI()
   blockUI!: NgBlockUI;
   idx!: any;
@@ -597,4 +611,20 @@ charts: Chart[] = [];
     .set(options)
     .save();
   }
+
+
+  generarPDF() {
+    var nombre:string=this.informe.inf_paterno+'_'+this.informe.inf_materno+'_'+this.informe.inf_nombre+'.pdf';
+    const element = document.getElementById('content');
+    html2pdf().from(element).set({
+      margin: [1, 0.5, 1, 0.5], // [margen superior, margen derecho, margen inferior, margen izquierdo]
+      filename:nombre,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, logging: true },
+   /*    html2canvas: { scrollX: 0, scrollY: 0 }, */
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    }).save();
+  }
+
+
 }
