@@ -546,12 +546,13 @@
                 </table>
             </div>
         </div>
-        <div class="page-break"></div>
+ <!--        <div class="page-break"></div> -->
 
         <div class="content no-page-break">
-            <div class="d-flex justify-content-center"><label>Perfil de Ideas Irracionales</label></div>
+            
             <div class="contenedor" *ngIf="creenciaGrafica!=null">
-                <div *ngFor="let item of creenciaGrafica; let i = index">
+                <div *ngFor="let item of creenciaGrafica; let i = index" class="page-break">
+                    <div class="d-flex justify-content-center"><label>Perfil de Ideas Irracionales Grafica {{i+1}}</label></div>
                     <canvas id="canvasId-{{i}}"></canvas>
                 </div>
             </div>
