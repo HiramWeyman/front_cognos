@@ -558,7 +558,7 @@
             </div>
         </div>
         <div class="page-break"></div>
-        <div *ngIf="files!=null" class="d-flex justify-content-center"><label>Perfil Grafico SCL 90 R</label></div><br>
+        <div *ngIf="files.length>0" class="d-flex justify-content-center"><h4><label>Perfil Grafico SCL 90 R</label></h4></div><br>
         <div *ngFor="let file of files">
             <div *ngIf="file.fileType==='.png' || file.fileType==='.jpeg' || file.fileType==='.jpg'">
               <h3>{{file.name}}</h3>
@@ -573,7 +573,7 @@
           </div>
         <div class="page-break"></div>
 
-        <div *ngIf="files2!=null" class="d-flex justify-content-center"><label>Perfil Grafico SCID2</label></div><br>
+        <div *ngIf="files2.length>0" class="d-flex justify-content-center"><h4><label>Perfil Grafico SCID2</label></h4></div><br>
         <div *ngFor="let file2 of files2">
             <div *ngIf="file2.fileType==='.png' || file2.fileType==='.jpeg' || file2.fileType==='.jpg'">
               <h3>{{file2.name}}</h3>
@@ -589,7 +589,7 @@
         <div class="page-break"></div>
 
         <div class="content no-page-break">
-            <div *ngIf="files3!=null" class="d-flex justify-content-center"><label>Perfil Grafico Isra</label></div><br>
+            <div *ngIf="files3.length>0" class="d-flex justify-content-center"><h4><label>Perfil Grafico Isra</label></h4></div><br>
               <div *ngFor="let file3 of files3">
             <div *ngIf="file3.fileType==='.png' || file3.fileType==='.jpeg' || file3.fileType==='.jpg'">
               <h3>{{file3.name}}</h3>

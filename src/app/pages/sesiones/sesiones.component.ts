@@ -32,7 +32,7 @@ export class SesionesComponent implements OnInit{
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
-        if(this.Indextab==13||this.Sessiontab==13){
+        if(this.Indextab==12||this.Sessiontab==12){
           this.cargarSesiones();
         }
       });

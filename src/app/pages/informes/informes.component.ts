@@ -54,7 +54,7 @@ export class InformesComponent implements OnInit  {
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
-        if(this.Indextab==14||this.Sessiontab==14){
+        if(this.Indextab==13||this.Sessiontab==13){
           this.cargarPacientes();
           this.cargarInformes();
         }

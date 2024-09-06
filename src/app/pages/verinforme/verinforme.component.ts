@@ -153,6 +153,7 @@ charts: Chart[] = [];
       se => {
       
         this.informe = se;
+        console.log('Se carga el informe');
         console.log(this.informe);
         this.fec_ing =this.datePipe.transform(this.informe.inf_fecha_ingreso,"dd/MM/yyyy");
         this.informe.inf_fecha_ingreso= this.fec_ing;
