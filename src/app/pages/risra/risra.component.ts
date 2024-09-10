@@ -116,7 +116,7 @@ export class RisraComponent {
           swal.fire('Archivos subidos', `Sus archivos se subieron con éxito!`, 'success');
           this.ngOnInit();
           this.prueba = null;
-          this.resetInput();
+        /*   this.resetInput(); */
           this.cargarMaestroResISRA();
         }
       },
@@ -179,12 +179,12 @@ export class RisraComponent {
     this._env.UpdatePruebaIsra(imagen_id, this.prueba).subscribe(usr => {
 
       this.blockUI.stop();
-      this.resetFileUploader();
+    /*   this.resetFileUploader(); */
       swal.fire('Archivos subidos', `Su archivo se actualizo con éxito!`, 'success');
-      this.resetInput();
+  /*     this.resetInput(); */
       this.prueba = null;
    
-      this.myInputSCL.nativeElement.value = "";
+    /*   this.myInputSCL.nativeElement.value = ""; */
       /*   this.resetInput(); */
     },
       error => {
@@ -201,19 +201,19 @@ export class RisraComponent {
   }
 
   
-  resetInput() {
+/*   resetInput() {
     console.log(this.myInputSCL.nativeElement.files);
     this.myInputSCL.nativeElement.value = "";
     this.myInputSCLup.nativeElement.value = "";
     console.log(this.myInputSCL.nativeElement.files);
 
-  }
+  } */
 
   
 
-  resetFileUploader() {
+ /*  resetFileUploader() {
     this.myInputSCL.nativeElement.value = null;
-  }
+  } */
 
 
   VerImagen(id_imagen:number) {

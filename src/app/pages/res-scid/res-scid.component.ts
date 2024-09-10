@@ -158,12 +158,12 @@ export class ResScidComponent {
     this._env.UpdatePruebaSCID(imagen_id, this.prueba).subscribe(usr => {
 
       this.blockUI.stop();
-      this.resetFileUploader();
+      //this.resetFileUploader();
       swal.fire('Archivos subidos', `Su archivo se actualizo con éxito!`, 'success');
       this.resetInput();
       this.prueba = null;
    
-      this.myInputSCID.nativeElement.value = "";
+    /*   this.myInputSCID.nativeElement.value = ""; */
       /*   this.resetInput(); */
     },
       error => {
@@ -180,15 +180,15 @@ export class ResScidComponent {
   }
 
   resetInput() {
-    console.log(this.myInputSCID.nativeElement.files);
-    this.myInputSCID.nativeElement.value = "";
-    this.myInputSCIDup.nativeElement.value = "";
-    console.log(this.myInputSCID.nativeElement.files);
+  /*   console.log(this.myInputSCID.nativeElement.files); */
+/*     this.myInputSCID.nativeElement.value = "";
+    this.myInputSCIDup.nativeElement.value = ""; */
+   /*  console.log(this.myInputSCID.nativeElement.files); */
   }
 
-  resetFileUploader() {
+/*   resetFileUploader() {
     this.myInputSCID.nativeElement.value = null;
-  }
+  } */
 
   VerImagen(id_imagen:number) {
     console.log(id_imagen);

@@ -175,7 +175,7 @@ export class RessclComponent {
     this._env.UpdatePruebaSCL(imagen_id, this.prueba).subscribe(usr => {
 
       this.blockUI.stop();
-      this.resetFileUploader();
+      //this.resetFileUploader();
       swal.fire('Archivos subidos', `Su archivo se actualizo con éxito!`, 'success');
       this.resetInput();
       this.prueba = null;
@@ -206,10 +206,10 @@ export class RessclComponent {
 
   
 
-  resetFileUploader() {
+/*   resetFileUploader() {
     this.myInputSCL.nativeElement.value = null;
   }
-
+ */
 
   VerImagen(id_imagen:number) {
     console.log(id_imagen);

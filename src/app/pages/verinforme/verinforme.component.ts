@@ -483,8 +483,10 @@ charts: Chart[] = [];
           {
             label: `Gráfica ${index + 1}`,
             data: valores,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(255, 0, 0, 0.2)',  // Color rojo semitransparente para las barras
+            borderColor: 'rgba(255, 0, 0, 1)',   // Color rojo sólido para los bordes de las barras
+            /* backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)', */
             borderWidth: 1
           }
         ]
