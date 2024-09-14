@@ -8,6 +8,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import swal from 'sweetalert2';
 import { SclService } from '@services/scl.services';
 import { MaestroCambio } from '@/models/MaestroCambio';
+import { Maestro_hist } from '@/models/Maestro_hist';
 @Component({
   selector: 'app-resscl',
   templateUrl: './resscl.component.html',
@@ -21,6 +22,8 @@ export class RessclComponent {
   selectedItems: MaestroCambio[] = []; 
   total!:any;
   fecMaestro:any;
+  fecHistorico:any;
+  Maestro_hist:Maestro_hist = new Maestro_hist();
   expediente!: any;
   habilitaSCL: boolean = false;
   prueba!: File;
@@ -31,6 +34,8 @@ export class RessclComponent {
   myInputSCL!: ElementRef;
   @ViewChild('myInputSCLup')
   myInputSCLup!: ElementRef;
+  @ViewChild('myModalClose3') modalClose3; // Referencia al boton en modal en el HTML para fecha de reingreso
+
   constructor(private route: ActivatedRoute, private _res: ResultadosService,private _env: SclService,private datePipe: DatePipe,private router: Router) {
 
   }
@@ -288,4 +293,17 @@ export class RessclComponent {
     //console.log(this.selectedItems); // Para verificar los elementos seleccionados
   }
 
+  guardarHist(){
+    this._env.InsertaMaestro(this.id, this.fecHistorico).subscribe(resp=>{
+      console.log("InsertaMaestro",resp);
+      if(resp){
+        this.respuesta=resp;
+        swal.fire({ title: 'Success!!!', text: "Guardado", icon: 'success' });
+        this.modalClose3.nativeElement.click();
+
+      }
+      this.ngOnInit();
+      
+    });
+  }
 }

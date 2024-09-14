@@ -49,8 +49,15 @@ AsignarIdsImg(ids:string,prueba:number,exp:number,id_imagen:string)  {
     console.log(id_imagen);
     return this.http.delete(`${environment.rutaAPI}` + '/scl/AsignarPruebasScl?ids='+ids+'&prueba='+prueba+'&exp='+exp+'&imagen_id='+id_imagen);
   }
+  InsertaMaestro(id:number, fecha:any) {
+    console.log("InsertaMaestro",id)
+    console.log("InsertaMaestro",fecha)
 
+    return this.http.post(`${environment.rutaAPI + '/scl/MaestroHistSCL?maestro_id_paciente='+id+'&fecha='+fecha}`,'').pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
 
-    
-
+  } 
 }
