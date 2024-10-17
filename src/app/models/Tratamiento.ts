@@ -1,3 +1,5 @@
+import { SafeHtml } from "@angular/platform-browser";
+
 export class Tratamiento {
     trata_id:number;
     trata_objetivo:string;
@@ -5,4 +7,5 @@ export class Tratamiento {
     trata_fecha_captura:Date;
     trata_fecha_modificacion:Date;
     trata_paciente_id:number;
+    trata_tecnica_sanitized :SafeHtml;
 }

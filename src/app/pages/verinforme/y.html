@@ -1,0 +1,601 @@
+<!-- component.html -->
+<div id="content">
+    
+    <div id="reporte" class="container" style="overflow: scroll;background-color: white;">
+        <br>
+        <!--Titulo del Informe-->
+        <div class="row izq">
+            <div class="col">
+                <img src="assets/img/logoInforme.png">
+            </div>
+            <div class="col-1">
+            </div>
+            <div class="col">
+                <div style="float: right;">
+                    <!--      <label>Maestría en Terapia Cognitivo Conductual </label><br>
+                    <label>e Intervención en Crisis</label><br> -->
+                    <label>Informe Clínico</label>
+                </div>
+            </div>
+        </div>
+        <!--Fin del titulo-->
+
+        <div class="izq">
+            <h3>No. expediente: {{informe.inf_paciente_id}} </h3><br>
+            <!--         <label>Terapeuta. {{informe.terapeuta}} </label><br>
+                <label>Coterapeuta. {{informe.coterapeuta}}</label><br> -->
+        </div><br>
+        <div class="izq">
+            <h3>1.Datos Biográficos.</h3><br>
+            <label>Nombre del paciente: {{informe.inf_paterno}} {{informe.inf_materno}}
+                {{informe.inf_nombre}}</label><br>
+            <label>Edad: {{informe.inf_edad}} años</label><br>
+            <label>Fecha de Nacimiento: {{informe.inf_fecha_nacimiento}}</label><br>
+            <label>Fecha de Inicio: {{informe.inf_fecha_ingreso}}</label><br>
+            <table *ngIf="fechasing.length>0">
+                <tr>
+                    <thead><b>Fechas de Reingreso</b></thead>
+                </tr>
+                <tbody>
+                    <tr *ngFor="let item of fechasing">
+                        <td><b>{{item.fecha_rei}}</b></td>
+                    </tr>
+                </tbody>
+            </table>
+            <label>Género: {{informe.gen_desc}}</label><br>
+            <label>Nivel de estudios: {{informe.esc_desc}} </label><br>
+            <label>Situación laboral: {{informe.inf_ocupacion}}</label><br>
+            <label>Email: {{informe.inf_email}}</label><br>
+            <label>Domicilio: {{informe.inf_domicilio}}</label><br>
+            <label>Vive con: {{informe.inf_vive_con}}</label><br>
+            <label>Teléfono de contacto principal: {{informe.inf_telefono}} </label><br>
+            <div class="col-sm-12">
+                <h5><label>Contactar en caso de emergencia</label></h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Persona</th>
+                            <th scope="col">Teléfono</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td><input type="text" [(ngModel)]="informe.inf_contacto_eme" name="contacto1"
+                                    style="width: 100%;" readonly></td>
+                            <td><input type="tel" [(ngModel)]="informe.inf_telefono_eme" name="telefono1"
+                                    style="width: 100%;" readonly></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td><input type="text" [(ngModel)]="informe.inf_contacto_eme2" name="contacto2"
+                                    style="width: 100%;" readonly></td>
+                            <td><input type="tel" [(ngModel)]="informe.inf_telefono_eme2" name="telefono2"
+                                    style="width: 100%;" readonly></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td><input type="text" [(ngModel)]="informe.inf_contacto_eme3" name="contacto3"
+                                    style="width: 100%;" readonly></td>
+                            <td><input type="tel" [(ngModel)]="informe.inf_telefono_eme3" name="telefono3"
+                                    style="width: 100%;" readonly></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div><br>
+
+
+        <div class="content no-page-break">
+            <div class="d-flex justify-content-center"><label>Datos Demográficos</label></div><br>
+            <div class="izq">
+
+                <div><label>Orientación Sexual: {{orientacion}} </label></div>
+                <div *ngIf="informe.inf_orientacion==4"><label>Orientación Sexual Específica :
+                        {{informe.inf_especifique_or}} </label></div>
+                <div><label>Estado Civil: {{informe.civil_desc}} </label></div>
+                <div *ngIf="informe.inf_edocivil==6"> <label>Estado Civil Específico : {{informe.inf_especifique}}
+                    </label></div>
+                <div><label>Tiene Pareja?: {{informe.inf_pareja}} </label></div>
+                <div><label>Religión: {{religion}} </label></div>
+                <div *ngIf="informe.inf_religion==6"><label>Religión Específica: {{informe.inf_especifique_reg}}
+                    </label></div>
+                <div><label>Trabaja?: {{informe.inf_trabaja}} </label></div>
+                <div *ngIf="informe.inf_trabaja=='SI'"><label>Lugar de Trabajo: {{informe.inf_lugar_trabajo}} </label>
+                </div>
+                <div *ngIf="informe.inf_trabaja=='SI'"><label>Cuantas horas a la semana: {{informe.inf_horas_semana}}
+                    </label></div>
+
+                <!--  <label>Teléfono: {{informe.inf_telefono}}</label><br> -->
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+        <div class="content no-page-break">
+            <div class="d-flex justify-content-center"><label>Estructura Familiar</label></div>
+            <div class="d-flex justify-content-center">
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Edad</th>
+                                <th>Parentesco o relación</th>
+                                <th>Ocupación</th>
+                                <th>Dependientes económicos (SI /NO)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let p of familiares; let i = index">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{p.fam_nombre}} </td>
+                                <td>{{p.fam_edad}} </td>
+                                <td>{{p.fam_parentesco}}</td>
+                                <td>{{p.fam_ocupacion}}</td>
+                                <td>{{p.fam_dependientes}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="page-break"></div>
+        <div class="content no-page-break">
+            <div class="d-flex justify-content-center"><label>Suicidio</label></div>
+            <div class="d-flex justify-content-center">
+                <div>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>
+                                <label>Ideación suicida</label><br>
+                                <label>{{informe.inf_idea_su}}</label>
+                            </td>
+                            <td>
+                                <label>Tiempo:</label><br>
+                                <label>{{informe.inf_idea_su_tiempo}}</label>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Intento suicida</label><br>
+                                <label>{{informe.inf_intento_su}}</label>
+                            </td>
+                            <td>
+                                <label>Tiempo:</label><br>
+                                <label>{{informe.inf_intento_su_tiempo}}</label>
+                            </td>
+                            <td>
+                                <label>Método:</label><br>
+                                <label>{{informe.inf_intento_su_metodo}}</label>
+
+                                <div *ngIf="informe.inf_intento_su_metodo=='Otro'">
+                                    <label>Método específico:</label><br>
+                                    <label>{{informe.inf_intento_su_especifique}}</label>
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Plan suicida</label><br>
+                                <label>{{informe.inf_plan_su}}</label>
+                            </td>
+                            <td>
+                                <label>Tiempo:</label><br>
+                                <label>{{informe.inf_plan_su_tiempo}}</label>
+                            </td>
+                            <td>
+                                <label>Método:</label><br>
+                                <label>{{informe.inf_plan_su_metodo}}</label>
+
+                                <div *ngIf="informe.inf_plan_su_metodo=='Otro'">
+                                    <label>Método específico:</label><br>
+                                    <label>{{informe.inf_plan_su_especifique}}</label>
+                                </div>
+                            </td>
+                            <td>
+                                <label>Nivel de estructura:</label><br>
+                                <label>{{informe.inf_plan_su_nivel}}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Autolesión</label><br>
+                                <label>{{informe.inf_autolesion}}</label>
+                            </td>
+                            <td>
+                                <label>Tiempo:</label><br>
+                                <label>{{informe.inf_autolesion_tiempo}}</label>
+                            </td>
+                            <td>
+                                <label>Método:</label><br>
+                                <label>{{informe.inf_autolesion_metodo}}</label>
+                                <div *ngIf="informe.inf_autolesion_metodo=='Otro'">
+                                    <label>Método específico:</label><br>
+                                    <label>{{informe.inf_autolesion_especifique}}</label>
+                                </div>
+                            </td>
+                            <td>
+                                <label>Lugar:</label><br>
+                                <label>{{informe.inf_autolesion_lugar}}</label>
+                                <div *ngIf="informe.inf_autolesion_lugar=='Otro'">
+                                    <label>Lugar específico:</label><br>
+                                    <label>{{informe.inf_autolesion_lu_espe}}</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="page-break"></div>
+        <div class="content no-page-break">
+            <div class="izq">
+                <h5>Estado de Salud Física y Mental.</h5><br>
+                <label>Sueño:</label><br>
+                <p [innerHTML]="this.salud_sueno_desc_"></p>
+                <label>Alimentación:</label><br>
+                <p [innerHTML]="salud_alimentacion_desc_"></p>
+                <label>Actividad física:</label><br>
+                <p [innerHTML]="salud_act_fisica_desc_"></p>
+            </div>
+        </div>
+        <div class="page-break"></div>
+
+        <div class="content no-page-break">
+            <div class="container">
+                <label>Antecedentes de problemas médicos y/o padecimiento actual.</label><br>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Problema médico</th>
+                            <th scope="col">Médico tratante.</th>
+                            <th scope="col">Medicamento</th>
+                            <th scope="col">Fecha de inicio</th>
+                            <th scope="col">Tiempo del tratamiento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of probmedlist; let i = index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{p.problema_problema}}</td>
+                            <td>{{p.problema_medico}}</td>
+                            <td>{{p.problema_medicamento}}</td>
+                            <td>{{p.problema_fecha_ini_trata.substring(0,10)}}</td>
+                            <td>{{p.problema_tiempo_tratamiento}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <label>Diagnóstico previo de salud mental. </label><br>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Diagnostico o tipo de problema</th>
+                            <th scope="col">Médico tratante.</th>
+                            <th scope="col">Medicamento</th>
+                            <th scope="col">Tiempo del tratamiento</th>
+                            <th scope="col">
+                                ¿Tratamiento
+                                Psicológico?
+                                Tiempo de
+                                duración
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of prevlist; let i = index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{p.previo_problema}}</td>
+                            <td>{{p.previo_medico}}</td>
+                            <td>{{p.previo_medicamento}}</td>
+                            <td>{{p.previo_tiempo_tratamiento}}</td>
+                            <td>{{p.previo_tiempo_psicologico}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="page-break"></div>
+        <div class="content no-page-break">
+            <div class="container">
+                <label>Consumo de Sustancias.</label><br>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Sustancia</th>
+                            <th scope="col">Si-No</th>
+                            <th scope="col">Edad de inicio</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Tiempo de consumo
+                                ¿Cada cuando consume esta sustancia? ¿Cuánto tiempo (días, meses, años) tiene
+                                consumiéndola?
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of conslist; let i = index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{p.consumo_sustancia}}</td>
+                            <td>{{p.consumo_sino}}</td>
+                            <td>{{p.consumo_edad_inicio}}</td>
+                            <td>{{p.consumo_cantidad}}</td>
+                            <td>{{p.consumo_tiempo}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="page-break"></div>
+        <div class="content no-page-break">
+            <br>
+            <div class="izq">
+                <h3>2. Problemas y Objetivos.</h3><br>
+                <label>Motivo de consulta y delimitación inicial del problema: </label><br>
+                <p [innerHTML]="con_motivo_"></p><br>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Problemas</th>
+                            <th scope="col">Objetivos</th>
+                            <th scope="col">Técnica</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of problist; let i = index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{p.pro_problema}}</td>
+                            <td>{{p.pro_objetivo}}</td>
+                            <td>{{p.pro_tecnica}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="page-break"></div>
+        <div class="content no-page-break">
+            <div class="izq">
+                <h3>3.Análisis Funcional.</h3><br>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <!--      <th scope="col">#</th> -->
+                            <th scope="col">ANTECEDENTES</th>
+                            <th scope="col">CONDUCTA</th>
+                            <th scope="col">CONSECUENTES</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p [innerHTML]="analisis_ant_desc_"></p>
+                            </td>
+                            <td>
+                                <p [innerHTML]="analisis_con_desc_"></p>
+                            </td>
+                            <td>
+                                <p [innerHTML]="analisis_cons_desc_"></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="page-break"></div>
+        <div class="content no-page-break">
+            <div class="izq">
+                <h3>4.Evolución del Problema.</h3><br>
+                <label>Factores predisponentes o de vulnerabilidad.</label><br>
+                <p [innerHTML]="evo_factores_"></p>
+                <label>Aparición y curso del problema: </label><br>
+                <p [innerHTML]="evo_curso_problema_"></p>
+            </div>
+        </div>
+        <div class="page-break"></div>
+        <div class="content no-page-break">
+            <div class="izq">
+                <label>Linea de Vida.</label><br>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Etapa</th>
+                            <th scope="col">Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of linealist; let i = index">
+                            <th scope="row">{{i+1}}</th>
+                            <td><b>{{p.lin_titulo}}</b></td>
+                            <td>{{p.lin_desc}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="page-break"></div>
+        <div class="content no-page-break">
+            <div class="izq">
+                <h3>5.Otras áreas a considerar.</h3><br>
+                <label>Autocontrol:</label><br>
+                <p [innerHTML]="otras_autocontrol_"></p>
+                <label>Aspectos motivacionales:</label><br>
+                <p [innerHTML]="otras_aspectos_m_"></p>
+                <label>Recursos personales:</label><br>
+                <p [innerHTML]="otras_recursos_p_"></p>
+                <label>Apoyo social:</label><br>
+                <p [innerHTML]="otras_apoyo_s_"></p>
+                <label>Situación vital y estilo de vida:</label><br>
+                <p [innerHTML]="otras_situacion_v_"></p>
+            </div>
+        </div>
+        <div class="page-break"></div>
+        <div class="content no-page-break">
+            <div class="izq">
+                <h3>6.Diagnóstico DSMV.</h3><br>
+                <p [innerHTML]="diag_desc_"></p>
+            </div>
+        </div>
+        <div class="page-break"></div>
+        <div class="content no-page-break">
+            <div class="izq">
+                <h3>7.Formulación del Caso (anexar diagrama) </h3><br>
+                <!--   <label>imagen 1</label><br> 
+            <label>imagen 2</label><br>  -->
+                <div class="d-flex justify-content-center"><img #imgRef3></div>
+                <br>
+            </div>
+        </div>
+        <div class="page-break"></div>
+
+        <div class="content no-page-break">
+            <div class="izq">
+                <label>Hipótesis de Origen y mantenimiento.</label><br>
+                <p [innerHTML]="form_hipotesis_"></p>
+            </div>
+        </div>
+        <div class="page-break"></div>
+
+        <div class="content no-page-break">
+            <div class="izq">
+                <label>Contraste de hipótesis.</label><br>
+                <p [innerHTML]="form_contraste_"></p>
+            </div>
+        </div>
+        <div class="page-break"></div>
+        <div class="content no-page-break">
+            <div class="izq">
+                <h3>8.Objetivos y propuesta de tratamiento.</h3><br>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Objetivos</th>
+                            <th scope="col">Técnicas</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of tratalist; let i = index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{p.trata_objetivo}}</td>
+                            <td>
+                                <p [innerHTML]="p.trata_tecnica_sanitized"></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="page-break"></div>
+
+        <div class="content no-page-break">
+            <div class="d-flex justify-content-center"><label>Tabla de Sesiones</label></div>
+            <div class="izq">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">Fecha</th>
+                            <th scope="col">N° de sesión</th>
+                            <th scope="col">Objetivo</th>
+                            <!--    <th scope="col">Técnica</th> -->
+                            <th scope="col">Tarea</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of sesiones; let i = index">
+                            <td>{{p.sesion_fecha}}</td>
+                            <td>{{p.sesion_no}}</td>
+                            <td>{{p.sesion_objetivo}}</td>
+                            <!-- <td>{{p.sesion_tecnica_abc}}</td> -->
+                            <td>{{p.sesion_tarea_asignada}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+ <!--        <div class="page-break"></div> -->
+
+        <div class="content no-page-break">
+            
+            <div class="contenedor" *ngIf="creenciaGrafica!=null">
+                <div *ngFor="let item of creenciaGrafica; let i = index" class="page-break">
+                    <div class="d-flex justify-content-center"><label>Perfil de Ideas Irracionales Grafica {{i+1}}</label></div>
+                    <canvas id="canvasId-{{i}}"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="page-break"></div>
+        <div *ngIf="files.length>0" class="d-flex justify-content-center"><h4><label>Perfil Grafico SCL 90 R</label></h4></div><br>
+        <div *ngFor="let file of files">
+            <div *ngIf="file.fileType==='.png' || file.fileType==='.jpeg' || file.fileType==='.jpg'">
+              <h3>{{file.name}}</h3>
+              <ng-container *ngIf="file.dataFiles; else noImage2">
+                <img [src]="'data:image/' + file.fileType.replace('.', '') + ';base64,' + file.dataFiles" alt="{{file.name}}" class="file-image"/>
+              </ng-container>
+              <ng-template #noImage2>
+                <p>No image available</p>
+              </ng-template>
+            </div>
+            <div class="page-break"></div> <!-- Esto asegura que cada imagen esté en una nueva página -->
+          </div>
+        <div class="page-break"></div>
+
+        <div *ngIf="files2.length>0" class="d-flex justify-content-center"><h4><label>Perfil Grafico SCID2</label></h4></div><br>
+        <div *ngFor="let file2 of files2">
+            <div *ngIf="file2.fileType==='.png' || file2.fileType==='.jpeg' || file2.fileType==='.jpg'">
+              <h3>{{file2.name}}</h3>
+              <ng-container *ngIf="file2.dataFiles; else noImage2">
+                <img [src]="'data:image/' + file2.fileType.replace('.', '') + ';base64,' + file2.dataFiles" alt="{{file2.name}}" class="file-image"/>
+              </ng-container>
+              <ng-template #noImage2>
+                <p>No image available</p>
+              </ng-template>
+            </div>
+            <div class="page-break"></div> <!-- Esto asegura que cada imagen esté en una nueva página -->
+          </div>
+        <div class="page-break"></div>
+
+        <div class="content no-page-break">
+            <div *ngIf="files3.length>0" class="d-flex justify-content-center"><h4><label>Perfil Grafico Isra</label></h4></div><br>
+              <div *ngFor="let file3 of files3">
+            <div *ngIf="file3.fileType==='.png' || file3.fileType==='.jpeg' || file3.fileType==='.jpg'">
+              <h3>{{file3.name}}</h3>
+              <ng-container *ngIf="file3.dataFiles; else noImage2">
+                <img [src]="'data:image/' + file3.fileType.replace('.', '') + ';base64,' + file3.dataFiles" alt="{{file3.name}}" class="file-image"/>
+              </ng-container>
+              <ng-template #noImage2>
+                <p>No image available</p>
+              </ng-template>
+            </div>
+            <div class="page-break"></div> <!-- Esto asegura que cada imagen esté en una nueva página -->
+          </div>
+        </div>
+
+
+        <div class="footer no-page-break">
+            <div class="d-flex justify-content-center"><label>Este informe es de carácter clínico y no puede ser utilizado con fines legales</label></div>
+
+        </div>
+    </div>
+</div><!--Fin del reporte-->
+<div class="contenedor">
+  <button class="btn btn-danger sm" (click)="generarPDF()">Exportar PDF</button>
+  <button class="btn btn-primary sm mt-2" [routerLink]="['/exp',informe.inf_paciente_id]">Regresar </button>
+</div>
+    <!-- Agrega un botón para generar el PDF -->
+<!--     <button (click)="generarPDF()">Descargar PDF</button> -->

@@ -15,7 +15,10 @@ h1, h2, h3, h4, p {
 .content {
     margin: 1rem 0;
 }
-
+#content {
+    display: block; /* Asegúrate de que el elemento no esté oculto */
+    visibility: visible; /* Asegúrate de que el elemento sea visible */
+  }
 .page-break {
     page-break-before: always;
 }

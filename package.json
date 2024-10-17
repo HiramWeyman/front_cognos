@@ -46,6 +46,8 @@
     "luxon": "3.0.3",
     "ng-block-ui": "^4.0.1",
     "ngx-toastr": "16.0.1",
+    "pdfmake": "^0.2.13",
+    "print-js": "^1.6.0",
     "process": "0.11.10",
     "quill": "^2.0.2",
     "rxjs": "7.5.6",
