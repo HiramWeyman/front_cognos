@@ -32,7 +32,7 @@ import { ProblematicaService } from '@services/problematica.service';
 import { SaludfmService } from '@services/saludfm.service';
 import { SesionService } from '@services/sesiones.service';
 import { TratamientoService } from '@services/tratamiento.service';
-/* import * as html2pdf from 'html2pdf.js'; */
+import * as html2pdf from 'html2pdf.js'; 
 import Swal from 'sweetalert2';
 import Chart from 'chart.js/auto';
 import { PruebasService } from '@services/enviarpruebas.service';
@@ -703,12 +703,38 @@ export class VerinformeComponent {
         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
       }).save();
     } */
-
+      generarPDFRep() {
+        console.log('Si entra');
+        const loadingMessage = document.getElementById('loading');
+        loadingMessage.style.display = 'block';
+        
+        const nombre = `${this.informe.inf_paterno}_${this.informe.inf_materno}_${this.informe.inf_nombre}.pdf`;
+      
+        // Configuración de html2pdf
+        const options = {
+          margin: 1,
+          filename: nombre,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, logging: true, dpi: 192, letterRendering: true },
+          jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }
+        };
+      
+        // Selecciona todas las secciones de tu HTML
+        const element = document.getElementById('reporte');  // Asegúrate de envolver tus secciones en un contenedor único
+      
+        // Generar el PDF
+        html2pdf().from(element).set(options).save().finally(() => {
+          // Ocultar el mensaje de "Descargando reporte"
+          loadingMessage.style.display = 'none';
+        });
+      }
+      
 
   generaPDF() {
-    const element = document.getElementById('content');
+    const element = document.getElementById('contentRep');
 
     html2canvas(element).then((canvas) => {
+      var nombre:string=this.informe.inf_paterno+'_'+this.informe.inf_materno+'_'+this.informe.inf_nombre+'.pdf';
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'pt', 'a4');
 
@@ -732,31 +758,12 @@ export class VerinformeComponent {
         heightLeft -= pdf.internal.pageSize.getHeight();
       }
 
-      pdf.save('documento.pdf');
+      pdf.save(nombre);
     });
   }
 
 
-  /*  generarPDF() {
-     const element = document.getElementById('content');
-   
-     const options = {
-       margin: [1, 0.5, 1, 0.5], // Márgenes
-       filename: 'documento.pdf',
-       image: { type: 'jpeg', quality: 0.98 },
-       html2canvas: { scale: 2, logging: true, useCORS: true },
-       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-       // Añade la propiedad de cortes de página
-       pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // Respetar cortes de página CSS
-     };
-   
-     // Generar PDF
-     html2pdf()
-       .from(element)
-       .set(options)
-       .save();
-   }
-*/
+
 
  generarPDF() {
    // Mostrar el mensaje de "Descargando reporte"
