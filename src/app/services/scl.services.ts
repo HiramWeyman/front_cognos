@@ -26,6 +26,11 @@ export class SclService {
     console.log(formData);
     return this.http.post<any>(`${this.urlEndPoint+'/scl/GuardarImagenScl?id_pac='+id_pac+'&tipo_prueba='+tipo_prueba+'&maestro_id='+maestro_id}`, formData)  }
 
+public pruebasSCLHist(id_pac: number,tipo_prueba:number,maestro_id:number,pruebaSCL: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('files', pruebaSCL)
+    console.log(formData);
+    return this.http.post<any>(`${this.urlEndPoint+'/scl/GuardarImagenSclHist?id_pac='+id_pac+'&tipo_prueba='+tipo_prueba+'&maestro_id='+maestro_id}`, formData)  }
 
 
   UpdatePruebaSCL(id: number, prueba: File): Observable<any> {

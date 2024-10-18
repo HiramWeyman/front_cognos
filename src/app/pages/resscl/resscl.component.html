@@ -58,7 +58,6 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Seleccionar</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Observacion</th>
                 <th scope="col">Imagen</th>
@@ -69,9 +68,6 @@
 
               <tr *ngFor="let item of resultados_hist;index as i">
                 <th scope="row">{{i+1}}</th>
-                <td>
-                  <input type="checkbox" [(ngModel)]="item.selected">
-                </td>
                 <td>{{item.maestro_fecha}}</td>
                 <td>
                   <label><b>{{item.maestro_observacion}}</b></label>
@@ -83,7 +79,7 @@
                     <div class="mb-3">
                       <input class="form-control" #myInputSCL  type="file" id="formFile" (change)="seleccionarPrueba($event);" >
                     </div>
-                    <button class="btn btn-primary btn-sm" (click)="guardar(item.maestro_id)" >Guardar</button>
+                    <button class="btn btn-primary btn-sm" (click)="guardarImgHist(item.maestro_id)" >Guardar</button>
                   </div>
                   <ng-template #elseTemplate>
                     <div class="mb-3">

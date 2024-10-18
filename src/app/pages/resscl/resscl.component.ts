@@ -154,6 +154,65 @@ export class RessclComponent {
     );
   }
   
+  guardarImgHist(maestro_id: number) {
+    this.blockUI.start('Guardando...');
+    
+    // Verificar si un archivo fue seleccionado
+    if (this.prueba == null) {
+      this.blockUI.stop();
+      swal.fire({
+        title: 'Info!!!',
+        text: 'Seleccione el archivo de su prueba Test SCL 90 R',
+        icon: 'info',
+        timer: 2000
+      });
+      return;
+    }
+  
+    // Obtener la extensión del archivo
+    const fileExtension = this.prueba.name.split('.').pop().toLowerCase();
+  
+    // Validar si la extensión es una de las permitidas
+    const allowedExtensions = ['png', 'jpg', 'jpeg'];
+    if (!allowedExtensions.includes(fileExtension)) {
+      this.blockUI.stop();
+      swal.fire({
+        title: 'Archivo no válido',
+        text: 'Solo se permiten archivos de imagen con extensiones .png, .jpg, .jpeg',
+        icon: 'warning',
+        timer: 4000
+      });
+      return;
+    }
+  
+    console.info(this.prueba.name);
+    console.info(this.prueba);
+  
+    // Continuar con el proceso de guardado
+    this._env.pruebasSCLHist(this.expediente, 2, maestro_id, this.prueba).subscribe(
+      usr => {
+        if (usr) {
+          this.blockUI.stop();
+          swal.fire('Archivos subidos', `Sus archivos se subieron con éxito!`, 'success');
+          this.ngOnInit();
+          this.prueba = null;
+          this.resetInput();
+          this.cargarMaestroResSCL();
+          this.cargarMaestroResHistSCL();
+        }
+      },
+      error => {
+        console.log(error);
+        this.blockUI.stop();
+        swal.fire({
+          title: 'ERROR!!!',
+          text: error.error.message,
+          icon: 'error'
+        });
+      }
+    );
+  }
+  
 
   Actualizar(imagen_id: number) {
     console.log(imagen_id);
