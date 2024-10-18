@@ -19,6 +19,7 @@ export class RessclComponent {
   blockUI!: NgBlockUI;
   id!: any;
   resultados: any[];
+  resultados_hist: any[];
   selectedItems: MaestroCambio[] = []; 
   total!:any;
   fecMaestro:any;
@@ -45,6 +46,7 @@ export class RessclComponent {
     this.id = this.route.snapshot.paramMap.get('id');
     console.log(this.id);
     this.cargarMaestroResSCL();
+    this.cargarMaestroResHistSCL();
   }
 
   cargarMaestroResSCL() {
@@ -59,6 +61,24 @@ export class RessclComponent {
           }
         }
         console.log(this.resultados);
+      }, error => {
+        console.log(error);
+        //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
+  cargarMaestroResHistSCL() {
+    this._res.getResHistSCLMaestro(this.id).subscribe(
+      fu => {
+        this.resultados_hist = fu;
+        for(let i=0;i<this.resultados_hist.length;i++){
+          this.fecMaestro =this.datePipe.transform(this.resultados_hist[i].maestro_fecha,"dd/MM/yyyy");
+          this.resultados_hist[i].maestro_fecha= this.fecMaestro;
+          if(this.resultados_hist[i].maestro_id_imagen==null){
+            this.resultados_hist[i].maestro_id_imagen=0;
+          }
+        }
+        console.log(this.resultados_hist);
       }, error => {
         console.log(error);
         //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });

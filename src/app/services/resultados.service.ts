@@ -132,6 +132,13 @@ getResSCLMaestro(Id:number):Observable<MaestroCambio[]>{
   );
 }
 
+//Metodos para obtener los datos de la tabla maestra
+getResHistSCLMaestro(Id:number):Observable<MaestroCambio[]>{
+  return this.http.get(`${environment.rutaAPI}` + '/scl/MaestroHistSCLList/'+Id).pipe(
+    map(response => response as MaestroCambio[])
+  );
+}
+
 getResSCIDMaestro(Id:number):Observable<Maestro[]>{
   return this.http.get(`${environment.rutaAPI}` + '/scid/MaestroSCIDList/'+Id).pipe(
     map(response => response as Maestro[])
