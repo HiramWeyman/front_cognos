@@ -24,6 +24,7 @@ export class RessclComponent {
   total!:any;
   fecMaestro:any;
   fecHistorico:any;
+  ObservacionHistorico:any;
   Maestro_hist:Maestro_hist = new Maestro_hist();
   expediente!: any;
   habilitaSCL: boolean = false;
@@ -314,7 +315,7 @@ export class RessclComponent {
   }
 
   guardarHist(){
-    this._env.InsertaMaestro(this.id, this.fecHistorico).subscribe(resp=>{
+    this._env.InsertaMaestro(this.id, this.fecHistorico,this.ObservacionHistorico).subscribe(resp=>{
       console.log("InsertaMaestro",resp);
       if(resp){
         this.respuesta=resp;
