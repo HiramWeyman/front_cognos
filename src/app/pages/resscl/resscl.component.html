@@ -1,11 +1,7 @@
 <div class="d-flex justify-content-center"><label>Pruebas Test SCL 90 R Realizadas</label></div>
 
       <div class="container">
-        <div class="float-right">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pruebaHist" data-backdrop="false">
-            Agregar Prueba en Blanco
-          </button>  
-        </div>
+        
         <table class="table table-bordered">
             <thead>
               <tr>
@@ -46,54 +42,64 @@
               </tr>
 
             </tbody>
-          </table><br>
+          </table>
           <div class="d-flex">
             <button class="btn btn-primary sm mt-2 me-1" id="regresa" [routerLink]="['/exp', expediente]">Regresar</button>
             <button class="btn btn-primary sm mt-2" id="aplicar" (click)="getSelectedItems()" style="margin-left:10px;">Aplicar en expediente</button>
-          </div>
+          </div><br>
+
 <!--           <button class="btn btn-primary sm mt-2" id="regresa" [routerLink]="['/exp',expediente]">Regresar </button><br>
- -->      </div>
 
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Observacion</th>
-                <th scope="col">Imagen</th>
-                <th scope="col">Ver Imagen</th>
-              </tr>
-            </thead>
-            <tbody>
+ -->      <div class="d-flex justify-content-center"><label>Histórico Test SCL 90 R</label></div>
+          <div class="float-right">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pruebaHist" data-backdrop="false">
+              Agregar Prueba en Blanco
+            </button>  
+          </div>
 
-              <tr *ngFor="let item of resultados_hist;index as i">
-                <th scope="row">{{i+1}}</th>
-                <td>{{item.maestro_fecha}}</td>
-                <td>
-                  <label><b>{{item.maestro_observacion}}</b></label>
-                  <!-- <button class="btn btn-primary btn-sm" [routerLink]="['/resscl',item.maestro_id]">Resultados</button> -->
-                </td>
-                <td>
-                  
-                  <div *ngIf="item.maestro_id_imagen==0; else elseTemplate">
-                    <div class="mb-3">
-                      <input class="form-control" #myInputSCL  type="file" id="formFile" (change)="seleccionarPrueba($event);" >
-                    </div>
-                    <button class="btn btn-primary btn-sm" (click)="guardarImgHist(item.maestro_id)" >Guardar</button>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Observacion</th>
+              <th scope="col">Imagen</th>
+              <th scope="col">Ver Imagen</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let item of resultados_hist;index as i">
+              <th scope="row">{{i+1}}</th>
+              <td>{{item.maestro_fecha}}</td>
+              <td>
+                <label><b>{{item.maestro_observacion}}</b></label>
+                <!-- <button class="btn btn-primary btn-sm" [routerLink]="['/resscl',item.maestro_id]">Resultados</button> -->
+              </td>
+              <td>
+                
+                <div *ngIf="item.maestro_id_imagen==0; else elseTemplate">
+                  <div class="mb-3">
+                    <input class="form-control" #myInputSCL  type="file" id="formFile" (change)="seleccionarPrueba($event);" >
                   </div>
-                  <ng-template #elseTemplate>
-                    <div class="mb-3">
-                      <input class="form-control" #myInputSCLup type="file" id="formFile" (change)="seleccionarPrueba($event);">
-                    </div>
-                    <button class="btn btn-primary btn-sm" (click)="Actualizar(item.maestro_id_imagen)">Actualizar</button>
-                  </ng-template>
-                </td>
-                <td><button class="btn btn-danger btn-sm" (click)="VerImagen(item.maestro_id_imagen)">Ver Imagen</button></td>
+                  <button class="btn btn-primary btn-sm" (click)="guardarImgHist(item.maestro_id)" >Guardar</button>
+                </div>
+                <ng-template #elseTemplate>
+                  <div class="mb-3">
+                    <input class="form-control" #myInputSCLup type="file" id="formFile" (change)="seleccionarPrueba($event);">
+                  </div>
+                  <button class="btn btn-primary btn-sm" (click)="Actualizar(item.maestro_id_imagen)">Actualizar</button>
+                </ng-template>
+              </td>
+              <td><button class="btn btn-danger btn-sm" (click)="VerImagen(item.maestro_id_imagen)">Ver Imagen</button></td>
 
-              </tr>
+            </tr>
 
-            </tbody>
-          </table><br>
+          </tbody>
+        </table><br>
+      </div>
+
+
         <!-- Modal -->
 <div #myModal class="modal fade" id="pruebaHist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
