@@ -145,6 +145,12 @@ getResSCIDMaestro(Id:number):Observable<Maestro[]>{
   );
 }
 
+getResHistSCIDMaestro(Id:number):Observable<MaestroCambio[]>{
+  return this.http.get(`${environment.rutaAPI}` + '/scid/MaestroHistSCIDList/'+Id).pipe(
+    map(response => response as MaestroCambio[])
+  );
+}
+
 getResBAIANMaestro(Id:number):Observable<Maestro[]>{
   return this.http.get(`${environment.rutaAPI}` + '/baiAn/MaestroBAIanList/'+Id).pipe(
     map(response => response as Maestro[])

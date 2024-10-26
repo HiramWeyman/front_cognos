@@ -26,6 +26,12 @@ export class ScidService {
     console.log(formData);
     return this.http.post<any>(`${this.urlEndPoint+'/scid/GuardarImagenScid?id_pac='+id_pac+'&tipo_prueba='+tipo_prueba+'&maestro_id='+maestro_id}`, formData)  }
 
+  public pruebasSCIDHist(id_pac: number,tipo_prueba:number,maestro_id:number,pruebaSCID: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('files', pruebaSCID)
+    console.log(formData);
+    return this.http.post<any>(`${this.urlEndPoint+'/scid/GuardarImagenScidHist?id_pac='+id_pac+'&tipo_prueba='+tipo_prueba+'&maestro_id='+maestro_id}`, formData)  }
+  
 
   UpdatePruebaSCID(id: number, prueba: File): Observable<any> {
     const formData = new FormData();
@@ -49,7 +55,17 @@ AsignarIdsImgSCID(ids:string,prueba:number,exp:number,id_imagen:string)  {
     return this.http.delete(`${environment.rutaAPI}` + '/scid/AsignarPruebasScid?ids='+ids+'&prueba='+prueba+'&exp='+exp+'&imagen_id='+id_imagen);
   }
 
+  InsertaMaestro(id:number, fecha:any,observacion:any) {
+    console.log("InsertaMaestro",id)
+    console.log("InsertaMaestro",fecha)
 
+    return this.http.post(`${environment.rutaAPI + '/scid/MaestroHistSCID?maestro_id_paciente='+id+'&fecha='+fecha+'&observ='+observacion}`,'').pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+
+  } 
     
 
 }
