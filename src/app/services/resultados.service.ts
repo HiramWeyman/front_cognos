@@ -157,9 +157,21 @@ getResBAIANMaestro(Id:number):Observable<Maestro[]>{
   );
 }
 
+getResHistBAIANMaestro(Id:number):Observable<MaestroCambio[]>{
+  return this.http.get(`${environment.rutaAPI}` + '/baiAn/MaestroHistBAIanList/'+Id).pipe(
+    map(response => response as MaestroCambio[])
+  );
+}
+
 getResBDIDPMaestro(Id:number):Observable<Maestro[]>{
   return this.http.get(`${environment.rutaAPI}` + '/bdiDp/MaestroBDIDPList/'+Id).pipe(
     map(response => response as Maestro[])
+  );
+}
+
+getResHistBDIDPMaestro(Id:number):Observable<MaestroCambio[]>{
+  return this.http.get(`${environment.rutaAPI}` + '/bdiDp/MaestroHistBDIDPList/'+Id).pipe(
+    map(response => response as MaestroCambio[])
   );
 }
 
