@@ -18,6 +18,9 @@ export class RisraComponent {
   blockUI!: NgBlockUI;
   id!: any;
   resultados: MaestroIsra[];
+  resultados_hist: any[];
+  ObservacionHistorico:any;
+  fecHistorico:any;
   total!:any;
   fecMaestro:any;
   expediente!: any;
@@ -30,6 +33,8 @@ export class RisraComponent {
   @ViewChild('myInputISRAup')
   myInputSCLup!: ElementRef;
   selectedItems: MaestroIsra[] = []; 
+  @ViewChild('myModalClose3') modalClose3; // Referencia al boton en modal en el HTML para fecha de reingreso
+
   constructor(private route: ActivatedRoute, private _res: ResultadosService,private _env: IsraService,private datePipe: DatePipe,private appService: AppService,private router: Router) {
 
   }
@@ -39,6 +44,7 @@ export class RisraComponent {
     this.id = this.route.snapshot.paramMap.get('id');
     console.log(this.id);
     this.cargarMaestroResISRA();
+    this.cargarMaestroResHistISRA();
   }
 
   cargarMaestroResISRA() {
@@ -65,6 +71,24 @@ export class RisraComponent {
       });
   }
 
+  cargarMaestroResHistISRA() {
+    this._res.getResHistISRAMaestro(this.id).subscribe(
+      fu => {
+        this.resultados_hist = fu;
+        for(let i=0;i<this.resultados_hist.length;i++){
+          this.fecMaestro =this.datePipe.transform(this.resultados_hist[i].maestro_fecha,"dd/MM/yyyy");
+          this.resultados_hist[i].maestro_fecha= this.fecMaestro;
+          if(this.resultados_hist[i].maestro_id_imagen==null){
+            this.resultados_hist[i].maestro_id_imagen=0;
+          }
+        }
+        console.log(this.resultados_hist);
+      }, error => {
+        console.log(error);
+        //swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
+      });
+  }
+
   public seleccionarPrueba(event: Event): void {
     const target = event.target as HTMLInputElement;
     const files = target.files as FileList;
@@ -82,7 +106,7 @@ export class RisraComponent {
       this.blockUI.stop();
       swal.fire({
         title: 'Info!!!',
-        text: 'Seleccione el archivo de su prueba Test SCL 90 R',
+        text: 'Seleccione el archivo de su prueba Test ISRA',
         icon: 'info',
         timer: 2000
       });
@@ -118,6 +142,65 @@ export class RisraComponent {
           this.prueba = null;
         /*   this.resetInput(); */
           this.cargarMaestroResISRA();
+        }
+      },
+      error => {
+        console.log(error);
+        this.blockUI.stop();
+        swal.fire({
+          title: 'ERROR!!!',
+          text: error.error.message,
+          icon: 'error'
+        });
+      }
+    );
+  }
+
+  guardarImgHist(maestro_id: number) {
+    this.blockUI.start('Guardando...');
+    
+    // Verificar si un archivo fue seleccionado
+    if (this.prueba == null) {
+      this.blockUI.stop();
+      swal.fire({
+        title: 'Info!!!',
+        text: 'Seleccione el archivo de su prueba Test ISRA',
+        icon: 'info',
+        timer: 2000
+      });
+      return;
+    }
+  
+    // Obtener la extensión del archivo
+    const fileExtension = this.prueba.name.split('.').pop().toLowerCase();
+  
+    // Validar si la extensión es una de las permitidas
+    const allowedExtensions = ['png', 'jpg', 'jpeg'];
+    if (!allowedExtensions.includes(fileExtension)) {
+      this.blockUI.stop();
+      swal.fire({
+        title: 'Archivo no válido',
+        text: 'Solo se permiten archivos de imagen con extensiones .png, .jpg, .jpeg',
+        icon: 'warning',
+        timer: 4000
+      });
+      return;
+    }
+  
+    console.info(this.prueba.name);
+    console.info(this.prueba);
+  
+    // Continuar con el proceso de guardado
+    this._env.pruebasIsraHist(this.expediente, 4, maestro_id, this.prueba).subscribe(
+      usr => {
+        if (usr) {
+          this.blockUI.stop();
+          swal.fire('Archivos subidos', `Sus archivos se subieron con éxito!`, 'success');
+          this.ngOnInit();
+          this.prueba = null;
+        /*   this.resetInput(); */
+          this.cargarMaestroResISRA();
+          this.cargarMaestroResHistISRA();
         }
       },
       error => {
@@ -291,6 +374,20 @@ export class RisraComponent {
 
     }
     //console.log(this.selectedItems); // Para verificar los elementos seleccionados
+  }
+
+  guardarHist(){
+    this._env.InsertaMaestro(this.id, this.fecHistorico,this.ObservacionHistorico).subscribe(resp=>{
+      console.log("InsertaMaestro",resp);
+      if(resp){
+        this.respuesta=resp;
+        swal.fire({ title: 'Success!!!', text: "Guardado", icon: 'success' });
+        this.modalClose3.nativeElement.click();
+
+      }
+      this.ngOnInit();
+      
+    });
   }
 
 }

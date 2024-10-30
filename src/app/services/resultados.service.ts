@@ -180,10 +180,21 @@ getResCREEMaestro(Id:number):Observable<Maestro[]>{
     map(response => response as Maestro[])
   );
 }
+getResHistCREEMaestro(Id:number):Observable<MaestroCambio[]>{
+  return this.http.get(`${environment.rutaAPI}` + '/ellis/MaestroHistEllisList/'+Id).pipe(
+    map(response => response as MaestroCambio[])
+  );
+}
 
 getResISRAMaestro(Id:number):Observable<MaestroIsra[]>{
   return this.http.get(`${environment.rutaAPI}` + '/isra/MaestroIsraList/'+Id).pipe(
     map(response => response as MaestroIsra[])
+  );
+}
+
+getResHistISRAMaestro(Id:number):Observable<MaestroCambio[]>{
+  return this.http.get(`${environment.rutaAPI}` + '/isra/MaestroHistIsraList/'+Id).pipe(
+    map(response => response as MaestroCambio[])
   );
 }
 
