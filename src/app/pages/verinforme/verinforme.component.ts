@@ -539,54 +539,65 @@ export class VerinformeComponent {
 
   }
 
-  //Dibujando las graficas
-  drawChart(valores: number[], etiquetas: string[], index: number) {
-    const canvasId = `canvasId-${index}`;
-    const canvasElement = <HTMLCanvasElement>document.getElementById(canvasId);
+  // Dibujando las gráficas
+drawChart(valores: number[], etiquetas: string[], index: number) {
+  const canvasId = `canvasId-${index}`;
+  const canvasElement = <HTMLCanvasElement>document.getElementById(canvasId);
 
-    // Destruir gráfica anterior si existe
-    if (this.charts[index]) {
-      this.charts[index].destroy();
-    }
+  // Destruir gráfica anterior si existe
+  if (this.charts[index]) {
+    this.charts[index].destroy();
+  }
 
-    // Crear nueva gráfica
-    this.charts[index] = new Chart(canvasElement, {
-      type: 'bar',
-      data: {
-        labels: etiquetas,
-        datasets: [
-          {
-            label: `Gráfica ${index + 1}`,
-            data: valores,
-            backgroundColor: 'rgba(255, 0, 0, 0.2)',  // Color rojo semitransparente para las barras
-            borderColor: 'rgba(255, 0, 0, 1)',   // Color rojo sólido para los bordes de las barras
-            /* backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)', */
-            borderWidth: 1
-          }
-        ]
-      },
-      options: {
-        plugins: {
-          datalabels: {
-            anchor: 'end',
-            align: 'start', // Cambia la alineación para evitar que se empalmen con la gráfica siguiente
-            /* align: 'top', */
-            formatter: (value) => Math.round(value), // Ajusta esto según la precisión deseada
-            font: {
-              weight: 'bold'
-            }
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+  // Crear nueva gráfica
+  this.charts[index] = new Chart(canvasElement, {
+    type: 'bar',
+    data: {
+      labels: etiquetas,
+      datasets: [
+        {
+          label: `Gráfica ${index + 1}`,
+          data: valores,
+          backgroundColor: 'rgba(255, 0, 0, 1)', // Color rojo para las barras
+          borderColor: 'rgba(255, 0, 0, 1)',     // Color rojo para los bordes de las barras
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'start',
+          formatter: (value) => Math.round(value), // Ajusta según la precisión deseada
+          font: {
+            weight: 'bold'
+          },
+          color: 'white', // Cambia el color de los valores a blanco
         }
       },
-      plugins: [ChartDataLabels]
-    });
-  }
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    },
+    plugins: [
+      ChartDataLabels,
+      {
+        // Plugin para establecer un fondo azul
+        id: 'customBackgroundColor',
+        beforeDraw: (chart) => {
+          const ctx = chart.ctx;
+          ctx.save();
+          ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // Color azul claro (puedes ajustar la opacidad)
+          ctx.fillRect(0, 0, chart.width, chart.height); // Dibuja el fondo
+          ctx.restore();
+        }
+      }
+    ]
+  });
+}
 
 
   cargarPruebaSCL() {
@@ -874,7 +885,41 @@ export class VerinformeComponent {
 
 
 
+    generarPDFE() {
+          // Generar el nombre del archivo PDF
+      const nombre = `${this.informe.inf_paterno}_${this.informe.inf_materno}_${this.informe.inf_nombre}.pdf`;
 
+      // Obtener el contenido HTML que se va a convertir
+      const element = document.getElementById('contentRep');
+
+      // Crear una nueva instancia de jsPDF
+      const doc = new jsPDF({
+        unit: 'pt', // Usar puntos para un mejor control de medidas
+        format: 'letter', // Tamaño de carta
+        orientation: 'portrait', 
+        compress: true // Habilitar compresión interna del PDF
+      });
+
+      // Ajustar las opciones para html2canvas y jsPDF
+      const options = {
+        callback: function(doc) {
+          // Guardar el PDF después de que se haya renderizado el HTML
+          doc.save(nombre);
+        },
+        x: 10, // Ajuste de la posición X inicial
+        y: 10, // Ajuste de la posición Y inicial
+        margin: [20, 20, 20, 20], // Márgenes: superior, derecho, inferior, izquierdo
+        html2canvas: {
+          scale: 0.5, // Ajustar la escala para mejorar la calidad
+          logging: false, // Deshabilitar logs para reducir mensajes en la consola
+          useCORS: true, // Permitir CORS para imágenes externas
+          allowTaint: false, // Evitar problemas de "taint" en imágenes externas
+        }
+      };
+
+      // Renderizar el contenido HTML en el PDF con las opciones ajustadas
+      doc.html(element, options);
+      }
 
 
 

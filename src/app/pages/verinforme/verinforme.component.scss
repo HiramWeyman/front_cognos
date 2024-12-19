@@ -1,6 +1,6 @@
 /* component.css */
 body {
-    font-family: Arial, sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 h1, h2, h3, h4, p {
@@ -13,12 +13,22 @@ h1, h2, h3, h4, p {
 }
 
 .content {
-    margin: 1rem 0;
+    //margin: 1rem 0;
 }
 #content {
-    display: block; /* Asegúrate de que el elemento no esté oculto */
-    visibility: visible; /* Asegúrate de que el elemento sea visible */
+    //display: block; /* Asegúrate de que el elemento no esté oculto */
+    //visibility: visible; /* Asegúrate de que el elemento sea visible */
+    display: flex;
+    justify-content: center;
   }
+.wrap{
+    overflow: scroll;
+    background-color: white;
+    width: 63.75rem;
+    padding: 0 8rem;
+    margin: 0;
+}
+
 .page-break {
     page-break-before: always;
 }
@@ -47,11 +57,11 @@ img {
 .contenedor {
     display: flex;
     flex-direction: column;
-    margin:1rem auto;
+    //margin:1rem auto;
     max-width: 600px;
 }  
 
-.izq{
+.izqquitar{
     margin-left: 15px;
     margin-right: 15px;
 }
@@ -75,10 +85,10 @@ img {
   
   .file-image {
     width: 100%; /* Ancho de la imagen */
-    height: 100%; /* Alto de la imagen */
+    //height: 100%; /* Alto de la imagen */
     object-fit: cover; /* Ajustar la imagen para que ocupe todo el espacio, manteniendo la proporción */
-    border-radius: 8px; /* Bordes redondeados, opcional */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para darle un efecto elevado, opcional */
+    //border-radius: 8px; /* Bordes redondeados, opcional */
+    //box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para darle un efecto elevado, opcional */
   }
   
   p {
@@ -89,6 +99,14 @@ img {
   .page-break2 {
     page-break-before: always;
     page-break-after: always;
+  }
+
+  .centrar{
+    display: flex; /* Activa Flexbox */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* (Opcional) Centra los elementos verticalmente */
+    gap: 3rem; 
+    padding: 2rem;
   }
 
   

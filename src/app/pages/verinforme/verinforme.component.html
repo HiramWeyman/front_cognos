@@ -1,5 +1,5 @@
-<div id="contentRep">
-    <div id="seccion1" class="container" style="overflow: scroll;background-color: white;">
+<div id="contentRep" class="wrap">
+    <div id="seccion1" class="container"><!--style="overflow: scroll;background-color: white;"-->
         <br>
         <!--Titulo del Informe-->
         <div class="row izq">
@@ -551,7 +551,6 @@
                     <p>No image available</p>
                 </ng-template>
             </div>
-            <div class="page-break"></div> <!-- Esto asegura que cada imagen esté en una nueva página -->
         </div>
     </div>
     <div id="seccion19" class="container" style="overflow: scroll;background-color: white;">
@@ -559,16 +558,19 @@
             <h4><label>Perfil Grafico Isra</label></h4>
         </div><br>
         <div *ngFor="let file3 of files3">
-            <div *ngIf="file3.fileType==='.png' || file3.fileType==='.jpeg' || file3.fileType==='.jpg'">
-                <h3>{{file3.name}}</h3>
-                <ng-container *ngIf="file3.dataFiles; else noImage2">
-                    <img [src]="'data:image/' + file3.fileType.replace('.', '') + ';base64,' + file3.dataFiles"
-                        alt="{{file3.name}}" class="file-image" />
-                </ng-container>
-                <ng-template #noImage2>
-                    <p>No image available</p>
-                </ng-template>
+            <div class="page-break">
+                <div *ngIf="file3.fileType==='.png' || file3.fileType==='.jpeg' || file3.fileType==='.jpg'">
+                    <h3>{{file3.name}}</h3>
+                    <ng-container *ngIf="file3.dataFiles; else noImage2">
+                        <img [src]="'data:image/' + file3.fileType.replace('.', '') + ';base64,' + file3.dataFiles"
+                            alt="{{file3.name}}" class="file-image" />
+                    </ng-container>
+                    <ng-template #noImage2>
+                        <p>No image available</p>
+                    </ng-template>
+                </div>
             </div>
+            
         </div>
 
         <div class="footer no-page-break">
@@ -591,8 +593,8 @@
     <img src="assets/img/gifloading.gif" style="width: 100px; height: auto; display: block; margin: 0 auto;">
     <h2>Descargando a Word...</h2>
 </div>
-<div class="contenedor">
-    <button class="btn btn-danger sm" (click)="generarPDF()">Exportar PDF</button>
+<div class="centrar">
+    <button class="btn btn-danger sm" (click)="generarPDFE()">Exportar PDF</button>
 <!--     <button class="btn btn-success sm"(click)="exportToWord()">Exportar a Word</button>
- -->    <button class="btn btn-primary sm mt-2" [routerLink]="['/exp',informe.inf_paciente_id]">Regresar </button>
+ -->    <button class="btn btn-primary sm" [routerLink]="['/exp',informe.inf_paciente_id]">Regresar </button>
 </div>
