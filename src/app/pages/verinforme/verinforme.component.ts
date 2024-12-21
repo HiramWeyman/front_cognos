@@ -46,6 +46,8 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { Document, Packer, Paragraph, TextRun } from "docx";
+
 
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -1370,5 +1372,72 @@ export class VerinformeComponent {
     }
   }
 
+
+  copiarAlPortapapelesA() {
+      // Obtener el elemento con la clase "contentRep"
+      const contentRep = document.getElementById('contentRep');
+  
+      if (!contentRep) {
+          alert('No se encontró el contenido.');
+          return;
+      }
+  
+      // Crear un rango y seleccionarlo
+      const range = document.createRange();
+      range.selectNode(contentRep);
+  
+      // Seleccionar el rango
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+  
+      // Copiar al portapapeles
+      try {
+          const successful = document.execCommand('copy');
+          if (successful) {
+              alert('Contenido copiado al portapapeles. ¡Pégalo en Word!');
+          } else {
+              alert('No se pudo copiar el contenido.');
+          }
+      } catch (err) {
+          console.error('Error al copiar al portapapeles:', err);
+      }
+  
+      // Limpiar la selección
+      selection.removeAllRanges();
+  
+      // Generar archivo .docx
+      //this.generarDocxDesdeHTML(contentRep.innerHTML);
+  }
+  
+  generarDocxDesdeHTML(htmlContent: string) {
+      // Convertir el contenido HTML en texto plano
+      const plainText = htmlContent.replace(/<[^>]*>/g, ''); // Eliminar etiquetas HTML
+  
+      // Crear un párrafo con el contenido
+      const paragraph = new Paragraph({
+          children: [new TextRun(plainText)],
+      });
+  
+      // Crear un documento con la sección que contiene el párrafo
+      const doc = new Document({
+          sections: [
+              {
+                  properties: {}, // Configuración de la sección (opcional)
+                  children: [paragraph], // Agregar el párrafo aquí
+              },
+          ],
+      });
+  
+      // Generar archivo .docx
+      Packer.toBlob(doc).then((blob) => {
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = "contenido.docx";
+          link.click();
+      }).catch((err) => {
+          console.error('Error al generar el archivo .docx:', err);
+      });
+  }
 
 }
