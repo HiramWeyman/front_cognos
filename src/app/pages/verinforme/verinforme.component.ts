@@ -540,63 +540,137 @@ export class VerinformeComponent {
   }
 
   // Dibujando las gráficas
-drawChart(valores: number[], etiquetas: string[], index: number) {
-  const canvasId = `canvasId-${index}`;
-  const canvasElement = <HTMLCanvasElement>document.getElementById(canvasId);
-
-  // Destruir gráfica anterior si existe
-  if (this.charts[index]) {
-    this.charts[index].destroy();
-  }
-
-  // Crear nueva gráfica
-  this.charts[index] = new Chart(canvasElement, {
-    type: 'bar',
-    data: {
-      labels: etiquetas,
-      datasets: [
-        {
-          label: `Gráfica ${index + 1}`,
-          data: valores,
-          backgroundColor: 'rgba(255, 0, 0, 1)', // Color rojo para las barras
-          borderColor: 'rgba(255, 0, 0, 1)',     // Color rojo para los bordes de las barras
-          borderWidth: 1
-        }
-      ]
-    },
-    options: {
-      plugins: {
-        datalabels: {
-          anchor: 'end',
-          align: 'start',
-          formatter: (value) => Math.round(value), // Ajusta según la precisión deseada
-          font: {
-            weight: 'bold'
-          },
-          color: 'white', // Cambia el color de los valores a blanco
+  drawChart(valores: number[], etiquetas: string[], index: number) {
+    const canvasId = `canvasId-${index}`;
+    const canvasElement = document.getElementById(canvasId) as HTMLCanvasElement;
+  
+    if (!canvasElement) {
+      console.error(`Canvas con ID ${canvasId} no encontrado.`);
+      return;
+    }
+  
+    // Destruir gráfica anterior si existe
+    if (this.charts[index]) {
+      this.charts[index].destroy();
+    }
+  
+    // Crear un fondo blanco antes de dibujar
+    const ctx = canvasElement.getContext('2d');
+    if (ctx) {
+      ctx.fillStyle = 'white'; // Establecer el fondo blanco
+      ctx.fillRect(0, 0, canvasElement.width, canvasElement.height);
+    }
+  
+    // Crear nueva gráfica
+    this.charts[index] = new Chart(canvasElement, {
+      type: 'bar',
+      data: {
+        labels: etiquetas,
+        datasets: [
+          {
+            label: `Gráfica ${index + 1}`,
+            data: valores,
+            backgroundColor: 'rgba(255, 0, 0, 1)', // Color rojo para las barras
+            borderColor: 'rgba(255, 0, 0, 1)',     // Color rojo para los bordes
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        plugins: {
+          datalabels: {
+            anchor: 'end',
+            align: 'start',
+            formatter: (value) => Math.round(value),
+            font: {
+              weight: 'bold'
+            },
+            color: 'white' // Color de los valores
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
         }
       },
-      scales: {
-        y: {
-          beginAtZero: true
+      plugins: [
+        ChartDataLabels, // Etiquetas
+        {
+          id: 'customBackgroundColor',
+          beforeDraw: (chart) => {
+            const chartCtx = chart.ctx;
+            chartCtx.save();
+            chartCtx.fillStyle = 'white'; // Asegurar fondo blanco
+            chartCtx.fillRect(0, 0, chart.width, chart.height);
+            chartCtx.restore();
+          }
         }
-      }
-    },
-    plugins: [
-      ChartDataLabels,
-      {
-        // Plugin para establecer un fondo azul
-        id: 'customBackgroundColor',
-        beforeDraw: (chart) => {
-          const ctx = chart.ctx;
-          ctx.save();
-          ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // Color azul claro (puedes ajustar la opacidad)
-          ctx.fillRect(0, 0, chart.width, chart.height); // Dibuja el fondo
-          ctx.restore();
+      ]
+    });
+  }
+
+  drawChartImagenes(valores: number[], etiquetas: string[], index: number) {
+    const canvasId = `canvasId-${index}`;
+    const canvasElement = document.getElementById(canvasId) as HTMLCanvasElement;
+
+    // Si no se encuentra el canvas, retornar
+    if (!canvasElement) {
+        console.error(`Canvas con ID ${canvasId} no encontrado.`);
+        return;
+    }
+
+    const ctx = canvasElement.getContext('2d');
+    if (!ctx) {
+        console.error('No se pudo obtener el contexto del canvas.');
+        return;
+    }
+
+    // Crear la gráfica en el canvas
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: etiquetas,
+            datasets: [
+                {
+                    label: `Gráfica ${index + 1}`,
+                    data: valores,
+                    backgroundColor: 'rgba(255, 0, 0, 1)',
+                    borderColor: 'rgba(255, 0, 0, 1)',
+                    borderWidth: 1,
+                },
+            ],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        },
+    });
+
+    // Convertir el canvas en una imagen después de que la gráfica se haya renderizado
+    setTimeout(() => {
+        try {
+            const imageUrl = canvasElement.toDataURL('image/png'); // Convertir el canvas a imagen
+            const imgElement = document.createElement('img'); // Crear un elemento <img>
+            imgElement.src = imageUrl;
+            imgElement.alt = `Gráfica ${index + 1}`;
+            imgElement.style.maxWidth = '100%'; // Ajustar tamaño automáticamente
+
+            // Reemplazar el canvas con la imagen
+            const container = document.getElementById(`chartContainer-${index}`);
+            if (container) {
+                container.innerHTML = ''; // Vaciar el contenedor previo
+                container.appendChild(imgElement); // Insertar la imagen
+            }
+
+            chart.destroy(); // Destruir el gráfico para liberar memoria
+        } catch (error) {
+            console.error('Error al convertir el canvas a imagen:', error);
         }
-      }
-    ]
-  });
+    }, 1000); // Asegurar que el renderizado de la gráfica está completo
 }
 
 
@@ -885,42 +959,104 @@ drawChart(valores: number[], etiquetas: string[], index: number) {
 
 
 
-    generarPDFE() {
-          // Generar el nombre del archivo PDF
-      const nombre = `${this.informe.inf_paterno}_${this.informe.inf_materno}_${this.informe.inf_nombre}.pdf`;
+  generarPDFE() {
+        // Generar el nombre del archivo PDF
+    const nombre = `${this.informe.inf_paterno}_${this.informe.inf_materno}_${this.informe.inf_nombre}.pdf`;
 
-      // Obtener el contenido HTML que se va a convertir
-      const element = document.getElementById('contentRep');
+    // Obtener el contenido HTML que se va a convertir
+    const element = document.getElementById('contentRep');
 
-      // Crear una nueva instancia de jsPDF
-      const doc = new jsPDF({
-        unit: 'pt', // Usar puntos para un mejor control de medidas
-        format: 'letter', // Tamaño de carta
-        orientation: 'portrait', 
-        compress: true // Habilitar compresión interna del PDF
-      });
+    // Crear una nueva instancia de jsPDF
+    const doc = new jsPDF({
+      unit: 'pt', // Usar puntos para un mejor control de medidas
+      format: 'letter', // Tamaño de carta
+      orientation: 'portrait', 
+      compress: true // Habilitar compresión interna del PDF
+    });
 
-      // Ajustar las opciones para html2canvas y jsPDF
-      const options = {
-        callback: function(doc) {
-          // Guardar el PDF después de que se haya renderizado el HTML
-          doc.save(nombre);
-        },
-        x: 10, // Ajuste de la posición X inicial
-        y: 10, // Ajuste de la posición Y inicial
-        margin: [20, 20, 20, 20], // Márgenes: superior, derecho, inferior, izquierdo
-        html2canvas: {
-          scale: 0.5, // Ajustar la escala para mejorar la calidad
-          logging: false, // Deshabilitar logs para reducir mensajes en la consola
-          useCORS: true, // Permitir CORS para imágenes externas
-          allowTaint: false, // Evitar problemas de "taint" en imágenes externas
-        }
-      };
-
-      // Renderizar el contenido HTML en el PDF con las opciones ajustadas
-      doc.html(element, options);
+    // Ajustar las opciones para html2canvas y jsPDF
+    const options = {
+      callback: function(doc) {
+        // Guardar el PDF después de que se haya renderizado el HTML
+        doc.save(nombre);
+      },
+      x: 10, // Ajuste de la posición X inicial
+      y: 10, // Ajuste de la posición Y inicial
+      margin: [20, 20, 20, 20], // Márgenes: superior, derecho, inferior, izquierdo
+      html2canvas: {
+        scale: 0.5, // Ajustar la escala para mejorar la calidad
+        logging: false, // Deshabilitar logs para reducir mensajes en la consola
+        useCORS: true, // Permitir CORS para imágenes externas
+        allowTaint: false, // Evitar problemas de "taint" en imágenes externas
       }
+    };
 
+    // Renderizar el contenido HTML en el PDF con las opciones ajustadas
+    doc.html(element, options);
+  }
+  
+
+async copiarAlPortapapeles() {
+  const contentRep = document.getElementById('contentRep');
+
+  if (!contentRep) {
+      alert('El contenido no fue encontrado.');
+      return;
+  }
+
+  // Clonar el contenido asegurando que sea un elemento
+  const tempDiv = contentRep.cloneNode(true) as HTMLElement;
+
+  // Reemplazar los elementos canvas por imágenes
+  const canvases = Array.from(tempDiv.querySelectorAll('canvas'));
+  for (const canvas of canvases) {
+    if (!canvas.getContext) continue; // Verifica que el canvas sea válido
+
+    // Desplaza el canvas al centro del viewport para asegurarte de que sea visible
+    canvas.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Introduce un retraso para dar tiempo al navegador a renderizar el contenido
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) continue; // Verifica que el contexto exista
+
+    // Crear un canvas temporal
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+
+    const tempCtx = tempCanvas.getContext('2d');
+    if (tempCtx) {
+        // Redibujar el contenido del canvas original en el temporal
+        tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height);
+
+        // Convertir el canvas temporal a una imagen
+        const img = document.createElement('img');
+        img.src = tempCanvas.toDataURL(); // Convertir a Base64
+        img.style.width = canvas.style.width;
+        img.style.height = canvas.style.height;
+
+        // Reemplazar el canvas original por la imagen
+        canvas.parentNode?.replaceChild(img, canvas);
+    }
+}
+
+  try {
+      // Usar Clipboard API para copiar el contenido como HTML
+      await navigator.clipboard.write([
+          new ClipboardItem({
+              "text/html": new Blob([tempDiv.innerHTML], { type: "text/html" }),
+              "text/plain": new Blob([tempDiv.innerText], { type: "text/plain" })
+          })
+      ]);
+
+      alert('Copiado al portapapeles. ¡Pégalo en Word!');
+  } catch (err) {
+      console.error('Error al copiar contenido dinámico al portapapeles:', err);
+      alert('Hubo un error al copiar el contenido. Revisa la consola para más detalles.');
+  }
+}
 
 
 

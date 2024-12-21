@@ -510,11 +510,15 @@
         </div>
     </div>
     <div id="seccion16" class="container" style="overflow: scroll;background-color: white;">
-        <div class="contenedor" *ngIf="creenciaGrafica!=null">
+        <div class="contenedor" *ngIf="creenciaGrafica != null">
             <div *ngFor="let item of creenciaGrafica; let i = index" class="page-break">
-                <div class="d-flex justify-content-center"><label>Perfil de Ideas Irracionales Grafica {{i+1}}</label>
+                <div class="d-flex justify-content-center">
+                    <label>Perfil de Ideas Irracionales Gráfica {{ i + 1 }}</label>
                 </div>
-                <canvas id="canvasId-{{i}}"></canvas>
+                <div id="chartContainer-{{i}}" class="chart-container">
+                    <!-- Aquí se reemplazará el canvas con una imagen -->
+                    <canvas id="canvasId-{{i}}"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -594,6 +598,7 @@
     <h2>Descargando a Word...</h2>
 </div>
 <div class="centrar">
+    <button class="btn btn-danger sm" (click)="copiarAlPortapapeles()">Copiar</button>
     <button class="btn btn-danger sm" (click)="generarPDFE()">Exportar PDF</button>
 <!--     <button class="btn btn-success sm"(click)="exportToWord()">Exportar a Word</button>
  -->    <button class="btn btn-primary sm" [routerLink]="['/exp',informe.inf_paciente_id]">Regresar </button>
