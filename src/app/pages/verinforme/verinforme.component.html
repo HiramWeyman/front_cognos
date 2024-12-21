@@ -526,7 +526,7 @@
         <div *ngIf="files.length>0" class="d-flex justify-content-center">
             <h4><label>Perfil Grafico SCL 90 R</label></h4>
         </div><br>
-        <div *ngFor="let file of files">
+        <div *ngFor="let file of files" class="page-breakx">
             <div *ngIf="file.fileType==='.png' || file.fileType==='.jpeg' || file.fileType==='.jpg'">
                 <h3>{{file.name}}</h3>
                 <ng-container *ngIf="file.dataFiles; else noImage2">
@@ -544,7 +544,7 @@
         <div *ngIf="files2.length>0" class="d-flex justify-content-center">
             <h4><label>Perfil Grafico SCID2</label></h4>
         </div><br>
-        <div *ngFor="let file2 of files2">
+        <div *ngFor="let file2 of files2"class="page-breakx">
             <div *ngIf="file2.fileType==='.png' || file2.fileType==='.jpeg' || file2.fileType==='.jpg'">
                 <h3>{{file2.name}}</h3>
                 <ng-container *ngIf="file2.dataFiles; else noImage2">
@@ -561,7 +561,7 @@
         <div *ngIf="files3.length>0" class="d-flex justify-content-center">
             <h4><label>Perfil Grafico Isra</label></h4>
         </div><br>
-        <div *ngFor="let file3 of files3">
+        <div *ngFor="let file3 of files3" class="page-breakx">
             <div class="page-break">
                 <div *ngIf="file3.fileType==='.png' || file3.fileType==='.jpeg' || file3.fileType==='.jpg'">
                     <h3>{{file3.name}}</h3>
@@ -574,20 +574,10 @@
                     </ng-template>
                 </div>
             </div>
-            
-        </div>
-
-        <div class="footer no-page-break">
-            <div class="d-flex justify-content-center"><label>Este informe es de carácter clínico y no puede ser utilizado con fines legales</label></div>
         </div>
     </div>
-
-
-
-
-
-
 </div>
+
 <!-- Mensaje de carga -->
 <div id="loading" style="display:none; position: fixed; top: 50%; left: 57%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.7); color: white; padding: 20px; border-radius: 10px; text-align: center;">
     <img src="assets/img/gifloading.gif" style="width: 100px; height: auto; display: block; margin: 0 auto;">
@@ -599,7 +589,7 @@
 </div>
 <div class="centrar">
     <button class="btn btn-danger sm" (click)="copiarAlPortapapeles()">Copiar</button>
-    <button class="btn btn-danger sm" (click)="generarPDFE()">Exportar PDF</button>
+    <button class="btn btn-danger sm" (click)="sendBothPdfsToApi()">Exportar PDF</button>
 <!--     <button class="btn btn-success sm"(click)="exportToWord()">Exportar a Word</button>
  -->    <button class="btn btn-primary sm" [routerLink]="['/exp',informe.inf_paciente_id]">Regresar </button>
 </div>
