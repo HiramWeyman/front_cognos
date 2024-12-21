@@ -509,6 +509,7 @@
             </table>
         </div>
     </div>
+    <div id="contentRep2"> 
     <div id="seccion16" class="container" style="overflow: scroll;background-color: white;">
         <div class="contenedor" *ngIf="creenciaGrafica != null">
             <div *ngFor="let item of creenciaGrafica; let i = index" class="page-break">
@@ -576,6 +577,7 @@
             </div>
         </div>
     </div>
+    </div>
 </div>
 
 <!-- Mensaje de carga -->
@@ -589,7 +591,7 @@
 </div>
 <div class="centrar">
     <button class="btn btn-danger sm" (click)="copiarAlPortapapeles()">Copiar</button>
-    <button class="btn btn-danger sm" (click)="sendBothPdfsToApi()">Exportar PDF</button>
+    <button class="btn btn-danger sm" (click)="generarPDFE1()">Exportar PDF</button>
 <!--     <button class="btn btn-success sm"(click)="exportToWord()">Exportar a Word</button>
  -->    <button class="btn btn-primary sm" [routerLink]="['/exp',informe.inf_paciente_id]">Regresar </button>
 </div>

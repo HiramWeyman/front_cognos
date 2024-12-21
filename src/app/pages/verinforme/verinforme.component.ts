@@ -534,7 +534,7 @@ export class VerinformeComponent {
         'Irrac6', 'Irrac7', 'Irrac8', 'Irrac9', 'Irrac10'
       ];
 
-      this.drawChart(valores, etiquetas, index);
+      this.drawChartImagenes(valores, etiquetas, index);
     });
 
   }
@@ -1308,7 +1308,67 @@ export class VerinformeComponent {
       });
   }
   
-
+  async copiarAlPortapapeles() {
+    const contentRep = document.getElementById('contentRep');
+  
+    if (!contentRep) {
+        alert('El contenido no fue encontrado.');
+        return;
+    }
+  
+    // Clonar el contenido asegurando que sea un elemento
+    const tempDiv = contentRep.cloneNode(true) as HTMLElement;
+  
+    // Reemplazar los elementos canvas por imágenes
+    const canvases = Array.from(tempDiv.querySelectorAll('canvas'));
+    for (const canvas of canvases) {
+      if (!canvas.getContext) continue; // Verifica que el canvas sea válido
+  
+      // Desplaza el canvas al centro del viewport para asegurarte de que sea visible
+      canvas.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  
+      // Introduce un retraso para dar tiempo al navegador a renderizar el contenido
+      await new Promise((resolve) => setTimeout(resolve, 300));
+  
+      const ctx = canvas.getContext('2d');
+      if (!ctx) continue; // Verifica que el contexto exista
+  
+      // Crear un canvas temporal
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = canvas.width;
+      tempCanvas.height = canvas.height;
+  
+      const tempCtx = tempCanvas.getContext('2d');
+      if (tempCtx) {
+          // Redibujar el contenido del canvas original en el temporal
+          tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height);
+  
+          // Convertir el canvas temporal a una imagen
+          const img = document.createElement('img');
+          img.src = tempCanvas.toDataURL(); // Convertir a Base64
+          img.style.width = canvas.style.width;
+          img.style.height = canvas.style.height;
+  
+          // Reemplazar el canvas original por la imagen
+          canvas.parentNode?.replaceChild(img, canvas);
+      }
+  }
+  
+    try {
+        // Usar Clipboard API para copiar el contenido como HTML
+        await navigator.clipboard.write([
+            new ClipboardItem({
+                "text/html": new Blob([tempDiv.innerHTML], { type: "text/html" }),
+                "text/plain": new Blob([tempDiv.innerText], { type: "text/plain" })
+            })
+        ]);
+  
+        alert('Copiado al portapapeles. ¡Pégalo en Word!');
+    } catch (err) {
+        console.error('Error al copiar contenido dinámico al portapapeles:', err);
+        alert('Hubo un error al copiar el contenido. Revisa la consola para más detalles.');
+    }
+  }
 
 
 }
