@@ -32,7 +32,7 @@ import { ProblematicaService } from '@services/problematica.service';
 import { SaludfmService } from '@services/saludfm.service';
 import { SesionService } from '@services/sesiones.service';
 import { TratamientoService } from '@services/tratamiento.service';
-import * as html2pdf from 'html2pdf.js'; 
+import * as html2pdf from 'html2pdf.js';
 import Swal from 'sweetalert2';
 import Chart from 'chart.js/auto';
 import { PruebasService } from '@services/enviarpruebas.service';
@@ -540,64 +540,64 @@ export class VerinformeComponent {
   }
 
   // Dibujando las gráficas
-drawChart(valores: number[], etiquetas: string[], index: number) {
-  const canvasId = `canvasId-${index}`;
-  const canvasElement = <HTMLCanvasElement>document.getElementById(canvasId);
+  drawChart(valores: number[], etiquetas: string[], index: number) {
+    const canvasId = `canvasId-${index}`;
+    const canvasElement = <HTMLCanvasElement>document.getElementById(canvasId);
 
-  // Destruir gráfica anterior si existe
-  if (this.charts[index]) {
-    this.charts[index].destroy();
-  }
+    // Destruir gráfica anterior si existe
+    if (this.charts[index]) {
+      this.charts[index].destroy();
+    }
 
-  // Crear nueva gráfica
-  this.charts[index] = new Chart(canvasElement, {
-    type: 'bar',
-    data: {
-      labels: etiquetas,
-      datasets: [
-        {
-          label: `Gráfica ${index + 1}`,
-          data: valores,
-          backgroundColor: 'rgba(255, 0, 0, 1)', // Color rojo para las barras
-          borderColor: 'rgba(255, 0, 0, 1)',     // Color rojo para los bordes de las barras
-          borderWidth: 1
-        }
-      ]
-    },
-    options: {
-      plugins: {
-        datalabels: {
-          anchor: 'end',
-          align: 'start',
-          formatter: (value) => Math.round(value), // Ajusta según la precisión deseada
-          font: {
-            weight: 'bold'
-          },
-          color: 'white', // Cambia el color de los valores a blanco
+    // Crear nueva gráfica
+    this.charts[index] = new Chart(canvasElement, {
+      type: 'bar',
+      data: {
+        labels: etiquetas,
+        datasets: [
+          {
+            label: `Gráfica ${index + 1}`,
+            data: valores,
+            backgroundColor: 'rgba(255, 0, 0, 1)', // Color rojo para las barras
+            borderColor: 'rgba(255, 0, 0, 1)',     // Color rojo para los bordes de las barras
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        plugins: {
+          datalabels: {
+            anchor: 'end',
+            align: 'start',
+            formatter: (value) => Math.round(value), // Ajusta según la precisión deseada
+            font: {
+              weight: 'bold'
+            },
+            color: 'white', // Cambia el color de los valores a blanco
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
         }
       },
-      scales: {
-        y: {
-          beginAtZero: true
+      plugins: [
+        ChartDataLabels,
+        {
+          // Plugin para establecer un fondo azul
+          id: 'customBackgroundColor',
+          beforeDraw: (chart) => {
+            const ctx = chart.ctx;
+            ctx.save();
+            ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // Color azul claro (puedes ajustar la opacidad)
+            ctx.fillRect(0, 0, chart.width, chart.height); // Dibuja el fondo
+            ctx.restore();
+          }
         }
-      }
-    },
-    plugins: [
-      ChartDataLabels,
-      {
-        // Plugin para establecer un fondo azul
-        id: 'customBackgroundColor',
-        beforeDraw: (chart) => {
-          const ctx = chart.ctx;
-          ctx.save();
-          ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // Color azul claro (puedes ajustar la opacidad)
-          ctx.fillRect(0, 0, chart.width, chart.height); // Dibuja el fondo
-          ctx.restore();
-        }
-      }
-    ]
-  });
-}
+      ]
+    });
+  }
 
 
   cargarPruebaSCL() {
@@ -716,87 +716,87 @@ drawChart(valores: number[], etiquetas: string[], index: number) {
         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
       }).save();
     } */
-      generarPDFRep1() {
-        console.log('Si entra');
-        const loadingMessage = document.getElementById('loading');
-        loadingMessage.style.display = 'block';
-        
-        const nombre = `${this.informe.inf_paterno}_${this.informe.inf_materno}_${this.informe.inf_nombre}.pdf`;
-      
-        // Configuración de html2pdf
-        const options = {
-          margin: 1,
-          filename: nombre,
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, logging: true, dpi: 192, letterRendering: true },
-          jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }
-        };
-      
-        // Selecciona todas las secciones de tu HTML
-        const element = document.getElementById('reporte');  // Asegúrate de envolver tus secciones en un contenedor único
-      
-        // Generar el PDF
-        html2pdf().from(element).set(options).save().finally(() => {
+  generarPDFRep1() {
+    console.log('Si entra');
+    const loadingMessage = document.getElementById('loading');
+    loadingMessage.style.display = 'block';
+
+    const nombre = `${this.informe.inf_paterno}_${this.informe.inf_materno}_${this.informe.inf_nombre}.pdf`;
+
+    // Configuración de html2pdf
+    const options = {
+      margin: 1,
+      filename: nombre,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, logging: true, dpi: 192, letterRendering: true },
+      jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }
+    };
+
+    // Selecciona todas las secciones de tu HTML
+    const element = document.getElementById('reporte');  // Asegúrate de envolver tus secciones en un contenedor único
+
+    // Generar el PDF
+    html2pdf().from(element).set(options).save().finally(() => {
+      // Ocultar el mensaje de "Descargando reporte"
+      loadingMessage.style.display = 'none';
+    });
+  }
+
+
+  generarPDFRep() {
+    // Mostrar el mensaje de "Descargando reporte"
+    const loadingMessage = document.getElementById('loading');
+    loadingMessage.style.display = 'block';
+
+    const nombre: string = `${this.informe.inf_paterno}_${this.informe.inf_materno}_${this.informe.inf_nombre}.pdf`;
+
+    // Configurar PDF en tamaño carta (Letter) en orientación portrait
+    const pdf = new jsPDF('p', 'pt', 'letter'); // "letter" equivale a tamaño carta
+
+    const container = document.getElementById('reporte');
+
+    if (container) {
+      // Obtener el ancho y altura del PDF
+      const pdfWidth = pdf.internal.pageSize.getWidth(); // Ancho del PDF (612pt para Letter)
+      const pdfHeight = pdf.internal.pageSize.getHeight(); // Altura del PDF (792pt para Letter)
+
+      // Eliminar estilos que podrían causar problemas en el contenedor
+      container.style.width = `${pdfWidth}px`;
+      container.style.margin = '0'; // Eliminar márgenes automáticos
+
+      // Calcular el factor de escala necesario
+      const scaleFactor = pdfWidth / container.scrollWidth;
+
+      pdf.html(container, {
+        callback: () => {
+          // Guardar el PDF
+          pdf.save(nombre);
+
           // Ocultar el mensaje de "Descargando reporte"
           loadingMessage.style.display = 'none';
-        });
-      }
+        },
+        x: 0, // Margen izquierdo
+        y: 0, // Margen superior
+        html2canvas: {
+          scale: scaleFactor, // Ajustar escala dinámicamente
+        },
+        margin: [0, 0, 0, 0], // Márgenes eliminados
+        autoPaging: 'text', // Habilitar paginación automática
+      });
+    } else {
+      console.error('El contenedor no fue encontrado.');
+      loadingMessage.style.display = 'none';
+    }
+  }
 
 
-      generarPDFRep() {
-        // Mostrar el mensaje de "Descargando reporte"
-        const loadingMessage = document.getElementById('loading');
-        loadingMessage.style.display = 'block';
-      
-        const nombre: string = `${this.informe.inf_paterno}_${this.informe.inf_materno}_${this.informe.inf_nombre}.pdf`;
-      
-        // Configurar PDF en tamaño carta (Letter) en orientación portrait
-        const pdf = new jsPDF('p', 'pt', 'letter'); // "letter" equivale a tamaño carta
-      
-        const container = document.getElementById('reporte');
-      
-        if (container) {
-          // Obtener el ancho y altura del PDF
-          const pdfWidth = pdf.internal.pageSize.getWidth(); // Ancho del PDF (612pt para Letter)
-          const pdfHeight = pdf.internal.pageSize.getHeight(); // Altura del PDF (792pt para Letter)
-      
-          // Eliminar estilos que podrían causar problemas en el contenedor
-          container.style.width = `${pdfWidth}px`;
-          container.style.margin = '0'; // Eliminar márgenes automáticos
-      
-          // Calcular el factor de escala necesario
-          const scaleFactor = pdfWidth / container.scrollWidth;
-      
-          pdf.html(container, {
-            callback: () => {
-              // Guardar el PDF
-              pdf.save(nombre);
-      
-              // Ocultar el mensaje de "Descargando reporte"
-              loadingMessage.style.display = 'none';
-            },
-            x: 0, // Margen izquierdo
-            y: 0, // Margen superior
-            html2canvas: {
-              scale: scaleFactor, // Ajustar escala dinámicamente
-            },
-            margin: [0, 0, 0, 0], // Márgenes eliminados
-            autoPaging: 'text', // Habilitar paginación automática
-          });
-        } else {
-          console.error('El contenedor no fue encontrado.');
-          loadingMessage.style.display = 'none';
-        }
-      }
-      
-      
-      
+
 
   generaPDF() {
     const element = document.getElementById('contentRep');
 
     html2canvas(element).then((canvas) => {
-      var nombre:string=this.informe.inf_paterno+'_'+this.informe.inf_materno+'_'+this.informe.inf_nombre+'.pdf';
+      var nombre: string = this.informe.inf_paterno + '_' + this.informe.inf_materno + '_' + this.informe.inf_nombre + '.pdf';
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'pt', 'a4');
 
@@ -828,28 +828,28 @@ drawChart(valores: number[], etiquetas: string[], index: number) {
 
 
   generarPDF() {
-     // Mostrar el mensaje de "Descargando reporte"
-     const loadingMessage = document.getElementById('loading');
-     loadingMessage.style.display = 'block';
+    // Mostrar el mensaje de "Descargando reporte"
+    const loadingMessage = document.getElementById('loading');
+    loadingMessage.style.display = 'block';
     const element = document.getElementById('contentRep');
-  
+
     html2canvas(element).then((canvas) => {
       var nombre = this.informe.inf_paterno + '_' + this.informe.inf_materno + '_' + this.informe.inf_nombre + '.pdf';
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'pt', 'a4');
-  
+
       const pageWidth = pdf.internal.pageSize.getWidth(); // Ancho de la página
       const imgWidth = pageWidth - 20; // Ancho de la imagen (margen de 10px a la izquierda y derecha)
       const imgHeight = (canvas.height * imgWidth) / canvas.width; // Mantener proporciones
       let heightLeft = imgHeight; // Altura restante por imprimir
-  
+
       let position = 0;
-  
+
       // Centrar la primera imagen en la página
       const xPosition = 10; // Margen izquierdo de 10px
       pdf.addImage(imgData, 'PNG', xPosition, position, imgWidth, imgHeight);
       heightLeft -= pdf.internal.pageSize.getHeight(); // Restar la altura de la página
-  
+
       // Si el contenido excede una página, seguimos agregando páginas
       while (heightLeft > 0) {
         position = heightLeft - imgHeight; // Calcular la nueva posición en la página
@@ -857,70 +857,383 @@ drawChart(valores: number[], etiquetas: string[], index: number) {
         pdf.addImage(imgData, 'PNG', xPosition, position, imgWidth, imgHeight); // Añadir imagen a la nueva página
         heightLeft -= pdf.internal.pageSize.getHeight(); // Reducir la altura restante
       }
-  
+
       pdf.save(nombre); // Guardar el PDF con el nombre especificado
-       // Ocultar el mensaje de "Descargando reporte"
-       loadingMessage.style.display = 'none';
+      // Ocultar el mensaje de "Descargando reporte"
+      loadingMessage.style.display = 'none';
+    });
+  }
+
+
+
+
+  /*   exportToWord() {
+      const content = document.getElementById('contentRep')?.innerHTML;
+      if (content) {
+        // Convertir HTML a Word utilizando la librería html-to-docx
+        const converted = htmlToDocx(content, {
+          table: { row: { alignment: 'center' } },
+        });
+  
+        // Guardar el archivo como docx
+        saveAs(converted, 'archivo.docx');
+      }
+    } */
+
+
+  generarPDFE() {
+    const nombre = `${this.informe.inf_paterno}_${this.informe.inf_materno}_${this.informe.inf_nombre}.pdf`;
+    const contentId = 'contentRep';
+    const doc = new jsPDF({
+      unit: 'pt',
+      format: 'letter',
+      orientation: 'portrait',
+      compress: true,
+    });
+
+    const element = document.getElementById(contentId);
+
+    if (!element) {
+      console.error('El elemento con el ID especificado no existe.');
+      return;
+    }
+
+    const sections = element.querySelectorAll('.page-breakx, canvas, img');
+
+    const promises = Array.from(sections).map((section, index) => {
+      return new Promise<void>((resolve, reject) => {
+        html2canvas(section as HTMLElement, {
+          scale: 2, // Mejora la calidad de las imágenes
+          useCORS: true, // Carga imágenes externas
+          allowTaint: false, // Desactiva taint para evitar errores
+        })
+          .then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const imgWidth = doc.internal.pageSize.getWidth();
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+            if (index !== 0) {
+              doc.addPage();
+            }
+            doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+            resolve();
+          })
+          .catch((error) => {
+            console.error(`Error procesando la sección ${index}:`, error);
+            reject(error);
+          });
+      });
+    });
+
+    Promise.all(promises)
+      .then(() => {
+        // Aquí puedes añadir más contenido si es necesario
+        doc.save(nombre);
+      })
+      .catch((error) => {
+        console.error('Error generando el PDF:', error);
+      });
+  }
+
+
+
+
+  generarPDFE1() {
+    // Generar el nombre del archivo PDF
+    const nombre = `${this.informe.inf_paterno}_${this.informe.inf_materno}_${this.informe.inf_nombre}.pdf`;
+
+    // Obtener el contenido HTML que se va a convertir
+    const element = document.getElementById('contentRep');
+
+    // Crear una nueva instancia de jsPDF
+    const doc = new jsPDF({
+      unit: 'pt', // Usar puntos para un mejor control de medidas
+      format: 'letter', // Tamaño de carta
+      orientation: 'portrait',
+      compress: true // Habilitar compresión interna del PDF
+    });
+
+    // Ajustar las opciones para html2canvas y jsPDF
+    const options = {
+      callback: function (doc) {
+        // Guardar el PDF después de que se haya renderizado el HTML
+        doc.save(nombre);
+      },
+      x: 10, // Ajuste de la posición X inicial
+      y: 10, // Ajuste de la posición Y inicial
+      autoPaging: true, // Permitir saltos automáticos de página
+      margin: [20, 20, 20, 20], // Márgenes: superior, derecho, inferior, izquierdo
+      html2canvas: {
+        scale: 0.5, // Ajustar la escala para mejorar la calidad
+        logging: false, // Deshabilitar logs para reducir mensajes en la consola
+        useCORS: true, // Permitir CORS para imágenes externas
+        allowTaint: false, // Evitar problemas de "taint" en imágenes externas
+      }
+    };
+
+    // Renderizar el contenido HTML en el PDF con las opciones ajustadas
+    doc.html(element, options);
+  }
+
+
+  async generarPDFx() {
+    const pdf = new jsPDF();
+    const dpi = 300; // Resolución de 300 DPI
+    const pdfWidth = 210; // Ancho del PDF en mm
+    const pdfHeight = 297; // Altura del PDF en mm
+
+    // Generar PDF para las gráficas de creencias
+    for (let index = 0; index < this.creenciaGrafica.length; index++) {
+      const canvas = document.getElementById(`canvasId-${index}`) as HTMLCanvasElement;
+      const titulo = `Perfil de Ideas Irracionales Gráfica ${index + 1}`;
+
+      if (canvas) {
+        const canvasElement = await html2canvas(canvas, { scale: dpi / 96 });
+        const imgData = canvasElement.toDataURL('image/png');
+        const imgWidth = pdfWidth - 20; // Ajustamos el ancho con márgenes
+        const imgHeight = (canvasElement.height * imgWidth) / canvasElement.width;
+
+        if (index > 0) pdf.addPage(); // Añadir nueva página si no es el primer gráfico
+
+        // Agrega el título
+        pdf.setFontSize(14);
+        pdf.text(titulo, pdfWidth / 2, 20, { align: 'center' });
+
+        // Agrega la imagen al PDF
+        pdf.addImage(imgData, 'PNG', 10, 30, imgWidth, imgHeight);
+      }
+    }
+
+    // Generar PDF para las imágenes de la sección 17 (SCL 90 R)
+    for (let index = 0; index < this.files.length; index++) {
+      const file = this.files[index];
+      const titulo = `Perfil Gráfico SCL 90 R - ${file.name}`;
+
+      if (file.fileType === '.png' || file.fileType === '.jpeg' || file.fileType === '.jpg') {
+        if (index > 0 || this.creenciaGrafica.length > 0) pdf.addPage(); // Añadir nueva página
+
+        // Agregar el título
+        pdf.setFontSize(14);
+        pdf.text(titulo, pdfWidth / 2, 20, { align: 'center' });
+
+        // Cargar y agregar la imagen al PDF
+        const imgData = `data:image/${file.fileType.replace('.', '')};base64,${file.dataFiles}`;
+        pdf.addImage(imgData, 'JPEG', 10, 30, pdfWidth - 20, (pdfWidth - 20) * 0.75); // Mantener proporción
+      }
+    }
+
+    // Generar PDF para las imágenes de la sección 18 (SCID2)
+    for (let index = 0; index < this.files2.length; index++) {
+      const file2 = this.files2[index];
+      const titulo = `Perfil Gráfico SCID2 - ${file2.name}`;
+
+      if (file2.fileType === '.png' || file2.fileType === '.jpeg' || file2.fileType === '.jpg') {
+        pdf.addPage(); // Añadir nueva página
+
+        // Agregar el título
+        pdf.setFontSize(14);
+        pdf.text(titulo, pdfWidth / 2, 20, { align: 'center' });
+
+        // Cargar y agregar la imagen al PDF
+        const imgData = `data:image/${file2.fileType.replace('.', '')};base64,${file2.dataFiles}`;
+        pdf.addImage(imgData, 'JPEG', 10, 30, pdfWidth - 20, (pdfWidth - 20) * 0.75); // Mantener proporción
+      }
+    }
+
+    // Generar PDF para las imágenes de la sección 19 (Isra)
+    for (let index = 0; index < this.files3.length; index++) {
+      const file3 = this.files3[index];
+      const titulo = `Perfil Gráfico Isra - ${file3.name}`;
+
+      if (file3.fileType === '.png' || file3.fileType === '.jpeg' || file3.fileType === '.jpg') {
+        pdf.addPage(); // Añadir nueva página
+
+        // Agregar el título
+        pdf.setFontSize(14);
+        pdf.text(titulo, pdfWidth / 2, 20, { align: 'center' });
+
+        // Cargar y agregar la imagen al PDF
+        const imgData = `data:image/${file3.fileType.replace('.', '')};base64,${file3.dataFiles}`;
+        pdf.addImage(imgData, 'JPEG', 10, 30, pdfWidth - 20, (pdfWidth - 20) * 0.75); // Mantener proporción
+      }
+    }
+
+    // Descargar el PDF completo
+    pdf.save('graficas_completas_perfil_scl90_sclid2_isra.pdf');
+  }
+
+
+///pruebas 
+  generateFirstPdf(): Promise<Blob> {
+    return new Promise((resolve, reject) => {
+      const nombre = `${this.informe.inf_paterno}_${this.informe.inf_materno}_${this.informe.inf_nombre}.pdf`;
+  
+      const element = document.getElementById('contentRep');
+      const doc = new jsPDF({
+        unit: 'pt',
+        format: 'letter',
+        orientation: 'portrait',
+        compress: true
+      });
+  
+      const options = {
+        callback: (doc) => {
+          try {
+            const pdfBlob = doc.output('blob');
+            resolve(pdfBlob); // Resolver la promesa con el PDF generado
+          } catch (error) {
+            reject(error); // Rechazar si ocurre un error al generar el PDF
+          }
+        },
+        x: 10,
+        y: 10,
+        autoPaging: true,
+        margin: [20, 20, 20, 20],
+        html2canvas: {
+          scale: 0.5,
+          logging: false,
+          useCORS: true,
+          allowTaint: false,
+        }
+      };
+  
+      doc.html(element, options);
+    });
+  }
+  
+  generateSecondPdf(): Promise<Blob> {
+    return new Promise(async (resolve, reject) => {
+      const pdf = new jsPDF();
+      const dpi = 300;
+      const pdfWidth = 210;
+      const pdfHeight = 297;
+  
+      try {
+        // Generar PDF para las gráficas de creencias
+    for (let index = 0; index < this.creenciaGrafica.length; index++) {
+      const canvas = document.getElementById(`canvasId-${index}`) as HTMLCanvasElement;
+      const titulo = `Perfil de Ideas Irracionales Gráfica ${index + 1}`;
+
+      if (canvas) {
+        const canvasElement = await html2canvas(canvas, { scale: dpi / 96 });
+        const imgData = canvasElement.toDataURL('image/png');
+        const imgWidth = pdfWidth - 20; // Ajustamos el ancho con márgenes
+        const imgHeight = (canvasElement.height * imgWidth) / canvasElement.width;
+
+        if (index > 0) pdf.addPage(); // Añadir nueva página si no es el primer gráfico
+
+        // Agrega el título
+        pdf.setFontSize(14);
+        pdf.text(titulo, pdfWidth / 2, 20, { align: 'center' });
+
+        // Agrega la imagen al PDF
+        pdf.addImage(imgData, 'PNG', 10, 30, imgWidth, imgHeight);
+      }
+    }
+
+    // Generar PDF para las imágenes de la sección 17 (SCL 90 R)
+    for (let index = 0; index < this.files.length; index++) {
+      const file = this.files[index];
+      const titulo = `Perfil Gráfico SCL 90 R - ${file.name}`;
+
+      if (file.fileType === '.png' || file.fileType === '.jpeg' || file.fileType === '.jpg') {
+        if (index > 0 || this.creenciaGrafica.length > 0) pdf.addPage(); // Añadir nueva página
+
+        // Agregar el título
+        pdf.setFontSize(14);
+        pdf.text(titulo, pdfWidth / 2, 20, { align: 'center' });
+
+        // Cargar y agregar la imagen al PDF
+        const imgData = `data:image/${file.fileType.replace('.', '')};base64,${file.dataFiles}`;
+        pdf.addImage(imgData, 'JPEG', 10, 30, pdfWidth - 20, (pdfWidth - 20) * 0.75); // Mantener proporción
+      }
+    }
+
+    // Generar PDF para las imágenes de la sección 18 (SCID2)
+    for (let index = 0; index < this.files2.length; index++) {
+      const file2 = this.files2[index];
+      const titulo = `Perfil Gráfico SCID2 - ${file2.name}`;
+
+      if (file2.fileType === '.png' || file2.fileType === '.jpeg' || file2.fileType === '.jpg') {
+        pdf.addPage(); // Añadir nueva página
+
+        // Agregar el título
+        pdf.setFontSize(14);
+        pdf.text(titulo, pdfWidth / 2, 20, { align: 'center' });
+
+        // Cargar y agregar la imagen al PDF
+        const imgData = `data:image/${file2.fileType.replace('.', '')};base64,${file2.dataFiles}`;
+        pdf.addImage(imgData, 'JPEG', 10, 30, pdfWidth - 20, (pdfWidth - 20) * 0.75); // Mantener proporción
+      }
+    }
+
+    // Generar PDF para las imágenes de la sección 19 (Isra)
+    for (let index = 0; index < this.files3.length; index++) {
+      const file3 = this.files3[index];
+      const titulo = `Perfil Gráfico Isra - ${file3.name}`;
+
+      if (file3.fileType === '.png' || file3.fileType === '.jpeg' || file3.fileType === '.jpg') {
+        pdf.addPage(); // Añadir nueva página
+
+        // Agregar el título
+        pdf.setFontSize(14);
+        pdf.text(titulo, pdfWidth / 2, 20, { align: 'center' });
+
+        // Cargar y agregar la imagen al PDF
+        const imgData = `data:image/${file3.fileType.replace('.', '')};base64,${file3.dataFiles}`;
+        pdf.addImage(imgData, 'JPEG', 10, 30, pdfWidth - 20, (pdfWidth - 20) * 0.75); // Mantener proporción
+      }
+    }
+  
+        // Convertir el PDF a Blob y resolver la promesa
+        const pdfBlob = pdf.output('blob');
+        resolve(pdfBlob);
+      } catch (error) {
+        reject(error); // Rechazar la promesa si ocurre un error
+      }
     });
   }
   
 
-
-
-/*   exportToWord() {
-    const content = document.getElementById('contentRep')?.innerHTML;
-    if (content) {
-      // Convertir HTML a Word utilizando la librería html-to-docx
-      const converted = htmlToDocx(content, {
-        table: { row: { alignment: 'center' } },
+  sendBothPdfsToApi() {
+    const loadingMessage = document.getElementById('loading');
+    loadingMessage.style.display = 'block';
+    const nombre = `${this.informe.inf_paterno}_${this.informe.inf_materno}_${this.informe.inf_nombre}`;
+    // Generar ambos PDFs de forma paralela
+    Promise.all([this.generateFirstPdf(), this.generateSecondPdf()])
+      .then(([firstPdfBlob, secondPdfBlob]) => {
+        // Ambos PDFs se han generado exitosamente, ahora los enviamos a la API
+        const formData = new FormData();
+        const file1 = new File([firstPdfBlob], 'primer_pdf.pdf', { type: 'application/pdf' });
+        const file2 = new File([secondPdfBlob], 'segundo_pdf.pdf', { type: 'application/pdf' });
+  
+        formData.append('files', file1);
+        formData.append('files', file2);
+        formData.append('nombre', nombre); // Enviar el nombre del archivo a la API
+  
+        this.http.post('https://localhost:7161/api/Rep/combinar', formData, { responseType: 'blob' })
+          .subscribe(
+            (response: Blob) => {
+              // Descargar el PDF combinado que la API devuelve
+              const combinedBlob = new Blob([response], { type: 'application/pdf' });
+              const url = window.URL.createObjectURL(combinedBlob);
+              const link = document.createElement('a');
+              link.href = url;
+              link.download = `${nombre}`;
+              link.click();
+              window.URL.revokeObjectURL(url);
+              loadingMessage.style.display = 'none';
+            },
+            error => {
+              console.error('Error al enviar los PDFs:', error);
+            }
+          );
+      })
+      .catch(error => {
+        console.error('Error al generar los PDFs:', error);
       });
-
-      // Guardar el archivo como docx
-      saveAs(converted, 'archivo.docx');
-    }
-  } */
-
-
-
-
-
-
-    generarPDFE() {
-          // Generar el nombre del archivo PDF
-      const nombre = `${this.informe.inf_paterno}_${this.informe.inf_materno}_${this.informe.inf_nombre}.pdf`;
-
-      // Obtener el contenido HTML que se va a convertir
-      const element = document.getElementById('contentRep');
-
-      // Crear una nueva instancia de jsPDF
-      const doc = new jsPDF({
-        unit: 'pt', // Usar puntos para un mejor control de medidas
-        format: 'letter', // Tamaño de carta
-        orientation: 'portrait', 
-        compress: true // Habilitar compresión interna del PDF
-      });
-
-      // Ajustar las opciones para html2canvas y jsPDF
-      const options = {
-        callback: function(doc) {
-          // Guardar el PDF después de que se haya renderizado el HTML
-          doc.save(nombre);
-        },
-        x: 10, // Ajuste de la posición X inicial
-        y: 10, // Ajuste de la posición Y inicial
-        margin: [20, 20, 20, 20], // Márgenes: superior, derecho, inferior, izquierdo
-        html2canvas: {
-          scale: 0.5, // Ajustar la escala para mejorar la calidad
-          logging: false, // Deshabilitar logs para reducir mensajes en la consola
-          useCORS: true, // Permitir CORS para imágenes externas
-          allowTaint: false, // Evitar problemas de "taint" en imágenes externas
-        }
-      };
-
-      // Renderizar el contenido HTML en el PDF con las opciones ajustadas
-      doc.html(element, options);
-      }
-
+  }
+  
 
 
 

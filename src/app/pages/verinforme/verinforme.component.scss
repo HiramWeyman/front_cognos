@@ -57,9 +57,18 @@ img {
 .contenedor {
     display: flex;
     flex-direction: column;
-    //margin:1rem auto;
+    margin:1rem auto;
     max-width: 600px;
 }  
+
+.contenedorx {
+    display: flex;
+    flex-direction: column;
+    //margin:1rem auto;
+    /* max-width: 600px; */
+    align-items: center;
+} 
+
 
 .izqquitar{
     margin-left: 15px;
@@ -83,7 +92,7 @@ img {
     margin-bottom: 20px; /* Espacio entre contenedores de archivos */
   }
   
-  .file-image {
+.page-break  .file-image {
     width: 100%; /* Ancho de la imagen */
     //height: 100%; /* Alto de la imagen */
     object-fit: cover; /* Ajustar la imagen para que ocupe todo el espacio, manteniendo la proporción */
@@ -107,6 +116,10 @@ img {
     align-items: center; /* (Opcional) Centra los elementos verticalmente */
     gap: 3rem; 
     padding: 2rem;
+  }
+
+  .page-breakx {
+    page-break-after: always; /* Crea un salto de página después del elemento */
   }
 
   
