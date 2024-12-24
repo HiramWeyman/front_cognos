@@ -1219,7 +1219,7 @@ export class VerinformeComponent {
               const url = window.URL.createObjectURL(combinedBlob);
               const link = document.createElement('a');
               link.href = url;
-              link.download = `${nombre}`;
+              link.download = `${nombre}.pdf`;
               link.click();
               window.URL.revokeObjectURL(url);
               loadingMessage.style.display = 'none';
