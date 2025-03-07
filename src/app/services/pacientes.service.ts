@@ -100,5 +100,20 @@ export class PacientesService {
     return this.http.delete<any>(`${environment.rutaAPI}` + '/Reingreso/deleteFechareingreso/'+id);
   }
 
+  //Se usa para cargar los terapeutas en la reasignacion de  expedientes
+  GetTerapuetasReasignar(): Observable<any> {
+    return this.http.get<any>(`https://api.iescognos.com/getUsuariosTera` );
+  }
+  private apiUrl = 'https://api.iescognos.com/Reasignarpac'; // Reemplaza con la URL de tu API
+  actualizarPaciente(id: number, autor: number, colaborador: number): Observable<any> {
+    const payload = {
+      id: id,
+      autor: autor,
+      colaborador: colaborador
+    };
+    console.log('Datos Enviados');
+    console.log(payload);
+    return this.http.patch(this.apiUrl, payload);
+  }
 
 }

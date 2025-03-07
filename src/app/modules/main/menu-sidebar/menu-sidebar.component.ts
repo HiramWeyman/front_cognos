@@ -71,6 +71,11 @@ export const MENU = [
         path: ['/pacientes']
     },
     {
+        name: 'Reasignar Paciente ',
+        iconClasses: 'fas fa-users',
+        path: ['/reasignar']
+    },
+    {
         name: 'Catalogos ',
         iconClasses: 'fas fa-folder',        
         children: [
@@ -83,7 +88,7 @@ export const MENU = [
                 name: 'Cat Terapeutas',
                 iconClasses: 'fas fa-users',
                 path: ['/sub-menu-2']
-            } 
+            }
         ]
     }
 ];

@@ -91,6 +91,7 @@ import { ResCreeComponent } from './pages/res-cree/res-cree.component';
 import { RisraComponent } from './pages/risra/risra.component';
 
 import { RichTextEditorComponent } from './pages/rich-text-editor/rich-text-editor.component';
+import { ReasignapacComponent } from './pages/reasignapac/reasignapac.component';
 
 
 
@@ -153,6 +154,7 @@ registerLocaleData(localeEn, 'en-EN');
         ResCreeComponent,
         RisraComponent,
         RichTextEditorComponent,
+       /*  ReasignapacComponent, */
  
 
      

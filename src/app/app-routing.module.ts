@@ -32,6 +32,7 @@ import { ResBaianComponent } from '@pages/res-baian/res-baian.component';
 import { ResBdidpComponent } from '@pages/res-bdidp/res-bdidp.component';
 import { ResCreeComponent } from '@pages/res-cree/res-cree.component';
 import { RisraComponent } from '@pages/risra/risra.component';
+import { ReasignapacComponent } from '@pages/reasignapac/reasignapac.component';
 
 const routes: Routes = [
     {
@@ -129,6 +130,10 @@ const routes: Routes = [
             {
                 path:'risra/:id', 
                 component: RisraComponent
+            },
+            {
+                path:'reasignar', 
+                component: ReasignapacComponent
             },
             {
                 path: 'sub-menu-1',

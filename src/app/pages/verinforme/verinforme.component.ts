@@ -1211,7 +1211,7 @@ export class VerinformeComponent {
         formData.append('files', file2);
         formData.append('nombre', nombre); // Enviar el nombre del archivo a la API
   
-        this.http.post('https://localhost:7161/api/Rep/combinar', formData, { responseType: 'blob' })
+        this.http.post('https://api.iescognos.com/api/Rep/combinar', formData, { responseType: 'blob' })
           .subscribe(
             (response: Blob) => {
               // Descargar el PDF combinado que la API devuelve
