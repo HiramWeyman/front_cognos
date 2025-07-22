@@ -15,3 +15,20 @@
   padding: 5px 0px 25px 2px;
   width: 25%;
 }
+
+.bloque-centrado {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.bloque-centrado label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.bloque-centrado app-rich-text-editor {
+  display: inline-block;
+  width: 100%; /* O puedes usar un ancho fijo como 80% si lo prefieres */
+  max-width: 800px;
+}

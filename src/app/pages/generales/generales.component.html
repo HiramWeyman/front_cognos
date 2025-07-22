@@ -95,6 +95,13 @@
 
       <div class="col-sm">
         <mat-form-field class="form-element">
+          <mat-label>Teléfono de contacto principal</mat-label>
+          <input matInput type="tel" [(ngModel)]="pacIns.pac_telefono" id="pac_telefono" name="pac_telefono" ngDefaultControl>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm">
+        <mat-form-field class="form-element">
           <mat-label>Email de contacto</mat-label>
           <input matInput type="email" [(ngModel)]="pacIns.pac_email"  id="pac_email" name="pac_email" ngDefaultControl>
         </mat-form-field>
@@ -107,10 +114,44 @@
         </mat-form-field>
       </div>
 
-      <div class="col-sm">
+      
+
+
+      <div class="col-sm-12">
+        <h5><label>Contactar en caso de emergencia</label></h5>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Persona</th>
+              <th scope="col">Teléfono</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td><input type="text" [(ngModel)]="pacIns.pac_contacto_eme" name="contacto1" style="width: 100%;"></td>
+              <td><input type="tel" [(ngModel)]="pacIns.pac_telefono_eme" name="telefono1" style="width: 100%;"></td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td><input type="text" [(ngModel)]="pacIns.pac_contacto_eme2" name="contacto2" style="width: 100%;"></td>
+              <td><input type="tel" [(ngModel)]="pacIns.pac_telefono_eme2" name="telefono2" style="width: 100%;"></td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td><input type="text" [(ngModel)]="pacIns.pac_contacto_eme3" name="contacto3" style="width: 100%;"></td>
+              <td><input type="tel" [(ngModel)]="pacIns.pac_telefono_eme3" name="telefono3" style="width: 100%;"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-12">
         <mat-form-field class="form-element">
-          <mat-label>Teléfono de contacto principal</mat-label>
-          <input matInput type="tel" [(ngModel)]="pacIns.pac_telefono" id="pac_telefono" name="pac_telefono" ngDefaultControl>
+          <mat-label>Vive con:</mat-label>
+          <textarea matInput cols="5" rows="5" [(ngModel)]="pacIns.pac_vive_con" name="pac_vive_con"
+            ngDefaultControl></textarea>
         </mat-form-field>
       </div>
 
@@ -269,43 +310,9 @@
    
 
 
-      <div class="col-sm-12">
-        <h5><label>Contactar en caso de emergencia</label></h5>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Persona</th>
-              <th scope="col">Teléfono</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td><input type="text" [(ngModel)]="pacIns.pac_contacto_eme" name="contacto1" style="width: 100%;"></td>
-              <td><input type="tel" [(ngModel)]="pacIns.pac_telefono_eme" name="telefono1" style="width: 100%;"></td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td><input type="text" [(ngModel)]="pacIns.pac_contacto_eme2" name="contacto2" style="width: 100%;"></td>
-              <td><input type="tel" [(ngModel)]="pacIns.pac_telefono_eme2" name="telefono2" style="width: 100%;"></td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td><input type="text" [(ngModel)]="pacIns.pac_contacto_eme3" name="contacto3" style="width: 100%;"></td>
-              <td><input type="tel" [(ngModel)]="pacIns.pac_telefono_eme3" name="telefono3" style="width: 100%;"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      
 
-      <div class="col-12">
-        <mat-form-field class="form-element">
-          <mat-label>Vive con:</mat-label>
-          <textarea matInput cols="5" rows="5" [(ngModel)]="pacIns.pac_vive_con" name="pac_vive_con"
-            ngDefaultControl></textarea>
-        </mat-form-field>
-      </div>
+      
 
       <div class="col-sm-12">
         <h5><label>Suicidio</label></h5><br>

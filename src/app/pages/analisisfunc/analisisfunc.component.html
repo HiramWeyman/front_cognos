@@ -1,14 +1,35 @@
+
+<div class="bloque-centrado">
+    <label>ANTECEDENTES.</label><br>
+    <app-rich-text-editor [(ngModel)]="analisis.analisis_ant_desc" #richTextEditor1></app-rich-text-editor>
+  </div><br>
+  
+  <div class="bloque-centrado">
+    <label>CONDUCTA.</label><br>
+    <app-rich-text-editor [(ngModel)]="analisis.analisis_con_desc" #richTextEditor2></app-rich-text-editor>
+  </div><br>
+  
+  <div class="bloque-centrado">
+    <label>CONSECUENTES.</label><br>
+    <app-rich-text-editor [(ngModel)]="analisis.analisis_cons_desc" #richTextEditor3></app-rich-text-editor>
+  </div>
+  
+
+
 <div class="contenedor">
+<!--     <label>ANTECEDENTES.</label><br>
     <div>
         <app-rich-text-editor [(ngModel)]="analisis.analisis_ant_desc" #richTextEditor1></app-rich-text-editor>
-    </div>
+    </div><br>
+    <label>CONDUCTA.</label><br>
     <div>
         <app-rich-text-editor [(ngModel)]="analisis.analisis_con_desc" #richTextEditor2></app-rich-text-editor>
-    </div>
+    </div><br>
+    <label>CONSECUENTES.</label><br>
     <div>
         <app-rich-text-editor [(ngModel)]="analisis.analisis_cons_desc" #richTextEditor3></app-rich-text-editor>
     </div>
-
+ -->
 
     <div class="row d-flex justify-content-center">
         <div class="form-element">

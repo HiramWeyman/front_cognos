@@ -80,6 +80,14 @@
           <input matInput [(ngModel)]="pac.pac_ocupacion" name="ocupacion" ngDefaultControl>
         </mat-form-field>
       </div>
+
+      <div class="col-sm">
+        <mat-form-field class="form-element">
+          <mat-label>Teléfono de contacto principal</mat-label>
+          <input matInput type="tel" [(ngModel)]="pac.pac_telefono" name="telefono" ngDefaultControl>
+        </mat-form-field>
+      </div>
+      
       <div class="col-sm">
         <mat-form-field class="form-element">
           <mat-label>Email de contacto</mat-label>
@@ -254,12 +262,7 @@
       </mat-form-field>
     </div> -->
 
-      <div class="col-sm">
-        <mat-form-field class="form-element">
-          <mat-label>Teléfono de contacto principal</mat-label>
-          <input matInput type="tel" [(ngModel)]="pac.pac_telefono" name="telefono" ngDefaultControl>
-        </mat-form-field>
-      </div>
+      
 
       <div class="col-sm-12">
         <h5><label>Contactar en caso de emergencia</label></h5>

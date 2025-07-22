@@ -9,8 +9,10 @@ import { Router, RouterModule } from '@angular/router';
 import { PacientesService } from '@services/pacientes.service';
 import { Pacientes } from '@/models/Pacientes';
 import Swal from 'sweetalert2';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { DatePipe } from '@angular/common';
 import { AppService } from '@services/app.service';
+import { BlockUIModule } from 'ng-block-ui';
 
 export interface PeriodicElement {
   pac_id: number;
@@ -25,18 +27,19 @@ export interface PeriodicElement {
   templateUrl: './pacientes.component.html',
   styleUrls: ['./pacientes.component.scss'],
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule,MatFormFieldModule, MatInputModule,MatButtonModule,RouterModule,MatIconModule],
+  imports: [MatTableModule, MatPaginatorModule,MatFormFieldModule, MatInputModule,MatButtonModule,RouterModule,MatIconModule, BlockUIModule],
 })
 export class PacientesComponent implements OnInit {
   pacientes: Pacientes[];
   fec:any;
   perfil:any;
   usuario_id:any;
+  @BlockUI()
+  blockUI!: NgBlockUI;
   constructor(private router: Router,private paginator: MatPaginatorIntl, private _pac: PacientesService, private datePipe: DatePipe,private appService: AppService) {
     this.paginator.itemsPerPageLabel = "Registros por página";
   }
   ngOnInit(): void {
-
     localStorage.removeItem('llaveFam');
     sessionStorage.removeItem('llaveFam');
     localStorage.removeItem('Expediente');
@@ -81,6 +84,7 @@ export class PacientesComponent implements OnInit {
   }
 
   cargarPacientes() {
+    this.blockUI.start('Cargando pacientes ...');
     this._pac.GetPacientes().subscribe(
       pac => {
       
@@ -94,6 +98,7 @@ export class PacientesComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.pacientes);
         /*  this.dataSource.paginator = this.paginator; */
          this.dataSource.paginator = this.paginatorFirst;
+         this.blockUI.stop(); // <-- Aquí sí
       }, error => {
         //console.log(error);
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -101,6 +106,7 @@ export class PacientesComponent implements OnInit {
   }
 
   cargarPacientesR1() {
+    this.blockUI.start('Cargando pacientes ...');
     this._pac.GetPacientesR1(this.usuario_id).subscribe(
       pac => {
       
@@ -114,6 +120,7 @@ export class PacientesComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.pacientes);
         /*  this.dataSource.paginator = this.paginator; */
          this.dataSource.paginator = this.paginatorFirst;
+         this.blockUI.stop(); // <-- Aquí sí
       }, error => {
         //console.log(error);
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -121,6 +128,7 @@ export class PacientesComponent implements OnInit {
   }
 
   cargarPacientesR2() {
+    this.blockUI.start('Cargando pacientes ...');
     this._pac.GetPacientesR2(this.usuario_id).subscribe(
       pac => {
       
@@ -134,6 +142,7 @@ export class PacientesComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.pacientes);
         /*  this.dataSource.paginator = this.paginator; */
          this.dataSource.paginator = this.paginatorFirst;
+         this.blockUI.stop(); // <-- Aquí sí
       }, error => {
         //console.log(error);
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -142,6 +151,7 @@ export class PacientesComponent implements OnInit {
   
 
   cargarPacientesTutor() {
+    this.blockUI.start('Cargando pacientes ...');
     this._pac.GetPacientesTutor(this.usuario_id).subscribe(
       pac => {
       
@@ -155,6 +165,7 @@ export class PacientesComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.pacientes);
         /*  this.dataSource.paginator = this.paginator; */
          this.dataSource.paginator = this.paginatorFirst;
+         this.blockUI.stop(); // <-- Aquí sí
       }, error => {
         //console.log(error);
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
@@ -163,6 +174,7 @@ export class PacientesComponent implements OnInit {
 
 
   cargarPacientesTerapeuta() {
+    this.blockUI.start('Cargando pacientes ...');
     this._pac.GetPacientesTerapeuta(this.usuario_id).subscribe(
       pac => {
       
@@ -176,6 +188,7 @@ export class PacientesComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.pacientes);
         /*  this.dataSource.paginator = this.paginator; */
          this.dataSource.paginator = this.paginatorFirst;
+         this.blockUI.stop(); // <-- Aquí sí
       }, error => {
         //console.log(error);
         Swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
