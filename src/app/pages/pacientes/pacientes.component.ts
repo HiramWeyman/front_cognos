@@ -34,6 +34,7 @@ export class PacientesComponent implements OnInit {
   fec:any;
   perfil:any;
   usuario_id:any;
+  displayedColumns: any;
   @BlockUI()
   blockUI!: NgBlockUI;
   constructor(private router: Router,private paginator: MatPaginatorIntl, private _pac: PacientesService, private datePipe: DatePipe,private appService: AppService) {
@@ -45,6 +46,15 @@ export class PacientesComponent implements OnInit {
     localStorage.removeItem('Expediente');
     this.perfil=localStorage.getItem('UserPerfil');
     this.usuario_id=localStorage.getItem('UserId');
+
+    this.displayedColumns = ['pac_id', 'pac_nombre', 'pac_telefono', 'pac_fecha_ingreso','expediente'];
+
+    // Si es admin, agregar columna Acciones
+    if (this.perfil == 1) {
+      this.displayedColumns.push('acciones');
+    }
+
+
     console.log(this.perfil);
     if(this.perfil==1){
       this.cargarPacientes();
@@ -64,7 +74,6 @@ export class PacientesComponent implements OnInit {
     console.log(this.usuario_id);
    
   }
-  displayedColumns: string[] = ['pac_id', 'pac_nombre', 'pac_telefono', 'pac_fecha_ingreso','expediente'];
 /*   dataSource = ELEMENT_DATA; */
  /*  dataSource = new MatTableDataSource<Pacientes>(this.pacientes); */
  dataSource;
