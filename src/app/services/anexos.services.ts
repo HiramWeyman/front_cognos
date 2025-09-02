@@ -31,11 +31,9 @@ export class AnexosService {
   }
 
 
-  UpdateArchivo(id: number, prueba: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('files', prueba)
-    console.log(formData);
-    return this.http.patch<any>(`${environment.rutaAPI}` + '/Archivos/Archivos/' + id, formData);
+  // ✅ Eliminar (soft delete)
+  delete(id: number): Observable<any> {
+    return this.http.delete(`${environment.rutaAPI}/DeleteArchivosSnexos/${id}`);
   }
 
  GetArchivo(id: number): Observable<HttpResponse<Blob>> {

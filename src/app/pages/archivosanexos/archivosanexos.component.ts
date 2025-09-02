@@ -135,8 +135,8 @@ export class ArchivosanexosComponent implements OnInit {
   }
 
   resetInput() {
-    console.log(this.myInputSCL.nativeElement.files);
-    this.myInputSCL.nativeElement.value = "";
+  /*   console.log(this.myInputSCL.nativeElement.files);
+    this.myInputSCL.nativeElement.value = ""; */
     this.myInputSCLup.nativeElement.value = "";
     console.log(this.myInputSCL.nativeElement.files);
   }
@@ -155,49 +155,31 @@ export class ArchivosanexosComponent implements OnInit {
     });
   }
 
-  Actualizar(imagen_id: number) {
-    console.log(imagen_id);
-
-
-    if (this.prueba == null) {
-      this.blockUI.stop();
-      swal.fire({
-        title: 'Info!!!',
-        text: 'Seleccione el archivo para actualizar',
-        icon: 'info',
-        timer: 2000
-      });
-
-      return;
-    }
-
-    //idX = this.pruebascl.documentId;
-    this.blockUI.start('Guardando...');
-    /*   console.log(this.ponencia_id); */
-    if (this.prueba == null) {
-      this.blockUI.stop();
-      swal.fire({
-        title: 'Info!!!',
-        text: 'Seleccione el archivo de su prueba Test SCL 90 R',
-        icon: 'info',
-        timer: 2000
-      });
-
-      return;
-    }
-    console.info(this.prueba.name);
-    console.info(this.prueba);
-
-    this._env.UpdateArchivo(imagen_id, this.prueba).subscribe(usr => {
-
-      this.blockUI.stop();
-      //this.resetFileUploader();
-      swal.fire('Archivos subidos', `Su archivo se actualizo con éxito!`, 'success');
-      this.resetInput();
-      this.prueba = null;
-
-      this.myInputSCL.nativeElement.value = "";
-      /*   this.resetInput(); */
+  Actualizar(maestro_id: number) {
+    console.log(maestro_id);
+    swal.fire({
+      title: "Esta seguro de eliminar el archivo?",
+      text: "Usted eliminara del sistema el archivo!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, Eliminalo!",
+      cancelButtonText: "Cancelar!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.blockUI.start('Guardando...');
+         this._env.delete(maestro_id).subscribe(() => {
+          this.blockUI.stop();
+          swal.fire({
+          title: "Eliminado!",
+          text: "Su archivo ha sido eliminado.",
+          icon: "success"
+        });
+          this.cargarMaestro();
+        });
+        
+      }
     },
       error => {
         console.log(error);
@@ -213,102 +195,60 @@ export class ArchivosanexosComponent implements OnInit {
   }
 
   VerArchivo(id_imagen: number) {
-  if (id_imagen == 0) {
-    swal.fire({
-      title: 'Info!!!',
-      text: 'No hay ninguna imagen para mostrar',
-      icon: 'info',
-      timer: 4000
-    });
-    return;
-  }
-
-  this._env.GetArchivo(id_imagen).subscribe(response => {
-   // console.log(response);
-  const file = response.body as Blob;
-  //console.log(file);
-  // 🔍 Obtener nombre de archivo desde Content-Disposition
-  const contentDisposition = response.headers.get('Content-Disposition');
-  let fileName = 'archivo';
-  //console.log(contentDisposition);
-  if (contentDisposition) {
-    const matches = /filename\*?=(?:UTF-8'')?["']?([^\"';]+)["']?/i.exec(contentDisposition);
-    if (matches != null && matches[1]) {
-      fileName = decodeURIComponent(matches[1]);
-      console.log(fileName);
+    if (id_imagen == 0) {
+      swal.fire({
+        title: 'Info!!!',
+        text: 'No hay ninguna imagen para mostrar',
+        icon: 'info',
+        timer: 4000
+      });
+      return;
     }
+
+    this._env.GetArchivo(id_imagen).subscribe(response => {
+      // console.log(response);
+      const file = response.body as Blob;
+      //console.log(file);
+      // 🔍 Obtener nombre de archivo desde Content-Disposition
+      const contentDisposition = response.headers.get('Content-Disposition');
+      let fileName = 'archivo';
+      //console.log(contentDisposition);
+      if (contentDisposition) {
+        const matches = /filename\*?=(?:UTF-8'')?["']?([^\"';]+)["']?/i.exec(contentDisposition);
+        if (matches != null && matches[1]) {
+          fileName = decodeURIComponent(matches[1]);
+          console.log(fileName);
+        }
+      }
+
+      // Crear URL temporal
+      const fileURL = URL.createObjectURL(file);
+
+      // PDF/imagen → abrir inline
+      if (response.headers.get('Content-Type')?.includes('pdf') ||
+        response.headers.get('Content-Type')?.startsWith('image')) {
+        window.open(fileURL, '_blank');
+      } else {
+        // Word, Excel, etc. → forzar descarga con nombre real
+        const a = document.createElement('a');
+        a.href = fileURL;
+        a.download = fileName;   // 👈 ahora usa el nombre real
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(fileURL);
+      }
+    });
   }
 
-  // Crear URL temporal
-  const fileURL = URL.createObjectURL(file);
 
-  // PDF/imagen → abrir inline
-  if (response.headers.get('Content-Type')?.includes('pdf') ||
-      response.headers.get('Content-Type')?.startsWith('image')) {
-    window.open(fileURL, '_blank');
-  } else {
-    // Word, Excel, etc. → forzar descarga con nombre real
-    const a = document.createElement('a');
-    a.href = fileURL;
-    a.download = fileName;   // 👈 ahora usa el nombre real
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(fileURL);
-  }
-});
-}
-
-  /*       VerImagen(id_imagen:number) {
-          console.log(id_imagen);
-          if(id_imagen==0){
-            swal.fire({
-              title: 'Info!!!',
-              text: 'No hay ninguna imagen para mostrar',
-              icon: 'info',
-              timer: 4000
-            });
-            return;
-          }
-          this._env.GetArchivo(id_imagen).subscribe(
-            pac => {
-              this.diagramaFoto = pac;
-              console.log(this.diagramaFoto);
-              const base64ImageData = 'data:image/png;base64,' + this.diagramaFoto.dataFiles;
-              const contentType = 'image/png';
-          
-              const byteCharacters = atob(base64ImageData.substr(`data:${contentType};base64,`.length));
-              const byteArrays = [];
-          
-              for (let offset = 0; offset < byteCharacters.length; offset += 1024) {
-                const slice = byteCharacters.slice(offset, offset + 1024);
-          
-                const byteNumbers = new Array(slice.length);
-                for (let i = 0; i < slice.length; i++) {
-                  byteNumbers[i] = slice.charCodeAt(i);
-                }
-          
-                const byteArray = new Uint8Array(byteNumbers);
-          
-                byteArrays.push(byteArray);
-              }
-              const blob = new Blob(byteArrays, { type: contentType });
-              const blobUrl = URL.createObjectURL(blob);
-          
-              window.open(blobUrl, '_blank'); 
-      
-            }, error => {
-              //console.log(error);
-              swal.fire({ title: 'ERROR!!!', text: error.message, icon: 'error' });
-            });
-         
-        } */
 
 
   cargarMaestro() {
     this._env.getArchivos(this.id).subscribe(
       fu => {
         this.resultados_arch = fu;
+        console.log(this.resultados_arch);
         for (let i = 0; i < this.resultados_arch.length; i++) {
           this.fecMaestro = this.datePipe.transform(this.resultados_arch[i].maestro_fecha, "dd/MM/yyyy");
           this.resultados_arch[i].maestro_fecha = this.fecMaestro;
