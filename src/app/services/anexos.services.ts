@@ -27,7 +27,7 @@ public archivoAnexo(id_pac: number,tipo_prueba:number,maestro_id:number,archivo:
     const formData = new FormData();
     formData.append('files', archivo)
     console.log(formData);
-    return this.http.post<any>(`${this.urlEndPoint+'/scl/GuardarImagenSclHist?id_pac='+id_pac+'&tipo_prueba='+tipo_prueba+'&maestro_id='+maestro_id}`, formData)  }
+    return this.http.post<any>(`${this.urlEndPoint+'/GuardarArchivoAnexo?id_pac='+id_pac+'&tipo_prueba='+tipo_prueba+'&maestro_id='+maestro_id}`, formData)  }
 
 
   UpdateArchivo(id: number, prueba: File): Observable<any> {
