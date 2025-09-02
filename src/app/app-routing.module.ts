@@ -33,6 +33,7 @@ import { ResBdidpComponent } from '@pages/res-bdidp/res-bdidp.component';
 import { ResCreeComponent } from '@pages/res-cree/res-cree.component';
 import { RisraComponent } from '@pages/risra/risra.component';
 import { ReasignapacComponent } from '@pages/reasignapac/reasignapac.component';
+import { ArchivosanexosComponent } from '@pages/archivosanexos/archivosanexos.component';
 
 const routes: Routes = [
     {
@@ -134,6 +135,10 @@ const routes: Routes = [
             {
                 path:'reasignar', 
                 component: ReasignapacComponent
+            },
+            {
+                path:'archivosanexos', 
+                component: ArchivosanexosComponent
             },
             {
                 path: 'sub-menu-1',

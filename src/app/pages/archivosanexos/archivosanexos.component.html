@@ -1,0 +1,75 @@
+
+
+<div class="container">
+     <div class="d-flex justify-content-center"><label>Archivos Anexos</label></div>
+          <div class="float-right">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pruebaHist" data-backdrop="false">
+              Agregar Archivo Anexo
+            </button>  
+          </div>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Observacion</th>
+              <th scope="col">Imagen</th>
+              <th scope="col">Ver Imagen</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let item of resultados_arch;index as i">
+              <th scope="row">{{i+1}}</th>
+              <td>{{item.maestro_fecha}}</td>
+              <td>
+                <label><b>{{item.maestro_observacion}}</b></label>
+                <!-- <button class="btn btn-primary btn-sm" [routerLink]="['/resscl',item.maestro_id]">Resultados</button> -->
+              </td>
+              <td>
+                
+                <div *ngIf="item.maestro_id_imagen==0; else elseTemplate">
+                  <div class="mb-3">
+                    <input class="form-control" #myInputSCL  type="file" id="formFile" (change)="seleccionarArchivo($event);" >
+                  </div>
+                  <button class="btn btn-primary btn-sm" (click)="guardarImgArchivo(item.maestro_id)" >Guardar</button>
+                </div>
+                <ng-template #elseTemplate>
+                  <div class="mb-3">
+                    <input class="form-control" #myInputSCLup type="file" id="formFile" (change)="seleccionarArchivo($event);">
+                  </div>
+                  <button class="btn btn-primary btn-sm" (click)="Actualizar(item.maestro_id_imagen)">Actualizar</button>
+                </ng-template>
+              </td>
+              <td><button class="btn btn-danger btn-sm" (click)="VerImagen(item.maestro_id_imagen)">Ver Archivo</button></td>
+
+            </tr>
+
+          </tbody>
+        </table><br>
+      </div>
+
+
+        <!-- Modal -->
+<div #myModal class="modal fade" id="pruebaHist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Archivo </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input [(ngModel)]="ObservacionArchivo" type="text" class="form-control" placeholder="Ingrese alguna observación" ><br>
+        <input [(ngModel)]="fecArchivo" type="date" class="form-control" >
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" #myModalClose3>Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="guardarMaestro()" >Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+     
