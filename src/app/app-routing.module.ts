@@ -34,6 +34,8 @@ import { ResCreeComponent } from '@pages/res-cree/res-cree.component';
 import { RisraComponent } from '@pages/risra/risra.component';
 import { ReasignapacComponent } from '@pages/reasignapac/reasignapac.component';
 import { ArchivosanexosComponent } from '@pages/archivosanexos/archivosanexos.component';
+import { DescalumnoComponent } from '@pages/descalumno/descalumno.component';
+import { DescteraComponent } from '@pages/desctera/desctera.component';
 
 const routes: Routes = [
     {
@@ -148,6 +150,15 @@ const routes: Routes = [
                 path: 'sub-menu-2',
                 component: BlankComponent
             },
+              {
+                path: 'descalumno',
+                component: DescalumnoComponent
+            },
+             {
+                path: 'desctera',
+                component: DescteraComponent
+            },
+           
             {
                 path: '',
                 component: DashboardComponent

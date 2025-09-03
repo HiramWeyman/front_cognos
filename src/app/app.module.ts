@@ -93,6 +93,8 @@ import { RisraComponent } from './pages/risra/risra.component';
 import { RichTextEditorComponent } from './pages/rich-text-editor/rich-text-editor.component';
 import { ReasignapacComponent } from './pages/reasignapac/reasignapac.component';
 import { ArchivosanexosComponent } from './pages/archivosanexos/archivosanexos.component';
+import { DescalumnoComponent } from './pages/descalumno/descalumno.component';
+import { DescteraComponent } from './pages/desctera/desctera.component';
 
 
 
@@ -156,6 +158,8 @@ registerLocaleData(localeEn, 'en-EN');
         RisraComponent,
         RichTextEditorComponent,
         ArchivosanexosComponent,
+        DescalumnoComponent,
+        DescteraComponent,
        /*  ReasignapacComponent, */
  
 
@@ -167,7 +171,7 @@ registerLocaleData(localeEn, 'en-EN');
     ],
     imports: [
         ProfabricComponentsModule,
-        CommonModule,
+        /* CommonModule, */
         BrowserModule,
      
         FormsModule,

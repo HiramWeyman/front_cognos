@@ -1,6 +1,8 @@
 <!-- Brand Logo -->
-<a [routerLink]="['/']" class="brand-link">
-    <pf-image
+<a routerLink="['/']" class="brand-link">
+    <img src="assets/img/logo.png" alt="COGNOS Logo" class="brand-image img-circle" height="33" width="33"
+        style="opacity: 0.8" />
+    <!--  <pf-image
         src="assets/img/logo.png"
         alt="COGNOS Logo"
         class="brand-image"
@@ -8,7 +10,7 @@
         width="33"
         rounded
         style="opacity: 0.8"
-    ></pf-image>
+    ></pf-image> -->
     <span class="brand-text font-weight-light">COGNOS</span>
 </a>
 
@@ -17,7 +19,18 @@
     <!-- Sidebar user (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-            <pf-image
+            <img src="assets/img/default-profile.png" class="img-circle" alt="User Image" width="34" height="34" rounded />
+        </div>
+        <!--    <div class="image">
+            <img 
+                [src]=""
+                fallback-src="assets/img/default-profile.png"
+                class="img-circle"
+                alt="User Image"
+                width="34"
+                height="34"
+                rounded/>
+              <pf-img
                 [src]=""
                 fallback-src="assets/img/default-profile.png"
                 class="img-circle"
@@ -25,10 +38,10 @@
                 width="34"
                 height="34"
                 rounded
-            ></pf-image>
-        </div>
+            ></pf-image>  
+        </div> -->
         <div class="info">
-            <a [routerLink]="['/profile']" class="d-block">
+            <a routerLink="['/profile']" class="d-block">
                 {{ user }}
             </a>
         </div>
@@ -40,26 +53,23 @@
 
     <!-- Sidebar Menu -->
     <nav class="mt-2" style="overflow-y: hidden">
-        <ul
-            class="nav nav-pills nav-sidebar flex-column"
-            data-widget="treeview"
-            role="menu"
-            data-accordion="false"
-        >
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-        <ng-template [ngIf]="perfil===1" [ngIfElse]="elseBlock">
+            <app-menu-item *ngFor="let item of menu" [menuItem]="item"></app-menu-item>
+
+            <!-- <ng-template [ngIf]="perfil===1" [ngIfElse]="elseBlock">
             <app-menu-item *ngFor="let item of menu" [menuItem]="item"></app-menu-item>
         </ng-template>
         <ng-template #elseBlock>
             <app-menu-item *ngFor="let item2 of menu2" [menuItem]="item2"></app-menu-item>
-        </ng-template>
-     <!--    <div *ngIf="perfil===1;else templateName">
+        </ng-template> -->
+            <!--    <div *ngIf="perfil===1;else templateName">
             <app-menu-item *ngFor="let item of menu" [menuItem]="item"></app-menu-item>
         </div>
         <ng-template #templateName>
             <app-menu-item *ngFor="let item2 of menu2" [menuItem]="item2"></app-menu-item>
         </ng-template> -->
-           
+
         </ul>
     </nav>
 </div>
