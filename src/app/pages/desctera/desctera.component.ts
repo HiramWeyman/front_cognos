@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Archivo, ArchivosService } from '@services/archivos.service';
 
 @Component({
   selector: 'app-desctera',
@@ -6,43 +7,84 @@ import { Component } from '@angular/core';
   styleUrls: ['./desctera.component.scss']
 })
 export class DescteraComponent {
-    archivo1() {
-    window.open("assets/files/Alta de paciente Unidad Bajo Costo.docx", "_blank");
+  archivos: Archivo[] = [];
+  fileToUpload: File | null = null;
+  descripcion: string = '';
+  perfil: any;
+  categoria:any;
+
+  constructor(private archivosService: ArchivosService) { }
+
+  ngOnInit(): void {
+    this.perfil = localStorage.getItem('UserPerfil');
+    this.cargarArchivos(1);
   }
 
-  archivo2() {
-    window.open("assets/files/Anexo - Evaluación escolar COGNOS.docx", "_blank");
+  cargarArchivos(cat:number) {
+    //console.log(cat);
+    this.categoria=cat;
+    this.archivosService.listar(cat).subscribe(data => {
+      this.archivos = data;
+    });
   }
 
-  archivo3() {
-    window.open("assets/files/Baja de paciente Unidad Bajo Costo.docx", "_blank");
+  onFileSelected(event: any) {
+    this.fileToUpload = event.target.files[0];
   }
 
-  archivo4() {
-    window.open("assets/files/Canalización paciente online a presencial.docx", "_blank");
+  subirArchivo() {
+    if (!this.fileToUpload) {
+      alert('Selecciona un archivo primero');
+      return;
+    }
+
+    else if (!this.descripcion) {
+      alert('Agrega una descripción');
+      return;
+    }
+
+    this.archivosService.subir(this.fileToUpload, this.descripcion,this.categoria).subscribe(() => {
+      console.log('Categoria: '+this.categoria);
+      alert('Archivo subido correctamente');
+      this.fileToUpload = null;
+      this.descripcion = '';
+      this.cargarArchivos(Number(this.categoria));
+    });
   }
 
-  archivo5() {
-    window.open("assets/files/Consentimiento de Estudio de caso para Tesis.docx", "_blank");
+
+
+  abrirArchivo(id: number) {
+  this.archivosService.descargar(id).subscribe(resp => {
+    console.log(resp);
+    if (resp.url) {
+      window.open(resp.url, '_blank'); // abre en nueva pestaña
+    }
+  });
+}
+
+  eliminarArchivo(id: number) {
+    if (confirm('¿Seguro que deseas eliminar este archivo?')) {
+      this.archivosService.eliminar(id).subscribe(() => {
+        alert('Archivo eliminado ');
+        this.cargarArchivos(Number(this.categoria));
+      });
+    }
   }
 
-  archivo6() {
-    window.open("assets/files/Consentimiento de grabación en audio.docx", "_blank");
+  onTabChange(event: any) {
+  const index = event.index; // índice de la tab seleccionada (0,1,2,...)
+
+
+  switch (index) {
+    case 0: this.categoria = 1; break; // Infanto juvenil
+    case 1: this.categoria = 2; break; // Adultos
+    case 2: this.categoria = 3; break; // Parejas
+    case 3: this.categoria = 4; break; // Neurociencias
+    case 4: this.categoria = 5; break; // Varios
   }
 
-  archivo7() {
-    window.open("assets/files/Consentimiento Informado Online Maestria.docx", "_blank");
-  }
+  this.cargarArchivos(this.categoria);
+}
 
-  archivo8() {
-    window.open("assets/files/Consentimiento Informado Presencial Maestria.docx", "_blank");
-  }
-
-  archivo9() {
-    window.open("assets/files/Consentimiento para la evaluación escolar COGNOS.docx", "_blank");
-  }
-
-  archivo10() {
-    window.open("assets/files/Consentimiento para solicitar información en escuela para padres.docx", "_blank");
-  }
 }

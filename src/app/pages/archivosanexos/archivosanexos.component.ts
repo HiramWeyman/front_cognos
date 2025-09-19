@@ -142,7 +142,9 @@ export class ArchivosanexosComponent implements OnInit {
   }
 
   guardarMaestro() {
+    this.blockUI.start('Guardando registro...');
     this._env.InsertaMaestro(this.id, this.fecArchivo, this.ObservacionArchivo).subscribe(resp => {
+      this.blockUI.stop();
       console.log("InsertaMaestro", resp);
       if (resp) {
         this.respuesta = resp;
@@ -168,7 +170,7 @@ export class ArchivosanexosComponent implements OnInit {
       cancelButtonText: "Cancelar!"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.blockUI.start('Guardando...');
+        this.blockUI.start('Eliminando...');
          this._env.delete(maestro_id).subscribe(() => {
           this.blockUI.stop();
           swal.fire({
@@ -245,8 +247,10 @@ export class ArchivosanexosComponent implements OnInit {
 
 
   cargarMaestro() {
+    this.blockUI.start('Cargando datos...');
     this._env.getArchivos(this.id).subscribe(
       fu => {
+         this.blockUI.stop();
         this.resultados_arch = fu;
         console.log(this.resultados_arch);
         for (let i = 0; i < this.resultados_arch.length; i++) {
