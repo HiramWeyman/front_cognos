@@ -29,6 +29,7 @@ export class SesionesComponent implements OnInit{
    
     this.expediente=localStorage.getItem('Expediente');
     this.Sessiontab=localStorage.getItem('IndexTab');
+    this.cargarSesiones();
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;

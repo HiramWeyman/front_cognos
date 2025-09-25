@@ -27,7 +27,7 @@ export class SesionService {
   } */
 
   GetSesionList(id:number): Observable<Sesion[]> {
-    return this.http.get(`${environment.rutaAPI}` + '/Sesion?id='+id).pipe(
+    return this.http.get(`${environment.rutaAPI}/Sesion/List/${id}` ).pipe(
       map(response => response as Sesion[])
     );
   }
