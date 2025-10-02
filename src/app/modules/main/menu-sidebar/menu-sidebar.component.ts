@@ -73,13 +73,13 @@ export const MENU: MenuItem[] = [
     name: 'Dashboard',
     iconClasses: 'fas fa-tachometer-alt',
     path: ['/'],
-    roles: [1, 2, 3,5] // todos los perfiles
+    roles: [1, 2, 3,4,5] // todos los perfiles
   },
   {
     name: 'Pacientes',
     iconClasses: 'fas fa-folder',
     path: ['/pacientes'],
-    roles: [1, 2,3,5]
+    roles: [1, 2,3,4,5]
   },
   {
     name: 'Reasignar Paciente',

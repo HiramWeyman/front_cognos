@@ -21,12 +21,17 @@ export class InformeService {
     return this.http.post<Informe>(`${environment.rutaAPI}` + '/Informe', paciente);
   }
 
-
-  GetInformeList(id:number): Observable<Informe[]> {
-    return this.http.get(`${environment.rutaAPI}` + '/Informe?id='+id).pipe(
+ GetInformeList(id:number): Observable<Informe[]> {
+  console.log(`${environment.rutaAPI}/Informe/getInformeList/${id}`);
+    return this.http.get(`${environment.rutaAPI}/Informe/getInformeList/${id}`).pipe(
       map(response => response as Informe[])
     );
   } 
+ /*  GetInformeList(id:number): Observable<Informe[]> {
+    return this.http.get(`${environment.rutaAPI}` + '/Informe?id='+id).pipe(
+      map(response => response as Informe[])
+    );
+  }  */
 
   GetInforme(id:number): Observable<InformeVista> {
     return this.http.get(`${environment.rutaAPI}` + '/VistaInforme/'+id).pipe(

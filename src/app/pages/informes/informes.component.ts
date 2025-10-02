@@ -51,6 +51,7 @@ export class InformesComponent implements OnInit  {
     this.UsuarioNombre=localStorage.getItem('UserName');
     console.log('Id del expediente '+this.ExpedienteId);
     console.log(this.ExpedienteId);
+     this.cargarInformes();
     this.sharednumber.numero$.subscribe(val=>
       {
         this.Indextab=val;
